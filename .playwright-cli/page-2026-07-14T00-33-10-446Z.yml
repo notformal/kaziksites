@@ -1,0 +1,97 @@
+- main [ref=e3]:
+  - generic [ref=e4]:
+    - link "Aurora Play" [ref=e5] [cursor=pointer]:
+      - /url: "#top"
+    - navigation [ref=e9]:
+      - link "Games" [ref=e10] [cursor=pointer]:
+        - /url: "#games"
+      - link "Rewards" [ref=e11] [cursor=pointer]:
+        - /url: "#rewards"
+      - link "About" [ref=e12] [cursor=pointer]:
+        - /url: "#about"
+    - generic [ref=e13]:
+      - button "Account" [ref=e14] [cursor=pointer]
+      - button "PROFILE" [ref=e460] [cursor=pointer]
+  - generic [ref=e19]:
+    - generic [ref=e20]:
+      - text: PLAY BEYOND
+      - heading "The next level of play." [level=1] [ref=e21]
+      - paragraph [ref=e22]: A precision-built social arcade with instant access to 73 playable games.
+      - generic [ref=e23]:
+        - link "EXPLORE GAMES" [ref=e24] [cursor=pointer]:
+          - /url: "#games"
+        - link "HOW IT WORKS" [ref=e27] [cursor=pointer]:
+          - /url: "#about"
+      - generic [ref=e28]: DEMO ENVIRONMENT
+    - generic [ref=e31]:
+      - generic [ref=e32]: "7"
+      - generic [ref=e33]: ★
+      - generic [ref=e34]: ♛
+  - generic [ref=e35]:
+    - generic [ref=e36]: SERVER-VERIFIED PLAY
+    - generic [ref=e40]: DAILY COLLECTIONS
+    - generic [ref=e45]: 200 PLAYABLE GAMES
+  - generic [ref=e48]:
+    - generic [ref=e49]:
+      - generic [ref=e50]:
+        - text: THE COLLECTION
+        - heading "Find your next favorite" [level=2] [ref=e51]
+      - textbox "Search games" [ref=e56]:
+        - /placeholder: Search games...
+        - text: Velvet Orchard
+    - generic [ref=e57]:
+      - button "All" [ref=e58] [cursor=pointer]
+      - button "Popular" [ref=e59] [cursor=pointer]
+      - button "Favorites" [ref=e60] [cursor=pointer]
+      - button "Recent" [ref=e61] [cursor=pointer]
+      - button "Slots" [ref=e62] [cursor=pointer]
+      - button "Crash" [ref=e63] [cursor=pointer]
+      - button "Jackpots" [ref=e64] [cursor=pointer]
+      - button "Arcade" [ref=e65] [cursor=pointer]
+      - button "Table" [ref=e66] [cursor=pointer]
+      - button "Instant" [ref=e67] [cursor=pointer]
+      - button "New" [ref=e68] [cursor=pointer]
+    - article [ref=e529]:
+      - button "Play Velvet Orchard" [ref=e530] [cursor=pointer]:
+        - generic [ref=e531]: ◆
+        - generic [ref=e533]:
+          - strong [ref=e534]: Velvet Orchard
+          - generic [ref=e535]:
+            - text: Open Arcade Studio
+            - generic [ref=e536]: "4.1"
+        - generic [ref=e539]: PLAY
+      - button "Add Velvet Orchard to favorites" [ref=e540] [cursor=pointer]
+  - generic [ref=e413]:
+    - generic [ref=e414]:
+      - text: MEMBER REWARDS
+      - heading "A better reason to come back." [level=2] [ref=e415]
+      - paragraph [ref=e416]: Create a profile to collect 250 virtual credits every day. Credits have no cash value and cannot be purchased or withdrawn.
+      - button "VIEW REWARDS" [ref=e417] [cursor=pointer]
+    - generic [ref=e420]:
+      - article [ref=e421]:
+        - generic [ref=e422]: "01"
+        - generic [ref=e423]: Daily discovery
+      - article [ref=e424]:
+        - generic [ref=e425]: "07"
+        - generic [ref=e426]: Weekly streak
+      - article [ref=e427]:
+        - generic [ref=e428]: ∞
+        - generic [ref=e429]: Just for fun
+  - generic [ref=e430]:
+    - link "Aurora Play" [ref=e431] [cursor=pointer]:
+      - /url: "#top"
+    - paragraph [ref=e434]: Social arcade showcase. All games and balances are demonstrations only. No wagering or cash prizes.
+    - generic [ref=e435]:
+      - text: © 2026 Aurora Play ·
+      - link "Privacy" [ref=e436] [cursor=pointer]:
+        - /url: ./legal.html?brand=aurora#privacy
+      - text: ·
+      - link "Responsible play" [ref=e437] [cursor=pointer]:
+        - /url: ./legal.html?brand=aurora#responsible
+      - text: · 18+
+  - generic [ref=e555]:
+    - generic [ref=e556]:
+      - text: Privacy, by choice.
+      - paragraph [ref=e557]: Allow anonymous product analytics to help us improve this demo?
+    - button "No thanks" [ref=e558] [cursor=pointer]
+    - button "ALLOW" [ref=e559] [cursor=pointer]

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>HTML5 Tetris</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <link rel='stylesheet' href='style.css' />
+    </head>
+    <body>
+        <audio id="clearsound" src="sound/pop.ogg" preload="auto"></audio>
+        <canvas width='300' height='600'></canvas>
+        <button id="playbutton" onclick="playButtonClicked();">Play</button>
+        <div class="touch-controls" aria-label="Touch game controls">
+            <button type="button" aria-label="Move left" onpointerdown="keyPress('left')">←</button>
+            <button type="button" aria-label="Rotate" onpointerdown="keyPress('rotate')">↻</button>
+            <button type="button" aria-label="Move right" onpointerdown="keyPress('right')">→</button>
+            <button type="button" aria-label="Move down" onpointerdown="keyPress('down')">↓</button>
+            <button type="button" class="drop" aria-label="Drop piece" onpointerdown="keyPress('drop')">DROP</button>
+        </div>
+        <script src='js/tetris.js'></script>
+        <script src='js/controller.js'></script>
+        <script src='js/render.js'></script>
+    </body>
+</html>

@@ -1,0 +1,5 @@
+export const GAME_MESSAGES=new Set(['GAME_READY','BET_PLACED','ROUND_RESULT','ROUND_STATUS_REQUEST','BONUS_SPIN']);
+export const HOST_MESSAGES=new Set(['INIT','BALANCE_UPDATE','BET_REJECTED','BET_APPROVED','ROUND_SETTLED','ROUND_STATUS','BONUS_SETTLED']);
+export function isMessage(value,allowed){return Boolean(value&&typeof value==='object'&&typeof value.type==='string'&&allowed.has(value.type)&&(!('payload'in value)||value.payload&&typeof value.payload==='object'))}
+export function validBet(p){return Boolean(p&&Number.isSafeInteger(p.amount)&&p.amount>0&&p.amount<=1_000_000&&typeof p.gameId==='string'&&/^[a-z0-9-]{1,40}$/.test(p.gameId)&&typeof p.roundId==='string'&&/^[a-zA-Z0-9_-]{8,80}$/.test(p.roundId)&&(!('choice'in p)||p.choice&&typeof p.choice==='object'&&!Array.isArray(p.choice)))}
+export function validBonusSpin(p){return Boolean(p&&typeof p.gameId==='string'&&/^[a-z0-9-]{1,40}$/.test(p.gameId)&&typeof p.roundId==='string'&&/^[a-zA-Z0-9_-]{8,80}$/.test(p.roundId)&&typeof p.sessionId==='string'&&/^bs_[a-zA-Z0-9_-]{8,83}$/.test(p.sessionId))}

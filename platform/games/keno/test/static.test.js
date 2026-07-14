@@ -1,0 +1,1 @@
+import test from'node:test';import assert from'node:assert/strict';import{readFile}from'node:fs/promises';test('80 cells and max 10 selections',async()=>{const s=await readFile(new URL('../game.js',import.meta.url),'utf8');assert.match(s,/n<=80/);assert.match(s,/selected\.size<10/);assert.match(s,/sdk\.settle/)});

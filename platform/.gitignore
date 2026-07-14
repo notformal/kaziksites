@@ -1,0 +1,6 @@
+.env
+.env.native
+.runtime/
+node_modules/
+**/dist/
+**/*.log

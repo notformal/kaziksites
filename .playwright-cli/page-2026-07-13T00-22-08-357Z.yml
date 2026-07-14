@@ -1,0 +1,282 @@
+- main [ref=e3]:
+  - generic [ref=e4]:
+    - link "Aurora Play" [ref=e5] [cursor=pointer]:
+      - /url: "#top"
+    - navigation [ref=e9]:
+      - link "Games" [ref=e10] [cursor=pointer]:
+        - /url: "#games"
+      - link "Rewards" [ref=e11] [cursor=pointer]:
+        - /url: "#rewards"
+      - link "About" [ref=e12] [cursor=pointer]:
+        - /url: "#about"
+    - generic [ref=e13]:
+      - button "Account" [ref=e14] [cursor=pointer]
+      - button "JOIN FREE" [ref=e18] [cursor=pointer]
+  - generic [ref=e19]:
+    - generic [ref=e20]:
+      - text: PLAY BEYOND
+      - heading "The next level of play." [level=1] [ref=e21]
+      - paragraph [ref=e22]: A precision-built social arcade with instant access to 240 worlds.
+      - generic [ref=e23]:
+        - link "EXPLORE GAMES" [ref=e24] [cursor=pointer]:
+          - /url: "#games"
+        - button "HOW IT WORKS" [ref=e27] [cursor=pointer]
+      - generic [ref=e28]: 10K PLAYERS ONLINE
+    - generic [ref=e31]:
+      - generic [ref=e32]: "7"
+      - generic [ref=e33]: ★
+      - generic [ref=e34]: ♛
+  - generic [ref=e35]:
+    - generic [ref=e36]: FAIR DEMO PLAY
+    - generic [ref=e40]: DAILY COLLECTIONS
+    - generic [ref=e45]: 240 INSTANT GAMES
+  - generic [ref=e48]:
+    - generic [ref=e49]:
+      - generic [ref=e50]:
+        - text: THE COLLECTION
+        - heading "Find your next favorite" [level=2] [ref=e51]
+      - textbox "Search games" [ref=e56]:
+        - /placeholder: Search games...
+    - generic [ref=e57]:
+      - button "All" [ref=e58] [cursor=pointer]
+      - button "Popular" [ref=e59] [cursor=pointer]
+      - button "Slots" [ref=e60] [cursor=pointer]
+      - button "Jackpots" [ref=e61] [cursor=pointer]
+      - button "Arcade" [ref=e62] [cursor=pointer]
+      - button "Table" [ref=e63] [cursor=pointer]
+      - button "Instant" [ref=e64] [cursor=pointer]
+      - button "New" [ref=e65] [cursor=pointer]
+    - generic [ref=e66]:
+      - button "Play 2048" [ref=e67] [cursor=pointer]:
+        - generic [ref=e68]:
+          - generic [ref=e69]: 🔢
+          - generic [ref=e70]: HOT
+          - emphasis [ref=e71]: NEW
+        - generic [ref=e72]:
+          - strong [ref=e73]: "2048"
+          - generic [ref=e74]:
+            - text: Gabriele Cirulli
+            - generic [ref=e75]: "4.0"
+        - generic [ref=e78]: PLAY
+      - button "Play Canvas Tetris" [ref=e79] [cursor=pointer]:
+        - generic [ref=e80]: 🧱
+        - generic [ref=e82]:
+          - strong [ref=e83]: Canvas Tetris
+          - generic [ref=e84]:
+            - text: Dionysis Zindros
+            - generic [ref=e85]: "4.1"
+        - generic [ref=e88]: PLAY
+      - button "Play Vault Mystic" [ref=e89] [cursor=pointer]:
+        - generic [ref=e90]: 👑
+        - generic [ref=e92]:
+          - strong [ref=e93]: Vault Mystic
+          - generic [ref=e94]:
+            - text: Golden Reel
+            - generic [ref=e95]: "4.2"
+        - generic [ref=e98]: PLAY
+      - button "Play Jungle Cosmos" [ref=e99] [cursor=pointer]:
+        - generic [ref=e100]: 🌙
+        - generic [ref=e102]:
+          - strong [ref=e103]: Jungle Cosmos
+          - generic [ref=e104]:
+            - text: Orbit Labs
+            - generic [ref=e105]: "4.3"
+        - generic [ref=e108]: PLAY
+      - button "Play Cosmos Diamond" [ref=e109] [cursor=pointer]:
+        - generic [ref=e110]: 🔥
+        - generic [ref=e112]:
+          - strong [ref=e113]: Cosmos Diamond
+          - generic [ref=e114]:
+            - text: Wild Mint
+            - generic [ref=e115]: "4.4"
+        - generic [ref=e118]: PLAY
+      - button "Play Pharaoh Wolf" [ref=e119] [cursor=pointer]:
+        - generic [ref=e120]: 🍒
+        - generic [ref=e122]:
+          - strong [ref=e123]: Pharaoh Wolf
+          - generic [ref=e124]:
+            - text: Neon Fox
+            - generic [ref=e125]: "4.5"
+        - generic [ref=e128]: PLAY
+      - button "Play Candy Pharaoh" [ref=e129] [cursor=pointer]:
+        - generic [ref=e130]: ⚡
+        - generic [ref=e132]:
+          - strong [ref=e133]: Candy Pharaoh
+          - generic [ref=e134]:
+            - text: Nova Forge
+            - generic [ref=e135]: "4.6"
+        - generic [ref=e138]: PLAY
+      - button "Play Pirate Temple" [ref=e139] [cursor=pointer]:
+        - generic [ref=e140]:
+          - generic [ref=e141]: 🪙
+          - generic [ref=e142]: HOT
+        - generic [ref=e143]:
+          - strong [ref=e144]: Pirate Temple
+          - generic [ref=e145]:
+            - text: Pixel Harbor
+            - generic [ref=e146]: "4.7"
+        - generic [ref=e149]: PLAY
+      - button "Play Ember Galaxy" [ref=e150] [cursor=pointer]:
+        - generic [ref=e151]: 🦁
+        - generic [ref=e153]:
+          - strong [ref=e154]: Ember Galaxy
+          - generic [ref=e155]:
+            - text: Golden Reel
+            - generic [ref=e156]: "4.8"
+        - generic [ref=e159]: PLAY
+      - button "Play Tiger Candy" [ref=e160] [cursor=pointer]:
+        - generic [ref=e161]: 🚀
+        - generic [ref=e163]:
+          - strong [ref=e164]: Tiger Candy
+          - generic [ref=e165]:
+            - text: Orbit Labs
+            - generic [ref=e166]: "4.9"
+        - generic [ref=e169]: PLAY
+      - button "Play Moon Rush" [ref=e170] [cursor=pointer]:
+        - generic [ref=e171]: 🎯
+        - generic [ref=e173]:
+          - strong [ref=e174]: Moon Rush
+          - generic [ref=e175]:
+            - text: Wild Mint
+            - generic [ref=e176]: "4.0"
+        - generic [ref=e179]: PLAY
+      - button "Play Diamond Fortune" [ref=e180] [cursor=pointer]:
+        - generic [ref=e181]:
+          - generic [ref=e182]: 🏆
+          - emphasis [ref=e183]: NEW
+        - generic [ref=e184]:
+          - strong [ref=e185]: Diamond Fortune
+          - generic [ref=e186]:
+            - text: Neon Fox
+            - generic [ref=e187]: "4.1"
+        - generic [ref=e190]: PLAY
+      - button "Play Temple Pirate" [ref=e191] [cursor=pointer]:
+        - generic [ref=e192]: 💎
+        - generic [ref=e194]:
+          - strong [ref=e195]: Temple Pirate
+          - generic [ref=e196]:
+            - text: Nova Forge
+            - generic [ref=e197]: "4.2"
+        - generic [ref=e200]: PLAY
+      - button "Play Rush Crown" [ref=e201] [cursor=pointer]:
+        - generic [ref=e202]: 🐉
+        - generic [ref=e204]:
+          - strong [ref=e205]: Rush Crown
+          - generic [ref=e206]:
+            - text: Pixel Harbor
+            - generic [ref=e207]: "4.3"
+        - generic [ref=e210]: PLAY
+      - button "Play Crown Dragon" [ref=e211] [cursor=pointer]:
+        - generic [ref=e212]:
+          - generic [ref=e213]: 👑
+          - generic [ref=e214]: HOT
+        - generic [ref=e215]:
+          - strong [ref=e216]: Crown Dragon
+          - generic [ref=e217]:
+            - text: Golden Reel
+            - generic [ref=e218]: "4.4"
+        - generic [ref=e221]: PLAY
+      - button "Play Safari Ember" [ref=e222] [cursor=pointer]:
+        - generic [ref=e223]: 🌙
+        - generic [ref=e225]:
+          - strong [ref=e226]: Safari Ember
+          - generic [ref=e227]:
+            - text: Orbit Labs
+            - generic [ref=e228]: "4.5"
+        - generic [ref=e231]: PLAY
+      - button "Play Cash Safari" [ref=e232] [cursor=pointer]:
+        - generic [ref=e233]: 🔥
+        - generic [ref=e235]:
+          - strong [ref=e236]: Cash Safari
+          - generic [ref=e237]:
+            - text: Wild Mint
+            - generic [ref=e238]: "4.6"
+        - generic [ref=e241]: PLAY
+      - button "Play Mystic Vault" [ref=e242] [cursor=pointer]:
+        - generic [ref=e243]: 🍒
+        - generic [ref=e245]:
+          - strong [ref=e246]: Mystic Vault
+          - generic [ref=e247]:
+            - text: Neon Fox
+            - generic [ref=e248]: "4.7"
+        - generic [ref=e251]: PLAY
+      - button "Play Wolf Tiger" [ref=e252] [cursor=pointer]:
+        - generic [ref=e253]: ⚡
+        - generic [ref=e255]:
+          - strong [ref=e256]: Wolf Tiger
+          - generic [ref=e257]:
+            - text: Nova Forge
+            - generic [ref=e258]: "4.8"
+        - generic [ref=e261]: PLAY
+      - button "Play Galaxy Cash" [ref=e262] [cursor=pointer]:
+        - generic [ref=e263]: 🪙
+        - generic [ref=e265]:
+          - strong [ref=e266]: Galaxy Cash
+          - generic [ref=e267]:
+            - text: Pixel Harbor
+            - generic [ref=e268]: "4.9"
+        - generic [ref=e271]: PLAY
+      - button "Play Fortune Jungle" [ref=e272] [cursor=pointer]:
+        - generic [ref=e273]: 🦁
+        - generic [ref=e275]:
+          - strong [ref=e276]: Fortune Jungle
+          - generic [ref=e277]:
+            - text: Golden Reel
+            - generic [ref=e278]: "4.0"
+        - generic [ref=e281]: PLAY
+      - button "Play Dragon Moon" [ref=e282] [cursor=pointer]:
+        - generic [ref=e283]:
+          - generic [ref=e284]: 🚀
+          - generic [ref=e285]: HOT
+        - generic [ref=e286]:
+          - strong [ref=e287]: Dragon Moon
+          - generic [ref=e288]:
+            - text: Orbit Labs
+            - generic [ref=e289]: "4.1"
+        - generic [ref=e292]: PLAY
+      - button "Play Vault Mystic" [ref=e293] [cursor=pointer]:
+        - generic [ref=e294]:
+          - generic [ref=e295]: 🎯
+          - emphasis [ref=e296]: NEW
+        - generic [ref=e297]:
+          - strong [ref=e298]: Vault Mystic
+          - generic [ref=e299]:
+            - text: Wild Mint
+            - generic [ref=e300]: "4.2"
+        - generic [ref=e303]: PLAY
+      - button "Play Jungle Cosmos" [ref=e304] [cursor=pointer]:
+        - generic [ref=e305]: 🏆
+        - generic [ref=e307]:
+          - strong [ref=e308]: Jungle Cosmos
+          - generic [ref=e309]:
+            - text: Neon Fox
+            - generic [ref=e310]: "4.3"
+        - generic [ref=e313]: PLAY
+    - button "LOAD MORE" [ref=e314] [cursor=pointer]
+  - generic [ref=e315]:
+    - generic [ref=e316]:
+      - text: MEMBER REWARDS
+      - heading "A better reason to come back." [level=2] [ref=e317]
+      - paragraph [ref=e318]: Build a streak, unlock cosmetic collectibles and discover a fresh editor’s pick every day.
+      - button "VIEW REWARDS" [ref=e319] [cursor=pointer]
+    - generic [ref=e322]:
+      - article [ref=e323]:
+        - generic [ref=e324]: "01"
+        - generic [ref=e325]: Daily discovery
+      - article [ref=e326]:
+        - generic [ref=e327]: "07"
+        - generic [ref=e328]: Weekly streak
+      - article [ref=e329]:
+        - generic [ref=e330]: ∞
+        - generic [ref=e331]: Just for fun
+  - generic [ref=e332]:
+    - link "Aurora Play" [ref=e333] [cursor=pointer]:
+      - /url: "#top"
+    - paragraph [ref=e336]: Social arcade showcase. All games and balances are demonstrations only. No wagering or cash prizes.
+    - generic [ref=e337]: © 2026 Aurora Play · Privacy · Responsible play · 18+
+  - generic [ref=e338]:
+    - generic [ref=e339]:
+      - text: Privacy, by choice.
+      - paragraph [ref=e340]: Allow anonymous product analytics to help us improve this demo?
+    - button "No thanks" [ref=e341] [cursor=pointer]
+    - button "ALLOW" [ref=e342] [cursor=pointer]

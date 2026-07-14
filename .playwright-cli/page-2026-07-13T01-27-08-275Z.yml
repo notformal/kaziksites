@@ -1,0 +1,13 @@
+- main [ref=f4e2]:
+  - link "← Back to games" [ref=f4e3] [cursor=pointer]:
+    - /url: ./?brand=ember
+  - heading "Entertainment-only social arcade" [level=1] [ref=f4e4]
+  - generic [ref=f4e5]:
+    - heading "Privacy" [level=2] [ref=f4e6]
+    - paragraph [ref=f4e7]: Product analytics is disabled until you choose Allow. We store your consent choice locally. Registered accounts store an email address, display name, securely hashed password, opaque session, favorites, recent games and virtual-credit ledger. We do not collect payment information because purchases and withdrawals are not supported.
+  - generic [ref=f4e8]:
+    - heading "Responsible play" [level=2] [ref=f4e9]
+    - paragraph [ref=f4e10]: This demonstration is intended for adults aged 18 and over. Virtual credits have no monetary value and cannot be purchased, exchanged or withdrawn. Take regular breaks and stop playing if entertainment stops feeling enjoyable.
+  - generic [ref=f4e11]:
+    - heading "Terms" [level=2] [ref=f4e12]
+    - paragraph [ref=f4e13]: The service is provided as a product demonstration. Games are original clean-room works or open-source works distributed under their accompanying licenses. Availability may change during maintenance.

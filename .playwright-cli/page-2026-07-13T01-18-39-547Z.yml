@@ -1,0 +1,342 @@
+- main [ref=f4e3]:
+  - generic [ref=f4e4]:
+    - link "Ember Club" [ref=f4e5] [cursor=pointer]:
+      - /url: "#top"
+    - generic [ref=f4e9]:
+      - button "JOIN FREE" [ref=f4e10] [cursor=pointer]
+      - button "Open navigation" [ref=f4e11] [cursor=pointer]
+  - generic [ref=f4e13]:
+    - link "Home" [ref=f4e14] [cursor=pointer]:
+      - /url: "#top"
+    - link "Games" [ref=f4e18] [cursor=pointer]:
+      - /url: "#games"
+    - link "Rewards" [ref=f4e21] [cursor=pointer]:
+      - /url: "#rewards"
+    - button "Profile" [ref=f4e26] [cursor=pointer]
+  - generic [ref=f4e30]:
+    - generic [ref=f4e31]:
+      - text: THE NIGHT IS YOURS
+      - heading "Turn up the thrill." [level=1] [ref=f4e32]
+      - paragraph [ref=f4e33]: Electric games, live rewards and a members-club atmosphere—every night.
+      - generic [ref=f4e34]:
+        - link "EXPLORE GAMES" [ref=f4e35] [cursor=pointer]:
+          - /url: "#games"
+        - link "HOW IT WORKS" [ref=f4e38] [cursor=pointer]:
+          - /url: "#about"
+      - generic [ref=f4e39]: WEEKEND DROP LIVE
+    - generic [ref=f4e42]:
+      - generic [ref=f4e43]: "7"
+      - generic [ref=f4e44]: ★
+      - generic [ref=f4e45]: ♛
+  - generic [ref=f4e46]:
+    - generic [ref=f4e47]: FAIR DEMO PLAY
+    - generic [ref=f4e51]: DAILY COLLECTIONS
+    - generic [ref=f4e56]: 240 INSTANT GAMES
+  - generic [ref=f4e59]:
+    - generic [ref=f4e60]:
+      - generic [ref=f4e61]:
+        - text: THE COLLECTION
+        - heading "Find your next favorite" [level=2] [ref=f4e62]
+      - textbox "Search games" [ref=f4e67]:
+        - /placeholder: Search games...
+    - generic [ref=f4e68]:
+      - button "All" [ref=f4e69] [cursor=pointer]
+      - button "Popular" [ref=f4e70] [cursor=pointer]
+      - button "Favorites" [ref=f4e71] [cursor=pointer]
+      - button "Recent" [ref=f4e72] [cursor=pointer]
+      - button "Slots" [ref=f4e73] [cursor=pointer]
+      - button "Crash" [ref=f4e74] [cursor=pointer]
+      - button "Jackpots" [ref=f4e75] [cursor=pointer]
+      - button "Arcade" [ref=f4e76] [cursor=pointer]
+      - button "Table" [ref=f4e77] [cursor=pointer]
+      - button "Instant" [ref=f4e78] [cursor=pointer]
+      - button "New" [ref=f4e79] [cursor=pointer]
+    - generic [ref=f4e80]:
+      - article [ref=f4e81]:
+        - button "Play 2048" [ref=f4e82] [cursor=pointer]:
+          - generic [ref=f4e83]:
+            - generic [ref=f4e84]: 🔢
+            - generic [ref=f4e85]: HOT
+            - emphasis [ref=f4e86]: NEW
+          - generic [ref=f4e87]:
+            - strong [ref=f4e88]: "2048"
+            - generic [ref=f4e89]:
+              - text: Gabriele Cirulli
+              - generic [ref=f4e90]: "4.0"
+          - generic [ref=f4e93]: PLAY
+        - button "Add 2048 to favorites" [ref=f4e94] [cursor=pointer]
+      - article [ref=f4e97]:
+        - button "Play Canvas Tetris" [ref=f4e98] [cursor=pointer]:
+          - generic [ref=f4e99]: 🧱
+          - generic [ref=f4e101]:
+            - strong [ref=f4e102]: Canvas Tetris
+            - generic [ref=f4e103]:
+              - text: Dionysis Zindros
+              - generic [ref=f4e104]: "4.1"
+          - generic [ref=f4e107]: PLAY
+        - button "Add Canvas Tetris to favorites" [ref=f4e108] [cursor=pointer]
+      - article [ref=f4e111]:
+        - button "Play Night Racer" [ref=f4e112] [cursor=pointer]:
+          - generic [ref=f4e113]: 🏎️
+          - generic [ref=f4e115]:
+            - strong [ref=f4e116]: Night Racer
+            - generic [ref=f4e117]:
+              - text: Jake Gordon
+              - generic [ref=f4e118]: "4.2"
+          - generic [ref=f4e121]: PLAY
+        - button "Add Night Racer to favorites" [ref=f4e122] [cursor=pointer]
+      - article [ref=f4e125]:
+        - button "Play Radius Raid" [ref=f4e126] [cursor=pointer]:
+          - generic [ref=f4e127]: 🚀
+          - generic [ref=f4e129]:
+            - strong [ref=f4e130]: Radius Raid
+            - generic [ref=f4e131]:
+              - text: Jack Rugile
+              - generic [ref=f4e132]: "4.3"
+          - generic [ref=f4e135]: PLAY
+        - button "Add Radius Raid to favorites" [ref=f4e136] [cursor=pointer]
+      - article [ref=f4e139]:
+        - button "Play Classic Pong" [ref=f4e140] [cursor=pointer]:
+          - generic [ref=f4e141]: 🏓
+          - generic [ref=f4e143]:
+            - strong [ref=f4e144]: Classic Pong
+            - generic [ref=f4e145]:
+              - text: Jake Gordon
+              - generic [ref=f4e146]: "4.4"
+          - generic [ref=f4e149]: PLAY
+        - button "Add Classic Pong to favorites" [ref=f4e150] [cursor=pointer]
+      - article [ref=f4e153]:
+        - button "Play Nova Classic Slots" [ref=f4e154] [cursor=pointer]:
+          - generic [ref=f4e155]: 🎰
+          - generic [ref=f4e157]:
+            - strong [ref=f4e158]: Nova Classic Slots
+            - generic [ref=f4e159]:
+              - text: Open Arcade
+              - generic [ref=f4e160]: "4.5"
+          - generic [ref=f4e163]: PLAY
+        - button "Add Nova Classic Slots to favorites" [ref=f4e164] [cursor=pointer]
+      - article [ref=f4e167]:
+        - button "Play Skyline Crash" [ref=f4e168] [cursor=pointer]:
+          - generic [ref=f4e169]: 📈
+          - generic [ref=f4e171]:
+            - strong [ref=f4e172]: Skyline Crash
+            - generic [ref=f4e173]:
+              - text: Open Arcade
+              - generic [ref=f4e174]: "4.6"
+          - generic [ref=f4e177]: PLAY
+        - button "Add Skyline Crash to favorites" [ref=f4e178] [cursor=pointer]
+      - article [ref=f4e181]:
+        - button "Play Prism Plinko" [ref=f4e182] [cursor=pointer]:
+          - generic [ref=f4e183]:
+            - generic [ref=f4e184]: 🔻
+            - generic [ref=f4e185]: HOT
+          - generic [ref=f4e186]:
+            - strong [ref=f4e187]: Prism Plinko
+            - generic [ref=f4e188]:
+              - text: Open Arcade
+              - generic [ref=f4e189]: "4.7"
+          - generic [ref=f4e192]: PLAY
+        - button "Add Prism Plinko to favorites" [ref=f4e193] [cursor=pointer]
+      - article [ref=f4e196]:
+        - button "Play European Roulette" [ref=f4e197] [cursor=pointer]:
+          - generic [ref=f4e198]: 🎡
+          - generic [ref=f4e200]:
+            - strong [ref=f4e201]: European Roulette
+            - generic [ref=f4e202]:
+              - text: Open Arcade
+              - generic [ref=f4e203]: "4.8"
+          - generic [ref=f4e206]: PLAY
+        - button "Add European Roulette to favorites" [ref=f4e207] [cursor=pointer]
+      - article [ref=f4e210]:
+        - button "Play Keno Plus" [ref=f4e211] [cursor=pointer]:
+          - generic [ref=f4e212]: 🔢
+          - generic [ref=f4e214]:
+            - strong [ref=f4e215]: Keno Plus
+            - generic [ref=f4e216]:
+              - text: Open Arcade
+              - generic [ref=f4e217]: "4.9"
+          - generic [ref=f4e220]: PLAY
+        - button "Add Keno Plus to favorites" [ref=f4e221] [cursor=pointer]
+      - article [ref=f4e224]:
+        - button "Play Moon Rush" [ref=f4e225] [cursor=pointer]:
+          - generic [ref=f4e226]: 🎯
+          - generic [ref=f4e228]:
+            - strong [ref=f4e229]: Moon Rush
+            - generic [ref=f4e230]:
+              - text: Wild Mint
+              - generic [ref=f4e231]: "4.0"
+          - generic [ref=f4e234]: PLAY
+        - button "Add Moon Rush to favorites" [ref=f4e235] [cursor=pointer]
+      - article [ref=f4e238]:
+        - button "Play Diamond Fortune" [ref=f4e239] [cursor=pointer]:
+          - generic [ref=f4e240]:
+            - generic [ref=f4e241]: 🏆
+            - emphasis [ref=f4e242]: NEW
+          - generic [ref=f4e243]:
+            - strong [ref=f4e244]: Diamond Fortune
+            - generic [ref=f4e245]:
+              - text: Neon Fox
+              - generic [ref=f4e246]: "4.1"
+          - generic [ref=f4e249]: PLAY
+        - button "Add Diamond Fortune to favorites" [ref=f4e250] [cursor=pointer]
+      - article [ref=f4e253]:
+        - button "Play Temple Pirate" [ref=f4e254] [cursor=pointer]:
+          - generic [ref=f4e255]: 💎
+          - generic [ref=f4e257]:
+            - strong [ref=f4e258]: Temple Pirate
+            - generic [ref=f4e259]:
+              - text: Nova Forge
+              - generic [ref=f4e260]: "4.2"
+          - generic [ref=f4e263]: PLAY
+        - button "Add Temple Pirate to favorites" [ref=f4e264] [cursor=pointer]
+      - article [ref=f4e267]:
+        - button "Play Rush Crown" [ref=f4e268] [cursor=pointer]:
+          - generic [ref=f4e269]: 🐉
+          - generic [ref=f4e271]:
+            - strong [ref=f4e272]: Rush Crown
+            - generic [ref=f4e273]:
+              - text: Pixel Harbor
+              - generic [ref=f4e274]: "4.3"
+          - generic [ref=f4e277]: PLAY
+        - button "Add Rush Crown to favorites" [ref=f4e278] [cursor=pointer]
+      - article [ref=f4e281]:
+        - button "Play Crown Dragon" [ref=f4e282] [cursor=pointer]:
+          - generic [ref=f4e283]:
+            - generic [ref=f4e284]: 👑
+            - generic [ref=f4e285]: HOT
+          - generic [ref=f4e286]:
+            - strong [ref=f4e287]: Crown Dragon
+            - generic [ref=f4e288]:
+              - text: Golden Reel
+              - generic [ref=f4e289]: "4.4"
+          - generic [ref=f4e292]: PLAY
+        - button "Add Crown Dragon to favorites" [ref=f4e293] [cursor=pointer]
+      - article [ref=f4e296]:
+        - button "Play Safari Ember" [ref=f4e297] [cursor=pointer]:
+          - generic [ref=f4e298]: 🌙
+          - generic [ref=f4e300]:
+            - strong [ref=f4e301]: Safari Ember
+            - generic [ref=f4e302]:
+              - text: Orbit Labs
+              - generic [ref=f4e303]: "4.5"
+          - generic [ref=f4e306]: PLAY
+        - button "Add Safari Ember to favorites" [ref=f4e307] [cursor=pointer]
+      - article [ref=f4e310]:
+        - button "Play Cash Safari" [ref=f4e311] [cursor=pointer]:
+          - generic [ref=f4e312]: 🔥
+          - generic [ref=f4e314]:
+            - strong [ref=f4e315]: Cash Safari
+            - generic [ref=f4e316]:
+              - text: Wild Mint
+              - generic [ref=f4e317]: "4.6"
+          - generic [ref=f4e320]: PLAY
+        - button "Add Cash Safari to favorites" [ref=f4e321] [cursor=pointer]
+      - article [ref=f4e324]:
+        - button "Play Mystic Vault" [ref=f4e325] [cursor=pointer]:
+          - generic [ref=f4e326]: 🍒
+          - generic [ref=f4e328]:
+            - strong [ref=f4e329]: Mystic Vault
+            - generic [ref=f4e330]:
+              - text: Neon Fox
+              - generic [ref=f4e331]: "4.7"
+          - generic [ref=f4e334]: PLAY
+        - button "Add Mystic Vault to favorites" [ref=f4e335] [cursor=pointer]
+      - article [ref=f4e338]:
+        - button "Play Wolf Tiger" [ref=f4e339] [cursor=pointer]:
+          - generic [ref=f4e340]: ⚡
+          - generic [ref=f4e342]:
+            - strong [ref=f4e343]: Wolf Tiger
+            - generic [ref=f4e344]:
+              - text: Nova Forge
+              - generic [ref=f4e345]: "4.8"
+          - generic [ref=f4e348]: PLAY
+        - button "Add Wolf Tiger to favorites" [ref=f4e349] [cursor=pointer]
+      - article [ref=f4e352]:
+        - button "Play Galaxy Cash" [ref=f4e353] [cursor=pointer]:
+          - generic [ref=f4e354]: 🪙
+          - generic [ref=f4e356]:
+            - strong [ref=f4e357]: Galaxy Cash
+            - generic [ref=f4e358]:
+              - text: Pixel Harbor
+              - generic [ref=f4e359]: "4.9"
+          - generic [ref=f4e362]: PLAY
+        - button "Add Galaxy Cash to favorites" [ref=f4e363] [cursor=pointer]
+      - article [ref=f4e366]:
+        - button "Play Fortune Jungle" [ref=f4e367] [cursor=pointer]:
+          - generic [ref=f4e368]: 🦁
+          - generic [ref=f4e370]:
+            - strong [ref=f4e371]: Fortune Jungle
+            - generic [ref=f4e372]:
+              - text: Golden Reel
+              - generic [ref=f4e373]: "4.0"
+          - generic [ref=f4e376]: PLAY
+        - button "Add Fortune Jungle to favorites" [ref=f4e377] [cursor=pointer]
+      - article [ref=f4e380]:
+        - button "Play Dragon Moon" [ref=f4e381] [cursor=pointer]:
+          - generic [ref=f4e382]:
+            - generic [ref=f4e383]: 🚀
+            - generic [ref=f4e384]: HOT
+          - generic [ref=f4e385]:
+            - strong [ref=f4e386]: Dragon Moon
+            - generic [ref=f4e387]:
+              - text: Orbit Labs
+              - generic [ref=f4e388]: "4.1"
+          - generic [ref=f4e391]: PLAY
+        - button "Add Dragon Moon to favorites" [ref=f4e392] [cursor=pointer]
+      - article [ref=f4e395]:
+        - button "Play Vault Mystic" [ref=f4e396] [cursor=pointer]:
+          - generic [ref=f4e397]:
+            - generic [ref=f4e398]: 🎯
+            - emphasis [ref=f4e399]: NEW
+          - generic [ref=f4e400]:
+            - strong [ref=f4e401]: Vault Mystic
+            - generic [ref=f4e402]:
+              - text: Wild Mint
+              - generic [ref=f4e403]: "4.2"
+          - generic [ref=f4e406]: PLAY
+        - button "Add Vault Mystic to favorites" [ref=f4e407] [cursor=pointer]
+      - article [ref=f4e410]:
+        - button "Play Jungle Cosmos" [ref=f4e411] [cursor=pointer]:
+          - generic [ref=f4e412]: 🏆
+          - generic [ref=f4e414]:
+            - strong [ref=f4e415]: Jungle Cosmos
+            - generic [ref=f4e416]:
+              - text: Neon Fox
+              - generic [ref=f4e417]: "4.3"
+          - generic [ref=f4e420]: PLAY
+        - button "Add Jungle Cosmos to favorites" [ref=f4e421] [cursor=pointer]
+    - button "LOAD MORE" [ref=f4e424] [cursor=pointer]
+  - generic [ref=f4e425]:
+    - generic [ref=f4e426]:
+      - text: MEMBER REWARDS
+      - heading "A better reason to come back." [level=2] [ref=f4e427]
+      - paragraph [ref=f4e428]: Create a profile to collect 250 virtual credits every day. Credits have no cash value and cannot be purchased or withdrawn.
+      - button "VIEW REWARDS" [ref=f4e429] [cursor=pointer]
+    - generic [ref=f4e432]:
+      - article [ref=f4e433]:
+        - generic [ref=f4e434]: "01"
+        - generic [ref=f4e435]: Daily discovery
+      - article [ref=f4e436]:
+        - generic [ref=f4e437]: "07"
+        - generic [ref=f4e438]: Weekly streak
+      - article [ref=f4e439]:
+        - generic [ref=f4e440]: ∞
+        - generic [ref=f4e441]: Just for fun
+  - generic [ref=f4e442]:
+    - link "Ember Club" [ref=f4e443] [cursor=pointer]:
+      - /url: "#top"
+    - paragraph [ref=f4e446]: Social arcade showcase. All games and balances are demonstrations only. No wagering or cash prizes.
+    - generic [ref=f4e447]:
+      - text: © 2026 Ember Club ·
+      - link "Privacy" [ref=f4e448] [cursor=pointer]:
+        - /url: ./legal.html#privacy
+      - text: ·
+      - link "Responsible play" [ref=f4e449] [cursor=pointer]:
+        - /url: ./legal.html#responsible
+      - text: · 18+
+  - generic [ref=f4e450]:
+    - generic [ref=f4e451]:
+      - text: Privacy, by choice.
+      - paragraph [ref=f4e452]: Allow anonymous product analytics to help us improve this demo?
+    - button "No thanks" [ref=f4e453] [cursor=pointer]
+    - button "ALLOW" [ref=f4e454] [cursor=pointer]

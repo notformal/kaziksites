@@ -1,0 +1,336 @@
+- main [ref=e3]:
+  - generic [ref=e4]:
+    - link "Aurora Play" [ref=e5] [cursor=pointer]:
+      - /url: "#top"
+    - navigation [ref=e9]:
+      - link "Games" [ref=e10] [cursor=pointer]:
+        - /url: "#games"
+      - link "Rewards" [ref=e11] [cursor=pointer]:
+        - /url: "#rewards"
+      - link "About" [ref=e12] [cursor=pointer]:
+        - /url: "#about"
+    - generic [ref=e13]:
+      - button "Account" [ref=e14] [cursor=pointer]
+      - button "JOIN FREE" [ref=e18] [cursor=pointer]
+  - generic [ref=e19]:
+    - generic [ref=e20]:
+      - text: PLAY BEYOND
+      - heading "The next level of play." [level=1] [ref=e21]
+      - paragraph [ref=e22]: A precision-built social arcade with instant access to 200 playable games.
+      - generic [ref=e23]:
+        - link "EXPLORE GAMES" [ref=e24] [cursor=pointer]:
+          - /url: "#games"
+        - link "HOW IT WORKS" [ref=e27] [cursor=pointer]:
+          - /url: "#about"
+      - generic [ref=e28]: DEMO ENVIRONMENT
+    - generic [ref=e31]:
+      - generic [ref=e32]: "7"
+      - generic [ref=e33]: ★
+      - generic [ref=e34]: ♛
+  - generic [ref=e35]:
+    - generic [ref=e36]: SERVER-VERIFIED PLAY
+    - generic [ref=e40]: DAILY COLLECTIONS
+    - generic [ref=e45]: 200 PLAYABLE GAMES
+  - generic [ref=e48]:
+    - generic [ref=e49]:
+      - generic [ref=e50]:
+        - text: THE COLLECTION
+        - heading "Find your next favorite" [level=2] [ref=e51]
+      - textbox "Search games" [ref=e56]:
+        - /placeholder: Search games...
+    - generic [ref=e57]:
+      - button "All" [ref=e58] [cursor=pointer]
+      - button "Popular" [ref=e59] [cursor=pointer]
+      - button "Favorites" [ref=e60] [cursor=pointer]
+      - button "Recent" [ref=e61] [cursor=pointer]
+      - button "Arcade" [ref=e62] [cursor=pointer]
+      - button "Slots" [ref=e63] [cursor=pointer]
+      - button "Crash" [ref=e64] [cursor=pointer]
+      - button "Instant" [ref=e65] [cursor=pointer]
+      - button "Table" [ref=e66] [cursor=pointer]
+    - generic [ref=e67]:
+      - article [ref=e68]:
+        - button "Play 2048" [ref=e69] [cursor=pointer]:
+          - generic [ref=e70]:
+            - generic [ref=e71]: 🔢
+            - generic [ref=e72]: HOT
+            - emphasis [ref=e73]: NEW
+          - generic [ref=e74]:
+            - strong [ref=e75]: "2048"
+            - generic [ref=e76]:
+              - text: Gabriele Cirulli
+              - generic [ref=e77]: "4.0"
+          - generic [ref=e80]: PLAY
+        - button "Add 2048 to favorites" [ref=e81] [cursor=pointer]
+      - article [ref=e84]:
+        - button "Play Canvas Tetris" [ref=e85] [cursor=pointer]:
+          - generic [ref=e86]: 🧱
+          - generic [ref=e88]:
+            - strong [ref=e89]: Canvas Tetris
+            - generic [ref=e90]:
+              - text: Dionysis Zindros
+              - generic [ref=e91]: "4.1"
+          - generic [ref=e94]: PLAY
+        - button "Add Canvas Tetris to favorites" [ref=e95] [cursor=pointer]
+      - article [ref=e98]:
+        - button "Play Night Racer" [ref=e99] [cursor=pointer]:
+          - generic [ref=e100]: 🏎️
+          - generic [ref=e102]:
+            - strong [ref=e103]: Night Racer
+            - generic [ref=e104]:
+              - text: Jake Gordon
+              - generic [ref=e105]: "4.2"
+          - generic [ref=e108]: PLAY
+        - button "Add Night Racer to favorites" [ref=e109] [cursor=pointer]
+      - article [ref=e112]:
+        - button "Play Radius Raid" [ref=e113] [cursor=pointer]:
+          - generic [ref=e114]: 🚀
+          - generic [ref=e116]:
+            - strong [ref=e117]: Radius Raid
+            - generic [ref=e118]:
+              - text: Jack Rugile
+              - generic [ref=e119]: "4.3"
+          - generic [ref=e122]: PLAY
+        - button "Add Radius Raid to favorites" [ref=e123] [cursor=pointer]
+      - article [ref=e126]:
+        - button "Play Classic Pong" [ref=e127] [cursor=pointer]:
+          - generic [ref=e128]: 🏓
+          - generic [ref=e130]:
+            - strong [ref=e131]: Classic Pong
+            - generic [ref=e132]:
+              - text: Jake Gordon
+              - generic [ref=e133]: "4.4"
+          - generic [ref=e136]: PLAY
+        - button "Add Classic Pong to favorites" [ref=e137] [cursor=pointer]
+      - article [ref=e140]:
+        - button "Play Nova Classic Slots" [ref=e141] [cursor=pointer]:
+          - generic [ref=e142]: 🎰
+          - generic [ref=e144]:
+            - strong [ref=e145]: Nova Classic Slots
+            - generic [ref=e146]:
+              - text: Open Arcade
+              - generic [ref=e147]: "4.5"
+          - generic [ref=e150]: PLAY
+        - button "Add Nova Classic Slots to favorites" [ref=e151] [cursor=pointer]
+      - article [ref=e154]:
+        - button "Play Skyline Crash" [ref=e155] [cursor=pointer]:
+          - generic [ref=e156]: 📈
+          - generic [ref=e158]:
+            - strong [ref=e159]: Skyline Crash
+            - generic [ref=e160]:
+              - text: Open Arcade
+              - generic [ref=e161]: "4.6"
+          - generic [ref=e164]: PLAY
+        - button "Add Skyline Crash to favorites" [ref=e165] [cursor=pointer]
+      - article [ref=e168]:
+        - button "Play Prism Plinko" [ref=e169] [cursor=pointer]:
+          - generic [ref=e170]:
+            - generic [ref=e171]: 🔻
+            - generic [ref=e172]: HOT
+          - generic [ref=e173]:
+            - strong [ref=e174]: Prism Plinko
+            - generic [ref=e175]:
+              - text: Open Arcade
+              - generic [ref=e176]: "4.7"
+          - generic [ref=e179]: PLAY
+        - button "Add Prism Plinko to favorites" [ref=e180] [cursor=pointer]
+      - article [ref=e183]:
+        - button "Play European Roulette" [ref=e184] [cursor=pointer]:
+          - generic [ref=e185]: 🎡
+          - generic [ref=e187]:
+            - strong [ref=e188]: European Roulette
+            - generic [ref=e189]:
+              - text: Open Arcade
+              - generic [ref=e190]: "4.8"
+          - generic [ref=e193]: PLAY
+        - button "Add European Roulette to favorites" [ref=e194] [cursor=pointer]
+      - article [ref=e197]:
+        - button "Play Keno Plus" [ref=e198] [cursor=pointer]:
+          - generic [ref=e199]: 🔢
+          - generic [ref=e201]:
+            - strong [ref=e202]: Keno Plus
+            - generic [ref=e203]:
+              - text: Open Arcade
+              - generic [ref=e204]: "4.9"
+          - generic [ref=e207]: PLAY
+        - button "Add Keno Plus to favorites" [ref=e208] [cursor=pointer]
+      - article [ref=e211]:
+        - button "Play 2048" [ref=e212] [cursor=pointer]:
+          - generic [ref=e213]:
+            - generic [ref=e214]: 🎮
+            - generic [ref=e215]: HOT
+            - emphasis [ref=e216]: NEW
+          - generic [ref=e217]:
+            - strong [ref=e218]: "2048"
+            - generic [ref=e219]:
+              - text: LittleJS Arcade
+              - generic [ref=e220]: "4.0"
+          - generic [ref=e223]: PLAY
+        - button "Add 2048 to favorites" [ref=e224] [cursor=pointer]
+      - article [ref=e227]:
+        - button "Play Astroblast" [ref=e228] [cursor=pointer]:
+          - generic [ref=e229]: 🕹️
+          - generic [ref=e231]:
+            - strong [ref=e232]: Astroblast
+            - generic [ref=e233]:
+              - text: LittleJS Arcade
+              - generic [ref=e234]: "4.1"
+          - generic [ref=e237]: PLAY
+        - button "Add Astroblast to favorites" [ref=e238] [cursor=pointer]
+      - article [ref=e241]:
+        - button "Play Blastman" [ref=e242] [cursor=pointer]:
+          - generic [ref=e243]: 🚀
+          - generic [ref=e245]:
+            - strong [ref=e246]: Blastman
+            - generic [ref=e247]:
+              - text: LittleJS Arcade
+              - generic [ref=e248]: "4.2"
+          - generic [ref=e251]: PLAY
+        - button "Add Blastman to favorites" [ref=e252] [cursor=pointer]
+      - article [ref=e255]:
+        - button "Play Bobble Pop" [ref=e256] [cursor=pointer]:
+          - generic [ref=e257]: 🧩
+          - generic [ref=e259]:
+            - strong [ref=e260]: Bobble Pop
+            - generic [ref=e261]:
+              - text: LittleJS Arcade
+              - generic [ref=e262]: "4.3"
+          - generic [ref=e265]: PLAY
+        - button "Add Bobble Pop to favorites" [ref=e266] [cursor=pointer]
+      - article [ref=e269]:
+        - button "Play Boomer" [ref=e270] [cursor=pointer]:
+          - generic [ref=e271]: 🎯
+          - generic [ref=e273]:
+            - strong [ref=e274]: Boomer
+            - generic [ref=e275]:
+              - text: LittleJS Arcade
+              - generic [ref=e276]: "4.4"
+          - generic [ref=e279]: PLAY
+        - button "Add Boomer to favorites" [ref=e280] [cursor=pointer]
+      - article [ref=e283]:
+        - button "Play Brickout" [ref=e284] [cursor=pointer]:
+          - generic [ref=e285]: 🏁
+          - generic [ref=e287]:
+            - strong [ref=e288]: Brickout
+            - generic [ref=e289]:
+              - text: LittleJS Arcade
+              - generic [ref=e290]: "4.5"
+          - generic [ref=e293]: PLAY
+        - button "Add Brickout to favorites" [ref=e294] [cursor=pointer]
+      - article [ref=e297]:
+        - button "Play Capture Go" [ref=e298] [cursor=pointer]:
+          - generic [ref=e299]: 🎮
+          - generic [ref=e301]:
+            - strong [ref=e302]: Capture Go
+            - generic [ref=e303]:
+              - text: LittleJS Arcade
+              - generic [ref=e304]: "4.6"
+          - generic [ref=e307]: PLAY
+        - button "Add Capture Go to favorites" [ref=e308] [cursor=pointer]
+      - article [ref=e311]:
+        - button "Play Centibug" [ref=e312] [cursor=pointer]:
+          - generic [ref=e313]: 🕹️
+          - generic [ref=e315]:
+            - strong [ref=e316]: Centibug
+            - generic [ref=e317]:
+              - text: LittleJS Arcade
+              - generic [ref=e318]: "4.7"
+          - generic [ref=e321]: PLAY
+        - button "Add Centibug to favorites" [ref=e322] [cursor=pointer]
+      - article [ref=e325]:
+        - button "Play Checkers" [ref=e326] [cursor=pointer]:
+          - generic [ref=e327]: 🚀
+          - generic [ref=e329]:
+            - strong [ref=e330]: Checkers
+            - generic [ref=e331]:
+              - text: LittleJS Arcade
+              - generic [ref=e332]: "4.8"
+          - generic [ref=e335]: PLAY
+        - button "Add Checkers to favorites" [ref=e336] [cursor=pointer]
+      - article [ref=e339]:
+        - button "Play Chess" [ref=e340] [cursor=pointer]:
+          - generic [ref=e341]: 🧩
+          - generic [ref=e343]:
+            - strong [ref=e344]: Chess
+            - generic [ref=e345]:
+              - text: LittleJS Arcade
+              - generic [ref=e346]: "4.9"
+          - generic [ref=e349]: PLAY
+        - button "Add Chess to favorites" [ref=e350] [cursor=pointer]
+      - article [ref=e353]:
+        - button "Play Complements" [ref=e354] [cursor=pointer]:
+          - generic [ref=e355]: 🎯
+          - generic [ref=e357]:
+            - strong [ref=e358]: Complements
+            - generic [ref=e359]:
+              - text: LittleJS Arcade
+              - generic [ref=e360]: "4.0"
+          - generic [ref=e363]: PLAY
+        - button "Add Complements to favorites" [ref=e364] [cursor=pointer]
+      - article [ref=e367]:
+        - button "Play Connect4" [ref=e368] [cursor=pointer]:
+          - generic [ref=e369]: 🏁
+          - generic [ref=e371]:
+            - strong [ref=e372]: Connect4
+            - generic [ref=e373]:
+              - text: LittleJS Arcade
+              - generic [ref=e374]: "4.1"
+          - generic [ref=e377]: PLAY
+        - button "Add Connect4 to favorites" [ref=e378] [cursor=pointer]
+      - article [ref=e381]:
+        - button "Play Dominoes" [ref=e382] [cursor=pointer]:
+          - generic [ref=e383]: 🎮
+          - generic [ref=e385]:
+            - strong [ref=e386]: Dominoes
+            - generic [ref=e387]:
+              - text: LittleJS Arcade
+              - generic [ref=e388]: "4.2"
+          - generic [ref=e391]: PLAY
+        - button "Add Dominoes to favorites" [ref=e392] [cursor=pointer]
+      - article [ref=e395]:
+        - button "Play Dr Pill" [ref=e396] [cursor=pointer]:
+          - generic [ref=e397]:
+            - generic [ref=e398]: 🕹️
+            - generic [ref=e399]: HOT
+          - generic [ref=e400]:
+            - strong [ref=e401]: Dr Pill
+            - generic [ref=e402]:
+              - text: LittleJS Arcade
+              - generic [ref=e403]: "4.3"
+          - generic [ref=e406]: PLAY
+        - button "Add Dr Pill to favorites" [ref=e407] [cursor=pointer]
+    - button "LOAD MORE" [ref=e410] [cursor=pointer]
+  - generic [ref=e411]:
+    - generic [ref=e412]:
+      - text: MEMBER REWARDS
+      - heading "A better reason to come back." [level=2] [ref=e413]
+      - paragraph [ref=e414]: Create a profile to collect 250 virtual credits every day. Credits have no cash value and cannot be purchased or withdrawn.
+      - button "VIEW REWARDS" [ref=e415] [cursor=pointer]
+    - generic [ref=e418]:
+      - article [ref=e419]:
+        - generic [ref=e420]: "01"
+        - generic [ref=e421]: Daily discovery
+      - article [ref=e422]:
+        - generic [ref=e423]: "07"
+        - generic [ref=e424]: Weekly streak
+      - article [ref=e425]:
+        - generic [ref=e426]: ∞
+        - generic [ref=e427]: Just for fun
+  - generic [ref=e428]:
+    - link "Aurora Play" [ref=e429] [cursor=pointer]:
+      - /url: "#top"
+    - paragraph [ref=e432]: Social arcade showcase. All games and balances are demonstrations only. No wagering or cash prizes.
+    - generic [ref=e433]:
+      - text: © 2026 Aurora Play ·
+      - link "Privacy" [ref=e434] [cursor=pointer]:
+        - /url: ./legal.html?brand=aurora#privacy
+      - text: ·
+      - link "Responsible play" [ref=e435] [cursor=pointer]:
+        - /url: ./legal.html?brand=aurora#responsible
+      - text: · 18+
+  - generic [ref=e436]:
+    - generic [ref=e437]:
+      - text: Privacy, by choice.
+      - paragraph [ref=e438]: Allow anonymous product analytics to help us improve this demo?
+    - button "No thanks" [ref=e439] [cursor=pointer]
+    - button "ALLOW" [ref=e440] [cursor=pointer]

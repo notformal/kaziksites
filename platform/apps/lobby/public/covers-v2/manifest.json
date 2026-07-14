@@ -1,0 +1,1020 @@
+{
+  "version": 2,
+  "generatedAt": "2026-07-14T11:04:51.396Z",
+  "count": 200,
+  "license": "Original project artwork; AI-assisted concept generation was attempted but returned no artifact. Final shipped assets are deterministic procedural raster art produced by scripts/generate-cover-art.mjs.",
+  "provenance": {
+    "externalAssets": [],
+    "generator": "scripts/generate-cover-art.mjs",
+    "method": "original SVG compositions rasterized to high-quality JPEG with Playwright"
+  },
+  "families": [
+    "slots",
+    "arcade",
+    "instant",
+    "table",
+    "retro"
+  ],
+  "assets": {
+    "game-1": {
+      "file": "game-1.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "game-2": {
+      "file": "game-2.jpg",
+      "family": "instant",
+      "source": "procedural-original"
+    },
+    "game-3": {
+      "file": "game-3.jpg",
+      "family": "instant",
+      "source": "procedural-original"
+    },
+    "game-4": {
+      "file": "game-4.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "game-5": {
+      "file": "game-5.jpg",
+      "family": "table",
+      "source": "procedural-original"
+    },
+    "game-6": {
+      "file": "game-6.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "game-7": {
+      "file": "game-7.jpg",
+      "family": "instant",
+      "source": "procedural-original"
+    },
+    "game-8": {
+      "file": "game-8.jpg",
+      "family": "instant",
+      "source": "procedural-original"
+    },
+    "game-9": {
+      "file": "game-9.jpg",
+      "family": "table",
+      "source": "procedural-original"
+    },
+    "game-10": {
+      "file": "game-10.jpg",
+      "family": "table",
+      "source": "procedural-original"
+    },
+    "littlejs-2048": {
+      "file": "littlejs-2048.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-astroblast": {
+      "file": "littlejs-astroblast.jpg",
+      "family": "retro",
+      "source": "procedural-original"
+    },
+    "littlejs-blastman": {
+      "file": "littlejs-blastman.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-bobblepop": {
+      "file": "littlejs-bobblepop.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-boomer": {
+      "file": "littlejs-boomer.jpg",
+      "family": "retro",
+      "source": "procedural-original"
+    },
+    "littlejs-brickout": {
+      "file": "littlejs-brickout.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-capturego": {
+      "file": "littlejs-capturego.jpg",
+      "family": "retro",
+      "source": "procedural-original"
+    },
+    "littlejs-centibug": {
+      "file": "littlejs-centibug.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-checkers": {
+      "file": "littlejs-checkers.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-chess": {
+      "file": "littlejs-chess.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-complements": {
+      "file": "littlejs-complements.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-connect4": {
+      "file": "littlejs-connect4.jpg",
+      "family": "retro",
+      "source": "procedural-original"
+    },
+    "littlejs-dominoes": {
+      "file": "littlejs-dominoes.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-drpill": {
+      "file": "littlejs-drpill.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-emojisurvivors": {
+      "file": "littlejs-emojisurvivors.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-floppybird": {
+      "file": "littlejs-floppybird.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-freecell": {
+      "file": "littlejs-freecell.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-freethrow": {
+      "file": "littlejs-freethrow.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-froggit": {
+      "file": "littlejs-froggit.jpg",
+      "family": "retro",
+      "source": "procedural-original"
+    },
+    "littlejs-gemfighter": {
+      "file": "littlejs-gemfighter.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-geometryjump": {
+      "file": "littlejs-geometryjump.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-go": {
+      "file": "littlejs-go.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-homerderby": {
+      "file": "littlejs-homerderby.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-jetdash": {
+      "file": "littlejs-jetdash.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-jouster": {
+      "file": "littlejs-jouster.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-jumpman": {
+      "file": "littlejs-jumpman.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-klondike": {
+      "file": "littlejs-klondike.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-matchthree": {
+      "file": "littlejs-matchthree.jpg",
+      "family": "retro",
+      "source": "procedural-original"
+    },
+    "littlejs-microracer": {
+      "file": "littlejs-microracer.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-minesweeper": {
+      "file": "littlejs-minesweeper.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-minigolf": {
+      "file": "littlejs-minigolf.jpg",
+      "family": "retro",
+      "source": "procedural-original"
+    },
+    "littlejs-missiledefense": {
+      "file": "littlejs-missiledefense.jpg",
+      "family": "retro",
+      "source": "procedural-original"
+    },
+    "littlejs-moonbuggy": {
+      "file": "littlejs-moonbuggy.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-moonlander": {
+      "file": "littlejs-moonlander.jpg",
+      "family": "retro",
+      "source": "procedural-original"
+    },
+    "littlejs-mrdrill": {
+      "file": "littlejs-mrdrill.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-musicsequencer": {
+      "file": "littlejs-musicsequencer.jpg",
+      "family": "retro",
+      "source": "procedural-original"
+    },
+    "littlejs-orbitswarm": {
+      "file": "littlejs-orbitswarm.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-pegball": {
+      "file": "littlejs-pegball.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-pillars": {
+      "file": "littlejs-pillars.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-pinball": {
+      "file": "littlejs-pinball.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-plinko": {
+      "file": "littlejs-plinko.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-pong": {
+      "file": "littlejs-pong.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-pool": {
+      "file": "littlejs-pool.jpg",
+      "family": "retro",
+      "source": "procedural-original"
+    },
+    "littlejs-powerwing": {
+      "file": "littlejs-powerwing.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-protector": {
+      "file": "littlejs-protector.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-pucman": {
+      "file": "littlejs-pucman.jpg",
+      "family": "retro",
+      "source": "procedural-original"
+    },
+    "littlejs-reversi": {
+      "file": "littlejs-reversi.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-riverstrike": {
+      "file": "littlejs-riverstrike.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-roborescue": {
+      "file": "littlejs-roborescue.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-skiing": {
+      "file": "littlejs-skiing.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-skyhop": {
+      "file": "littlejs-skyhop.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-slotdemon": {
+      "file": "littlejs-slotdemon.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-snake": {
+      "file": "littlejs-snake.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-sokoban": {
+      "file": "littlejs-sokoban.jpg",
+      "family": "retro",
+      "source": "procedural-original"
+    },
+    "littlejs-spaceintruders": {
+      "file": "littlejs-spaceintruders.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-speedway": {
+      "file": "littlejs-speedway.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-spydriver": {
+      "file": "littlejs-spydriver.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-sudoku": {
+      "file": "littlejs-sudoku.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-tankcombat": {
+      "file": "littlejs-tankcombat.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-tetrix": {
+      "file": "littlejs-tetrix.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-wordly": {
+      "file": "littlejs-wordly.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-wulfstein": {
+      "file": "littlejs-wulfstein.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "littlejs-zoomi": {
+      "file": "littlejs-zoomi.jpg",
+      "family": "arcade",
+      "source": "procedural-original"
+    },
+    "slot-original-001": {
+      "file": "slot-original-001.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-002": {
+      "file": "slot-original-002.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-003": {
+      "file": "slot-original-003.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-004": {
+      "file": "slot-original-004.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-005": {
+      "file": "slot-original-005.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-006": {
+      "file": "slot-original-006.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-007": {
+      "file": "slot-original-007.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-008": {
+      "file": "slot-original-008.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-009": {
+      "file": "slot-original-009.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-010": {
+      "file": "slot-original-010.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-011": {
+      "file": "slot-original-011.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-012": {
+      "file": "slot-original-012.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-013": {
+      "file": "slot-original-013.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-014": {
+      "file": "slot-original-014.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-015": {
+      "file": "slot-original-015.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-016": {
+      "file": "slot-original-016.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-017": {
+      "file": "slot-original-017.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-018": {
+      "file": "slot-original-018.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-019": {
+      "file": "slot-original-019.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-020": {
+      "file": "slot-original-020.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-021": {
+      "file": "slot-original-021.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-022": {
+      "file": "slot-original-022.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-023": {
+      "file": "slot-original-023.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-024": {
+      "file": "slot-original-024.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-025": {
+      "file": "slot-original-025.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-026": {
+      "file": "slot-original-026.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-027": {
+      "file": "slot-original-027.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-028": {
+      "file": "slot-original-028.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-029": {
+      "file": "slot-original-029.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-030": {
+      "file": "slot-original-030.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-031": {
+      "file": "slot-original-031.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-032": {
+      "file": "slot-original-032.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-033": {
+      "file": "slot-original-033.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-034": {
+      "file": "slot-original-034.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-035": {
+      "file": "slot-original-035.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-036": {
+      "file": "slot-original-036.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-037": {
+      "file": "slot-original-037.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-038": {
+      "file": "slot-original-038.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-039": {
+      "file": "slot-original-039.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-040": {
+      "file": "slot-original-040.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-041": {
+      "file": "slot-original-041.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-042": {
+      "file": "slot-original-042.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-043": {
+      "file": "slot-original-043.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-044": {
+      "file": "slot-original-044.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-045": {
+      "file": "slot-original-045.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-046": {
+      "file": "slot-original-046.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-047": {
+      "file": "slot-original-047.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-048": {
+      "file": "slot-original-048.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-049": {
+      "file": "slot-original-049.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-050": {
+      "file": "slot-original-050.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-051": {
+      "file": "slot-original-051.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-052": {
+      "file": "slot-original-052.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-053": {
+      "file": "slot-original-053.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-054": {
+      "file": "slot-original-054.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-055": {
+      "file": "slot-original-055.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-056": {
+      "file": "slot-original-056.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-057": {
+      "file": "slot-original-057.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-058": {
+      "file": "slot-original-058.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-059": {
+      "file": "slot-original-059.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-060": {
+      "file": "slot-original-060.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-061": {
+      "file": "slot-original-061.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-062": {
+      "file": "slot-original-062.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-063": {
+      "file": "slot-original-063.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-064": {
+      "file": "slot-original-064.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-065": {
+      "file": "slot-original-065.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-066": {
+      "file": "slot-original-066.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-067": {
+      "file": "slot-original-067.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-068": {
+      "file": "slot-original-068.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-069": {
+      "file": "slot-original-069.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-070": {
+      "file": "slot-original-070.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-071": {
+      "file": "slot-original-071.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-072": {
+      "file": "slot-original-072.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-073": {
+      "file": "slot-original-073.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-074": {
+      "file": "slot-original-074.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-075": {
+      "file": "slot-original-075.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-076": {
+      "file": "slot-original-076.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-077": {
+      "file": "slot-original-077.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-078": {
+      "file": "slot-original-078.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-079": {
+      "file": "slot-original-079.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-080": {
+      "file": "slot-original-080.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-081": {
+      "file": "slot-original-081.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-082": {
+      "file": "slot-original-082.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-083": {
+      "file": "slot-original-083.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-084": {
+      "file": "slot-original-084.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-085": {
+      "file": "slot-original-085.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-086": {
+      "file": "slot-original-086.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-087": {
+      "file": "slot-original-087.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-088": {
+      "file": "slot-original-088.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-089": {
+      "file": "slot-original-089.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-090": {
+      "file": "slot-original-090.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-091": {
+      "file": "slot-original-091.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-092": {
+      "file": "slot-original-092.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-093": {
+      "file": "slot-original-093.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-094": {
+      "file": "slot-original-094.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-095": {
+      "file": "slot-original-095.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-096": {
+      "file": "slot-original-096.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-097": {
+      "file": "slot-original-097.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-098": {
+      "file": "slot-original-098.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-099": {
+      "file": "slot-original-099.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-100": {
+      "file": "slot-original-100.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-101": {
+      "file": "slot-original-101.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-102": {
+      "file": "slot-original-102.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-103": {
+      "file": "slot-original-103.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-104": {
+      "file": "slot-original-104.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-105": {
+      "file": "slot-original-105.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-106": {
+      "file": "slot-original-106.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-107": {
+      "file": "slot-original-107.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-108": {
+      "file": "slot-original-108.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-109": {
+      "file": "slot-original-109.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-110": {
+      "file": "slot-original-110.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-111": {
+      "file": "slot-original-111.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-112": {
+      "file": "slot-original-112.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-113": {
+      "file": "slot-original-113.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-114": {
+      "file": "slot-original-114.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-115": {
+      "file": "slot-original-115.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-116": {
+      "file": "slot-original-116.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-117": {
+      "file": "slot-original-117.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-118": {
+      "file": "slot-original-118.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-119": {
+      "file": "slot-original-119.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-120": {
+      "file": "slot-original-120.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-121": {
+      "file": "slot-original-121.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-122": {
+      "file": "slot-original-122.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-123": {
+      "file": "slot-original-123.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-124": {
+      "file": "slot-original-124.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-125": {
+      "file": "slot-original-125.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-126": {
+      "file": "slot-original-126.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    },
+    "slot-original-127": {
+      "file": "slot-original-127.jpg",
+      "family": "slots",
+      "source": "procedural-original"
+    }
+  }
+}

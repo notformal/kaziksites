@@ -1,0 +1,38 @@
+- generic [ref=e2]:
+  - heading "This is Pong!" [level=2] [ref=e3]
+  - list [ref=e4]:
+    - listitem [ref=e5]:
+      - link "Full Game" [ref=e6] [cursor=pointer]:
+        - /url: /
+    - listitem [ref=e7]:
+      - link "game runner - Part 1" [ref=e8] [cursor=pointer]:
+        - /url: /part1
+    - listitem [ref=e9]:
+      - link "bouncing ball - Part 2" [ref=e10] [cursor=pointer]:
+        - /url: /part2
+    - listitem [ref=e11]:
+      - link "game loop - Part 3" [ref=e12] [cursor=pointer]:
+        - /url: /part3
+    - listitem [ref=e13]:
+      - link "collision detection - Part 4" [ref=e14] [cursor=pointer]:
+        - /url: /part4
+    - listitem [ref=e15]:
+      - link "computer AI - Part 5" [ref=e16] [cursor=pointer]:
+        - /url: /part5
+  - generic [ref=e17]:
+    - paragraph [ref=e18]: This is a javascript version of Pong.
+    - paragraph [ref=e19]: Press 1 for a single player game. Press 2 for a double player game. Press 0 to watch the computer play itself.
+    - paragraph [ref=e20]: Player 1 moves using the Q and A keys. Player 2 moves using the P and L keys.
+    - paragraph [ref=e21]: Esc can be used to abandon a game.
+  - generic [ref=e22]:
+    - text: "sound:"
+    - checkbox "sound:" [ref=e23]
+  - generic [ref=e24]:
+    - text: "stats:"
+    - checkbox "stats:" [checked] [ref=e25]
+  - generic [ref=e26]:
+    - text: "footprints:"
+    - checkbox "footprints:" [ref=e27]
+  - generic [ref=e28]:
+    - text: "predictions:"
+    - checkbox "predictions:" [ref=e29]

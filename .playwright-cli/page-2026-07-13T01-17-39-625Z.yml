@@ -1,0 +1,39 @@
+- generic [active] [ref=e1]:
+  - heading "Index of /" [level=1] [ref=e2]
+  - table [ref=e3]:
+    - rowgroup [ref=e4]:
+      - row [ref=e5]:
+        - cell [ref=e6]
+        - cell [ref=e8]:
+          - code [ref=e9]: (drw-rw-rw-)
+        - cell "13-июль-2026 02:46" [ref=e10]
+        - cell [ref=e11]:
+          - code
+        - cell [ref=e12]:
+          - link "aurora/" [ref=e13] [cursor=pointer]:
+            - /url: ./aurora/
+      - row [ref=e14]:
+        - cell [ref=e15]
+        - cell [ref=e17]:
+          - code [ref=e18]: (drw-rw-rw-)
+        - cell "13-июль-2026 02:46" [ref=e19]
+        - cell [ref=e20]:
+          - code
+        - cell [ref=e21]:
+          - link "ember/" [ref=e22] [cursor=pointer]:
+            - /url: ./ember/
+      - row [ref=e23]:
+        - cell [ref=e24]
+        - cell [ref=e26]:
+          - code [ref=e27]: (drw-rw-rw-)
+        - cell "13-июль-2026 02:46" [ref=e28]
+        - cell [ref=e29]:
+          - code
+        - cell [ref=e30]:
+          - link "royale/" [ref=e31] [cursor=pointer]:
+            - /url: ./royale/
+  - generic [ref=e32]:
+    - text: Node.js v24.14.0/
+    - link "http-server" [ref=e33] [cursor=pointer]:
+      - /url: https://github.com/http-party/http-server
+    - text: server running @ 127.0.0.1:4173

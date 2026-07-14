@@ -1,0 +1,32 @@
+{
+  "name": "arcade-showcase-trilogy",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:full": "concurrently -k -n API,WEB -c yellow,cyan \"npm start --prefix server\" \"vite --host 127.0.0.1\"",
+    "build": "npm run build:aurora && npm run build:ember && npm run build:royale",
+    "build:aurora": "cross-env VITE_BRAND=aurora vite build --outDir dist/aurora",
+    "build:ember": "cross-env VITE_BRAND=ember vite build --outDir dist/ember",
+    "build:royale": "cross-env VITE_BRAND=royale vite build --outDir dist/royale",
+    "preview": "vite preview",
+    "verify:dist": "node scripts/verify-dist.mjs",
+    "test": "vitest run && npm test --prefix server",
+    "lint": "eslint src --max-warnings=0"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "latest",
+    "lucide-react": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "vite": "latest"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3",
+    "cross-env": "latest",
+    "eslint": "latest",
+    "eslint-plugin-react-hooks": "latest",
+    "vitest": "latest"
+  }
+}

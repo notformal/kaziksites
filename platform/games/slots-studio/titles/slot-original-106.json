@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "id": "slot-original-106",
+  "title": "Cosmic Harbor",
+  "theme": {
+    "accent": "#ffcd57",
+    "background": "#1c102d",
+    "panel": "#332050",
+    "text": "#fff8e8"
+  },
+  "symbols": [
+    {
+      "id": "crown",
+      "label": "♛ Crown",
+      "color": "#ffcd57",
+      "kind": "regular"
+    },
+    {
+      "id": "gem",
+      "label": "◆ Gem",
+      "color": "#1c102d",
+      "kind": "regular"
+    },
+    {
+      "id": "star",
+      "label": "★ Star",
+      "color": "#ffcd57",
+      "kind": "regular"
+    },
+    {
+      "id": "bell",
+      "label": "● Bell",
+      "color": "#1c102d",
+      "kind": "regular"
+    },
+    {
+      "id": "moon",
+      "label": "☾ Moon",
+      "color": "#ffcd57",
+      "kind": "regular"
+    },
+    {
+      "id": "spark",
+      "label": "✦ Spark",
+      "color": "#1c102d",
+      "kind": "regular"
+    },
+    {
+      "id": "wild",
+      "label": "W Wild",
+      "color": "#ffcd57",
+      "kind": "wild"
+    },
+    {
+      "id": "bonus",
+      "label": "B Bonus",
+      "color": "#1c102d",
+      "kind": "scatter"
+    }
+  ],
+  "paytable": {
+    "crown": [
+      0,
+      0,
+      12,
+      36,
+      96
+    ],
+    "gem": [
+      0,
+      0,
+      9,
+      27,
+      72
+    ],
+    "star": [
+      0,
+      0,
+      7,
+      21,
+      56
+    ],
+    "bell": [
+      0,
+      0,
+      6,
+      18,
+      48
+    ],
+    "moon": [
+      0,
+      0,
+      5,
+      15,
+      40
+    ],
+    "spark": [
+      0,
+      0,
+      4,
+      12,
+      32
+    ],
+    "wild": [
+      0,
+      0,
+      18,
+      54,
+      144
+    ],
+    "bonus": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "reels": 5,
+  "rows": 3,
+  "lines": 10,
+  "betOptions": [
+    10,
+    25,
+    50,
+    100,
+    250
+  ],
+  "volatility": "low",
+  "mathProfile": {
+    "version": "1.0.0",
+    "hitRate": 0.34,
+    "weights": {
+      "crown": 5,
+      "gem": 7,
+      "star": 10,
+      "bell": 13,
+      "moon": 17,
+      "spark": 22,
+      "wild": 3,
+      "bonus": 2
+    },
+    "bonus": {
+      "type": "free-spins",
+      "triggerSymbol": "bonus",
+      "triggerCount": 3,
+      "freeSpins": 9,
+      "multiplier": 1
+    }
+  }
+}

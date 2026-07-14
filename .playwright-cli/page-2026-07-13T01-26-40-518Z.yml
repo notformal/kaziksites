@@ -1,0 +1,207 @@
+- main [ref=f4e3]:
+  - generic [ref=f4e4]:
+    - link "Royale House" [ref=f4e5] [cursor=pointer]:
+      - /url: "#top"
+    - navigation [ref=f4e9]:
+      - link "Games" [ref=f4e10] [cursor=pointer]:
+        - /url: "#games"
+      - link "Rewards" [ref=f4e11] [cursor=pointer]:
+        - /url: "#rewards"
+      - link "About" [ref=f4e12] [cursor=pointer]:
+        - /url: "#about"
+    - generic [ref=f4e13]:
+      - button "Account" [ref=f4e14] [cursor=pointer]
+      - button "PROFILE" [ref=f4e243] [cursor=pointer]
+  - generic [ref=f4e19]:
+    - generic [ref=f4e20]:
+      - text: CURATED ENTERTAINMENT
+      - heading "Play, beautifully." [level=1] [ref=f4e21]
+      - paragraph [ref=f4e22]: A refined collection of modern arcade classics, selected for exceptional play.
+      - generic [ref=f4e23]:
+        - link "EXPLORE GAMES" [ref=f4e24] [cursor=pointer]:
+          - /url: "#games"
+        - link "HOW IT WORKS" [ref=f4e27] [cursor=pointer]:
+          - /url: "#about"
+      - generic [ref=f4e28]: DEMO COLLECTION
+    - generic [ref=f4e31]:
+      - generic [ref=f4e32]: "7"
+      - generic [ref=f4e33]: ★
+      - generic [ref=f4e34]: ♛
+  - generic [ref=f4e35]:
+    - generic [ref=f4e36]: SERVER-VERIFIED PLAY
+    - generic [ref=f4e40]: DAILY COLLECTIONS
+    - generic [ref=f4e45]: 10 PLAYABLE GAMES
+  - generic [ref=f4e48]:
+    - generic [ref=f4e49]:
+      - generic [ref=f4e50]:
+        - text: THE COLLECTION
+        - heading "Find your next favorite" [level=2] [ref=f4e51]
+      - textbox "Search games" [ref=f4e56]:
+        - /placeholder: Search games...
+    - generic [ref=f4e57]:
+      - button "All" [ref=f4e58] [cursor=pointer]
+      - button "Popular" [ref=f4e59] [cursor=pointer]
+      - button "Favorites" [ref=f4e60] [cursor=pointer]
+      - button "Recent" [ref=f4e61] [cursor=pointer]
+      - button "Slots" [ref=f4e62] [cursor=pointer]
+      - button "Crash" [ref=f4e63] [cursor=pointer]
+      - button "Jackpots" [ref=f4e64] [cursor=pointer]
+      - button "Arcade" [ref=f4e65] [cursor=pointer]
+      - button "Table" [ref=f4e66] [cursor=pointer]
+      - button "Instant" [ref=f4e67] [cursor=pointer]
+      - button "New" [ref=f4e68] [cursor=pointer]
+    - generic [ref=f4e69]:
+      - article [ref=f4e70]:
+        - button "Play 2048" [ref=f4e71] [cursor=pointer]:
+          - generic [ref=f4e72]:
+            - generic [ref=f4e73]: 🔢
+            - generic [ref=f4e74]: HOT
+            - emphasis [ref=f4e75]: NEW
+          - generic [ref=f4e76]:
+            - strong [ref=f4e77]: "2048"
+            - generic [ref=f4e78]:
+              - text: Gabriele Cirulli
+              - generic [ref=f4e79]: "4.0"
+          - generic [ref=f4e82]: PLAY
+        - button "Add 2048 to favorites" [ref=f4e83] [cursor=pointer]
+      - article [ref=f4e86]:
+        - button "Play Canvas Tetris" [ref=f4e87] [cursor=pointer]:
+          - generic [ref=f4e88]: 🧱
+          - generic [ref=f4e90]:
+            - strong [ref=f4e91]: Canvas Tetris
+            - generic [ref=f4e92]:
+              - text: Dionysis Zindros
+              - generic [ref=f4e93]: "4.1"
+          - generic [ref=f4e96]: PLAY
+        - button "Add Canvas Tetris to favorites" [ref=f4e97] [cursor=pointer]
+      - article [ref=f4e100]:
+        - button "Play Night Racer" [ref=f4e101] [cursor=pointer]:
+          - generic [ref=f4e102]: 🏎️
+          - generic [ref=f4e104]:
+            - strong [ref=f4e105]: Night Racer
+            - generic [ref=f4e106]:
+              - text: Jake Gordon
+              - generic [ref=f4e107]: "4.2"
+          - generic [ref=f4e110]: PLAY
+        - button "Add Night Racer to favorites" [ref=f4e111] [cursor=pointer]
+      - article [ref=f4e114]:
+        - button "Play Radius Raid" [ref=f4e115] [cursor=pointer]:
+          - generic [ref=f4e116]: 🚀
+          - generic [ref=f4e118]:
+            - strong [ref=f4e119]: Radius Raid
+            - generic [ref=f4e120]:
+              - text: Jack Rugile
+              - generic [ref=f4e121]: "4.3"
+          - generic [ref=f4e124]: PLAY
+        - button "Add Radius Raid to favorites" [ref=f4e125] [cursor=pointer]
+      - article [ref=f4e128]:
+        - button "Play Classic Pong" [ref=f4e129] [cursor=pointer]:
+          - generic [ref=f4e130]: 🏓
+          - generic [ref=f4e132]:
+            - strong [ref=f4e133]: Classic Pong
+            - generic [ref=f4e134]:
+              - text: Jake Gordon
+              - generic [ref=f4e135]: "4.4"
+          - generic [ref=f4e138]: PLAY
+        - button "Add Classic Pong to favorites" [ref=f4e139] [cursor=pointer]
+      - article [ref=f4e142]:
+        - button "Play Nova Classic Slots" [ref=f4e143] [cursor=pointer]:
+          - generic [ref=f4e144]: 🎰
+          - generic [ref=f4e146]:
+            - strong [ref=f4e147]: Nova Classic Slots
+            - generic [ref=f4e148]:
+              - text: Open Arcade
+              - generic [ref=f4e149]: "4.5"
+          - generic [ref=f4e152]: PLAY
+        - button "Remove Nova Classic Slots from favorites" [ref=f4e244] [cursor=pointer]
+      - article [ref=f4e156]:
+        - button "Play Skyline Crash" [ref=f4e157] [cursor=pointer]:
+          - generic [ref=f4e158]: 📈
+          - generic [ref=f4e160]:
+            - strong [ref=f4e161]: Skyline Crash
+            - generic [ref=f4e162]:
+              - text: Open Arcade
+              - generic [ref=f4e163]: "4.6"
+          - generic [ref=f4e166]: PLAY
+        - button "Add Skyline Crash to favorites" [ref=f4e167] [cursor=pointer]
+      - article [ref=f4e170]:
+        - button "Play Prism Plinko" [active] [ref=f4e171] [cursor=pointer]:
+          - generic [ref=f4e172]:
+            - generic [ref=f4e173]: 🔻
+            - generic [ref=f4e174]: HOT
+          - generic [ref=f4e175]:
+            - strong [ref=f4e176]: Prism Plinko
+            - generic [ref=f4e177]:
+              - text: Open Arcade
+              - generic [ref=f4e178]: "4.7"
+          - generic [ref=f4e181]: PLAY
+        - button "Add Prism Plinko to favorites" [ref=f4e182] [cursor=pointer]
+      - article [ref=f4e185]:
+        - button "Play European Roulette" [ref=f4e186] [cursor=pointer]:
+          - generic [ref=f4e187]: 🎡
+          - generic [ref=f4e189]:
+            - strong [ref=f4e190]: European Roulette
+            - generic [ref=f4e191]:
+              - text: Open Arcade
+              - generic [ref=f4e192]: "4.8"
+          - generic [ref=f4e195]: PLAY
+        - button "Add European Roulette to favorites" [ref=f4e196] [cursor=pointer]
+      - article [ref=f4e199]:
+        - button "Play Keno Plus" [ref=f4e200] [cursor=pointer]:
+          - generic [ref=f4e201]: 🔢
+          - generic [ref=f4e203]:
+            - strong [ref=f4e204]: Keno Plus
+            - generic [ref=f4e205]:
+              - text: Open Arcade
+              - generic [ref=f4e206]: "4.9"
+          - generic [ref=f4e209]: PLAY
+        - button "Add Keno Plus to favorites" [ref=f4e210] [cursor=pointer]
+  - generic [ref=f4e213]:
+    - generic [ref=f4e214]:
+      - text: MEMBER REWARDS
+      - heading "A better reason to come back." [level=2] [ref=f4e215]
+      - paragraph [ref=f4e216]: Create a profile to collect 250 virtual credits every day. Credits have no cash value and cannot be purchased or withdrawn.
+      - button "VIEW REWARDS" [ref=f4e217] [cursor=pointer]
+    - generic [ref=f4e220]:
+      - article [ref=f4e221]:
+        - generic [ref=f4e222]: "01"
+        - generic [ref=f4e223]: Daily discovery
+      - article [ref=f4e224]:
+        - generic [ref=f4e225]: "07"
+        - generic [ref=f4e226]: Weekly streak
+      - article [ref=f4e227]:
+        - generic [ref=f4e228]: ∞
+        - generic [ref=f4e229]: Just for fun
+  - generic [ref=f4e230]:
+    - link "Royale House" [ref=f4e231] [cursor=pointer]:
+      - /url: "#top"
+    - paragraph [ref=f4e234]: Social arcade showcase. All games and balances are demonstrations only. No wagering or cash prizes.
+    - generic [ref=f4e235]:
+      - text: © 2026 Royale House ·
+      - link "Privacy" [ref=f4e236] [cursor=pointer]:
+        - /url: ./legal.html?brand=royale#privacy
+      - text: ·
+      - link "Responsible play" [ref=f4e237] [cursor=pointer]:
+        - /url: ./legal.html?brand=royale#responsible
+      - text: · 18+
+  - dialog [ref=f4e292]:
+    - generic [ref=f4e293]:
+      - generic [ref=f4e294]:
+        - generic [ref=f4e295]:
+          - generic [ref=f4e296]: SERVER-AUTHORITATIVE
+          - generic [ref=f4e297]: Prism Plinko
+        - button [ref=f4e298] [cursor=pointer]
+      - iframe [ref=f4e303]:
+        - main [ref=f5e2]:
+          - generic [ref=f5e3]:
+            - generic [ref=f5e4]: PULSE PLINKO
+            - generic [ref=f5e5]:
+              - text: Баланс
+              - strong [ref=f5e6]: 5 502
+          - generic [ref=f5e8]: Выберите ставку и сбросьте шар
+          - generic [ref=f5e9]:
+            - generic [ref=f5e10]:
+              - text: Ставка
+              - spinbutton "Ставка" [ref=f5e11]: "100"
+            - button "СБРОСИТЬ ШАР" [ref=f5e12]
+          - generic [ref=f5e13]: Virtual credits only · server-authoritative outcome

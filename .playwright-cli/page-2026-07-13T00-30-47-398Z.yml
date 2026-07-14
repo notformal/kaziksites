@@ -1,0 +1,64 @@
+- generic [active] [ref=e1]:
+  - table [ref=e2]:
+    - rowgroup [ref=e3]:
+      - row [ref=e4]:
+        - cell [ref=e5]:
+          - link "straight" [ref=e6] [cursor=pointer]:
+            - /url: v1.straight.html
+          - text: "|"
+          - link "curves" [ref=e7] [cursor=pointer]:
+            - /url: v2.curves.html
+          - text: "|"
+          - link "hills" [ref=e8] [cursor=pointer]:
+            - /url: v3.hills.html
+          - text: "|"
+          - link "final" [ref=e9] [cursor=pointer]:
+            - /url: v4.final.html
+      - row [ref=e10]:
+        - cell "FPS Your canvas performance is ..." [ref=e11]:
+          - generic [ref=e12] [cursor=pointer]: FPS
+          - generic [ref=e90]: Your canvas performance is ...
+      - row [ref=e91]:
+        - rowheader "Resolution :" [ref=e92]
+        - cell "High (1024x768)" [ref=e93]:
+          - combobox "Resolution :" [ref=e94]:
+            - option "Fine (1280x960)"
+            - option "High (1024x768)" [selected]
+            - option "Medium (640x480)"
+            - option "Low (480x360)"
+      - row [ref=e95]:
+        - rowheader "Lanes :" [ref=e96]
+        - cell "3" [ref=e97]:
+          - combobox "Lanes :" [ref=e98]:
+            - option "1"
+            - option "2"
+            - option "3" [selected]
+            - option "4"
+      - row [ref=e99]:
+        - rowheader "Road Width (2000) :" [ref=e100]
+        - cell [ref=e102]:
+          - slider "Road Width (2000) :" [ref=e103]: "2000"
+      - row [ref=e104]:
+        - rowheader "CameraHeight (1000) :" [ref=e105]
+        - cell [ref=e107]:
+          - slider "CameraHeight (1000) :" [ref=e108]: "1000"
+      - row [ref=e109]:
+        - rowheader "Draw Distance (300) :" [ref=e110]
+        - cell [ref=e112]:
+          - slider "Draw Distance (300) :" [ref=e113]: "300"
+      - row [ref=e114]:
+        - rowheader "Field of View (100) :" [ref=e115]
+        - cell [ref=e117]:
+          - slider "Field of View (100) :" [ref=e118]: "100"
+      - row [ref=e119]:
+        - rowheader "Fog Density (5) :" [ref=e120]
+        - cell [ref=e122]:
+          - slider "Fog Density (5) :" [ref=e123]: "5"
+  - paragraph [ref=e125]: Use the arrow keys to drive the car.
+  - generic [ref=e126]:
+    - generic [ref=e127]:
+      - generic [ref=e128]: 0 mph
+      - generic [ref=e129]: "Time: 0.0"
+      - generic [ref=e130]: "Fastest Lap: 3.00.0"
+    - generic [ref=e131]: Sorry, this example cannot be run because your browser does not support the <canvas> element
+    - text: Loading...

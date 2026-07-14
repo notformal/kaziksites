@@ -1,0 +1,149 @@
+- main [ref=e3]:
+  - generic [ref=e4]:
+    - link "Aurora Play" [ref=e5] [cursor=pointer]:
+      - /url: "#top"
+    - navigation [ref=e9]:
+      - link "Games" [ref=e10] [cursor=pointer]:
+        - /url: "#games"
+      - link "Rewards" [ref=e11] [cursor=pointer]:
+        - /url: "#rewards"
+      - link "About" [ref=e12] [cursor=pointer]:
+        - /url: "#about"
+    - generic [ref=e13]:
+      - button "Account" [ref=e14] [cursor=pointer]
+      - button "PROFILE" [ref=e460] [cursor=pointer]
+  - generic [ref=e19]:
+    - generic [ref=e20]:
+      - text: PLAY BEYOND
+      - heading "The next level of play." [level=1] [ref=e21]
+      - paragraph [ref=e22]: A precision-built social arcade with instant access to 200 playable games.
+      - generic [ref=e23]:
+        - link "EXPLORE GAMES" [ref=e24] [cursor=pointer]:
+          - /url: "#games"
+        - link "HOW IT WORKS" [ref=e27] [cursor=pointer]:
+          - /url: "#about"
+      - generic [ref=e28]: DEMO ENVIRONMENT
+    - generic [ref=e31]:
+      - generic [ref=e32]: "7"
+      - generic [ref=e33]: ★
+      - generic [ref=e34]: ♛
+  - generic [ref=e35]:
+    - generic [ref=e36]: SERVER-VERIFIED PLAY
+    - generic [ref=e40]: DAILY COLLECTIONS
+    - generic [ref=e45]: 200 PLAYABLE GAMES
+  - generic [ref=e48]:
+    - generic [ref=e49]:
+      - generic [ref=e50]:
+        - text: THE COLLECTION
+        - heading "Find your next favorite" [level=2] [ref=e51]
+      - textbox "Search games" [ref=e56]:
+        - /placeholder: Search games...
+        - text: Solar Orchard
+    - generic [ref=e57]:
+      - button "All" [ref=e58] [cursor=pointer]
+      - button "Popular" [ref=e59] [cursor=pointer]
+      - button "Favorites" [ref=e60] [cursor=pointer]
+      - button "Recent" [ref=e61] [cursor=pointer]
+      - button "Slots" [ref=e62] [cursor=pointer]
+      - button "Crash" [ref=e63] [cursor=pointer]
+      - button "Jackpots" [ref=e64] [cursor=pointer]
+      - button "Arcade" [ref=e65] [cursor=pointer]
+      - button "Table" [ref=e66] [cursor=pointer]
+      - button "Instant" [ref=e67] [cursor=pointer]
+      - button "New" [ref=e68] [cursor=pointer]
+    - article [ref=e560]:
+      - button "Play Solar Orchard" [ref=e561] [cursor=pointer]:
+        - generic [ref=e562]: ★
+        - generic [ref=e564]:
+          - strong [ref=e565]: Solar Orchard
+          - generic [ref=e566]:
+            - text: Open Arcade Studio
+            - generic [ref=e567]: "4.2"
+        - generic [ref=e570]: PLAY
+      - button "Add Solar Orchard to favorites" [ref=e571] [cursor=pointer]
+  - generic [ref=e413]:
+    - generic [ref=e414]:
+      - text: MEMBER REWARDS
+      - heading "A better reason to come back." [level=2] [ref=e415]
+      - paragraph [ref=e416]: Create a profile to collect 250 virtual credits every day. Credits have no cash value and cannot be purchased or withdrawn.
+      - button "VIEW REWARDS" [ref=e417] [cursor=pointer]
+    - generic [ref=e420]:
+      - article [ref=e421]:
+        - generic [ref=e422]: "01"
+        - generic [ref=e423]: Daily discovery
+      - article [ref=e424]:
+        - generic [ref=e425]: "07"
+        - generic [ref=e426]: Weekly streak
+      - article [ref=e427]:
+        - generic [ref=e428]: ∞
+        - generic [ref=e429]: Just for fun
+  - generic [ref=e430]:
+    - link "Aurora Play" [ref=e431] [cursor=pointer]:
+      - /url: "#top"
+    - paragraph [ref=e434]: Social arcade showcase. All games and balances are demonstrations only. No wagering or cash prizes.
+    - generic [ref=e435]:
+      - text: © 2026 Aurora Play ·
+      - link "Privacy" [ref=e436] [cursor=pointer]:
+        - /url: ./legal.html?brand=aurora#privacy
+      - text: ·
+      - link "Responsible play" [ref=e437] [cursor=pointer]:
+        - /url: ./legal.html?brand=aurora#responsible
+      - text: · 18+
+  - dialog [ref=e574]:
+    - generic [ref=e575]:
+      - generic [ref=e576]:
+        - generic [ref=e577]:
+          - generic [ref=e578]: SERVER-AUTHORITATIVE
+          - generic [ref=e579]: Solar Orchard
+        - button [ref=e580] [cursor=pointer]
+      - iframe [active] [ref=e585]:
+        - main [ref=f3e2]:
+          - generic [ref=f3e3]:
+            - generic [ref=f3e4]:
+              - paragraph [ref=f3e5]: ORIGINALS · PROVABLY FAIR
+              - heading "Solar Orchard" [level=1] [ref=f3e6]
+            - generic [ref=f3e7]:
+              - generic [ref=f3e8]: Баланс
+              - strong [ref=f3e9]: 4 976
+              - generic [ref=f3e10]: CREDITS
+          - generic [ref=f3e11]:
+            - generic [ref=f3e12]:
+              - generic [ref=f3e13]: VOLATILITY · HIGH
+              - generic [ref=f3e14]: BONUS AWARD RESPIN · 3× bonus
+            - img "Игровые барабаны" [ref=f3e15]:
+              - generic [ref=f3e16]:
+                - generic [ref=f3e17]: ⌁ Signal
+                - generic [ref=f3e18]: ⌁ Signal
+                - generic [ref=f3e19]: ✧ Dust
+              - generic [ref=f3e20]:
+                - generic [ref=f3e21]: ✧ Dust
+                - generic [ref=f3e22]: ◎ Orbit
+                - generic [ref=f3e23]: ✷ Nova
+              - generic [ref=f3e24]:
+                - generic [ref=f3e25]: ▲ Rocket
+                - generic [ref=f3e26]: ◎ Orbit
+                - generic [ref=f3e27]: ✧ Dust
+              - generic [ref=f3e28]:
+                - generic [ref=f3e29]: ✧ Dust
+                - generic [ref=f3e30]: ✷ Nova
+                - generic [ref=f3e31]: ✧ Dust
+              - generic [ref=f3e32]:
+                - generic [ref=f3e33]: ✧ Dust
+                - generic [ref=f3e34]: ⌁ Signal
+                - generic [ref=f3e35]: ⌁ Signal
+          - generic [ref=f3e36]:
+            - generic [ref=f3e37]:
+              - text: Ставка
+              - combobox "Ставка" [ref=f3e38]:
+                - option "10 CREDITS" [selected]
+                - option "25 CREDITS"
+                - option "50 CREDITS"
+                - option "100 CREDITS"
+                - option "250 CREDITS"
+            - button "КРУТИТЬ" [ref=f3e39] [cursor=pointer]
+            - status [ref=f3e40]: Готово к игре
+          - group [ref=f3e41]:
+            - generic "Таблица выплат" [ref=f3e42] [cursor=pointer]
+          - generic [ref=f3e43]:
+            - generic [ref=f3e44]: MATH 1.0.0 · 10 LINES
+            - generic [ref=f3e45]: Исход и выигрыш рассчитывает сервер

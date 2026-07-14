@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "id": "slot-original-119",
+  "title": "Neon Horizon",
+  "theme": {
+    "accent": "#5de2c2",
+    "background": "#061d26",
+    "panel": "#123747",
+    "text": "#effffc"
+  },
+  "symbols": [
+    {
+      "id": "sun",
+      "label": "☀ Sun",
+      "color": "#5de2c2",
+      "kind": "regular"
+    },
+    {
+      "id": "wave",
+      "label": "≋ Wave",
+      "color": "#061d26",
+      "kind": "regular"
+    },
+    {
+      "id": "leaf",
+      "label": "♣ Leaf",
+      "color": "#5de2c2",
+      "kind": "regular"
+    },
+    {
+      "id": "pearl",
+      "label": "○ Pearl",
+      "color": "#061d26",
+      "kind": "regular"
+    },
+    {
+      "id": "kite",
+      "label": "◇ Kite",
+      "color": "#5de2c2",
+      "kind": "regular"
+    },
+    {
+      "id": "bloom",
+      "label": "✿ Bloom",
+      "color": "#061d26",
+      "kind": "regular"
+    },
+    {
+      "id": "wild",
+      "label": "W Wild",
+      "color": "#5de2c2",
+      "kind": "wild"
+    },
+    {
+      "id": "bonus",
+      "label": "B Bonus",
+      "color": "#061d26",
+      "kind": "scatter"
+    }
+  ],
+  "paytable": {
+    "sun": [
+      0,
+      0,
+      18,
+      54,
+      144
+    ],
+    "wave": [
+      0,
+      0,
+      13,
+      39,
+      104
+    ],
+    "leaf": [
+      0,
+      0,
+      10,
+      30,
+      80
+    ],
+    "pearl": [
+      0,
+      0,
+      8,
+      24,
+      64
+    ],
+    "kite": [
+      0,
+      0,
+      6,
+      18,
+      48
+    ],
+    "bloom": [
+      0,
+      0,
+      5,
+      15,
+      40
+    ],
+    "wild": [
+      0,
+      0,
+      25,
+      75,
+      200
+    ],
+    "bonus": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "reels": 5,
+  "rows": 3,
+  "lines": 10,
+  "betOptions": [
+    10,
+    25,
+    50,
+    100,
+    250
+  ],
+  "volatility": "medium",
+  "mathProfile": {
+    "version": "1.0.0",
+    "hitRate": 0.27,
+    "weights": {
+      "sun": 4,
+      "wave": 6,
+      "leaf": 9,
+      "pearl": 12,
+      "kite": 16,
+      "bloom": 21,
+      "wild": 3,
+      "bonus": 2
+    },
+    "bonus": {
+      "type": "multiplier",
+      "triggerSymbol": "bonus",
+      "triggerCount": 3,
+      "freeSpins": 0,
+      "multiplier": 5
+    }
+  }
+}

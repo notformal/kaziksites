@@ -1,0 +1,186 @@
+- main [ref=e3]:
+  - generic [ref=e4]:
+    - link "Ember Club" [ref=e5] [cursor=pointer]:
+      - /url: "#top"
+    - navigation [ref=e9]:
+      - link "Games" [ref=e10] [cursor=pointer]:
+        - /url: "#games"
+      - link "Rewards" [ref=e11] [cursor=pointer]:
+        - /url: "#rewards"
+      - link "About" [ref=e12] [cursor=pointer]:
+        - /url: "#about"
+    - generic [ref=e13]:
+      - button "Account" [ref=e14] [cursor=pointer]
+      - button "PROFILE" [ref=e260] [cursor=pointer]
+  - generic [ref=e19]:
+    - generic [ref=e20]:
+      - text: THE NIGHT IS YOURS
+      - heading "Turn up the thrill." [level=1] [ref=e21]
+      - paragraph [ref=e22]: Electric games, live rewards and a members-club atmosphere—every night.
+      - generic [ref=e23]:
+        - link "EXPLORE GAMES" [ref=e24] [cursor=pointer]:
+          - /url: "#games"
+        - link "HOW IT WORKS" [ref=e27] [cursor=pointer]:
+          - /url: "#about"
+      - generic [ref=e28]: WEEKEND DROP LIVE
+    - generic [ref=e31]:
+      - generic [ref=e32]: "7"
+      - generic [ref=e33]: ★
+      - generic [ref=e34]: ♛
+  - generic [ref=e35]:
+    - generic [ref=e36]: SERVER-VERIFIED PLAY
+    - generic [ref=e40]: DAILY COLLECTIONS
+    - generic [ref=e45]: 10 PLAYABLE GAMES
+  - generic [ref=e48]:
+    - generic [ref=e49]:
+      - generic [ref=e50]:
+        - text: THE COLLECTION
+        - heading "Find your next favorite" [level=2] [ref=e51]
+      - textbox "Search games" [ref=e56]:
+        - /placeholder: Search games...
+    - generic [ref=e57]:
+      - button "All" [ref=e58] [cursor=pointer]
+      - button "Popular" [ref=e59] [cursor=pointer]
+      - button "Favorites" [ref=e60] [cursor=pointer]
+      - button "Recent" [ref=e61] [cursor=pointer]
+      - button "Slots" [ref=e62] [cursor=pointer]
+      - button "Crash" [ref=e63] [cursor=pointer]
+      - button "Jackpots" [ref=e64] [cursor=pointer]
+      - button "Arcade" [ref=e65] [cursor=pointer]
+      - button "Table" [ref=e66] [cursor=pointer]
+      - button "Instant" [ref=e67] [cursor=pointer]
+      - button "New" [ref=e68] [cursor=pointer]
+    - generic [ref=e69]:
+      - article [ref=e307]:
+        - button "Play 2048" [ref=e308] [cursor=pointer]:
+          - generic [ref=e309]:
+            - generic [ref=e310]: 🔢
+            - generic [ref=e311]: HOT
+            - emphasis [ref=e312]: NEW
+          - generic [ref=e313]:
+            - strong [ref=e314]: "2048"
+            - generic [ref=e315]:
+              - text: Gabriele Cirulli
+              - generic [ref=e316]: "4.0"
+          - generic [ref=e319]: PLAY
+        - button "Add 2048 to favorites" [ref=e320] [cursor=pointer]
+      - article [ref=e323]:
+        - button "Play Canvas Tetris" [ref=e324] [cursor=pointer]:
+          - generic [ref=e325]: 🧱
+          - generic [ref=e327]:
+            - strong [ref=e328]: Canvas Tetris
+            - generic [ref=e329]:
+              - text: Dionysis Zindros
+              - generic [ref=e330]: "4.1"
+          - generic [ref=e333]: PLAY
+        - button "Add Canvas Tetris to favorites" [ref=e334] [cursor=pointer]
+      - article [ref=e337]:
+        - button "Play Night Racer" [ref=e338] [cursor=pointer]:
+          - generic [ref=e339]: 🏎️
+          - generic [ref=e341]:
+            - strong [ref=e342]: Night Racer
+            - generic [ref=e343]:
+              - text: Jake Gordon
+              - generic [ref=e344]: "4.2"
+          - generic [ref=e347]: PLAY
+        - button "Add Night Racer to favorites" [ref=e348] [cursor=pointer]
+      - article [ref=e351]:
+        - button "Play Radius Raid" [ref=e352] [cursor=pointer]:
+          - generic [ref=e353]: 🚀
+          - generic [ref=e355]:
+            - strong [ref=e356]: Radius Raid
+            - generic [ref=e357]:
+              - text: Jack Rugile
+              - generic [ref=e358]: "4.3"
+          - generic [ref=e361]: PLAY
+        - button "Add Radius Raid to favorites" [ref=e362] [cursor=pointer]
+      - article [ref=e365]:
+        - button "Play Classic Pong" [ref=e366] [cursor=pointer]:
+          - generic [ref=e367]: 🏓
+          - generic [ref=e369]:
+            - strong [ref=e370]: Classic Pong
+            - generic [ref=e371]:
+              - text: Jake Gordon
+              - generic [ref=e372]: "4.4"
+          - generic [ref=e375]: PLAY
+        - button "Add Classic Pong to favorites" [ref=e376] [cursor=pointer]
+      - article [ref=e142]:
+        - button "Play Nova Classic Slots" [ref=e143] [cursor=pointer]:
+          - generic [ref=e144]: 🎰
+          - generic [ref=e146]:
+            - strong [ref=e147]: Nova Classic Slots
+            - generic [ref=e148]:
+              - text: Open Arcade
+              - generic [ref=e149]: "4.5"
+          - generic [ref=e152]: PLAY
+        - button "Remove Nova Classic Slots from favorites" [ref=e294] [cursor=pointer]
+      - article [ref=e379]:
+        - button "Play Skyline Crash" [ref=e380] [cursor=pointer]:
+          - generic [ref=e381]: 📈
+          - generic [ref=e383]:
+            - strong [ref=e384]: Skyline Crash
+            - generic [ref=e385]:
+              - text: Open Arcade
+              - generic [ref=e386]: "4.6"
+          - generic [ref=e389]: PLAY
+        - button "Add Skyline Crash to favorites" [ref=e390] [cursor=pointer]
+      - article [ref=e393]:
+        - button "Play Prism Plinko" [ref=e394] [cursor=pointer]:
+          - generic [ref=e395]:
+            - generic [ref=e396]: 🔻
+            - generic [ref=e397]: HOT
+          - generic [ref=e398]:
+            - strong [ref=e399]: Prism Plinko
+            - generic [ref=e400]:
+              - text: Open Arcade
+              - generic [ref=e401]: "4.7"
+          - generic [ref=e404]: PLAY
+        - button "Add Prism Plinko to favorites" [ref=e405] [cursor=pointer]
+      - article [ref=e408]:
+        - button "Play European Roulette" [ref=e409] [cursor=pointer]:
+          - generic [ref=e410]: 🎡
+          - generic [ref=e412]:
+            - strong [ref=e413]: European Roulette
+            - generic [ref=e414]:
+              - text: Open Arcade
+              - generic [ref=e415]: "4.8"
+          - generic [ref=e418]: PLAY
+        - button "Add European Roulette to favorites" [ref=e419] [cursor=pointer]
+      - article [ref=e422]:
+        - button "Play Keno Plus" [ref=e423] [cursor=pointer]:
+          - generic [ref=e424]: 🔢
+          - generic [ref=e426]:
+            - strong [ref=e427]: Keno Plus
+            - generic [ref=e428]:
+              - text: Open Arcade
+              - generic [ref=e429]: "4.9"
+          - generic [ref=e432]: PLAY
+        - button "Add Keno Plus to favorites" [ref=e433] [cursor=pointer]
+  - generic [ref=e213]:
+    - generic [ref=e214]:
+      - text: MEMBER REWARDS
+      - heading "A better reason to come back." [level=2] [ref=e215]
+      - paragraph [ref=e216]: Create a profile to collect 250 virtual credits every day. Credits have no cash value and cannot be purchased or withdrawn.
+      - button "VIEW REWARDS" [ref=e217] [cursor=pointer]
+    - generic [ref=e220]:
+      - article [ref=e221]:
+        - generic [ref=e222]: "01"
+        - generic [ref=e223]: Daily discovery
+      - article [ref=e224]:
+        - generic [ref=e225]: "07"
+        - generic [ref=e226]: Weekly streak
+      - article [ref=e227]:
+        - generic [ref=e228]: ∞
+        - generic [ref=e229]: Just for fun
+  - generic [ref=e230]:
+    - link "Ember Club" [ref=e231] [cursor=pointer]:
+      - /url: "#top"
+    - paragraph [ref=e234]: Social arcade showcase. All games and balances are demonstrations only. No wagering or cash prizes.
+    - generic [ref=e235]:
+      - text: © 2026 Ember Club ·
+      - link "Privacy" [ref=e236] [cursor=pointer]:
+        - /url: ./legal.html?brand=ember#privacy
+      - text: ·
+      - link "Responsible play" [ref=e237] [cursor=pointer]:
+        - /url: ./legal.html?brand=ember#responsible
+      - text: · 18+

@@ -1,0 +1,50 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - generic [ref=e4]:
+      - paragraph [ref=e5]: ORIGINALS · PROVABLY FAIR
+      - heading "Golden Comet" [level=1] [ref=e6]
+    - generic [ref=e7]:
+      - generic [ref=e8]: Баланс
+      - strong [ref=e9]: —
+      - generic [ref=e10]: CREDITS
+  - generic [ref=e11]:
+    - generic [ref=e12]:
+      - generic [ref=e13]: VOLATILITY · LOW
+      - generic [ref=e14]: FREE SPINS · 3× bonus
+    - img "Игровые барабаны" [ref=e15]:
+      - generic [ref=e16]:
+        - generic [ref=e17]: ✦ Spark
+        - generic [ref=e18]: ● Bell
+        - generic [ref=e19]: ★ Star
+      - generic [ref=e20]:
+        - generic [ref=e21]: ✦ Spark
+        - generic [ref=e22]: ● Bell
+        - generic [ref=e23]: ● Bell
+      - generic [ref=e24]:
+        - generic [ref=e25]: W Wild
+        - generic [ref=e26]: ◆ Gem
+        - generic [ref=e27]: ☾ Moon
+      - generic [ref=e28]:
+        - generic [ref=e29]: ☾ Moon
+        - generic [ref=e30]: ◆ Gem
+        - generic [ref=e31]: ● Bell
+      - generic [ref=e32]:
+        - generic [ref=e33]: ☾ Moon
+        - generic [ref=e34]: ✦ Spark
+        - generic [ref=e35]: ☾ Moon
+  - generic [ref=e36]:
+    - generic [ref=e37]:
+      - text: Ставка
+      - combobox "Ставка" [ref=e38]:
+        - option "10 CREDITS" [selected]
+        - option "25 CREDITS"
+        - option "50 CREDITS"
+        - option "100 CREDITS"
+        - option "250 CREDITS"
+    - button "КРУТИТЬ" [disabled] [ref=e39]
+    - status [ref=e40]: Подключение к платформе…
+  - group [ref=e41]:
+    - generic "Таблица выплат" [ref=e42] [cursor=pointer]
+  - generic [ref=e43]:
+    - generic [ref=e44]: MATH 1.0.0 · 10 LINES
+    - generic [ref=e45]: Исход и выигрыш рассчитывает сервер

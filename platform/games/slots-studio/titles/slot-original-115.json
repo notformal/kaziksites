@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "id": "slot-original-115",
+  "title": "Aurora Horizon",
+  "theme": {
+    "accent": "#ff6ea9",
+    "background": "#210c23",
+    "panel": "#401639",
+    "text": "#fff3f8"
+  },
+  "symbols": [
+    {
+      "id": "crown",
+      "label": "♛ Crown",
+      "color": "#ff6ea9",
+      "kind": "regular"
+    },
+    {
+      "id": "gem",
+      "label": "◆ Gem",
+      "color": "#210c23",
+      "kind": "regular"
+    },
+    {
+      "id": "star",
+      "label": "★ Star",
+      "color": "#ff6ea9",
+      "kind": "regular"
+    },
+    {
+      "id": "bell",
+      "label": "● Bell",
+      "color": "#210c23",
+      "kind": "regular"
+    },
+    {
+      "id": "moon",
+      "label": "☾ Moon",
+      "color": "#ff6ea9",
+      "kind": "regular"
+    },
+    {
+      "id": "spark",
+      "label": "✦ Spark",
+      "color": "#210c23",
+      "kind": "regular"
+    },
+    {
+      "id": "wild",
+      "label": "W Wild",
+      "color": "#ff6ea9",
+      "kind": "wild"
+    },
+    {
+      "id": "bonus",
+      "label": "B Bonus",
+      "color": "#210c23",
+      "kind": "scatter"
+    }
+  ],
+  "paytable": {
+    "crown": [
+      0,
+      0,
+      12,
+      36,
+      96
+    ],
+    "gem": [
+      0,
+      0,
+      9,
+      27,
+      72
+    ],
+    "star": [
+      0,
+      0,
+      7,
+      21,
+      56
+    ],
+    "bell": [
+      0,
+      0,
+      6,
+      18,
+      48
+    ],
+    "moon": [
+      0,
+      0,
+      5,
+      15,
+      40
+    ],
+    "spark": [
+      0,
+      0,
+      4,
+      12,
+      32
+    ],
+    "wild": [
+      0,
+      0,
+      18,
+      54,
+      144
+    ],
+    "bonus": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "reels": 5,
+  "rows": 3,
+  "lines": 10,
+  "betOptions": [
+    10,
+    25,
+    50,
+    100,
+    250
+  ],
+  "volatility": "low",
+  "mathProfile": {
+    "version": "1.0.0",
+    "hitRate": 0.34,
+    "weights": {
+      "crown": 5,
+      "gem": 7,
+      "star": 10,
+      "bell": 13,
+      "moon": 17,
+      "spark": 22,
+      "wild": 3,
+      "bonus": 2
+    },
+    "bonus": {
+      "type": "free-spins",
+      "triggerSymbol": "bonus",
+      "triggerCount": 3,
+      "freeSpins": 8,
+      "multiplier": 1
+    }
+  }
+}

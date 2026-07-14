@@ -1,0 +1,4 @@
+.realGame{width:min(1000px,96vw);height:min(760px,94vh);display:flex;flex-direction:column}
+.realGame iframe{width:100%;flex:1;min-height:500px;border:0;border-radius:14px;background:#faf8ef;margin-top:16px}
+.realGame .disclaimer{flex:none}
+@media(max-width:760px){.realGame{width:100%;height:96vh}.realGame iframe{min-height:0}}

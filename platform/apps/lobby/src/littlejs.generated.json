@@ -1,0 +1,632 @@
+[
+  {
+    "id": "littlejs-2048",
+    "title": "2048",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎮",
+    "url": "./games/littlejs/games/2048.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-astroblast",
+    "title": "Astroblast",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🕹️",
+    "url": "./games/littlejs/games/astroblast.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-blastman",
+    "title": "Blastman",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🚀",
+    "url": "./games/littlejs/games/blastman.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-bobblepop",
+    "title": "Bobble Pop",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🧩",
+    "url": "./games/littlejs/games/bobblePop.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-boomer",
+    "title": "Boomer",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎯",
+    "url": "./games/littlejs/games/boomer.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-brickout",
+    "title": "Brickout",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🏁",
+    "url": "./games/littlejs/games/brickout.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-capturego",
+    "title": "Capture Go",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎮",
+    "url": "./games/littlejs/games/captureGo.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-centibug",
+    "title": "Centibug",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🕹️",
+    "url": "./games/littlejs/games/centibug.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-checkers",
+    "title": "Checkers",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🚀",
+    "url": "./games/littlejs/games/checkers.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-chess",
+    "title": "Chess",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🧩",
+    "url": "./games/littlejs/games/chess.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-complements",
+    "title": "Complements",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎯",
+    "url": "./games/littlejs/games/complements.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-connect4",
+    "title": "Connect4",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🏁",
+    "url": "./games/littlejs/games/connect4.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-dominoes",
+    "title": "Dominoes",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎮",
+    "url": "./games/littlejs/games/dominoes.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-drpill",
+    "title": "Dr Pill",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🕹️",
+    "url": "./games/littlejs/games/drPill.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-emojisurvivors",
+    "title": "Emoji Survivors",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🚀",
+    "url": "./games/littlejs/games/emojiSurvivors.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-floppybird",
+    "title": "Floppy Bird",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🧩",
+    "url": "./games/littlejs/games/floppyBird.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-freecell",
+    "title": "Freecell",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎯",
+    "url": "./games/littlejs/games/freecell.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-freethrow",
+    "title": "Free Throw",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🏁",
+    "url": "./games/littlejs/games/freeThrow.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-froggit",
+    "title": "Froggit",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎮",
+    "url": "./games/littlejs/games/froggit.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-gemfighter",
+    "title": "Gem Fighter",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🕹️",
+    "url": "./games/littlejs/games/gemFighter.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-geometryjump",
+    "title": "Geometry Jump",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🚀",
+    "url": "./games/littlejs/games/geometryJump.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-go",
+    "title": "Go",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🧩",
+    "url": "./games/littlejs/games/go.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-homerderby",
+    "title": "Homer Derby",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎯",
+    "url": "./games/littlejs/games/homerDerby.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-jetdash",
+    "title": "Jetdash",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🏁",
+    "url": "./games/littlejs/games/jetdash.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-jouster",
+    "title": "Jouster",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎮",
+    "url": "./games/littlejs/games/jouster.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-jumpman",
+    "title": "Jumpman",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🕹️",
+    "url": "./games/littlejs/games/jumpman.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-klondike",
+    "title": "Klondike",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🚀",
+    "url": "./games/littlejs/games/klondike.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-matchthree",
+    "title": "Match Three",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🧩",
+    "url": "./games/littlejs/games/matchThree.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-microracer",
+    "title": "Micro Racer",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎯",
+    "url": "./games/littlejs/games/microRacer.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-minesweeper",
+    "title": "Minesweeper",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🏁",
+    "url": "./games/littlejs/games/minesweeper.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-minigolf",
+    "title": "Mini Golf",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎮",
+    "url": "./games/littlejs/games/miniGolf.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-missiledefense",
+    "title": "Missile Defense",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🕹️",
+    "url": "./games/littlejs/games/missileDefense.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-moonbuggy",
+    "title": "Moonbuggy",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🚀",
+    "url": "./games/littlejs/games/moonbuggy.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-moonlander",
+    "title": "Moon Lander",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🧩",
+    "url": "./games/littlejs/games/moonLander.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-mrdrill",
+    "title": "Mr Drill",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎯",
+    "url": "./games/littlejs/games/mrDrill.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-musicsequencer",
+    "title": "Music Sequencer",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🏁",
+    "url": "./games/littlejs/games/musicSequencer.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-orbitswarm",
+    "title": "Orbitswarm",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎮",
+    "url": "./games/littlejs/games/orbitswarm.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-pegball",
+    "title": "Pegball",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🕹️",
+    "url": "./games/littlejs/games/pegball.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-pillars",
+    "title": "Pillars",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🚀",
+    "url": "./games/littlejs/games/pillars.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-pinball",
+    "title": "Pinball",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🧩",
+    "url": "./games/littlejs/games/pinball.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-plinko",
+    "title": "Plinko",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎯",
+    "url": "./games/littlejs/games/plinko.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-pong",
+    "title": "Pong",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🏁",
+    "url": "./games/littlejs/games/pong.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-pool",
+    "title": "Pool",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎮",
+    "url": "./games/littlejs/games/pool.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-powerwing",
+    "title": "Powerwing",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🕹️",
+    "url": "./games/littlejs/games/powerwing.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-protector",
+    "title": "Protector",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🚀",
+    "url": "./games/littlejs/games/protector.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-pucman",
+    "title": "Puc Man",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🧩",
+    "url": "./games/littlejs/games/pucMan.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-reversi",
+    "title": "Reversi",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎯",
+    "url": "./games/littlejs/games/reversi.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-riverstrike",
+    "title": "River Strike",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🏁",
+    "url": "./games/littlejs/games/riverStrike.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-roborescue",
+    "title": "Robo Rescue",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎮",
+    "url": "./games/littlejs/games/roboRescue.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-skiing",
+    "title": "Skiing",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🕹️",
+    "url": "./games/littlejs/games/skiing.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-skyhop",
+    "title": "Skyhop",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🚀",
+    "url": "./games/littlejs/games/skyhop.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-slotdemon",
+    "title": "Slot Demon",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🧩",
+    "url": "./games/littlejs/games/slotDemon.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-snake",
+    "title": "Snake",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎯",
+    "url": "./games/littlejs/games/snake.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-sokoban",
+    "title": "Sokoban",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🏁",
+    "url": "./games/littlejs/games/sokoban.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-spaceintruders",
+    "title": "Space Intruders",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎮",
+    "url": "./games/littlejs/games/spaceIntruders.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-speedway",
+    "title": "Speedway",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🕹️",
+    "url": "./games/littlejs/games/speedway.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-spydriver",
+    "title": "Spy Driver",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🚀",
+    "url": "./games/littlejs/games/spyDriver.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-sudoku",
+    "title": "Sudoku",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🧩",
+    "url": "./games/littlejs/games/sudoku.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-tankcombat",
+    "title": "Tank Combat",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎯",
+    "url": "./games/littlejs/games/tankCombat.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-tetrix",
+    "title": "Tetrix",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🏁",
+    "url": "./games/littlejs/games/tetrix.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-wordly",
+    "title": "Wordly",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🎮",
+    "url": "./games/littlejs/games/wordly.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-wulfstein",
+    "title": "Wulfstein",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🕹️",
+    "url": "./games/littlejs/games/wulfstein.html",
+    "license": "MIT",
+    "freePlay": true
+  },
+  {
+    "id": "littlejs-zoomi",
+    "title": "Zoomi",
+    "studio": "LittleJS Arcade",
+    "category": "Arcade",
+    "icon": "🚀",
+    "url": "./games/littlejs/games/zoomi.html",
+    "license": "MIT",
+    "freePlay": true
+  }
+]

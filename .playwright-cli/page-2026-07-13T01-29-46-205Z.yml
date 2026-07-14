@@ -1,0 +1,291 @@
+- main [ref=e3]:
+  - generic [ref=e4]:
+    - link "Ember Club" [ref=e5] [cursor=pointer]:
+      - /url: "#top"
+    - navigation [ref=e9]:
+      - link "Games" [ref=e10] [cursor=pointer]:
+        - /url: "#games"
+      - link "Rewards" [ref=e11] [cursor=pointer]:
+        - /url: "#rewards"
+      - link "About" [ref=e12] [cursor=pointer]:
+        - /url: "#about"
+    - generic [ref=e13]:
+      - button "Account" [ref=e14] [cursor=pointer]
+      - button "PROFILE" [ref=e260] [cursor=pointer]
+  - generic [ref=e19]:
+    - generic [ref=e20]:
+      - text: THE NIGHT IS YOURS
+      - heading "Turn up the thrill." [level=1] [ref=e21]
+      - paragraph [ref=e22]: Electric games, daily virtual rewards and a members-club atmosphere—every night.
+      - generic [ref=e23]:
+        - link "EXPLORE GAMES" [ref=e24] [cursor=pointer]:
+          - /url: "#games"
+        - link "HOW IT WORKS" [ref=e27] [cursor=pointer]:
+          - /url: "#about"
+      - generic [ref=e28]: DEMO ENVIRONMENT
+    - generic [ref=e31]:
+      - generic [ref=e32]: "7"
+      - generic [ref=e33]: ★
+      - generic [ref=e34]: ♛
+  - generic [ref=e35]:
+    - generic [ref=e36]: SERVER-VERIFIED PLAY
+    - generic [ref=e40]: DAILY COLLECTIONS
+    - generic [ref=e45]: 10 PLAYABLE GAMES
+  - generic [ref=e48]:
+    - generic [ref=e49]:
+      - generic [ref=e50]:
+        - text: THE COLLECTION
+        - heading "Find your next favorite" [level=2] [ref=e51]
+      - textbox "Search games" [ref=e56]:
+        - /placeholder: Search games...
+    - generic [ref=e57]:
+      - button "All" [ref=e58] [cursor=pointer]
+      - button "Popular" [ref=e59] [cursor=pointer]
+      - button "Favorites" [ref=e60] [cursor=pointer]
+      - button "Recent" [ref=e61] [cursor=pointer]
+      - button "Slots" [ref=e62] [cursor=pointer]
+      - button "Crash" [ref=e63] [cursor=pointer]
+      - button "Jackpots" [ref=e64] [cursor=pointer]
+      - button "Arcade" [ref=e65] [cursor=pointer]
+      - button "Table" [ref=e66] [cursor=pointer]
+      - button "Instant" [ref=e67] [cursor=pointer]
+      - button "New" [ref=e68] [cursor=pointer]
+    - generic [ref=e69]:
+      - article [ref=e70]:
+        - button "Play 2048" [ref=e71] [cursor=pointer]:
+          - generic [ref=e72]:
+            - generic [ref=e73]: 🔢
+            - generic [ref=e74]: HOT
+            - emphasis [ref=e75]: NEW
+          - generic [ref=e76]:
+            - strong [ref=e77]: "2048"
+            - generic [ref=e78]:
+              - text: Gabriele Cirulli
+              - generic [ref=e79]: "4.0"
+          - generic [ref=e82]: PLAY
+        - button "Add 2048 to favorites" [ref=e83] [cursor=pointer]
+      - article [ref=e86]:
+        - button "Play Canvas Tetris" [ref=e87] [cursor=pointer]:
+          - generic [ref=e88]: 🧱
+          - generic [ref=e90]:
+            - strong [ref=e91]: Canvas Tetris
+            - generic [ref=e92]:
+              - text: Dionysis Zindros
+              - generic [ref=e93]: "4.1"
+          - generic [ref=e96]: PLAY
+        - button "Add Canvas Tetris to favorites" [ref=e97] [cursor=pointer]
+      - article [ref=e100]:
+        - button "Play Night Racer" [ref=e101] [cursor=pointer]:
+          - generic [ref=e102]: 🏎️
+          - generic [ref=e104]:
+            - strong [ref=e105]: Night Racer
+            - generic [ref=e106]:
+              - text: Jake Gordon
+              - generic [ref=e107]: "4.2"
+          - generic [ref=e110]: PLAY
+        - button "Add Night Racer to favorites" [ref=e111] [cursor=pointer]
+      - article [ref=e114]:
+        - button "Play Radius Raid" [ref=e115] [cursor=pointer]:
+          - generic [ref=e116]: 🚀
+          - generic [ref=e118]:
+            - strong [ref=e119]: Radius Raid
+            - generic [ref=e120]:
+              - text: Jack Rugile
+              - generic [ref=e121]: "4.3"
+          - generic [ref=e124]: PLAY
+        - button "Add Radius Raid to favorites" [ref=e125] [cursor=pointer]
+      - article [ref=e128]:
+        - button "Play Classic Pong" [ref=e129] [cursor=pointer]:
+          - generic [ref=e130]: 🏓
+          - generic [ref=e132]:
+            - strong [ref=e133]: Classic Pong
+            - generic [ref=e134]:
+              - text: Jake Gordon
+              - generic [ref=e135]: "4.4"
+          - generic [ref=e138]: PLAY
+        - button "Add Classic Pong to favorites" [ref=e139] [cursor=pointer]
+      - article [ref=e142]:
+        - button "Play Nova Classic Slots" [ref=e143] [cursor=pointer]:
+          - generic [ref=e144]: 🎰
+          - generic [ref=e146]:
+            - strong [ref=e147]: Nova Classic Slots
+            - generic [ref=e148]:
+              - text: Open Arcade
+              - generic [ref=e149]: "4.5"
+          - generic [ref=e152]: PLAY
+        - button "Add Nova Classic Slots to favorites" [ref=e153] [cursor=pointer]
+      - article [ref=e156]:
+        - button "Play Skyline Crash" [ref=e157] [cursor=pointer]:
+          - generic [ref=e158]: 📈
+          - generic [ref=e160]:
+            - strong [ref=e161]: Skyline Crash
+            - generic [ref=e162]:
+              - text: Open Arcade
+              - generic [ref=e163]: "4.6"
+          - generic [ref=e166]: PLAY
+        - button "Add Skyline Crash to favorites" [ref=e167] [cursor=pointer]
+      - article [ref=e170]:
+        - button "Play Prism Plinko" [ref=e171] [cursor=pointer]:
+          - generic [ref=e172]:
+            - generic [ref=e173]: 🔻
+            - generic [ref=e174]: HOT
+          - generic [ref=e175]:
+            - strong [ref=e176]: Prism Plinko
+            - generic [ref=e177]:
+              - text: Open Arcade
+              - generic [ref=e178]: "4.7"
+          - generic [ref=e181]: PLAY
+        - button "Add Prism Plinko to favorites" [ref=e182] [cursor=pointer]
+      - article [ref=e185]:
+        - button "Play European Roulette" [ref=e186] [cursor=pointer]:
+          - generic [ref=e187]: 🎡
+          - generic [ref=e189]:
+            - strong [ref=e190]: European Roulette
+            - generic [ref=e191]:
+              - text: Open Arcade
+              - generic [ref=e192]: "4.8"
+          - generic [ref=e195]: PLAY
+        - button "Add European Roulette to favorites" [ref=e196] [cursor=pointer]
+      - article [ref=e199]:
+        - button "Play Keno Plus" [ref=e200] [cursor=pointer]:
+          - generic [ref=e201]: 🔢
+          - generic [ref=e203]:
+            - strong [ref=e204]: Keno Plus
+            - generic [ref=e205]:
+              - text: Open Arcade
+              - generic [ref=e206]: "4.9"
+          - generic [ref=e209]: PLAY
+        - button "Add Keno Plus to favorites" [ref=e210] [cursor=pointer]
+  - generic [ref=e213]:
+    - generic [ref=e214]:
+      - text: MEMBER REWARDS
+      - heading "A better reason to come back." [level=2] [ref=e215]
+      - paragraph [ref=e216]: Create a profile to collect 250 virtual credits every day. Credits have no cash value and cannot be purchased or withdrawn.
+      - button "VIEW REWARDS" [ref=e217] [cursor=pointer]
+    - generic [ref=e220]:
+      - article [ref=e221]:
+        - generic [ref=e222]: "01"
+        - generic [ref=e223]: Daily discovery
+      - article [ref=e224]:
+        - generic [ref=e225]: "07"
+        - generic [ref=e226]: Weekly streak
+      - article [ref=e227]:
+        - generic [ref=e228]: ∞
+        - generic [ref=e229]: Just for fun
+  - generic [ref=e230]:
+    - link "Ember Club" [ref=e231] [cursor=pointer]:
+      - /url: "#top"
+    - paragraph [ref=e234]: Social arcade showcase. All games and balances are demonstrations only. No wagering or cash prizes.
+    - generic [ref=e235]:
+      - text: © 2026 Ember Club ·
+      - link "Privacy" [ref=e236] [cursor=pointer]:
+        - /url: ./legal.html?brand=ember#privacy
+      - text: ·
+      - link "Responsible play" [ref=e237] [cursor=pointer]:
+        - /url: ./legal.html?brand=ember#responsible
+      - text: · 18+
+  - dialog [ref=e292]:
+    - generic [ref=e293]:
+      - generic [ref=e294]:
+        - generic [ref=e295]:
+          - generic [ref=e296]: SERVER-AUTHORITATIVE
+          - generic [ref=e297]: Keno Plus
+        - button [ref=e298] [cursor=pointer]
+      - iframe [active] [ref=e303]:
+        - main [ref=f5e2]:
+          - generic [ref=f5e3]:
+            - generic [ref=f5e4]: LUCKY 80
+            - generic [ref=f5e5]:
+              - strong [ref=f5e6]: 4 794
+              - text: CREDITS
+          - generic [ref=f5e7]:
+            - generic [ref=f5e8]: Выберите до 10 чисел
+            - generic [ref=f5e9]: 1 / 10
+          - generic [ref=f5e10]:
+            - button "1" [ref=f5e11] [cursor=pointer]
+            - button "2" [ref=f5e12] [cursor=pointer]
+            - button "3" [ref=f5e13] [cursor=pointer]
+            - button "4" [ref=f5e14] [cursor=pointer]
+            - button "5" [ref=f5e15] [cursor=pointer]
+            - button "6" [ref=f5e16] [cursor=pointer]
+            - button "7" [ref=f5e17] [cursor=pointer]
+            - button "8" [ref=f5e18] [cursor=pointer]
+            - button "9" [ref=f5e19] [cursor=pointer]
+            - button "10" [ref=f5e20] [cursor=pointer]
+            - button "11" [ref=f5e21] [cursor=pointer]
+            - button "12" [ref=f5e22] [cursor=pointer]
+            - button "13" [ref=f5e23] [cursor=pointer]
+            - button "14" [ref=f5e24] [cursor=pointer]
+            - button "15" [ref=f5e25] [cursor=pointer]
+            - button "16" [ref=f5e26] [cursor=pointer]
+            - button "17" [ref=f5e27] [cursor=pointer]
+            - button "18" [ref=f5e28] [cursor=pointer]
+            - button "19" [ref=f5e29] [cursor=pointer]
+            - button "20" [ref=f5e30] [cursor=pointer]
+            - button "21" [ref=f5e31] [cursor=pointer]
+            - button "22" [ref=f5e32] [cursor=pointer]
+            - button "23" [ref=f5e33] [cursor=pointer]
+            - button "24" [ref=f5e34] [cursor=pointer]
+            - button "25" [ref=f5e35] [cursor=pointer]
+            - button "26" [ref=f5e36] [cursor=pointer]
+            - button "27" [ref=f5e37] [cursor=pointer]
+            - button "28" [ref=f5e38] [cursor=pointer]
+            - button "29" [ref=f5e39] [cursor=pointer]
+            - button "30" [ref=f5e40] [cursor=pointer]
+            - button "31" [ref=f5e41] [cursor=pointer]
+            - button "32" [ref=f5e42] [cursor=pointer]
+            - button "33" [ref=f5e43] [cursor=pointer]
+            - button "34" [ref=f5e44] [cursor=pointer]
+            - button "35" [ref=f5e45] [cursor=pointer]
+            - button "36" [ref=f5e46] [cursor=pointer]
+            - button "37" [ref=f5e47] [cursor=pointer]
+            - button "38" [ref=f5e48] [cursor=pointer]
+            - button "39" [ref=f5e49] [cursor=pointer]
+            - button "40" [ref=f5e50] [cursor=pointer]
+            - button "41" [ref=f5e51] [cursor=pointer]
+            - button "42" [ref=f5e52] [cursor=pointer]
+            - button "43" [ref=f5e53] [cursor=pointer]
+            - button "44" [ref=f5e54] [cursor=pointer]
+            - button "45" [ref=f5e55] [cursor=pointer]
+            - button "46" [ref=f5e56] [cursor=pointer]
+            - button "47" [ref=f5e57] [cursor=pointer]
+            - button "48" [ref=f5e58] [cursor=pointer]
+            - button "49" [ref=f5e59] [cursor=pointer]
+            - button "50" [ref=f5e60] [cursor=pointer]
+            - button "51" [ref=f5e61] [cursor=pointer]
+            - button "52" [ref=f5e62] [cursor=pointer]
+            - button "53" [ref=f5e63] [cursor=pointer]
+            - button "54" [ref=f5e64] [cursor=pointer]
+            - button "55" [ref=f5e65] [cursor=pointer]
+            - button "56" [ref=f5e66] [cursor=pointer]
+            - button "57" [ref=f5e67] [cursor=pointer]
+            - button "58" [ref=f5e68] [cursor=pointer]
+            - button "59" [ref=f5e69] [cursor=pointer]
+            - button "60" [ref=f5e70] [cursor=pointer]
+            - button "61" [ref=f5e71] [cursor=pointer]
+            - button "62" [ref=f5e72] [cursor=pointer]
+            - button "63" [ref=f5e73] [cursor=pointer]
+            - button "64" [ref=f5e74] [cursor=pointer]
+            - button "65" [ref=f5e75] [cursor=pointer]
+            - button "66" [ref=f5e76] [cursor=pointer]
+            - button "67" [ref=f5e77] [cursor=pointer]
+            - button "68" [ref=f5e78] [cursor=pointer]
+            - button "69" [ref=f5e79] [cursor=pointer]
+            - button "70" [ref=f5e80] [cursor=pointer]
+            - button "71" [ref=f5e81] [cursor=pointer]
+            - button "72" [ref=f5e82] [cursor=pointer]
+            - button "73" [ref=f5e83] [cursor=pointer]
+            - button "74" [ref=f5e84] [cursor=pointer]
+            - button "75" [ref=f5e85] [cursor=pointer]
+            - button "76" [ref=f5e86] [cursor=pointer]
+            - button "77" [ref=f5e87] [cursor=pointer]
+            - button "78" [ref=f5e88] [cursor=pointer]
+            - button "79" [ref=f5e89] [cursor=pointer]
+            - button "80" [ref=f5e90] [cursor=pointer]
+          - generic [ref=f5e91]: Ставка подтверждается…
+          - generic [ref=f5e92]:
+            - generic [ref=f5e93]:
+              - text: Ставка
+              - spinbutton "Ставка" [ref=f5e94]: "100"
+            - button "ОЧИСТИТЬ" [ref=f5e95]
+            - button "ИГРАТЬ" [disabled] [ref=f5e96]

@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "id": "slot-original-042",
+  "title": "Lunar Bazaar",
+  "theme": {
+    "accent": "#ffcd57",
+    "background": "#1c102d",
+    "panel": "#332050",
+    "text": "#fff8e8"
+  },
+  "symbols": [
+    {
+      "id": "rocket",
+      "label": "▲ Rocket",
+      "color": "#ffcd57",
+      "kind": "regular"
+    },
+    {
+      "id": "planet",
+      "label": "◉ Planet",
+      "color": "#1c102d",
+      "kind": "regular"
+    },
+    {
+      "id": "orbit",
+      "label": "◎ Orbit",
+      "color": "#ffcd57",
+      "kind": "regular"
+    },
+    {
+      "id": "nova",
+      "label": "✷ Nova",
+      "color": "#1c102d",
+      "kind": "regular"
+    },
+    {
+      "id": "signal",
+      "label": "⌁ Signal",
+      "color": "#ffcd57",
+      "kind": "regular"
+    },
+    {
+      "id": "dust",
+      "label": "✧ Dust",
+      "color": "#1c102d",
+      "kind": "regular"
+    },
+    {
+      "id": "wild",
+      "label": "W Wild",
+      "color": "#ffcd57",
+      "kind": "wild"
+    },
+    {
+      "id": "bonus",
+      "label": "B Bonus",
+      "color": "#1c102d",
+      "kind": "scatter"
+    }
+  ],
+  "paytable": {
+    "rocket": [
+      0,
+      0,
+      30,
+      90,
+      240
+    ],
+    "planet": [
+      0,
+      0,
+      22,
+      66,
+      176
+    ],
+    "orbit": [
+      0,
+      0,
+      16,
+      48,
+      128
+    ],
+    "nova": [
+      0,
+      0,
+      12,
+      36,
+      96
+    ],
+    "signal": [
+      0,
+      0,
+      8,
+      24,
+      64
+    ],
+    "dust": [
+      0,
+      0,
+      6,
+      18,
+      48
+    ],
+    "wild": [
+      0,
+      0,
+      40,
+      120,
+      320
+    ],
+    "bonus": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "reels": 5,
+  "rows": 3,
+  "lines": 10,
+  "betOptions": [
+    10,
+    25,
+    50,
+    100,
+    250
+  ],
+  "volatility": "high",
+  "mathProfile": {
+    "version": "1.0.0",
+    "hitRate": 0.19,
+    "weights": {
+      "rocket": 3,
+      "planet": 5,
+      "orbit": 8,
+      "nova": 11,
+      "signal": 15,
+      "dust": 20,
+      "wild": 2,
+      "bonus": 1
+    },
+    "bonus": {
+      "type": "respin",
+      "triggerSymbol": "bonus",
+      "triggerCount": 3,
+      "freeSpins": 0,
+      "multiplier": 1
+    }
+  }
+}

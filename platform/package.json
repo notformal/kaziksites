@@ -1,0 +1,47 @@
+{
+  "name": "virtual-arcade-platform",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "games/slots-classic",
+    "games/slots-studio",
+    "games/crash",
+    "games/plinko",
+    "games/roulette",
+    "games/keno",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -k -n API,LOBBY \"npm start -w @arcade/api\" \"npm run dev -w @arcade/lobby\"",
+    "build": "npm run build -w @arcade/lobby && npm run build -w @arcade/slots-classic && npm run build -w @arcade/slots-studio && npm run build -w @arcade/crash && npm run build -w @arcade/plinko && npm run build -w @arcade/roulette && npm run build -w @arcade/keno",
+    "build:brands": "npm run build:brands -w @arcade/lobby",
+    "verify:brands": "node scripts/brands/verify.mjs",
+    "serve:brand": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/brands/serve.ps1",
+    "test": "npm test -w @arcade/lobby && npm test -w @arcade/game-sdk && npm test -w @arcade/api && npm test -w @arcade/slots-studio && npm test -w @arcade/crash && npm test -w @arcade/plinko && npm test -w @arcade/roulette && npm test -w @arcade/keno",
+    "audit:prod": "npm audit --omit=dev",
+    "infra:config": "docker compose config --quiet",
+    "infra:up": "docker compose up -d --build --wait",
+    "infra:down": "docker compose down",
+    "stage:local": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stage-local.ps1",
+    "qa:stage": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build-qa.ps1",
+    "import:littlejs": "node scripts/import-littlejs.mjs",
+    "sync:slot-catalog": "node scripts/sync-slot-catalog.mjs",
+    "generate:covers": "node scripts/generate-cover-art.mjs",
+    "verify:native": "node scripts/verify-native.mjs",
+    "native:start": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/native/start.ps1",
+    "native:stop": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/native/stop.ps1",
+    "native:status": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/native/status.ps1",
+    "native:backup": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/native/backup.ps1",
+    "native:backup:drill": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/native/backup-drill.ps1",
+    "native:autostart:install": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/native/install-autostart.ps1",
+    "native:autostart:uninstall": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/native/uninstall-autostart.ps1"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "playwright": "^1.58.2",
+    "yaml": "^2.9.0"
+  },
+  "dependencies": {
+    "embedded-postgres": "^18.4.0-beta.17"
+  }
+}
