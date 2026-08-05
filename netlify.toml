@@ -1,11 +1,37 @@
+# Default site = Aurora. Ember and Royale are separate Netlify sites built from
+# this same repo — override these per site:
+#   Ember : command = "npm run build:ember"  publish = "dist/ember"  SITE_URL = https://<ember-domain>
+#   Royale: command = "npm run build:royale" publish = "dist/royale" SITE_URL = https://<royale-domain>
+#
+# SITE_URL is optional. When set, the build emits canonical/og:url and sitemap.xml;
+# when unset those are omitted rather than pointing at a placeholder domain.
+
 [build]
 command = "npm run build:aurora"
 publish = "dist/aurora"
 
+[build.environment]
+NODE_VERSION = "24"
+
+# Security headers. Kept in sync with `public/_headers`, which ships inside every
+# brand build so non-Netlify hosts apply the same protection.
 [[headers]]
 for = "/*"
 [headers.values]
 X-Content-Type-Options = "nosniff"
+X-Frame-Options = "DENY"
 Referrer-Policy = "strict-origin-when-cross-origin"
+Strict-Transport-Security = "max-age=31536000"
 Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
 Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'self'; frame-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'self'"
+
+# Content-hashed assets are immutable.
+[[headers]]
+for = "/assets/*"
+[headers.values]
+Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+for = "/*.html"
+[headers.values]
+Cache-Control = "public, max-age=0, must-revalidate"

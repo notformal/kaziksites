@@ -1,6 +1,6 @@
 {
-  "name":"@arcade/lobby","private":true,"version":"1.0.0","type":"module",
+  "name":"@nova/lobby","private":true,"version":"1.0.0","type":"module",
   "scripts":{"dev":"vite --host 127.0.0.1","build":"vite build","build:brand:aurora":"vite build --mode aurora","build:brand:ember":"vite build --mode ember","build:brand:royale":"vite build --mode royale","build:brands":"npm run build:brand:aurora && npm run build:brand:ember && npm run build:brand:royale","preview":"vite preview","test":"vitest run"},
-  "dependencies":{"@arcade/game-sdk":"1.0.0","@vitejs/plugin-react":"latest","vite":"latest","react":"latest","react-dom":"latest","lucide-react":"latest"},
+  "dependencies":{"@nova/game-sdk":"1.0.0","@vitejs/plugin-react":"latest","vite":"latest","react":"latest","react-dom":"latest","lucide-react":"latest"},
   "devDependencies":{"vitest":"latest"}
 }

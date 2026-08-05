@@ -24,7 +24,7 @@ Slot free-spin and respin lifecycle: [docs/SLOT_BONUSES.md](docs/SLOT_BONUSES.md
 cd platform
 npm install
 npm test
-npm run build -w @arcade/slots-classic
+npm run build -w @nova/slots-classic
 npm audit
 ```
 

@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "generatedAt": "2026-07-14T11:04:51.396Z",
-  "count": 200,
+  "generatedAt": "2026-08-02T12:40:46.579Z",
+  "count": 143,
   "license": "Original project artwork; AI-assisted concept generation was attempted but returned no artifact. Final shipped assets are deterministic procedural raster art produced by scripts/generate-cover-art.mjs.",
   "provenance": {
     "externalAssets": [],
@@ -10,37 +10,11 @@
   },
   "families": [
     "slots",
-    "arcade",
     "instant",
     "table",
     "retro"
   ],
   "assets": {
-    "game-1": {
-      "file": "game-1.jpg",
-      "family": "slots",
-      "source": "procedural-original"
-    },
-    "game-2": {
-      "file": "game-2.jpg",
-      "family": "instant",
-      "source": "procedural-original"
-    },
-    "game-3": {
-      "file": "game-3.jpg",
-      "family": "instant",
-      "source": "procedural-original"
-    },
-    "game-4": {
-      "file": "game-4.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "game-5": {
-      "file": "game-5.jpg",
-      "family": "table",
-      "source": "procedural-original"
-    },
     "game-6": {
       "file": "game-6.jpg",
       "family": "slots",
@@ -63,322 +37,62 @@
     },
     "game-10": {
       "file": "game-10.jpg",
+      "family": "instant",
+      "source": "procedural-original"
+    },
+    "game-11": {
+      "file": "game-11.jpg",
+      "family": "instant",
+      "source": "procedural-original"
+    },
+    "game-12": {
+      "file": "game-12.jpg",
+      "family": "instant",
+      "source": "procedural-original"
+    },
+    "game-13": {
+      "file": "game-13.jpg",
+      "family": "instant",
+      "source": "procedural-original"
+    },
+    "game-14": {
+      "file": "game-14.jpg",
+      "family": "instant",
+      "source": "procedural-original"
+    },
+    "game-15": {
+      "file": "game-15.jpg",
       "family": "table",
       "source": "procedural-original"
     },
-    "littlejs-2048": {
-      "file": "littlejs-2048.jpg",
-      "family": "arcade",
+    "game-16": {
+      "file": "game-16.jpg",
+      "family": "table",
       "source": "procedural-original"
     },
-    "littlejs-astroblast": {
-      "file": "littlejs-astroblast.jpg",
-      "family": "retro",
+    "game-17": {
+      "file": "game-17.jpg",
+      "family": "table",
       "source": "procedural-original"
     },
-    "littlejs-blastman": {
-      "file": "littlejs-blastman.jpg",
-      "family": "arcade",
+    "game-18": {
+      "file": "game-18.jpg",
+      "family": "table",
       "source": "procedural-original"
     },
-    "littlejs-bobblepop": {
-      "file": "littlejs-bobblepop.jpg",
-      "family": "arcade",
+    "game-19": {
+      "file": "game-19.jpg",
+      "family": "table",
       "source": "procedural-original"
     },
-    "littlejs-boomer": {
-      "file": "littlejs-boomer.jpg",
-      "family": "retro",
+    "game-20": {
+      "file": "game-20.jpg",
+      "family": "table",
       "source": "procedural-original"
     },
-    "littlejs-brickout": {
-      "file": "littlejs-brickout.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-capturego": {
-      "file": "littlejs-capturego.jpg",
-      "family": "retro",
-      "source": "procedural-original"
-    },
-    "littlejs-centibug": {
-      "file": "littlejs-centibug.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-checkers": {
-      "file": "littlejs-checkers.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-chess": {
-      "file": "littlejs-chess.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-complements": {
-      "file": "littlejs-complements.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-connect4": {
-      "file": "littlejs-connect4.jpg",
-      "family": "retro",
-      "source": "procedural-original"
-    },
-    "littlejs-dominoes": {
-      "file": "littlejs-dominoes.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-drpill": {
-      "file": "littlejs-drpill.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-emojisurvivors": {
-      "file": "littlejs-emojisurvivors.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-floppybird": {
-      "file": "littlejs-floppybird.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-freecell": {
-      "file": "littlejs-freecell.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-freethrow": {
-      "file": "littlejs-freethrow.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-froggit": {
-      "file": "littlejs-froggit.jpg",
-      "family": "retro",
-      "source": "procedural-original"
-    },
-    "littlejs-gemfighter": {
-      "file": "littlejs-gemfighter.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-geometryjump": {
-      "file": "littlejs-geometryjump.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-go": {
-      "file": "littlejs-go.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-homerderby": {
-      "file": "littlejs-homerderby.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-jetdash": {
-      "file": "littlejs-jetdash.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-jouster": {
-      "file": "littlejs-jouster.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-jumpman": {
-      "file": "littlejs-jumpman.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-klondike": {
-      "file": "littlejs-klondike.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-matchthree": {
-      "file": "littlejs-matchthree.jpg",
-      "family": "retro",
-      "source": "procedural-original"
-    },
-    "littlejs-microracer": {
-      "file": "littlejs-microracer.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-minesweeper": {
-      "file": "littlejs-minesweeper.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-minigolf": {
-      "file": "littlejs-minigolf.jpg",
-      "family": "retro",
-      "source": "procedural-original"
-    },
-    "littlejs-missiledefense": {
-      "file": "littlejs-missiledefense.jpg",
-      "family": "retro",
-      "source": "procedural-original"
-    },
-    "littlejs-moonbuggy": {
-      "file": "littlejs-moonbuggy.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-moonlander": {
-      "file": "littlejs-moonlander.jpg",
-      "family": "retro",
-      "source": "procedural-original"
-    },
-    "littlejs-mrdrill": {
-      "file": "littlejs-mrdrill.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-musicsequencer": {
-      "file": "littlejs-musicsequencer.jpg",
-      "family": "retro",
-      "source": "procedural-original"
-    },
-    "littlejs-orbitswarm": {
-      "file": "littlejs-orbitswarm.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-pegball": {
-      "file": "littlejs-pegball.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-pillars": {
-      "file": "littlejs-pillars.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-pinball": {
-      "file": "littlejs-pinball.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-plinko": {
-      "file": "littlejs-plinko.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-pong": {
-      "file": "littlejs-pong.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-pool": {
-      "file": "littlejs-pool.jpg",
-      "family": "retro",
-      "source": "procedural-original"
-    },
-    "littlejs-powerwing": {
-      "file": "littlejs-powerwing.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-protector": {
-      "file": "littlejs-protector.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-pucman": {
-      "file": "littlejs-pucman.jpg",
-      "family": "retro",
-      "source": "procedural-original"
-    },
-    "littlejs-reversi": {
-      "file": "littlejs-reversi.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-riverstrike": {
-      "file": "littlejs-riverstrike.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-roborescue": {
-      "file": "littlejs-roborescue.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-skiing": {
-      "file": "littlejs-skiing.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-skyhop": {
-      "file": "littlejs-skyhop.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-slotdemon": {
-      "file": "littlejs-slotdemon.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-snake": {
-      "file": "littlejs-snake.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-sokoban": {
-      "file": "littlejs-sokoban.jpg",
-      "family": "retro",
-      "source": "procedural-original"
-    },
-    "littlejs-spaceintruders": {
-      "file": "littlejs-spaceintruders.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-speedway": {
-      "file": "littlejs-speedway.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-spydriver": {
-      "file": "littlejs-spydriver.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-sudoku": {
-      "file": "littlejs-sudoku.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-tankcombat": {
-      "file": "littlejs-tankcombat.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-tetrix": {
-      "file": "littlejs-tetrix.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-wordly": {
-      "file": "littlejs-wordly.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-wulfstein": {
-      "file": "littlejs-wulfstein.jpg",
-      "family": "arcade",
-      "source": "procedural-original"
-    },
-    "littlejs-zoomi": {
-      "file": "littlejs-zoomi.jpg",
-      "family": "arcade",
+    "game-21": {
+      "file": "game-21.jpg",
+      "family": "table",
       "source": "procedural-original"
     },
     "slot-original-001": {

@@ -1,10 +1,19 @@
 import { SLOT_DEFINITIONS } from "./slotMath.generated.js";
+import { SLOT_LIBRARY } from "./slotLibrary.js";
+import { CLASSIC_SLOT, PLINKO } from "./mathProfiles.js";
 
 // Immutable, versioned math definitions. New balancing must add a new version;
 // never edit an existing version after rounds have been accepted against it.
 const slotEntries = SLOT_DEFINITIONS.map((definition) => [
   definition.id,
   definition,
+]);
+
+// Premium slots driven by the reusable slotEngine (lines / ways / cascade). The
+// whole definition IS the math profile — a new balancing bumps mathVersion.
+const engineSlotEntries = SLOT_LIBRARY.map((def) => [
+  def.id,
+  { id: def.id, kind: "slot-engine", mathProfileId: def.id, mathVersion: 1, math: def },
 ]);
 
 const entries = [
@@ -15,14 +24,7 @@ const entries = [
       kind: "slot",
       mathProfileId: "classic-base",
       mathVersion: 1,
-      math: {
-        lossWeight: 500,
-        smallWeight: 300,
-        mediumWeight: 150,
-        largeWeight: 40,
-        jackpotWeight: 10,
-        multipliersMilli: [0, 1500, 2500, 10000, 50000],
-      },
+      math: CLASSIC_SLOT,
     },
   ],
   [
@@ -36,14 +38,7 @@ const entries = [
       kind: "plinko",
       mathProfileId: "plinko-base",
       mathVersion: 1,
-      math: {
-        lossWeight: 450,
-        smallWeight: 340,
-        mediumWeight: 155,
-        largeWeight: 45,
-        jackpotWeight: 10,
-        multipliersMilli: [0, 1200, 2000, 5000, 15000],
-      },
+      math: PLINKO,
     },
   ],
   [
@@ -59,7 +54,32 @@ const entries = [
     "keno",
     { id: "keno", kind: "keno", mathProfileId: "keno-base", mathVersion: 1 },
   ],
+  [
+    "dice",
+    { id: "dice", kind: "dice", mathProfileId: "dice-base", mathVersion: 1 },
+  ],
+  [
+    "limbo",
+    { id: "limbo", kind: "limbo", mathProfileId: "limbo-base", mathVersion: 1 },
+  ],
+  [
+    "wheel",
+    { id: "wheel", kind: "wheel", mathProfileId: "wheel-base", mathVersion: 1 },
+  ],
+  [
+    "sicbo",
+    { id: "sicbo", kind: "sicbo", mathProfileId: "sicbo-base", mathVersion: 1 },
+  ],
+  [
+    "baccarat",
+    { id: "baccarat", kind: "baccarat", mathProfileId: "baccarat-base", mathVersion: 1 },
+  ],
+  [
+    "roulette-us",
+    { id: "roulette-us", kind: "roulette-us", mathProfileId: "roulette-american", mathVersion: 1 },
+  ],
   ...slotEntries,
+  ...engineSlotEntries,
 ];
 
 export const GAME_REGISTRY = new Map(

@@ -33,7 +33,7 @@ export function validateAnalyticsEvent(input) {
 }
 
 export function mountAnalytics(app,{db,config,now=()=>Date.now()}) {
-  const optionalUser=async q=>{let token=q.headers.authorization?.match(/^Bearer ([\w-]{40,})$/)?.[1]||(q.headers.cookie||"").split(";").map(x=>x.trim().split("=")).find(x=>x[0]==="arcade_session")?.[1];if(!token)return null;return (await db.query("SELECT user_id FROM sessions WHERE token_hash=$1 AND expires_at>$2",[tokenHash(token),new Date(now())])).rows[0]?.user_id||null};
+  const optionalUser=async q=>{let token=q.headers.authorization?.match(/^Bearer ([\w-]{40,})$/)?.[1]||(q.headers.cookie||"").split(";").map(x=>x.trim().split("=")).find(x=>x[0]==="casino_session")?.[1];if(!token)return null;return (await db.query("SELECT user_id FROM sessions WHERE token_hash=$1 AND expires_at>$2",[tokenHash(token),new Date(now())])).rows[0]?.user_id||null};
   app.post("/api/analytics/events",rateLimiter({windowMs:60_000,limit:120}),async(q,s,n)=>{try{
     const batch=Array.isArray(q.body?.events)?q.body.events:null;
     if(!batch||batch.length<1||batch.length>25)return s.status(400).json({error:"invalid_batch"});

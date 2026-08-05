@@ -2,7 +2,7 @@
 
 ## Currently shipped lobby games
 
-See `docs/GAME_LICENSES.md` for pinned upstream commits and the LICENSE file shipped beside each game: 2048, Canvas Tetris, JavaScript Racer, Radius Raid and JavaScript Pong.
+All shipped lobby games are in-house casino titles (slots, table, live, instant) — see `docs/GAME_LICENSES.md`. Former third-party arcade imports (2048, Canvas Tetris, JavaScript Racer, Radius Raid, JavaScript Pong and others) have been removed from the portfolio.
 
 ## Casino-game integration candidates
 
