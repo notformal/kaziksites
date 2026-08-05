@@ -144,7 +144,7 @@ evidence.desktop = { cards: names.length, uniqueLaunches: new Set(destinations.m
 
 // Mobile fixed-bundle smoke and basic accessibility/overflow checks.
 const mobileContext = await browser.newContext();
-await mobileContext.addInitScript(() => { localStorage.setItem('arcade_onboarding_v1', 'done'); localStorage.setItem('arcade_analytics_consent', 'false'); });
+await mobileContext.addInitScript(() => { localStorage.setItem('casino_onboarding_v1', 'done'); localStorage.setItem('casino_analytics_consent', 'false'); });
 const mobileAudit = await newAuditedPage(mobileContext, { width: 390, height: 844 });
 await mobileAudit.page.goto(base, { waitUntil: 'networkidle' });
 check((await mobileAudit.page.locator('main').getAttribute('data-brand')) === 'ember', 'mobile bundle is not Ember');

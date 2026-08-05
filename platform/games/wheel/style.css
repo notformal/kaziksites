@@ -1,0 +1,38 @@
+/* Специфика Fortune Wheel: сцена с колесом и указателем. */
+
+.stage {
+  min-height: min(78vw, 460px);
+  padding: var(--s-4);
+}
+
+#wheel {
+  display: block;
+  width: min(74vw, 380px);
+  aspect-ratio: 1;
+  filter: drop-shadow(0 18px 40px rgb(0 0 0 / 0.55));
+}
+
+/* Указатель поверх колеса — вздрагивает на каждом секторе (класс ставит игра). */
+.wheelPointer {
+  position: absolute;
+  top: calc(var(--s-2) * -1);
+  left: 50%;
+  width: 54px;
+  height: 54px;
+  transform: translateX(-50%);
+  transform-origin: 50% 20%;
+  filter: drop-shadow(0 6px 14px rgb(0 0 0 / 0.6));
+  z-index: 2;
+}
+.stage[data-spinning="true"] .wheelPointer { animation: pointerTick 90ms linear infinite; }
+
+@keyframes pointerTick {
+  0%, 100% { transform: translateX(-50%) rotate(0deg); }
+  50% { transform: translateX(-50%) rotate(-7deg); }
+}
+
+#sound { padding: var(--s-2) var(--s-3); font-size: 15px; line-height: 1; align-self: center; }
+
+@media (max-width: 620px) {
+  .wheelPointer { width: 40px; height: 40px; }
+}

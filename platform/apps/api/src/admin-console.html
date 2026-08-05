@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex" />
+<title>Operator Console</title>
+<style>
+  :root { --bg:#0b0e16; --panel:#141824; --line:rgba(255,255,255,.09); --txt:#e6ebf5; --dim:#8a94a7; --accent:#34d399; --danger:#ef4444; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--txt); font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
+  header { display:flex; align-items:center; gap:12px; padding:14px 20px; border-bottom:1px solid var(--line); position:sticky; top:0; background:var(--bg); z-index:2; }
+  header h1 { font-size:16px; margin:0; }
+  header .tag { font-size:11px; color:var(--accent); border:1px solid var(--accent); border-radius:6px; padding:1px 6px; }
+  header .sp { flex:1; }
+  input, button { font:inherit; }
+  input { background:rgba(255,255,255,.04); border:1px solid var(--line); border-radius:8px; color:var(--txt); padding:8px 11px; }
+  button { background:linear-gradient(135deg,#34d399,#22d3ee); color:#08131a; border:none; border-radius:8px; padding:8px 14px; font-weight:700; cursor:pointer; }
+  button.ghost { background:transparent; color:var(--txt); border:1px solid var(--line); }
+  main { padding:20px; max-width:1100px; margin:0 auto; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px; margin-bottom:22px; }
+  .kpi { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px; }
+  .kpi .n { font-size:22px; font-weight:800; }
+  .kpi .l { font-size:12px; color:var(--dim); }
+  .bar { display:flex; gap:8px; margin-bottom:14px; }
+  .bar input { flex:1; }
+  table { width:100%; border-collapse:collapse; background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--line); font-size:13px; }
+  th { color:var(--dim); font-weight:600; }
+  tr:last-child td { border-bottom:none; }
+  tr.row { cursor:pointer; }
+  tr.row:hover { background:rgba(255,255,255,.03); }
+  .pill { font-size:11px; padding:1px 8px; border-radius:10px; border:1px solid var(--line); }
+  .pill.self_excluded { color:var(--danger); border-color:var(--danger); }
+  .pill.cooling_off { color:#fbbf24; border-color:#fbbf24; }
+  .gate { max-width:360px; margin:12vh auto; text-align:center; }
+  .gate input { width:100%; margin:12px 0; text-align:center; }
+  dialog { background:var(--panel); color:var(--txt); border:1px solid var(--line); border-radius:14px; padding:0; width:min(560px,94vw); }
+  dialog::backdrop { background:rgba(0,0,0,.6); }
+  .dh { display:flex; align-items:center; padding:14px 18px; border-bottom:1px solid var(--line); }
+  .dh h3 { margin:0; font-size:15px; } .dh .sp { flex:1; }
+  .db { padding:18px; max-height:70vh; overflow:auto; }
+  .db h4 { margin:14px 0 6px; color:var(--dim); font-size:12px; text-transform:uppercase; letter-spacing:.06em; }
+  .db form { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .db form input { flex:1; min-width:120px; }
+  .muted { color:var(--dim); }
+  .err { color:var(--danger); }
+  .led { font-family:ui-monospace,Menlo,monospace; font-size:12px; }
+  .pos { color:var(--accent); } .neg { color:#fca5a5; }
+</style>
+</head>
+<body>
+<div id="gate" class="gate">
+  <h1>Operator Console</h1>
+  <p class="muted">Enter the admin key to continue.</p>
+  <input id="key" type="password" placeholder="Admin key" autocomplete="off" />
+  <button onclick="saveKey()">Unlock</button>
+  <p id="gateErr" class="err"></p>
+</div>
+
+<div id="app" hidden>
+  <header>
+    <h1>Operator Console</h1><span class="tag">virtual credits</span>
+    <span class="sp"></span>
+    <button class="ghost" onclick="refresh()">Refresh</button>
+    <button class="ghost" onclick="lock()">Lock</button>
+  </header>
+  <main>
+    <div id="kpis" class="grid"></div>
+    <div class="bar">
+      <input id="q" placeholder="Search players by email or name…" oninput="debouncedSearch()" />
+    </div>
+    <table>
+      <thead><tr><th>ID</th><th>Player</th><th>Email</th><th>Balance</th><th>Level</th><th>RG</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </main>
+</div>
+
+<dialog id="detail"><div class="dh"><h3 id="dTitle">Player</h3><span class="sp"></span><button class="ghost" onclick="document.getElementById('detail').close()">Close</button></div><div class="db" id="dBody"></div></dialog>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  let KEY = sessionStorage.getItem('admin_key') || '';
+  const money = (n) => Number(n).toLocaleString('en-US');
+  const H = (s) => String(s ?? '').replace(/[&<>"]/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+
+  async function api(path, opts = {}) {
+    const r = await fetch('/api' + path, { ...opts, headers: { 'Content-Type': 'application/json', 'X-Admin-Key': KEY, ...opts.headers } });
+    if (r.status === 401) { lock('Invalid or expired admin key.'); throw new Error('unauthorized'); }
+    const body = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(body.error || ('http_' + r.status));
+    return body;
+  }
+
+  function saveKey() {
+    KEY = $('key').value.trim();
+    if (!KEY) return;
+    sessionStorage.setItem('admin_key', KEY);
+    boot();
+  }
+  function lock(msg) {
+    sessionStorage.removeItem('admin_key'); KEY = '';
+    $('app').hidden = true; $('gate').hidden = false;
+    $('gateErr').textContent = msg || '';
+  }
+
+  async function boot() {
+    try {
+      await refresh();
+      $('gate').hidden = true; $('app').hidden = false;
+    } catch (e) { if (e.message !== 'unauthorized') $('gateErr').textContent = e.message; }
+  }
+
+  async function refresh() {
+    const m = await api('/admin/metrics');
+    const cards = [
+      ['Players', m.players], ['Active sessions', m.activeSessions],
+      ['Total wagered', money(m.totalWagered)], ['House GGR', money(m.ggr)],
+      ['RTP', m.rtpPct == null ? '—' : m.rtpPct + '%'], ['Rounds', money(m.rounds)],
+      ['Chat messages', money(m.chatMessages)], ['Self-excluded', m.selfExcluded],
+    ];
+    $('kpis').innerHTML = cards.map(([l, n]) => `<div class="kpi"><div class="n">${H(n)}</div><div class="l">${H(l)}</div></div>`).join('');
+    await search();
+  }
+
+  let t;
+  function debouncedSearch() { clearTimeout(t); t = setTimeout(search, 250); }
+  async function search() {
+    const q = encodeURIComponent($('q').value.trim());
+    const { players } = await api('/admin/players?q=' + q + '&limit=50');
+    $('rows').innerHTML = players.map((p) => `
+      <tr class="row" onclick="openPlayer(${p.id})">
+        <td>${p.id}</td><td>${H(p.displayName)}</td><td class="muted">${H(p.email)}</td>
+        <td>${money(p.balance)}</td><td>${p.level} · ${H(p.rank)}</td>
+        <td>${p.rgStatus ? `<span class="pill ${p.rgStatus}">${p.rgStatus.replace('_', ' ')}</span>` : ''}</td>
+      </tr>`).join('') || '<tr><td colspan="6" class="muted">No players match.</td></tr>';
+  }
+
+  async function openPlayer(id) {
+    const d = await api('/admin/players/' + id);
+    const rg = d.responsiblePlay || {};
+    const led = d.recentLedger.map((r) => `<tr><td class="led ${r.amount >= 0 ? 'pos' : 'neg'}">${r.amount >= 0 ? '+' : ''}${money(r.amount)}</td><td class="muted">${H(r.kind)}</td><td class="muted led">${H((r.metadata && (r.metadata.reason || r.metadata.gameId)) || '')}</td></tr>`).join('');
+    $('dTitle').textContent = d.player.displayName + '  ·  #' + d.player.id;
+    $('dBody').innerHTML = `
+      <div class="grid">
+        <div class="kpi"><div class="n">${money(d.wallet.balance)}</div><div class="l">Balance</div></div>
+        <div class="kpi"><div class="n">${money(d.wallet.wagered)}</div><div class="l">Wagered</div></div>
+        <div class="kpi"><div class="n">${d.wallet.level}</div><div class="l">${H(d.wallet.rank)}</div></div>
+        <div class="kpi"><div class="n">${d.devices}</div><div class="l">Devices</div></div>
+      </div>
+      <p class="muted">${H(d.player.email)} · joined ${H(new Date(d.player.createdAt).toLocaleDateString())} · ${d.unreadNotifications} unread · ${d.chatMessages} chat msgs</p>
+      <h4>Adjust virtual balance (append-only)</h4>
+      <form onsubmit="return adjust(event, ${id})">
+        <input name="amount" type="number" placeholder="± amount" required />
+        <input name="reason" placeholder="Reason (required)" required />
+        <button type="submit">Post adjustment</button>
+      </form>
+      <h4>Responsible-play intervention</h4>
+      <p class="muted">Active: ${rg.selfExcludedUntil ? 'self-excluded until ' + H(new Date(rg.selfExcludedUntil).toLocaleString()) : rg.coolingOffUntil ? 'cooling off until ' + H(new Date(rg.coolingOffUntil).toLocaleString()) : 'none'}</p>
+      <form onsubmit="return intervene(event, ${id})">
+        <input name="coolingOffHours" type="number" placeholder="Cooling-off hrs" />
+        <input name="selfExclusionHours" type="number" placeholder="Self-exclusion hrs" />
+        <button type="submit">Apply</button>
+      </form>
+      <p class="muted" style="font-size:12px">Self-exclusion can only be extended, never shortened.</p>
+      <h4>Recent ledger</h4>
+      <table><tbody>${led || '<tr><td class="muted">No entries.</td></tr>'}</tbody></table>
+      <p id="dErr" class="err"></p>`;
+    $('detail').showModal();
+  }
+
+  async function adjust(e, id) {
+    e.preventDefault();
+    const f = e.target;
+    try {
+      await api('/admin/players/' + id + '/adjust', { method: 'POST', body: JSON.stringify({ amount: Number(f.amount.value), reason: f.reason.value }) });
+      await openPlayer(id); await search();
+    } catch (err) { $('dErr').textContent = err.message; }
+    return false;
+  }
+  async function intervene(e, id) {
+    e.preventDefault();
+    const f = e.target;
+    const body = {};
+    if (f.coolingOffHours.value) body.coolingOffHours = Number(f.coolingOffHours.value);
+    if (f.selfExclusionHours.value) body.selfExclusionHours = Number(f.selfExclusionHours.value);
+    try {
+      await api('/admin/players/' + id + '/responsible-play', { method: 'POST', body: JSON.stringify(body) });
+      await openPlayer(id); await search();
+    } catch (err) { $('dErr').textContent = err.message; }
+    return false;
+  }
+
+  if (KEY) boot();
+</script>
+</body>
+</html>

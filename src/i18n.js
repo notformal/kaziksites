@@ -1,0 +1,871 @@
+/**
+ * i18n.js — Централизованная система интернационализации
+ * 
+ * Поддерживаемые языки: en, ru, es, fr, de, jp, zh, ko, pt, ar
+ * 
+ * Дизайн:
+ * - Все строки платформы и игр живут здесь
+ * - Компоненты запрашивают перевод через t(key, params)
+ * - Язык сохраняется в localStorage
+ * - Переключение через switchLang()
+ * - Автоматическое определение языка браузера при первом визите
+ */
+
+// ─── Supported languages ──────────────────────────────────────
+export const LANGUAGES = Object.freeze([
+  { code: 'en', name: 'English', flag: '🇺🇸', dir: 'ltr' },
+  { code: 'ru', name: 'Русский', flag: '🇷🇺', dir: 'ltr' },
+  { code: 'es', name: 'Español', flag: '🇪🇸', dir: 'ltr' },
+  { code: 'fr', name: 'Français', flag: '🇫🇷', dir: 'ltr' },
+  { code: 'de', name: 'Deutsch', flag: '🇩🇪', dir: 'ltr' },
+  { code: 'jp', name: '日本語', flag: '🇯🇵', dir: 'ltr' },
+  { code: 'zh', name: '中文', flag: '🇨🇳', dir: 'ltr' },
+  { code: 'ko', name: '한국어', flag: '🇰🇷', dir: 'ltr' },
+  { code: 'pt', name: 'Português', flag: '🇧🇷', dir: 'ltr' },
+  { code: 'ar', name: 'العربية', flag: '🇸🇦', dir: 'rtl' },
+]);
+
+const LANG_BY_CODE = Object.fromEntries(LANGUAGES.map(l => [l.code, l]));
+
+// ─── Default language ─────────────────────────────────────────
+const DEFAULT_LANG = 'en';
+
+// ─── Detect browser language ──────────────────────────────────
+function detectBrowserLang() {
+  if (typeof navigator === 'undefined') return DEFAULT_LANG;
+  const browserLang = navigator.language?.toLowerCase() || DEFAULT_LANG;
+  // Map browser lang to supported codes (e.g. 'ru-RU' → 'ru', 'zh-TW' → 'zh')
+  const code = browserLang.split('-')[0];
+  return LANG_BY_CODE[code] ? code : DEFAULT_LANG;
+}
+
+// ─── Get current language ─────────────────────────────────────
+export function getLang() {
+  if (typeof localStorage === 'undefined') return detectBrowserLang();
+  return localStorage.getItem('casino-lang') || detectBrowserLang();
+}
+
+// ─── Set language ─────────────────────────────────────────────
+export function setLang(code) {
+  if (!LANG_BY_CODE[code]) code = DEFAULT_LANG;
+  if (typeof localStorage !== 'undefined') {
+    localStorage.setItem('casino-lang', code);
+  }
+  // Apply direction to html element
+  const dir = LANG_BY_CODE[code]?.dir || 'ltr';
+  if (typeof document !== 'undefined') {
+    document.documentElement.lang = code;
+    document.documentElement.dir = dir;
+  }
+  return code;
+}
+
+// ─── Platform strings ─────────────────────────────────────────
+const PLATFORM_STRINGS = {
+  en: {
+    // Navigation
+    nav_games: 'Games',
+    nav_rewards: 'Rewards',
+    nav_about: 'About',
+    nav_profile: 'Profile',
+    
+    // Hero
+    hero_explore: 'EXPLORE GAMES',
+    hero_how: 'HOW IT WORKS',
+    online_players: 'players online now',
+    
+    // Trust bar
+    trust_fair: 'FAIR DEMO PLAY',
+    trust_daily: 'DAILY COLLECTIONS',
+    trust_games: '240 INSTANT GAMES',
+    
+    // Library
+    library_title: 'Find your next favorite',
+    library_search: 'Search games...',
+    library_load_more: 'LOAD MORE',
+    library_empty_fav: 'Save games with the heart button to find them here.',
+    library_empty_rec: 'Play a game and it will appear here.',
+    library_empty_other: 'Try another search or category.',
+    
+    // Filters
+    filter_all: 'All',
+    filter_popular: 'Popular',
+    filter_favorites: 'Favorites',
+    filter_recent: 'Recent',
+    filter_slots: 'Slots',
+    filter_table: 'Table',
+    filter_live: 'Live',
+    filter_instant: 'Instant',
+    
+    // Reward
+    reward_title: 'A better reason to come back.',
+    reward_desc: 'Create a profile to collect 250 virtual credits every day. Credits have no cash value and cannot be purchased or withdrawn.',
+    reward_view: 'VIEW REWARDS',
+    
+    // Account
+    account_join: 'JOIN FREE',
+    account_login: 'LOGIN',
+    account_logout: 'LOGOUT',
+    account_balance: 'Balance',
+    account_favorites: 'Favorites',
+    account_history: 'History',
+    account_settings: 'Settings',
+    account_language: 'Language',
+    account_sound: 'Sound',
+    account_music: 'Music',
+    
+    // Game
+    game_play: 'PLAY',
+    game_spin: 'SPIN',
+    game_bet: 'Bet',
+    game_win: 'Win',
+    game_balance: 'Balance',
+    game_history: 'History',
+    game_paytable: 'Paytable',
+    game_settings: 'Game Settings',
+    game_fullscreen: 'Fullscreen',
+    game_exit: 'Exit Game',
+    
+    // Buttons
+    btn_save: 'Save',
+    btn_cancel: 'Cancel',
+    btn_delete: 'Delete',
+    btn_confirm: 'Confirm',
+    btn_close: 'Close',
+    btn_open: 'Open',
+    btn_yes: 'Yes',
+    btn_no: 'No',
+    
+    // Toasts
+    toast_saved: 'Saved successfully',
+    toast_error: 'Something went wrong',
+    toast_won: 'You won!',
+    toast_lost: 'No luck this time',
+    toast_jackpot: '🎰 JACKPOT! 🎰',
+    toast_bigwin: '🎉 BIG WIN! 🎉',
+    
+    // Consent
+    consent_title: 'Privacy, by choice.',
+    consent_desc: 'Allow anonymous product analytics to help us improve this demo?',
+    consent_no: 'No thanks',
+    consent_yes: 'ALLOW',
+    
+    // Legal
+    legal_privacy: 'Privacy',
+    legal_responsible: 'Responsible play',
+    legal_terms: 'Terms of Service',
+    
+    // Footer
+    footer_rights: 'Social casino showcase. All games and balances are demonstrations only.',
+    footer_copy: '© 2026',
+    
+    // Common
+    common_loading: 'Loading...',
+    common_error: 'Error',
+    common_success: 'Success',
+    common_retry: 'Retry',
+    common_none: 'Nothing here yet',
+  },
+  
+  ru: {
+    nav_games: 'Игры',
+    nav_rewards: 'Награды',
+    nav_about: 'О нас',
+    nav_profile: 'Профиль',
+    hero_explore: 'ИССЛЕДОВАТЬ ИГРЫ',
+    hero_how: 'КАК ЭТО РАБОТАЕТ',
+    online_players: 'игроков онлайн',
+    trust_fair: 'ЧЕСТНАЯ ДЕМО ИГРА',
+    trust_daily: 'ЕЖЕДНЕВНЫЕ КОЛЛЕКЦИИ',
+    trust_games: '240 МОМЕНТАЛЬНЫХ ИГР',
+    library_title: 'Найдите свою любимую',
+    library_search: 'Поиск игр...',
+    library_load_more: 'ЗАГРУЗИТЬ ЕЩЁ',
+    library_empty_fav: 'Сохраните игры кнопкой сердца чтобы найти их здесь.',
+    library_empty_rec: 'Сыграйте в игру и она появится здесь.',
+    library_empty_other: 'Попробуйте другой поиск или категорию.',
+    reward_title: 'Лучшая причина вернуться.',
+    reward_desc: 'Создайте профиль чтобы получать 250 виртуальных кредитов каждый день. Кредиты не имеют денежной стоимости и не могут быть куплены или выведены.',
+    reward_view: 'ПОСМОТРЕТЬ НАГРАДЫ',
+    account_join: 'РЕГИСТРАЦИЯ',
+    account_login: 'ВОЙТИ',
+    account_logout: 'ВЫЙТИ',
+    account_balance: 'Баланс',
+    account_favorites: 'Избранное',
+    account_history: 'История',
+    account_settings: 'Настройки',
+    account_language: 'Язык',
+    account_sound: 'Звук',
+    account_music: 'Музыка',
+    game_play: 'ИГРАТЬ',
+    game_spin: 'КРУТИТЬ',
+    game_bet: 'Ставка',
+    game_win: 'Выигрыш',
+    game_balance: 'Баланс',
+    game_history: 'История',
+    game_paytable: 'Таблица выплат',
+    game_settings: 'Настройки игры',
+    game_fullscreen: 'Полный экран',
+    game_exit: 'Выйти из игры',
+    btn_save: 'Сохранить',
+    btn_cancel: 'Отмена',
+    btn_delete: 'Удалить',
+    btn_confirm: 'Подтвердить',
+    btn_close: 'Закрыть',
+    btn_open: 'Открыть',
+    btn_yes: 'Да',
+    btn_no: 'Нет',
+    toast_saved: 'Сохранено',
+    toast_error: 'Что-то пошло не так',
+    toast_won: 'Вы выиграли!',
+    toast_lost: 'Не повезло',
+    toast_jackpot: '🎰 ДЖЕКПОТ! 🎰',
+    toast_bigwin: '🎉 БОЛЬШОЙ ВЫИГРЫШ! 🎉',
+    consent_title: 'Конфиденциальность, по выбору.',
+    consent_desc: 'Разрешить анонимную аналитику чтобы помочь улучшить этот демо?',
+    consent_no: 'Нет спасибо',
+    consent_yes: 'РАЗРЕШИТЬ',
+    legal_privacy: 'Конфиденциальность',
+    legal_responsible: 'Ответственная игра',
+    legal_terms: 'Условия использования',
+    footer_rights: 'Социальное казино. Все игры и балансы — только демонстрация.',
+    footer_copy: '© 2026',
+    common_loading: 'Загрузка...',
+    common_error: 'Ошибка',
+    common_success: 'Успех',
+    common_retry: 'Повторить',
+    common_none: 'Здесь пока ничего нет',
+  },
+  
+  es: {
+    nav_games: 'Juegos',
+    nav_rewards: 'Recompensas',
+    nav_about: 'Acerca de',
+    nav_profile: 'Perfil',
+    hero_explore: 'EXPLORAR JUEGOS',
+    hero_how: 'CÓMO FUNCIONA',
+    online_players: 'jugadores en línea',
+    trust_fair: 'JUEGO DEMO JUSTO',
+    trust_daily: 'COLECCIONES DIARIAS',
+    trust_games: '240 JUEGOS INSTANTÁNEOS',
+    library_title: 'Encuentra tu próximo favorito',
+    library_search: 'Buscar juegos...',
+    library_load_more: 'CARGAR MÁS',
+    library_empty_fav: 'Guarda juegos con el botón corazón para encontrarlos aquí.',
+    library_empty_rec: 'Juega un juego y aparecerá aquí.',
+    library_empty_other: 'Prueba otra búsqueda o categoría.',
+    reward_title: 'Una mejor razón para volver.',
+    reward_desc: 'Crea un perfil para recoger 250 créditos virtuales cada día. Los créditos no tienen valor monetario.',
+    reward_view: 'VER RECOMPENSAS',
+    account_join: 'REGISTRARSE',
+    account_login: 'INICIAR SESIÓN',
+    account_logout: 'CERRAR SESIÓN',
+    account_balance: 'Saldo',
+    account_favorites: 'Favoritos',
+    account_history: 'Historial',
+    account_settings: 'Configuración',
+    account_language: 'Idioma',
+    account_sound: 'Sonido',
+    account_music: 'Música',
+    game_play: 'JUGAR',
+    game_spin: 'GIRAR',
+    game_bet: 'Apuesta',
+    game_win: 'Ganancia',
+    game_balance: 'Saldo',
+    game_history: 'Historial',
+    game_paytable: 'Tabla de pagos',
+    game_settings: 'Configuración del juego',
+    game_fullscreen: 'Pantalla completa',
+    game_exit: 'Salir del juego',
+    btn_save: 'Guardar',
+    btn_cancel: 'Cancelar',
+    btn_delete: 'Eliminar',
+    btn_confirm: 'Confirmar',
+    btn_close: 'Cerrar',
+    btn_open: 'Abrir',
+    btn_yes: 'Sí',
+    btn_no: 'No',
+    toast_saved: 'Guardado correctamente',
+    toast_error: 'Algo salió mal',
+    toast_won: '¡Ganaste!',
+    toast_lost: 'Sin suerte esta vez',
+    toast_jackpot: '🎰 ¡JACKPOT! 🎰',
+    toast_bigwin: '🎉 ¡GRAN VICTORIA! 🎉',
+    consent_title: 'Privacidad, por elección.',
+    consent_desc: '¿Permitir análisis anónimos para mejorar esta demo?',
+    consent_no: 'No gracias',
+    consent_yes: 'PERMITIR',
+    legal_privacy: 'Privacidad',
+    legal_responsible: 'Juego responsable',
+    legal_terms: 'Términos de servicio',
+    footer_rights: 'Casino social. Todos los juegos y saldos son solo demostraciones.',
+    footer_copy: '© 2026',
+    common_loading: 'Cargando...',
+    common_error: 'Error',
+    common_success: 'Éxito',
+    common_retry: 'Reintentar',
+    common_none: 'Aún no hay nada aquí',
+  },
+  
+  fr: {
+    nav_games: 'Jeux',
+    nav_rewards: 'Récompenses',
+    nav_about: 'À propos',
+    nav_profile: 'Profil',
+    hero_explore: 'EXPLORER LES JEUX',
+    hero_how: 'COMMENT ÇA MARCHE',
+    online_players: 'joueurs en ligne',
+    trust_fair: 'JEU DÉMO ÉQUITABLE',
+    trust_daily: 'COLLECTIONS QUOTIDIENNES',
+    trust_games: '240 JEUX INSTANTANÉS',
+    library_title: 'Trouvez votre prochain favori',
+    library_search: 'Rechercher des jeux...',
+    library_load_more: 'CHARGER PLUS',
+    library_empty_fav: 'Sauvegardez des jeux avec le bouton cœur pour les retrouver ici.',
+    library_empty_rec: 'Jouez à un jeu et il apparaîtra ici.',
+    library_empty_other: 'Essayez une autre recherche ou catégorie.',
+    reward_title: 'Une meilleure raison de revenir.',
+    reward_desc: 'Créez un profil pour collecter 250 crédits virtuels chaque jour. Les crédits n\'ont pas de valeur monétaire.',
+    reward_view: 'VOIR LES RÉCOMPENSES',
+    account_join: 'S\'INSCRIRE',
+    account_login: 'CONNEXION',
+    account_logout: 'DÉCONNEXION',
+    account_balance: 'Solde',
+    account_favorites: 'Favoris',
+    account_history: 'Historique',
+    account_settings: 'Paramètres',
+    account_language: 'Langue',
+    account_sound: 'Son',
+    account_music: 'Musique',
+    game_play: 'JOUER',
+    game_spin: 'TOURNER',
+    game_bet: 'Mise',
+    game_win: 'Gain',
+    game_balance: 'Solde',
+    game_history: 'Historique',
+    game_paytable: 'Table des paiements',
+    game_settings: 'Paramètres du jeu',
+    game_fullscreen: 'Plein écran',
+    game_exit: 'Quitter le jeu',
+    btn_save: 'Sauvegarder',
+    btn_cancel: 'Annuler',
+    btn_delete: 'Supprimer',
+    btn_confirm: 'Confirmer',
+    btn_close: 'Fermer',
+    btn_open: 'Ouvrir',
+    btn_yes: 'Oui',
+    btn_no: 'Non',
+    toast_saved: 'Sauvegardé avec succès',
+    toast_error: 'Quelque chose s\'est mal passé',
+    toast_won: 'Vous avez gagné!',
+    toast_lost: 'Pas de chance cette fois',
+    toast_jackpot: '🎰 JACKPOT! 🎰',
+    toast_bigwin: '🎉 GROS GAIN! 🎉',
+    consent_title: 'Confidentialité, à votre choix.',
+    consent_desc: 'Autoriser les analyses anonymes pour améliorer cette démo?',
+    consent_no: 'Non merci',
+    consent_yes: 'AUTORISER',
+    legal_privacy: 'Confidentialité',
+    legal_responsible: 'Jeu responsable',
+    legal_terms: 'Conditions d\'utilisation',
+    footer_rights: 'Casino social. Tous les jeux et soldes sont des démonstrations uniquement.',
+    footer_copy: '© 2026',
+    common_loading: 'Chargement...',
+    common_error: 'Erreur',
+    common_success: 'Succès',
+    common_retry: 'Réessayer',
+    common_none: 'Rien ici pour le moment',
+  },
+  
+  de: {
+    nav_games: 'Spiele',
+    nav_rewards: 'Belohnungen',
+    nav_about: 'Über uns',
+    nav_profile: 'Profil',
+    hero_explore: 'SPIELE ERKUNDEN',
+    hero_how: 'WIE ES FUNKTIONIERT',
+    online_players: 'Spieler online',
+    trust_fair: 'FAIRE DEMOSPIEL',
+    trust_daily: 'TÄGLICHE SAMMLUNGEN',
+    trust_games: '240 SOFORTSPIELE',
+    library_title: 'Finde dein nächstes Lieblingsspiel',
+    library_search: 'Spiele suchen...',
+    library_load_more: 'MEHR LADEN',
+    library_empty_fav: 'Speichere Spiele mit dem Herz-Button um sie hier zu finden.',
+    library_empty_rec: 'Spiele ein Spiel und es wird hier erscheinen.',
+    library_empty_other: 'Versuche eine andere Suche oder Kategorie.',
+    reward_title: 'Ein besserer Grund zurückzukommen.',
+    reward_desc: 'Erstelle ein Profil um täglich 250 virtuelle Credits zu sammeln. Credits haben keinen Geldwert.',
+    reward_view: 'BELohnungen ANSEHEN',
+    account_join: 'REGISTRIEREN',
+    account_login: 'ANMELDEN',
+    account_logout: 'ABMELDEN',
+    account_balance: 'Guthaben',
+    account_favorites: 'Favoriten',
+    account_history: 'Verlauf',
+    account_settings: 'Einstellungen',
+    account_language: 'Sprache',
+    account_sound: 'Ton',
+    account_music: 'Musik',
+    game_play: 'SPIELEN',
+    game_spin: 'DREHEN',
+    game_bet: 'Wette',
+    game_win: 'Gewinn',
+    game_balance: 'Guthaben',
+    game_history: 'Verlauf',
+    game_paytable: 'Auszahlungstabelle',
+    game_settings: 'Spiel-Einstellungen',
+    game_fullscreen: 'Vollbild',
+    game_exit: 'Spiel verlassen',
+    btn_save: 'Speichern',
+    btn_cancel: 'Abbrechen',
+    btn_delete: 'Löschen',
+    btn_confirm: 'Bestätigen',
+    btn_close: 'Schließen',
+    btn_open: 'Öffnen',
+    btn_yes: 'Ja',
+    btn_no: 'Nein',
+    toast_saved: 'Erfolgreich gespeichert',
+    toast_error: 'Etwas ist schiefgelaufen',
+    toast_won: 'Du hast gewonnen!',
+    toast_lost: 'Dieses Mal kein Glück',
+    toast_jackpot: '🎰 JACKPOT! 🎰',
+    toast_bigwin: '🎉 GROßER GEWINN! 🎉',
+    consent_title: 'Datenschutz, nach Wahl.',
+    consent_desc: 'Anonyme Produktanalytik zulassen um diese Demo zu verbessern?',
+    consent_no: 'Nein danke',
+    consent_yes: 'ZULASSEN',
+    legal_privacy: 'Datenschutz',
+    legal_responsible: 'Verantwortungsvolles Spielen',
+    legal_terms: 'Nutzungsbedingungen',
+    footer_rights: 'Soziales Casino. Alle Spiele und Guthaben sind nur Demonstrationen.',
+    footer_copy: '© 2026',
+    common_loading: 'Laden...',
+    common_error: 'Fehler',
+    common_success: 'Erfolg',
+    common_retry: 'Wiederholen',
+    common_none: 'Hier noch nichts',
+  },
+  
+  jp: {
+    nav_games: 'ゲーム',
+    nav_rewards: '報酬',
+    nav_about: 'について',
+    nav_profile: 'プロフィール',
+    hero_explore: 'ゲームを探索',
+    hero_how: '仕組み',
+    online_players: '人がオンライン',
+    trust_fair: '公平なデモプレイ',
+    trust_daily: 'デイリーコレクション',
+    trust_games: '240のインスタントゲーム',
+    library_title: '次ののお気に入りを見つけよう',
+    library_search: 'ゲームを検索...',
+    library_load_more: 'もっと読み込む',
+    library_empty_fav: 'ハートボタンでゲームを保存してここで見つけましょう。',
+    library_empty_rec: 'ゲームをプレイするとここに表示されます。',
+    library_empty_other: '別の検索やカテゴリをお試しください。',
+    reward_title: '戻ってくる良い理由。',
+    reward_desc: 'プロフィールを作成して毎日250仮想クレジットを受け取りましょう。クレジットに金銭的価値はありません。',
+    reward_view: '報酬を見る',
+    account_join: '新規登録',
+    account_login: 'ログイン',
+    account_logout: 'ログアウト',
+    account_balance: 'バランス',
+    account_favorites: 'お気に入り',
+    account_history: '履歴',
+    account_settings: '設定',
+    account_language: '言語',
+    account_sound: 'サウンド',
+    account_music: '音楽',
+    game_play: 'プレイ',
+    game_spin: 'スピン',
+    game_bet: 'ベット',
+    game_win: 'ウィン',
+    game_balance: 'バランス',
+    game_history: '履歴',
+    game_paytable: 'ペイテーブル',
+    game_settings: 'ゲーム設定',
+    game_fullscreen: '全画面',
+    game_exit: 'ゲームを終了',
+    btn_save: '保存',
+    btn_cancel: 'キャンセル',
+    btn_delete: '削除',
+    btn_confirm: '確認',
+    btn_close: '閉じる',
+    btn_open: '開く',
+    btn_yes: 'はい',
+    btn_no: 'いいえ',
+    toast_saved: '保存されました',
+    toast_error: 'エラーが発生しました',
+    toast_won: '勝ち！',
+    toast_lost: '今回はハズレ',
+    toast_jackpot: '🎰 ジャックポット！ 🎰',
+    toast_bigwin: '🎉 大勝利！ 🎉',
+    consent_title: 'プライバシー、選択によって。',
+    consent_desc: 'このデモを改善するための匿名分析を許可しますか？',
+    consent_no: '結構です',
+    consent_yes: '許可',
+    legal_privacy: 'プライバシー',
+    legal_responsible: '責任あるプレイ',
+    legal_terms: '利用規約',
+    footer_rights: 'ソーシャルカジノ。すべてのゲームとバランスはデモのみです。',
+    footer_copy: '© 2026',
+    common_loading: '読み込み中...',
+    common_error: 'エラー',
+    common_success: '成功',
+    common_retry: 'リトライ',
+    common_none: 'ここにはまだ何もありません',
+  },
+  
+  zh: {
+    nav_games: '游戏',
+    nav_rewards: '奖励',
+    nav_about: '关于',
+    nav_profile: '个人资料',
+    hero_explore: '探索游戏',
+    hero_how: '工作原理',
+    online_players: '人在线',
+    trust_fair: '公平演示游戏',
+    trust_daily: '每日收藏',
+    trust_games: '240个即时游戏',
+    library_title: '找到你的下一个最爱',
+    library_search: '搜索游戏...',
+    library_load_more: '加载更多',
+    library_empty_fav: '用心形按钮保存游戏来在这里找到它们。',
+    library_empty_rec: '玩一个游戏它就会出现在这里。',
+    library_empty_other: '试试其他搜索或分类。',
+    reward_title: '回来的更好理由。',
+    reward_desc: '创建个人资料每天收集250虚拟积分。积分没有现金价值。',
+    reward_view: '查看奖励',
+    account_join: '免费注册',
+    account_login: '登录',
+    account_logout: '退出',
+    account_balance: '余额',
+    account_favorites: '收藏夹',
+    account_history: '历史记录',
+    account_settings: '设置',
+    account_language: '语言',
+    account_sound: '声音',
+    account_music: '音乐',
+    game_play: '玩',
+    game_spin: '旋转',
+    game_bet: '投注',
+    game_win: '赢取',
+    game_balance: '余额',
+    game_history: '历史记录',
+    game_paytable: '赔率表',
+    game_settings: '游戏设置',
+    game_fullscreen: '全屏',
+    game_exit: '退出游戏',
+    btn_save: '保存',
+    btn_cancel: '取消',
+    btn_delete: '删除',
+    btn_confirm: '确认',
+    btn_close: '关闭',
+    btn_open: '打开',
+    btn_yes: '是',
+    btn_no: '否',
+    toast_saved: '保存成功',
+    toast_error: '出错了',
+    toast_won: '你赢了！',
+    toast_lost: '这次没运气',
+    toast_jackpot: '🎰 大奖！ 🎰',
+    toast_bigwin: '🎉 大胜利！ 🎉',
+    consent_title: '隐私，由你选择。',
+    consent_desc: '允许匿名产品分析帮助我们改进这个演示？',
+    consent_no: '不用了',
+    consent_yes: '允许',
+    legal_privacy: '隐私政策',
+    legal_responsible: '负责任游戏',
+    legal_terms: '服务条款',
+    footer_rights: '社交赌场。所有游戏和余额仅为演示。',
+    footer_copy: '© 2026',
+    common_loading: '加载中...',
+    common_error: '错误',
+    common_success: '成功',
+    common_retry: '重试',
+    common_none: '这里还没有内容',
+  },
+  
+  ko: {
+    nav_games: '게임',
+    nav_rewards: '보상',
+    nav_about: '소개',
+    nav_profile: '프로필',
+    hero_explore: '게임 탐색',
+    hero_how: '작동 방법',
+    online_players: '명 온라인',
+    trust_fair: '공정한 데모 플레이',
+    trust_daily: '일일 컬렉션',
+    trust_games: '240개 즉시 게임',
+    library_title: '다음 좋아하는 게임 찾기',
+    library_search: '게임 검색...',
+    library_load_more: '더 보기',
+    library_empty_fav: '하트 버튼으로 게임을 저장해서 여기에서 찾아보세요.',
+    library_empty_rec: '게임을 플레이하면 여기에 나타납니다.',
+    library_empty_other: '다른 검색이나 카테고리를 시도해보세요.',
+    reward_title: '다시 오게 만드는 더 좋은 이유.',
+    reward_desc: '프로필을 만들어 매일 250 가상 크레딧을 받으세요. 크레딧에는 현금 가치가 없습니다.',
+    reward_view: '보상 보기',
+    account_join: '가입하기',
+    account_login: '로그인',
+    account_logout: '로그아웃',
+    account_balance: '잔액',
+    account_favorites: '즐겨찾기',
+    account_history: '기록',
+    account_settings: '설정',
+    account_language: '언어',
+    account_sound: '사운드',
+    account_music: '음악',
+    game_play: '플레이',
+    game_spin: '스핀',
+    game_bet: '베팅',
+    game_win: '승리',
+    game_balance: '잔액',
+    game_history: '기록',
+    game_paytable: '페이 테이블',
+    game_settings: '게임 설정',
+    game_fullscreen: '전체 화면',
+    game_exit: '게임 종료',
+    btn_save: '저장',
+    btn_cancel: '취소',
+    btn_delete: '삭제',
+    btn_confirm: '확인',
+    btn_close: '닫기',
+    btn_open: '열기',
+    btn_yes: '예',
+    btn_no: '아니요',
+    toast_saved: '저장되었습니다',
+    toast_error: '오류가 발생했습니다',
+    toast_won: '승리!',
+    toast_lost: '이번엔 운이 없어요',
+    toast_jackpot: '🎰 잭팟! 🎰',
+    toast_bigwin: '🎉 대형 승리! 🎉',
+    consent_title: '선택에 따른 개인정보 보호.',
+    consent_desc: '이 데모를 개선하기 위해 익명 제품 분석을 허용하시겠습니까?',
+    consent_no: '거절합니다',
+    consent_yes: '허용',
+    legal_privacy: '개인정보 처리방침',
+    legal_responsible: '책임 있는 게임',
+    legal_terms: '이용약관',
+    footer_rights: '소셜 카지노. 모든 게임과 잔액은 데모만 제공합니다.',
+    footer_copy: '© 2026',
+    common_loading: '로딩 중...',
+    common_error: '오류',
+    common_success: '성공',
+    common_retry: '다시 시도',
+    common_none: '여기에는 아직 아무것도 없습니다',
+  },
+  
+  pt: {
+    nav_games: 'Jogos',
+    nav_rewards: 'Recompensas',
+    nav_about: 'Sobre',
+    nav_profile: 'Perfil',
+    hero_explore: 'EXPLORAR JOGOS',
+    hero_how: 'COMO FUNCIONA',
+    online_players: 'jogadores online',
+    trust_fair: 'JOGO DEMO JUSTO',
+    trust_daily: 'COLEÇÕES DIÁRIAS',
+    trust_games: '240 JOGOS INSTANTÂNEOS',
+    library_title: 'Encontre seu próximo favorito',
+    library_search: 'Buscar jogos...',
+    library_load_more: 'CARREGAR MAIS',
+    library_empty_fav: 'Salve jogos com o botão coração para encontrá-los aqui.',
+    library_empty_rec: 'Jogue um jogo e ele aparecerá aqui.',
+    library_empty_other: 'Tente outra busca ou categoria.',
+    reward_title: 'Uma melhor razão para voltar.',
+    reward_desc: 'Crie um perfil para coletar 250 créditos virtuais todos os dias. Créditos não têm valor monetário.',
+    reward_view: 'VER RECOMPENSAS',
+    account_join: 'CADASTRAR-SE',
+    account_login: 'ENTRAR',
+    account_logout: 'SAIR',
+    account_balance: 'Saldo',
+    account_favorites: 'Favoritos',
+    account_history: 'Histórico',
+    account_settings: 'Configurações',
+    account_language: 'Idioma',
+    account_sound: 'Som',
+    account_music: 'Música',
+    game_play: 'JOGAR',
+    game_spin: 'GIRAR',
+    game_bet: 'Aposta',
+    game_win: 'Ganho',
+    game_balance: 'Saldo',
+    game_history: 'Histórico',
+    game_paytable: 'Tabela de pagamentos',
+    game_settings: 'Configurações do jogo',
+    game_fullscreen: 'Tela cheia',
+    game_exit: 'Sair do jogo',
+    btn_save: 'Salvar',
+    btn_cancel: 'Cancelar',
+    btn_delete: 'Excluir',
+    btn_confirm: 'Confirmar',
+    btn_close: 'Fechar',
+    btn_open: 'Abrir',
+    btn_yes: 'Sim',
+    btn_no: 'Não',
+    toast_saved: 'Salvo com sucesso',
+    toast_error: 'Algo deu errado',
+    toast_won: 'Você ganhou!',
+    toast_lost: 'Sem sorte dessa vez',
+    toast_jackpot: '🎰 JACKPOT! 🎰',
+    toast_bigwin: '🎉 GRANDE VITÓRIA! 🎉',
+    consent_title: 'Privacidade, à sua escolha.',
+    consent_desc: 'Permitir análises anônimas para melhorar esta demo?',
+    consent_no: 'Não obrigado',
+    consent_yes: 'PERMITIR',
+    legal_privacy: 'Privacidade',
+    legal_responsible: 'Jogo responsável',
+    legal_terms: 'Termos de serviço',
+    footer_rights: 'Casino social. Todos os jogos e saldos são apenas demonstrações.',
+    footer_copy: '© 2026',
+    common_loading: 'Carregando...',
+    common_error: 'Erro',
+    common_success: 'Sucesso',
+    common_retry: 'Tentar novamente',
+    common_none: 'Nada aqui ainda',
+  },
+  
+  ar: {
+    nav_games: 'الألعاب',
+    nav_rewards: 'المكافآت',
+    nav_about: 'حول',
+    nav_profile: 'الملف الشخصي',
+    hero_explore: 'استكشف الألعاب',
+    hero_how: 'كيف يعمل',
+    online_players: 'لاعب متصل',
+    trust_fair: 'لعبة تجريبية عادلة',
+    trust_daily: 'مجموعات يومية',
+    trust_games: '240 لعبة فورية',
+    library_title: 'اعثر على لعبتك المفضلة التالية',
+    library_search: 'البحث عن ألعاب...',
+    library_load_more: 'تحميل المزيد',
+    library_empty_fav: 'احفظ الألعاب بزر القلب للعثور عليها هنا.',
+    library_empty_rec: 'العب لعبة وستظهر هنا.',
+    library_empty_other: 'جرب بحثًا أو فئة أخرى.',
+    reward_title: 'سبب أفضل للعودة.',
+    reward_desc: 'أنشئ ملفًا شخصيًا لجمع 250 رصيدًا افتراضيًا كل يوم. للرصيد قيمة نقدية صفرية.',
+    reward_view: 'عرض المكافآت',
+    account_join: 'التسجيل',
+    account_login: 'تسجيل الدخول',
+    account_logout: 'تسجيل الخروج',
+    account_balance: 'الرصيد',
+    account_favorites: 'المفضلة',
+    account_history: 'السجل',
+    account_settings: 'الإعدادات',
+    account_language: 'اللغة',
+    account_sound: 'الصوت',
+    account_music: 'الموسيقى',
+    game_play: 'العب',
+    game_spin: 'دوران',
+    game_bet: 'الرهان',
+    game_win: 'الفوز',
+    game_balance: 'الرصيد',
+    game_history: 'السجل',
+    game_paytable: 'جدول المدفوعات',
+    game_settings: 'إعدادات اللعبة',
+    game_fullscreen: 'شاشة كاملة',
+    game_exit: 'خروج من اللعبة',
+    btn_save: 'حفظ',
+    btn_cancel: 'إلغاء',
+    btn_delete: 'حذف',
+    btn_confirm: 'تأكيد',
+    btn_close: 'إغلاق',
+    btn_open: 'فتح',
+    btn_yes: 'نعم',
+    btn_no: 'لا',
+    toast_saved: 'تم الحفظ بنجاح',
+    toast_error: 'حدث خطأ ما',
+    toast_won: 'فزت!',
+    toast_lost: 'حظ أوفر هذه المرة',
+    toast_jackpot: '🎰 جاكبوت! 🎰',
+    toast_bigwin: '🎉 فوز كبير! 🎉',
+    consent_title: 'الخصوصية، حسب اختيارك.',
+    consent_desc: 'هل تسمح بالتحليلات المجهولة لمساعدتنا في تحسين هذه النسخة التجريبية؟',
+    consent_no: 'لا شكرًا',
+    consent_yes: 'سماح',
+    legal_privacy: 'الخصوصية',
+    legal_responsible: 'اللعب المسؤول',
+    legal_terms: 'شروط الخدمة',
+    footer_rights: 'كازينو اجتماعي. جميع الألعاب والأرصدة هي للعرض فقط.',
+    footer_copy: '© 2026',
+    common_loading: 'جار التحميل...',
+    common_error: 'خطأ',
+    common_success: 'نجاح',
+    common_retry: 'إعادة المحاولة',
+    common_none: 'لا شيء هنا بعد',
+  },
+};
+
+// ─── Translation function ─────────────────────────────────────
+/**
+ * Get translated string for a key
+ * @param {string} key - Translation key (e.g., 'nav_games')
+ * @param {object} [params] - Optional interpolation params (e.g., { name: 'John' })
+ * @returns {string} Translated string
+ */
+export function t(key, params) {
+  const lang = getLang();
+  let str = PLATFORM_STRINGS[lang]?.[key] 
+    || PLATFORM_STRINGS.en[key] 
+    || key; // Fallback to key itself
+  
+  // Interpolate params: {name} → value
+  if (params) {
+    for (const [k, v] of Object.entries(params)) {
+      str = str.replace(new RegExp(`\\{${k}\\}`, 'g'), String(v));
+    }
+  }
+  
+  return str;
+}
+
+// ─── Apply language to DOM ────────────────────────────────────
+export function applyI18n() {
+  const lang = getLang();
+  const dir = LANG_BY_CODE[lang]?.dir || 'ltr';
+  
+  if (typeof document !== 'undefined') {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = dir;
+    
+    // Apply data-i18n attributes
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      el.textContent = t(key);
+    });
+    
+    // Apply data-i18n-attr attributes (e.g., data-i18n-attr="textContent:hero_explore")
+    document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+      const [attr, key] = el.getAttribute('data-i18n-attr').split(':');
+      el[attr] = t(key);
+    });
+  }
+}
+
+// ─── Switch language and reapply ──────────────────────────────
+export function switchLang() {
+  const codes = LANGUAGES.map(l => l.code);
+  const current = getLang();
+  const idx = codes.indexOf(current);
+  const next = codes[(idx + 1) % codes.length];
+  setLang(next);
+  applyI18n();
+  return next;
+}
+
+// ─── Get language info ────────────────────────────────────────
+export function getLangInfo(code) {
+  return LANG_BY_CODE[code || getLang()] || LANG_BY_CODE[DEFAULT_LANG];
+}
+
+// ─── Check if language is RTL ─────────────────────────────────
+export function isRTL() {
+  return getLangInfo()?.dir === 'rtl';
+}
+
+// ─── Initialize i18n on load ──────────────────────────────────
+if (typeof document !== 'undefined') {
+  applyI18n();
+}

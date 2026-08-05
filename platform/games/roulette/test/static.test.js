@@ -1,1 +1,1 @@
-import test from'node:test';import assert from'node:assert/strict';import{readFile}from'node:fs/promises';test('37 pockets and settlement',async()=>{const s=await readFile(new URL('../game.js',import.meta.url),'utf8');assert.match(s,/i<37/);assert.match(s,/sdk\.settle/)});
+import test from'node:test';import assert from'node:assert/strict';import{readFile}from'node:fs/promises';test('37 pockets and settlement',async()=>{const s=await readFile(new URL('../game.js',import.meta.url),'utf8');assert.match(s,/pockets:\s*37/);assert.match(s,/sdk\.settle/)});

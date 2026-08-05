@@ -6,9 +6,9 @@ the legacy `?brand=` query parameter.
 
 | Brand | Output | HTML title |
 | --- | --- | --- |
-| Aurora | `apps/lobby/dist/aurora` | Aurora Play — Social Arcade |
-| Ember | `apps/lobby/dist/ember` | Ember Rush — Social Arcade |
-| Royale | `apps/lobby/dist/royale` | Royale House — Social Arcade |
+| Aurora | `apps/lobby/dist/aurora` | Aurora Play — Social Casino |
+| Ember | `apps/lobby/dist/ember` | Ember Rush — Social Casino |
+| Royale | `apps/lobby/dist/royale` | Royale House — Social Casino |
 
 Build and verify all artifacts from the repository root:
 

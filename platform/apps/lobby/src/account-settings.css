@@ -1,0 +1,32 @@
+/* Account Settings Panel */
+.settingsCard{max-width:640px;width:95%;max-height:90vh;overflow-y:auto}
+.settingsTabs{display:flex;gap:4px;margin:16px 0;border-bottom:1px solid var(--border);padding-bottom:0}
+.settingsTabs button{padding:8px 16px;border:none;background:none;cursor:pointer;color:var(--text-muted);font-size:13px;display:flex;align-items:center;gap:6px;border-bottom:2px solid transparent;transition:all .2s}
+.settingsTabs button:hover{color:var(--text)}
+.settingsTabs button.active{color:var(--accent);border-bottom-color:var(--accent)}
+.secTab{padding:8px 0}
+.secTab h3{margin:0 0 16px;font-size:18px;color:var(--text)}
+.secSection{margin-bottom:24px;padding:16px;background:var(--surface);border-radius:8px;border:1px solid var(--border)}
+.secSection h4{margin:0 0 12px;font-size:14px;color:var(--text)}
+.secHint{margin:0 0 12px;font-size:12px;color:var(--text-muted)}
+.secTab input{display:block;width:100%;padding:10px 12px;margin-bottom:8px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);font-size:14px;box-sizing:border-box;max-width:100%}
+.secTab input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 20%,transparent)}
+.secMsg{padding:10px 12px;border-radius:6px;margin-top:12px;font-size:13px}
+.secMsg.success{background:color-mix(in srgb,var(--accent) 15%,transparent);color:var(--accent);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent)}
+.secMsg.error{background:color-mix(in srgb,#e74c3c 15%,transparent);color:#e74c3c;border:1px solid color-mix(in srgb,#e74c3c 30%,transparent)}
+
+/* Device items */
+.deviceItem{display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:8px}
+.deviceItem b{font-size:13px;color:var(--text)}
+.deviceItem small{display:block;font-size:11px;color:var(--text-muted);margin-top:2px}
+
+/* Danger zone */
+.dangerSection{border-color:color-mix(in srgb,#e74c3c 30%,var(--border))}
+.dangerSection h4{color:#e74c3c}
+.dangerTab .join.danger{background:#e74c3c;border-color:#e74c3c}
+.dangerTab .join.danger:hover{background:#c0392b;border-color:#c0392b}
+.emptyHint{color:var(--text-muted);font-size:13px;padding:12px;text-align:center}
+.linkRow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.linkRow:last-of-type{border-bottom:none}
+.linkRow span{display:inline-flex;align-items:center;gap:8px;color:#e6ebf5;font-size:14px}
+.linkRow small{color:rgba(226,232,240,.5);font-size:12px}

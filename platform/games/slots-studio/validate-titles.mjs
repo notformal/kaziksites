@@ -32,7 +32,9 @@ export function validateTitle(m) {
   fail(Array.isArray(m.betOptions)&&m.betOptions.length>=3&&m.betOptions.every(Number.isInteger),'invalid bet options');
   fail(['low','medium','high'].includes(m.volatility),'invalid volatility');
   const p=m.mathProfile;
-  fail(p?.version==='1.0.0','invalid math profile version');
+  fail(['1.0.0','1.1.0'].includes(p?.version),'invalid math profile version');
+  // Калиброванные титулы несут измеренный RTP: он обязан быть в разумном коридоре.
+  if(p?.measuredRtp!==undefined)fail(typeof p.measuredRtp==='number'&&p.measuredRtp>0.9&&p.measuredRtp<1,'measured RTP outside 90-100%');
   fail(Number.isFinite(p?.hitRate)&&p.hitRate>0&&p.hitRate<1,'hitRate must be between 0 and 1');
   fail(p?.weights&&ids.every(id=>Number.isInteger(p.weights[id])&&p.weights[id]>0),'weights must cover every symbol');
   fail(p?.bonus&&['free-spins','multiplier','respin'].includes(p.bonus.type),'invalid bonus type');

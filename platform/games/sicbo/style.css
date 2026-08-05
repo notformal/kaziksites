@@ -1,0 +1,150 @@
+/* Только специфика Sic Bo: чаша-подложка, три кости с CSS-пипсами и панель
+   типа ставки. Каркас, HUD, кнопки и эффекты приходят из дизайн-системы
+   (ui-tokens.css + ui-shell.css). */
+
+.stage {
+  min-height: 300px;
+  row-gap: var(--s-4);
+  align-content: center;
+}
+
+/* Чаша из art/ — мягкая подложка, задающая сцене «стол» для костей. */
+.stage__bowl {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(320px, 74%);
+  transform: translate(-50%, -56%);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ---- Кости ---- */
+.dice {
+  position: relative;
+  display: flex;
+  gap: var(--s-4);
+}
+
+.die {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: var(--s-1);
+  width: clamp(58px, 15vw, 88px);
+  aspect-ratio: 1;
+  padding: var(--s-2);
+  background: linear-gradient(155deg, var(--c-text), color-mix(in srgb, var(--c-text) 78%, var(--c-muted)));
+  border-radius: var(--r-md);
+  box-shadow: var(--e-2);
+  transition: box-shadow var(--d-base) var(--ease-out), transform var(--d-base) var(--ease-pop);
+}
+
+/* Пипсы: грань собирается видимостью точек в сетке 3×3 по data-value. */
+.die i {
+  place-self: center;
+  width: 62%;
+  aspect-ratio: 1;
+  border-radius: var(--r-pill);
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--c-base) 72%, var(--c-text)), var(--c-base));
+  opacity: 0;
+  transform: scale(0.3);
+  transition: opacity var(--d-fast) linear, transform var(--d-fast) var(--ease-pop);
+}
+
+.die[data-value="1"] :is(i:nth-child(5)),
+.die[data-value="2"] :is(i:nth-child(1), i:nth-child(9)),
+.die[data-value="3"] :is(i:nth-child(1), i:nth-child(5), i:nth-child(9)),
+.die[data-value="4"] :is(i:nth-child(1), i:nth-child(3), i:nth-child(7), i:nth-child(9)),
+.die[data-value="5"] :is(i:nth-child(1), i:nth-child(3), i:nth-child(5), i:nth-child(7), i:nth-child(9)),
+.die[data-value="6"] :is(i:nth-child(1), i:nth-child(3), i:nth-child(4), i:nth-child(6), i:nth-child(7), i:nth-child(9)) {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Во время броска кости кувыркаются вразнобой. */
+.dice[data-rolling="true"] .die {
+  animation: dieTumble var(--d-slow) var(--ease-in-out) infinite;
+}
+.dice[data-rolling="true"] .die:nth-child(2) { animation-delay: calc(var(--d-fast) * -1); }
+.dice[data-rolling="true"] .die:nth-child(3) { animation-delay: calc(var(--d-fast) * -2); }
+
+@keyframes dieTumble {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50% { transform: translateY(-10px) rotate(4deg); }
+}
+
+/* Трипл — золотое сияние на всех трёх костях. */
+.dice[data-triple="true"] .die {
+  box-shadow:
+    0 0 0 2px var(--c-gold),
+    0 0 30px color-mix(in srgb, var(--c-gold) 50%, transparent);
+}
+
+/* Декоративные кости из art/ — медленный дрейф даёт сцене глубину. */
+.diceTrack {
+  position: absolute;
+  inset: auto 0 var(--s-3) 0;
+  display: flex;
+  justify-content: center;
+  gap: var(--s-4);
+  opacity: 0.3;
+  pointer-events: none;
+}
+.diceTrack img {
+  width: 40px;
+  height: 40px;
+  filter: drop-shadow(0 6px 12px var(--c-scrim));
+  animation: dieFloat calc(var(--d-reveal) * 6) var(--ease-in-out) infinite;
+}
+.diceTrack img:nth-child(2) { animation-delay: calc(var(--d-reveal) * -2); }
+.diceTrack img:nth-child(3) { animation-delay: calc(var(--d-reveal) * -4); }
+
+@keyframes dieFloat {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-8px) rotate(3deg); }
+}
+
+/* ---- Панель выбора ставки ---- */
+.betPicker {
+  display: flex;
+  gap: var(--s-3);
+  padding: var(--s-3);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  background: var(--c-panel);
+}
+.betPicker .field { flex: 1 1 auto; }
+.betPicker #numWrap { flex: 0 0 132px; }
+.betPicker .field[hidden] { display: none; }
+
+.betPicker select {
+  width: 100%;
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-sm);
+  background: var(--c-base);
+  color: var(--c-text);
+  font: var(--t-body);
+  font-weight: 600;
+}
+.betPicker select:focus-visible { outline: 2px solid var(--c-primary); outline-offset: -2px; }
+
+/* Кнопка звука вспомогательная — держим компактной. */
+#sound {
+  padding: var(--s-2) var(--s-3);
+  line-height: 1;
+  align-self: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .diceTrack img,
+  .dice[data-rolling="true"] .die { animation: none; }
+}
+
+@media (max-width: 620px) {
+  .dice { gap: var(--s-3); }
+  .diceTrack img { width: 30px; height: 30px; }
+  .betPicker { flex-wrap: wrap; }
+  .betPicker #numWrap { flex: 1 1 100%; }
+}

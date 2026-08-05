@@ -11,7 +11,7 @@ try {
   if (mode === "backup") {
     await client.query("BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY");
     const { rows: tables } = await client.query("SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename");
-    const data = { format: "virtual-arcade-logical-v1", createdAt: new Date().toISOString(), tables: {} };
+    const data = { format: "nova-casino-logical-v1", createdAt: new Date().toISOString(), tables: {} };
     for (const { tablename } of tables) {
       if (!/^[a-z][a-z0-9_]*$/.test(tablename)) throw new Error(`unsafe table name ${tablename}`);
       data.tables[tablename] = (await client.query(`SELECT * FROM "${tablename}"`)).rows;
@@ -24,7 +24,7 @@ try {
     const restoreClient = await db.connect();
     try {
       const data = JSON.parse(zlib.gunzipSync(fs.readFileSync(file)));
-      if (data.format !== "virtual-arcade-logical-v1" || !data.tables) throw new Error("unsupported backup format");
+      if (data.format !== "nova-casino-logical-v1" || !data.tables) throw new Error("unsupported backup format");
       const existing = new Set((await restoreClient.query("SELECT tablename FROM pg_tables WHERE schemaname='public'")).rows.map(x => x.tablename));
       const order = ["schema_migrations", "users", "sessions", "wallet_ledger", "game_rounds", "slot_bonus_sessions", "analytics_events"];
       const names = [...new Set([...order, ...Object.keys(data.tables)])].filter(name => data.tables[name] && existing.has(name));

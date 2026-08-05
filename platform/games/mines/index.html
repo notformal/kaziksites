@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" data-mood="deep" data-motif="circuit">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Nova Mines</title>
+<link rel="stylesheet" href="ui-tokens.css">
+<link rel="stylesheet" href="theme.generated.css">
+<link rel="stylesheet" href="ui-shell.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="gameShell">
+  <header class="hud">
+    <span class="hud__title" data-i18n="title">Nova Mines</span>
+    <div class="hud__stats">
+      <div class="stat">
+        <span class="stat__label" data-i18n="balance">Balance</span>
+        <b class="stat__value" id="balance">—</b>
+      </div>
+      <div class="stat stat--win">
+        <span class="stat__label" data-i18n="win">Win</span>
+        <b class="stat__value" id="win">0</b>
+      </div>
+      <button class="btn btn--ghost" id="sound" type="button" data-i18n-label="sound" aria-pressed="false">♪</button>
+    </div>
+  </header>
+
+  <section class="stage" id="stage">
+    <div class="mgrid" id="grid" role="group" data-i18n-label="minefield"></div>
+    <p class="nextHint" id="next" aria-live="polite"></p>
+  </section>
+
+  <p class="result" id="result" data-i18n="serverResult">Virtual credits only · server-decided result</p>
+
+  <div class="controls">
+    <label class="field">
+      <span class="field__label" data-i18n="minesCount">Mines</span>
+      <select id="mines">
+        <option>1</option>
+        <option>3</option>
+        <option selected>5</option>
+        <option>10</option>
+        <option>24</option>
+      </select>
+    </label>
+    <label class="field">
+      <span class="field__label" data-i18n="bet">Bet</span>
+      <span class="stepper">
+        <button type="button" id="betDown" aria-label="-">−</button>
+        <input id="bet" type="number" min="1" max="100000" value="100">
+        <button type="button" id="betUp" aria-label="+">+</button>
+      </span>
+    </label>
+    <button class="btn btn--primary" id="play" type="button" disabled data-i18n="play">Play</button>
+    <button class="btn btn--cashout" id="cashout" type="button" hidden disabled data-i18n="cashout">Cash out</button>
+  </div>
+</main>
+<script type="module" src="game.js"></script>
+</body>
+</html>

@@ -18,7 +18,7 @@ try {
   await helpButton.click();
   await page.getByRole("heading", { name: "Straight answers" }).waitFor();
   await page.getByLabel("Session reminder interval").selectOption("15");
-  assert.equal(await page.evaluate(() => localStorage.getItem("arcade_session_reminder_minutes")), "15");
+  assert.equal(await page.evaluate(() => localStorage.getItem("casino_session_reminder_minutes")), "15");
   await page.getByRole("button", { name: "Close help" }).click();
 
   await page.getByRole("button", { name: "JOIN FREE" }).click();

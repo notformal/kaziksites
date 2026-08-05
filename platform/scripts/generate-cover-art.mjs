@@ -8,23 +8,26 @@ const qaRoot = path.resolve('output/cover-art');
 await fs.mkdir(root, { recursive: true });
 await fs.mkdir(qaRoot, { recursive: true });
 
-const little = JSON.parse(await fs.readFile('apps/lobby/src/littlejs.generated.json', 'utf8'));
 const slots = JSON.parse(await fs.readFile('apps/lobby/src/slot-titles.generated.json', 'utf8'));
 const core = [
-  ['game-1','Slots'],['game-2','Crash'],['game-3','Jackpots'],['game-4','Arcade'],['game-5','Table'],
-  ['game-6','Slots'],['game-7','Crash'],['game-8','Instant'],['game-9','Table'],['game-10','Table'],
+  // Казино-портфель: 19 серверных оригиналов (game-6..game-24; game-22..24 —
+  // премиум-слоты на движке slotEngine, один бандл games/slots-premium).
+  ['game-6','Slots'],['game-7','Crash'],['game-8','Instant'],['game-9','Table'],['game-10','Instant'],
+  ['game-11','Instant'],['game-12','Instant'],['game-13','Instant'],['game-14','Instant'],['game-15','Table'],
+  ['game-16','Table'],['game-17','Table'],['game-18','Table'],['game-19','Table'],['game-20','Table'],['game-21','Table'],
+  ['game-22','Slots'],['game-23','Slots'],['game-24','Slots'],
 ].map(([id, category]) => ({ id, category }));
-const games = [...core, ...little, ...slots];
-if (games.length !== 200) throw new Error(`Expected 200 games, received ${games.length}`);
+const games = [...core, ...slots];
+if (games.length !== 146) throw new Error(`Expected 146 casino games, received ${games.length}`);
+// Optional: pass specific ids to render only those (skips the contact sheet + manifest).
+const only = process.argv.slice(2);
+const toRender = only.length ? games.filter((g) => only.includes(g.id)) : games;
 
-const familyFor = (category, id = '') => category === 'Arcade' && hash(id)[0] % 4 === 0 ? 'retro'
-  : category === 'Arcade' ? 'arcade'
-  : ['Crash','Instant','Jackpots'].includes(category) ? 'instant'
+const familyFor = (category) => ['Crash','Instant','Jackpots'].includes(category) ? 'instant'
   : category === 'Table' ? 'table'
   : category === 'Slots' ? 'slots' : 'retro';
 const palettes = {
   slots: [['#120c2c','#6938ef','#ff4da6','#ffd56a'],['#071f20','#00a88f','#8dffb8','#ffbd59'],['#201008','#b54b16','#ff9e38','#ffe2a7']],
-  arcade: [['#050b26','#124cf2','#06e1ff','#ff426f'],['#16052c','#7a1cff','#f635ff','#8dff4f'],['#061b22','#008ba3','#4fffc8','#ff685c']],
   instant: [['#07111f','#0b68ff','#15e8ff','#ff493d'],['#170817','#c4237a','#ff7557','#ffd667'],['#071a18','#00a47d','#a6ff62','#fb5b42']],
   table: [['#0e1513','#174d3a','#d4a44e','#f1eadb'],['#1a0b12','#661b35','#c89b54','#f5e3c6'],['#10151d','#263f62','#c3d4df','#f2b95e']],
   retro: [['#151223','#513a80','#ef6570','#f6c66b'],['#0b2429','#197a7d','#f08e6b','#f3e4b8'],['#23110d','#8e3c2e','#e6a44d','#77b8a9']],
@@ -53,17 +56,6 @@ function svgFor(game) {
     ];
     motif=`<g transform="translate(${x} ${y}) rotate(${rot})" filter="url(#shadow)">${forms[h[5]%forms.length]}</g>`;
   }
-  if(family==='arcade') {
-    const forms=[
-      `<path d="M-150 76 Q-48-130 142-50" fill="none" stroke="${p[3]}" stroke-width="30" stroke-linecap="round"/><path d="M-150 76 Q-48-130 142-50" fill="none" stroke="${p[2]}" stroke-width="7"/><circle cx="142" cy="-50" r="39" fill="${p[3]}"/><path d="m125-50 34-20v40z" fill="${p[0]}"/>`,
-      `<path d="M-145-105H140L76-38h-151L-10 24h81L4 93h-140" fill="none" stroke="${p[3]}" stroke-width="28" stroke-linejoin="round"/><circle cx="4" cy="93" r="26" fill="${p[2]}"/>`,
-      `<rect x="-112" y="-112" width="94" height="94" rx="17" fill="${p[2]}"/><rect x="18" y="-60" width="112" height="112" rx="23" fill="${p[3]}"/><rect x="-72" y="44" width="90" height="90" rx="14" fill="#fff" opacity=".55"/>`,
-      `<circle r="121" fill="none" stroke="${p[2]}" stroke-width="7"/><ellipse rx="151" ry="54" fill="none" stroke="${p[3]}" stroke-width="19"/><circle cx="-118" cy="-51" r="32" fill="${p[3]}"/><path d="m-15-43 62 43-62 43z" fill="#fff" opacity=".74"/>`,
-      `<path d="m-128 112 34-216 54 154 47-177 51 177 59-143 20 205z" fill="none" stroke="${p[3]}" stroke-width="22" stroke-linejoin="round"/><circle cy="15" r="34" fill="${p[2]}"/>`,
-      `<path d="M-118-86H95V-22H-42V35H122V101H-118Z" fill="none" stroke="${p[2]}" stroke-width="25"/><circle cx="94" cy="-86" r="28" fill="${p[3]}"/><circle cx="-118" cy="101" r="22" fill="#fff" opacity=".7"/>`,
-    ];
-    motif=`<g transform="translate(${x} ${y}) rotate(${rot})" filter="url(#shadow)">${forms[h[6]%forms.length]}</g>`;
-  }
   if(family==='instant') motif=`<g transform="translate(${x} ${y}) rotate(${rot})" filter="url(#shadow)"><path d="M-155 95 C-55 100-64-104 112-105" fill="none" stroke="${p[2]}" stroke-width="18" stroke-linecap="round"/><path d="M64-132 159-110 83-43 100-91Z" fill="${p[3]}"/><circle cx="-155" cy="95" r="27" fill="${p[3]}"/></g>`;
   if(family==='table') motif=`<g transform="translate(${x} ${y}) rotate(${rot})" filter="url(#shadow)"><circle r="121" fill="${p[0]}" stroke="${p[3]}" stroke-width="14"/><circle r="78" fill="none" stroke="${p[2]}" stroke-width="26" stroke-dasharray="18 14"/><circle r="31" fill="${p[3]}"/><path d="M0-121V-78M121 0H78M0 121V78M-121 0H-78" stroke="#fff" stroke-width="5" opacity=".65"/></g>`;
   if(family==='retro') motif=`<g transform="translate(${x} ${y}) rotate(${rot})" filter="url(#shadow)"><path d="m-130 94 62-118 47 54 44-88 118 152z" fill="${p[2]}"/><path d="m-130 94 108-64 163 64z" fill="${p[3]}" opacity=".8"/><circle cx="82" cy="-92" r="43" fill="${p[3]}"/><path d="M-180 118H180M-160 145H160M-130 172H130" stroke="${p[2]}" stroke-width="5" opacity=".45"/></g>`;
@@ -72,12 +64,13 @@ function svgFor(game) {
 
 const browser=await chromium.launch({headless:true});
 const page=await browser.newPage({ viewport: { width: 400, height: 520 }, deviceScaleFactor: 1 });
-for (let i=0;i<games.length;i++) {
-  const game=games[i];
+for (let i=0;i<toRender.length;i++) {
+  const game=toRender[i];
   await page.setContent(`<style>*{margin:0}body{background:transparent}</style>${svgFor(game)}`);
   await page.locator('svg').screenshot({path:path.join(root,`${game.id}.jpg`),type:'jpeg',quality:88});
-  if((i+1)%25===0) console.log(`Rendered ${i+1}/200`);
+  if((i+1)%25===0) console.log(`Rendered ${i+1}/${toRender.length}`);
 }
+if (only.length) { console.log(`Rendered ${toRender.length} cover(s): ${only.join(', ')}`); await browser.close(); process.exit(0); }
 const cells=games.map(g=>`<figure><img src="../../apps/lobby/public/covers-v2/${g.id}.jpg"><figcaption>${g.id}</figcaption></figure>`).join('');
 await fs.writeFile(path.join(qaRoot,'contact-sheet.html'),`<!doctype html><meta charset="utf-8"><style>body{margin:20px;background:#080a10;color:#b9c0cf;font:11px system-ui;display:grid;grid-template-columns:repeat(10,1fr);gap:8px}figure{margin:0}img{width:100%;aspect-ratio:10/13;object-fit:cover;border-radius:7px}figcaption{overflow:hidden}</style>${cells}`);
 await page.setViewportSize({width:1600,height:10620});
@@ -85,6 +78,6 @@ await page.goto(`file:///${path.join(qaRoot,'contact-sheet.html').replaceAll('\\
 await page.screenshot({path:path.join(qaRoot,'contact-sheet.jpg'),type:'jpeg',quality:85,fullPage:true});
 await browser.close();
 
-const manifest={version:2,generatedAt:new Date().toISOString(),count:games.length,license:'Original project artwork; AI-assisted concept generation was attempted but returned no artifact. Final shipped assets are deterministic procedural raster art produced by scripts/generate-cover-art.mjs.',provenance:{externalAssets:[],generator:'scripts/generate-cover-art.mjs',method:'original SVG compositions rasterized to high-quality JPEG with Playwright'},families:['slots','arcade','instant','table','retro'],assets:Object.fromEntries(games.map(g=>[g.id,{file:`${g.id}.jpg`,family:familyFor(g.category,g.id),source:'procedural-original'}]))};
+const manifest={version:2,generatedAt:new Date().toISOString(),count:games.length,license:'Original project artwork; AI-assisted concept generation was attempted but returned no artifact. Final shipped assets are deterministic procedural raster art produced by scripts/generate-cover-art.mjs.',provenance:{externalAssets:[],generator:'scripts/generate-cover-art.mjs',method:'original SVG compositions rasterized to high-quality JPEG with Playwright'},families:['slots','instant','table','retro'],assets:Object.fromEntries(games.map(g=>[g.id,{file:`${g.id}.jpg`,family:familyFor(g.category),source:'procedural-original'}]))};
 await fs.writeFile(path.join(root,'manifest.json'),JSON.stringify(manifest,null,2));
 console.log(`Wrote ${games.length} covers and QA contact sheet.`);

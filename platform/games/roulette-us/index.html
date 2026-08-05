@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" data-mood="luxe" data-motif="felt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title data-i18n="gameTitle">Roulette 00</title>
+<link rel="stylesheet" href="ui-tokens.css">
+<link rel="stylesheet" href="theme.generated.css">
+<link rel="stylesheet" href="ui-shell.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="gameShell">
+  <header class="hud">
+    <span class="hud__title" data-i18n="gameTitle">Roulette 00</span>
+    <div class="hud__stats">
+      <div class="stat">
+        <span class="stat__label" data-i18n="balance">Balance</span>
+        <b class="stat__value" id="balance">—</b>
+      </div>
+      <div class="stat stat--win">
+        <span class="stat__label" data-i18n="win">Win</span>
+        <b class="stat__value" id="win">0</b>
+      </div>
+      <button class="btn btn--ghost" id="sound" type="button" data-i18n-label="sound" aria-pressed="false">♪</button>
+    </div>
+  </header>
+
+  <section class="stage" id="stage">
+    <img class="wheelBack" src="art/wheel-segment.svg" alt="" aria-hidden="true">
+    <div class="ballOrbit" aria-hidden="true">
+      <img class="ballOrbit__ball" src="art/ball.svg" alt="">
+    </div>
+    <div class="pocket" id="pocket">–</div>
+    <div class="chipRow" aria-hidden="true">
+      <img src="art/chip.svg" alt="" loading="lazy">
+      <img src="art/chip.svg" alt="" loading="lazy">
+      <img src="art/chip.svg" alt="" loading="lazy">
+    </div>
+  </section>
+
+  <p class="result" id="result" data-i18n="serverResult">Virtual credits only · server-decided result</p>
+
+  <div class="betPicker">
+    <label class="field">
+      <span class="field__label" data-i18n="betType">Bet type</span>
+      <select id="betType">
+        <option value="red" data-i18n="betRed">Red</option>
+        <option value="black" data-i18n="betBlack">Black</option>
+        <option value="even" data-i18n="betEven">Even</option>
+        <option value="odd" data-i18n="betOdd">Odd</option>
+        <option value="straight" data-i18n="betStraight">Straight (36:1)</option>
+      </select>
+    </label>
+    <label class="field" id="numWrap" hidden>
+      <span class="field__label" data-i18n="numberLabel">Number (0–36, 37 = 00)</span>
+      <input id="num" type="number" min="0" max="37" value="7">
+    </label>
+  </div>
+
+  <div class="controls">
+    <label class="field">
+      <span class="field__label" data-i18n="bet">Bet</span>
+      <span class="stepper">
+        <button type="button" id="betDown" aria-label="-">−</button>
+        <input id="amt" type="number" min="1" max="100000" value="100">
+        <button type="button" id="betUp" aria-label="+">+</button>
+      </span>
+    </label>
+    <button class="btn btn--primary" id="play" type="button" disabled data-i18n="spin">Spin</button>
+  </div>
+</main>
+<script type="module" src="game.js"></script>
+</body>
+</html>

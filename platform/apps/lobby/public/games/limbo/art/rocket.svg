@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+<defs>
+<linearGradient id="plate" x1="0" y1="0" x2="0.4" y2="1">
+<stop offset="0" stop-color="#291d43"/><stop offset="1" stop-color="#171029"/>
+</linearGradient>
+<radialGradient id="glow" cx="0.5" cy="0.4" r="0.6">
+<stop offset="0" stop-color="#a97bff" stop-opacity="0.5"/>
+<stop offset="1" stop-color="#a97bff" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="accent" x1="0" y1="0" x2="0.6" y2="1">
+<stop offset="0" stop-color="#a97bff"/><stop offset="1" stop-color="#ff6ec7"/>
+</linearGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="0.5" y2="1">
+<stop offset="0" stop-color="#fff3c4"/><stop offset="0.5" stop-color="#ffd15c"/><stop offset="1" stop-color="#a8712a"/>
+</linearGradient>
+</defs>
+<rect x="8" y="8" width="104" height="104" rx="26" fill="url(#plate)" stroke="#433069" stroke-width="2"/>
+<circle cx="60" cy="52" r="46" fill="url(#glow)"/>
+<path d="M60 22c14 12 20 28 20 44l-8 14H48l-8-14c0-16 6-32 20-44Z" fill="url(#accent)"/>
+       <circle cx="60" cy="52" r="9" fill="#0a0718"/>
+       <path d="M40 66 28 82l16-4Zm40 0 12 16-16-4Z" fill="#ff6ec7"/>
+       <path d="M52 80h16l-8 20Z" fill="#ffd15c"/>
+</svg>

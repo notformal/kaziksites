@@ -1,0 +1,60 @@
+/* Специфика Limbo. Каркас и компоненты — из дизайн-системы. */
+
+.stage { min-height: 300px; overflow: hidden; }
+
+/* Ракета набирает высоту вместе с множителем: data-flight ставит игра. */
+.limboArt {
+  position: absolute;
+  right: 8%;
+  bottom: 12%;
+  width: 92px;
+  height: 92px;
+  opacity: 0.75;
+  filter: drop-shadow(0 10px 26px rgb(0 0 0 / 0.55));
+  transition: transform var(--d-slow) var(--ease-out), opacity var(--d-base) linear;
+}
+.stage[data-flight="up"] .limboArt { transform: translateY(-46px) rotate(-8deg); opacity: 1; }
+.stage[data-flight="down"] .limboArt { transform: translateY(34px) rotate(14deg); opacity: 0.4; }
+
+/* След от разгона — читается как «полёт вверх». */
+.stage::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 55%;
+  background: linear-gradient(0deg, var(--c-glow-soft), transparent);
+  opacity: 0;
+  transition: opacity var(--d-base) linear;
+  pointer-events: none;
+}
+.stage[data-flight="up"]::after { opacity: 1; }
+
+.odds {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-2);
+  padding: var(--s-3);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  background: var(--c-panel);
+  text-align: center;
+}
+.odds .field { justify-items: center; }
+.odds input {
+  width: 100%;
+  padding: var(--s-2);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-sm);
+  background: var(--c-base);
+  color: var(--c-text);
+  text-align: center;
+  font: var(--t-value);
+}
+.odds input:focus-visible { outline: 2px solid var(--c-primary); outline-offset: -2px; }
+
+#sound { padding: var(--s-2) var(--s-3); font-size: 15px; line-height: 1; align-self: center; }
+
+@media (max-width: 620px) {
+  .limboArt { width: 64px; height: 64px; }
+  .odds { grid-template-columns: 1fr; }
+}

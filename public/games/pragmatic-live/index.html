@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pragmatic Play Live — Live Dealer Games</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="pragmatic-header">
+    <div class="header-left">
+      <div class="logo">🎰 Pragmatic Play Live</div>
+      <nav class="game-nav">
+        <button class="game-btn active" data-game="all">Все игры</button>
+        <button class="game-btn" data-game="blackjack">Blackjack</button>
+        <button class="game-btn" data-game="roulette">Рулетка</button>
+        <button class="game-btn" data-game="baccarat">Баккара</button>
+        <button class="game-btn" data-game="game-show">Game Shows</button>
+      </nav>
+    </div>
+    <div class="header-right">
+      <div class="balance-display">
+        <span class="balance-label">Баланс:</span>
+        <span class="balance-amount" id="balance">$10,000.00</span>
+      </div>
+      <button class="live-toggle" id="liveToggle">🔴 Live</button>
+    </div>
+  </header>
+
+  <!-- Main Layout -->
+  <div class="pragmatic-container">
+    <!-- Left Panel — Tables -->
+    <aside class="tables-panel">
+      <h3>🎲 Столы</h3>
+      <div class="table-list" id="tableList">
+        <!-- Populated by JS -->
+      </div>
+    </aside>
+
+    <!-- Center — Game Area -->
+    <main class="game-panel">
+      <!-- Game Selection Grid -->
+      <section class="games-section" id="gamesSection">
+        <h3>🎮 Выберите игру</h3>
+        <div class="games-grid" id="gamesGrid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Active Game Area -->
+      <section class="active-game-section" id="activeGameSection" style="display:none;">
+        <div class="game-toolbar">
+          <button class="back-btn" id="backBtn">← Назад</button>
+          <h3 id="activeGameTitle">Игра</h3>
+          <div class="game-stats">
+            <span id="gameDealer">Дилер: —</span>
+            <span id="gameMinBet">Мин: $0.50</span>
+            <span id="gameMaxBet">Макс: $10,000</span>
+          </div>
+        </div>
+
+        <!-- Game Video Area (placeholder) -->
+        <div class="game-video-area" id="gameVideoArea">
+          <div class="video-placeholder">
+            <div class="play-icon">▶</div>
+            <p>Live Dealer Stream</p>
+          </div>
+        </div>
+
+        <!-- Game Controls -->
+        <div class="game-controls" id="gameControls">
+          <!-- Populated dynamically based on game type -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Right Panel — Bet Slip & History -->
+    <aside class="betslip-panel">
+      <h3>🎫 Купон ставок</h3>
+      <div class="betslip-content" id="betslipContent">
+        <p class="empty-betslip">Выберите игру и сделайте ставку</p>
+      </div>
+      <div class="betslip-summary" id="betslipSummary" style="display:none;">
+        <div class="summary-row">
+          <span>Ставка:</span>
+          <span id="totalStake">$0.00</span>
+        </div>
+        <div class="summary-row potential-win">
+          <span>Выигрыш:</span>
+          <span id="potentialWin">$0.00</span>
+        </div>
+        <button class="place-bet-btn" id="placeBetBtn">Поставить</button>
+        <button class="clear-betslip-btn" id="clearBetslipBtn">Очистить</button>
+      </div>
+      <section class="bets-history" id="betsHistory">
+        <h3>📊 История игр</h3>
+        <div id="betHistoryList"></div>
+      </section>
+    </aside>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container"></div>
+
+  <script src="js/game.js"></script>
+</body>
+</html>

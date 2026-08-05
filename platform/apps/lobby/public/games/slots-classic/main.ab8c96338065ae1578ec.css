@@ -1,0 +1,171 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  padding: 1rem;
+  background: radial-gradient(circle at 50% 15%, #27346a 0, #11162f 38%, #060810 80%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+#reels {
+  display: flex;
+  width: 100vw;
+  height: calc((3 / 5) * 100vw);
+  max-height: calc(90vh - 50px - 40px);
+  max-width: calc((5 / 3) * (90vh - 50px - 40px));
+}
+
+.reel {
+  overflow: hidden;
+  width: 20%;
+  height: 100%;
+  position: relative;
+}
+
+.reel > .icons {
+  position: relative;
+}
+
+.reel > .icons > img {
+  width: calc(100% + 6px);
+  margin: -3px 0 0 -3px;
+  height: auto;
+
+  /* enable gpu accelaration, fixes iOS flicker */
+  transform: translate3d(0, 0, 0);
+}
+
+#controls {
+  background-color: rgba(255, 255, 255, 0.9);
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 30px;
+}
+
+#controls label {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+#controls label input {
+  margin-right: 5px;
+}
+
+input[type="checkbox"] {
+  width: 40px;
+  height: 40px;
+}
+
+
+
+#slot.inverted .reel {
+  transform: scaleY(-1);
+}
+
+#slot.inverted .reel > .icons > img {
+  transform: scaleY(-1);
+}
+
+/* HUD: баланс, максимальный выигрыш и результат раунда — всё приходит с сервера. */
+#slot {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: min(880px, 100%);
+}
+
+#hud {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  font-size: 14px;
+}
+
+.hudCell {
+  display: grid;
+  gap: 2px;
+  padding: 10px 14px;
+  border: 1px solid #2b3a63;
+  border-radius: 8px;
+  background: #0e142ccc;
+  color: #dfe6ff;
+}
+
+.hudCell small {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8d9ac4;
+}
+
+.hudCell b {
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.hudCell--win b {
+  color: #ffd15c;
+}
+
+#result {
+  margin: 0;
+  text-align: center;
+  font-size: 13px;
+  color: #a7b2d8;
+  min-height: 1.4em;
+}
+
+.betField {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #10162e;
+}
+
+.betField input {
+  width: 110px;
+  padding: 8px 10px;
+  border: 1px solid #b9c2dd;
+  border-radius: 6px;
+  font: inherit;
+  font-size: 15px;
+}
+
+#spin {
+  padding: 12px 30px;
+  border: 0;
+  border-radius: 8px;
+  background: #ffd15c;
+  color: #171204;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+#spin:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.autoplayField {
+  font-size: 13px;
+  color: #10162e;
+}
+
+/* Выигрышный раунд: подсвечиваем центральную линию — обратная связь для игрока. */
+#slot.win #reels {
+  box-shadow: 0 0 0 2px #ffd15c, 0 0 42px #ffd15c66;
+  border-radius: 10px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #slot.win #reels { transition: none; }
+}
+

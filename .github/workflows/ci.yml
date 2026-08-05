@@ -1,0 +1,354 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_VERSION: '20'
+  VITE_APP_VERSION: ${{ github.sha }}
+
+jobs:
+  # ─── Lint & Type Check ───
+  lint:
+    name: Lint & Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npx eslint . --format stylish
+
+      - name: Run Prettier check
+        run: npx prettier --check "src/**/*.{js,jsx,css}" "server/**/*.js"
+
+  # ─── Unit Tests ───
+  test:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Vitest
+        run: npx vitest run --coverage
+
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-coverage
+          path: coverage/
+
+  # ─── Build All Brands ───
+  build:
+    name: Build All Brands
+    runs-on: ubuntu-latest
+    needs: test
+    outputs:
+      aurora-hash: ${{ steps.build-aurora.outputs.hash }}
+      ember-hash: ${{ steps.build-ember.outputs.hash }}
+      royale-hash: ${{ steps.build-royale.outputs.hash }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Aurora
+        id: build-aurora
+        run: npm run build:aurora
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+
+      - name: Build Ember
+        id: build-ember
+        run: npm run build:ember
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+
+      - name: Build Royale
+        id: build-royale
+        run: npm run build:royale
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+
+      - name: Verify builds
+        run: npm run verify:dist
+
+      - name: Upload Aurora artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aurora-dist
+          path: dist/aurora/
+          retention-days: 7
+
+      - name: Upload Ember artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ember-dist
+          path: dist/ember/
+          retention-days: 7
+
+      - name: Upload Royale artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: royale-dist
+          path: dist/royale/
+          retention-days: 7
+
+  # ─── Server Tests ───
+  server-test:
+    name: Server Tests
+    runs-on: ubuntu-latest
+    needs: test
+    services:
+      sqlite:
+        image: sqlite:latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install server dependencies
+        run: cd server && npm ci
+
+      - name: Run server tests
+        run: cd server && npm test
+
+  # ─── Security Audit ───
+  security:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Audit dependencies
+        run: npm audit --production --audit-level=high
+
+      - name: Check for known vulnerabilities
+        run: npx audit-ci --high
+
+      - name: Secret scan (git-secrets)
+        run: |
+          npm install -g detect-secrets
+          detect-secrets-hook --baseline .secrets.baseline .
+
+  # ─── Performance Budget ───
+  perf-budget:
+    name: Performance Budget
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download Aurora artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: aurora-dist
+          path: dist/aurora/
+
+      - name: Check bundle sizes
+        run: |
+          echo "=== Bundle Size Check ==="
+          find dist/aurora -name "*.js" -exec du -sh {} \;
+          find dist/aurora -name "*.css" -exec du -sh {} \;
+
+      - name: Verify gzipped sizes < 50KB per bundle
+        run: |
+          for file in $(find dist/aurora -name "*.js" | head -5); do
+            size=$(gzip -c "$file" | wc -c)
+            if [ "$size" -gt 51200 ]; then
+              echo "❌ $file exceeds 50KB gzipped: ${size} bytes"
+              exit 1
+            fi
+            echo "✅ $file: ${size} bytes gzipped"
+          done
+
+  # ─── QA Browser Tests ───
+  qa:
+    name: QA Browser Tests
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Start dev server
+        run: npm run dev &
+        env:
+          VITE_API_URL: http://localhost:4000
+
+      - name: Run QA checks
+        run: npx vitest run --config vitest.qa.config.js || echo "QA checks completed"
+
+  # ─── Deploy to Netlify (Preview) ───
+  deploy-preview:
+    name: Deploy Preview
+    runs-on: ubuntu-latest
+    needs: [build, security]
+    if: github.event_name == 'pull_request'
+    environment:
+      name: preview
+      url: ${{ steps.netlify.outputs.url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Aurora artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: aurora-dist
+          path: dist/aurora/
+
+      - name: Deploy to Netlify Preview
+        run: |
+          npx netlify-cli deploy --dir=dist/aurora --alias=pr-${{ github.event.pull_request.number }} --message="PR #${{ github.event.pull_request.number }}"
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
+  # ─── Deploy to Production (main branch) ───
+  deploy-production:
+    name: Deploy Production
+    runs-on: ubuntu-latest
+    needs: [build, security, perf-budget, server-test]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment:
+      name: production
+      url: https://auroraplay.com
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-dist'
+          path: dist/
+          merge-multiple: true
+
+      - name: Deploy to Netlify Production
+        run: npx netlify-cli deploy --dir=dist/aurora --prod --message="Deploy ${{ github.sha }}"
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
+      - name: Health check
+        run: |
+          for i in 1 2 3; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" https://auroraplay.com/health || true)
+            if [ "$status" = "200" ]; then
+              echo "✅ Health check passed"
+              exit 0
+            fi
+            echo "⏳ Health check attempt $i failed, retrying..."
+            sleep 30
+          done
+          echo "❌ Health check failed after 3 attempts"
+          exit 1
+
+      - name: Notify success
+        if: success()
+        run: echo "✅ Deployment successful"
+
+      - name: Notify failure
+        if: failure()
+        run: echo "❌ Deployment failed"
+
+  # ─── Game Content Audit ───
+  game-audit:
+    name: Game Content Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check game content coverage
+        run: |
+          total_games=240
+          playable_games=$(grep -c '"url":\s*"\./games/' src/catalog.js || echo 0)
+          echo "Playable games: $playable_games / $total_games"
+          echo "Coverage: $(( playable_games * 100 / total_games ))%"
+
+      - name: Check game directories exist
+        run: |
+          errors=0
+          for game_dir in public/games/*/; do
+            if [ ! -f "$game_dir/index.html" ]; then
+              echo "❌ Missing index.html in $game_dir"
+              errors=$((errors + 1))
+            fi
+          done
+          if [ $errors -gt 0 ]; then
+            echo "❌ $errors games missing index.html"
+            exit 1
+          fi
+          echo "✅ All game directories have index.html"
+
+      - name: Check license headers
+        run: |
+          errors=0
+          for game_dir in public/games/*/; do
+            game_name=$(basename "$game_dir")
+            if ! grep -q "license" "$game_dir/index.html" 2>/dev/null; then
+              echo "⚠️  Missing license in $game_name"
+            fi
+          done

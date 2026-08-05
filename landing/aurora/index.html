@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aurora Play — Where Every Game Starts an Adventure</title>
+  <meta name="description" content="Join Aurora Play for 240+ instant social arcade games. Daily rewards, daily collections, and a fair demo play experience.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #06060e;
+      --surface: rgba(255,255,255,0.03);
+      --text: #f0f0f5;
+      --muted: #6b6b8d;
+      --accent: #7c3aed;
+      --accent2: #06b6d4;
+      --glow: rgba(124,58,237,0.4);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* === NOISE TEXTURE === */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 128px 128px;
+    }
+
+    /* === CUSTOM CURSOR === */
+    .cursor {
+      width: 20px; height: 20px;
+      border: 1.5px solid rgba(124,58,237,0.6);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      transition: transform 0.15s ease, width 0.3s, height 0.3s, border-color 0.3s;
+      transform: translate(-50%, -50%);
+      mix-blend-mode: difference;
+    }
+    .cursor.hover {
+      width: 56px; height: 56px;
+      border-color: rgba(6,182,212,0.8);
+    }
+    .cursor-dot {
+      width: 5px; height: 5px;
+      background: var(--accent);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 10001;
+      transform: translate(-50%, -50%);
+    }
+
+    /* === NAV === */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.25rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: transparent;
+      transition: background 0.4s, backdrop-filter 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(6,6,14,0.6);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .nav-logo-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+    }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px; left: 0;
+      width: 0; height: 1px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      padding: 0.6rem 1.5rem !important;
+      background: linear-gradient(135deg, var(--accent), #6d28d9) !important;
+      border-radius: 100px !important;
+      color: white !important;
+      font-weight: 500 !important;
+      transition: all 0.3s !important;
+      box-shadow: 0 2px 20px rgba(124,58,237,0.3);
+    }
+    .nav-cta:hover {
+      box-shadow: 0 4px 30px rgba(124,58,237,0.5) !important;
+      transform: translateY(-1px);
+    }
+    .nav-cta::after { display: none !important; }
+
+    /* === HERO === */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 8rem 3rem 4rem;
+      overflow: hidden;
+    }
+    /* Animated mesh gradient */
+    .hero-mesh {
+      position: absolute; inset: 0; z-index: 0;
+      overflow: hidden;
+    }
+    .hero-mesh .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.4;
+      animation: orb-drift 20s ease-in-out infinite;
+    }
+    .hero-mesh .orb:nth-child(1) {
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,58,237,0.5), transparent 70%);
+      top: -10%; left: 15%;
+      animation-duration: 25s;
+    }
+    .hero-mesh .orb:nth-child(2) {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(6,182,212,0.4), transparent 70%);
+      top: 20%; right: -5%;
+      animation-duration: 20s;
+      animation-delay: -5s;
+    }
+    .hero-mesh .orb:nth-child(3) {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(139,92,246,0.3), transparent 70%);
+      bottom: -5%; left: 40%;
+      animation-duration: 22s;
+      animation-delay: -10s;
+    }
+    @keyframes orb-drift {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(5%, -8%) scale(1.1); }
+      50% { transform: translate(-3%, 5%) scale(0.95); }
+      75% { transform: translate(8%, 3%) scale(1.05); }
+    }
+    /* Grid pattern overlay */
+    .hero-mesh::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+    }
+
+    .hero-content {
+      position: relative; z-index: 1;
+      text-align: center;
+      max-width: 900px;
+    }
+    .hero-label {
+      display: inline-flex;
+      align-items: center; gap: 0.5rem;
+      padding: 0.4rem 1rem 0.4rem 0.5rem;
+      background: rgba(124,58,237,0.08);
+      border: 1px solid rgba(124,58,237,0.15);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: rgba(167,139,250,0.9);
+      letter-spacing: 0.5px;
+      margin-bottom: 2.5rem;
+      text-transform: uppercase;
+    }
+    .hero-label-dot {
+      width: 6px; height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.5); }
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', 'Georgia', serif;
+      font-size: clamp(3.5rem, 9vw, 7.5rem);
+      font-weight: 400;
+      line-height: 0.95;
+      letter-spacing: -3px;
+      margin-bottom: 2rem;
+    }
+    .hero h1 .line {
+      display: block;
+      overflow: hidden;
+    }
+    .hero h1 .line-inner {
+      display: block;
+      transform: translateY(100%);
+      animation: line-in 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .hero h1 .line:nth-child(2) .line-inner { animation-delay: 0.12s; }
+    .hero h1 .line:nth-child(3) .line-inner { animation-delay: 0.24s; }
+    @keyframes line-in {
+      to { transform: translateY(0); }
+    }
+    .hero h1 em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-desc {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 3rem;
+      line-height: 1.8;
+      font-weight: 300;
+      opacity: 0;
+      animation: fade-up 1s 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes fade-up {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .hero-desc { transform: translateY(20px); }
+
+    .hero-actions {
+      display: flex; gap: 1rem; justify-content: center; align-items: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fade-up 1s 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .hero-actions { transform: translateY(20px); }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      border-radius: 100px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+      letter-spacing: -0.2px;
+    }
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+      box-shadow: 0 0 40px rgba(240,240,245,0.1);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 4px 50px rgba(240,240,245,0.2);
+    }
+    .btn-ghost {
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text);
+      background: transparent;
+    }
+    .btn-ghost:hover {
+      border-color: rgba(255,255,255,0.25);
+      background: rgba(255,255,255,0.03);
+    }
+    .btn-accent {
+      background: linear-gradient(135deg, var(--accent), #6d28d9);
+      color: white;
+      box-shadow: 0 4px 30px rgba(124,58,237,0.3);
+    }
+    .btn-accent:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 40px rgba(124,58,237,0.5);
+    }
+
+    /* === MARQUEE === */
+    .marquee-section {
+      padding: 3rem 0;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      overflow: hidden;
+      position: relative;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 3rem;
+      animation: marquee 40s linear infinite;
+      width: max-content;
+    }
+    .marquee-item {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+      display: flex; align-items: center; gap: 3rem;
+    }
+    .marquee-item::after {
+      content: '◆';
+      font-size: 0.4rem;
+      color: var(--accent);
+      opacity: 0.5;
+    }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    /* === STATS BAR === */
+    .stats-bar {
+      padding: 5rem 3rem;
+      position: relative;
+    }
+    .stats-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+    .stat-item::after {
+      content: '';
+      position: absolute; right: 0; top: 20%; bottom: 20%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.08), transparent);
+    }
+    .stat-item:last-child::after { display: none; }
+    .stat-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.5rem;
+      font-weight: 400;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--text), var(--muted));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    /* === FEATURES === */
+    .features {
+      padding: 8rem 3rem;
+      position: relative;
+    }
+    .features-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+    .section-top {
+      margin-bottom: 5rem;
+    }
+    .section-overline {
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .section-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 400;
+      letter-spacing: -2px;
+      line-height: 1.1;
+    }
+    .section-title em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .feature-cell {
+      padding: 3rem 2.5rem;
+      background: var(--bg);
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .feature-cell::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .feature-cell:hover {
+      background: rgba(124,58,237,0.03);
+    }
+    .feature-cell:hover::before {
+      transform: scaleX(1);
+    }
+    .feature-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 2px;
+      margin-bottom: 2rem;
+      font-weight: 500;
+    }
+    .feature-icon {
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .feature-cell h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.3px;
+    }
+    .feature-cell p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* === GAMES SHOWCASE === */
+    .games-section {
+      padding: 8rem 3rem;
+      position: relative;
+    }
+    .games-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .game-card {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .game-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(124,58,237,0.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .game-thumb {
+      width: 100%;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .game-thumb::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(6,6,14,0.8) 0%, transparent 50%);
+    }
+    .game-thumb.slots { background: linear-gradient(135deg, #1a0a3e, #3b1c78, #6d28d9); }
+    .game-thumb.arcade { background: linear-gradient(135deg, #0a2a3e, #0e4a6e, #06b6d4); }
+    .game-thumb.table { background: linear-gradient(135deg, #2a1a0a, #6e4a0e, #f59e0b); }
+    .game-thumb.instant { background: linear-gradient(135deg, #2a0a2e, #6e0e5a, #ec4899); }
+    .game-info {
+      padding: 1.2rem;
+    }
+    .game-info h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.2px;
+    }
+    .game-info span {
+      color: var(--muted);
+      font-size: 0.75rem;
+    }
+    .game-play {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      opacity: 0;
+      width: 48px; height: 48px;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 2;
+    }
+    .game-card:hover .game-play {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* === BIG CTA === */
+    .big-cta {
+      padding: 10rem 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .big-cta-inner {
+      text-align: center;
+      max-width: 700px;
+      position: relative; z-index: 1;
+    }
+    .big-cta h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-weight: 400;
+      letter-spacing: -3px;
+      line-height: 1;
+      margin-bottom: 2rem;
+    }
+    .big-cta h2 em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .big-cta p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+    .big-cta-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(124,58,237,0.15), transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    /* === FOOTER === */
+    footer {
+      padding: 5rem 3rem 3rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      position: relative; z-index: 1;
+    }
+    .footer-inner {
+      max-width: 1200px; margin: 0 auto;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+    .footer-brand .nav-logo { margin-bottom: 1.5rem; }
+    .footer-brand p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      font-weight: 300;
+      max-width: 300px;
+    }
+    .footer-col h4 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      font-weight: 500;
+    }
+    .footer-col a {
+      display: block;
+      color: var(--text);
+      text-decoration: none;
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 300;
+      transition: color 0.3s;
+    }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.04);
+      padding-top: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+    .footer-legal { display: flex; gap: 2rem; }
+    .footer-legal a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .footer-legal a:hover { color: var(--text); }
+
+    /* === REVEAL === */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 1024px) {
+      .hero { padding: 8rem 2rem 4rem; }
+      .nav { padding: 1rem 2rem; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .games-grid { grid-template-columns: repeat(2, 1fr); }
+      .features, .games-section { padding: 6rem 2rem; }
+      .big-cta { padding: 6rem 2rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .features-grid { grid-template-columns: 1fr; }
+      .games-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+      .cursor, .cursor-dot { display: none; }
+      .hero h1 { letter-spacing: -1.5px; }
+      .big-cta h2 { letter-spacing: -1.5px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Custom Cursor -->
+  <div class="cursor"></div>
+  <div class="cursor-dot"></div>
+
+  <!-- Nav -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <div class="nav-logo-icon">✦</div>
+      Aurora Play
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#games">Games</a>
+      <a href="#rewards">Rewards</a>
+      <a href="index.html" class="btn btn-ghost" style="padding:0.6rem 1.3rem;font-size:0.85rem;">Launch</a>
+      <a href="#join" class="nav-cta">Join Free</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-mesh">
+      <div class="orb"></div>
+      <div class="orb"></div>
+      <div class="orb"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-label">
+        <span class="hero-label-dot"></span>
+        240+ Social Arcade Games
+      </div>
+      <h1>
+        <span class="line"><span class="line-inner">Your Gateway</span></span>
+        <span class="line"><span class="line-inner">to <em>Infinite</em></span></span>
+        <span class="line"><span class="line-inner">Fun</span></span>
+      </h1>
+      <p class="hero-desc">Discover a universe of instant-play arcade games. Earn daily rewards, build your collection, and compete — all completely free.</p>
+      <div class="hero-actions">
+        <a href="#games" class="btn btn-accent">✦ Explore Games</a>
+        <a href="#features" class="btn btn-ghost">Learn More →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <section class="marquee-section">
+    <div class="marquee-track">
+      <span class="marquee-item">Slots Classic</span>
+      <span class="marquee-item">Jackpot Royale</span>
+      <span class="marquee-item">Blackjack Fury</span>
+      <span class="marquee-item">Plinko Blaze</span>
+      <span class="marquee-item">Crash Fire</span>
+      <span class="marquee-item">Roulette Royal</span>
+      <span class="marquee-item">Keno Inferno</span>
+      <span class="marquee-item">Cosmos Spin</span>
+      <span class="marquee-item">Tris Master</span>
+      <span class="marquee-item">Card Rush</span>
+      <span class="marquee-item">Slots Classic</span>
+      <span class="marquee-item">Jackpot Royale</span>
+      <span class="marquee-item">Blackjack Fury</span>
+      <span class="marquee-item">Plinko Blaze</span>
+      <span class="marquee-item">Crash Fire</span>
+      <span class="marquee-item">Roulette Royal</span>
+      <span class="marquee-item">Keno Inferno</span>
+      <span class="marquee-item">Cosmos Spin</span>
+      <span class="marquee-item">Tris Master</span>
+      <span class="marquee-item">Card Rush</span>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="stats-bar">
+    <div class="stats-inner">
+      <div class="stat-item reveal">
+        <div class="stat-value">240+</div>
+        <div class="stat-label">Instant Games</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value">250</div>
+        <div class="stat-label">Free Daily Credits</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value">18+</div>
+        <div class="stat-label">Game Categories</div>
+      </div>
+      <div class="stat-item reveal">
+        <div class="stat-value">∞</div>
+        <div class="stat-label">Endless Fun</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="features-inner">
+      <div class="section-top reveal">
+        <span class="section-overline">Why Aurora Play</span>
+        <h2 class="section-title">Built for players who<br>refuse to <em>compromise</em></h2>
+      </div>
+      <div class="features-grid">
+        <div class="feature-cell reveal">
+          <div class="feature-num">01</div>
+          <span class="feature-icon">🎮</span>
+          <h3>240+ Instant Games</h3>
+          <p>Every game loads instantly in your browser. No downloads, no waiting, just pure gaming.</p>
+        </div>
+        <div class="feature-cell reveal">
+          <div class="feature-num">02</div>
+          <span class="feature-icon">💰</span>
+          <h3>Daily Reward System</h3>
+          <p>Log in every day to claim 250 free virtual credits. Build streaks and unlock bonuses.</p>
+        </div>
+        <div class="feature-cell reveal">
+          <div class="feature-num">03</div>
+          <span class="feature-icon">🏆</span>
+          <h3>Fair Demo Play</h3>
+          <p>Every game uses virtual credits with zero real money involved. Pure social entertainment.</p>
+        </div>
+        <div class="feature-cell reveal">
+          <div class="feature-num">04</div>
+          <span class="feature-icon">⭐</span>
+          <h3>Personalized Feed</h3>
+          <p>Our system learns your preferences and surfaces games you'll love automatically.</p>
+        </div>
+        <div class="feature-cell reveal">
+          <div class="feature-num">05</div>
+          <span class="feature-icon">📱</span>
+          <h3>Play Anywhere</h3>
+          <p>Fully responsive design works on desktop, tablet, and mobile with seamless sync.</p>
+        </div>
+        <div class="feature-cell reveal">
+          <div class="feature-num">06</div>
+          <span class="feature-icon">🔒</span>
+          <h3>Privacy First</h3>
+          <p>Your data stays yours. Consent-gated analytics and zero third-party tracking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Games -->
+  <section class="games-section" id="games">
+    <div class="games-inner">
+      <div class="section-top reveal">
+        <span class="section-overline">Trending Now</span>
+        <h2 class="section-title">The most played<br><em>right now</em></h2>
+      </div>
+      <div class="games-grid">
+        <div class="game-card reveal">
+          <div class="game-thumb slots">🎰
+            <div class="game-play">▶</div>
+          </div>
+          <div class="game-info">
+            <h4>Mega Slots Classic</h4>
+            <span>Slots · 4.9★</span>
+          </div>
+        </div>
+        <div class="game-card reveal">
+          <div class="game-thumb arcade">🧱
+            <div class="game-play">▶</div>
+          </div>
+          <div class="game-info">
+            <h4>Tris Master</h4>
+            <span>Arcade · 4.8★</span>
+          </div>
+        </div>
+        <div class="game-card reveal">
+          <div class="game-thumb table">🃏
+            <div class="game-play">▶</div>
+          </div>
+          <div class="game-info">
+            <h4>Card Rush</h4>
+            <span>Table · 4.7★</span>
+          </div>
+        </div>
+        <div class="game-card reveal">
+          <div class="game-thumb instant">💫
+            <div class="game-play">▶</div>
+          </div>
+          <div class="game-info">
+            <h4>Cosmos Crush</h4>
+            <span>Instant · 4.8★</span>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:3rem;" class="reveal">
+        <a href="index.html" class="btn btn-accent">View All 240 Games →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rewards -->
+  <section class="features" id="rewards" style="padding-top:0;padding-bottom:0;">
+    <div class="features-inner">
+      <div class="section-top reveal">
+        <span class="section-overline">Rewards</span>
+        <h2 class="section-title">Rewards that keep you<br><em>coming back</em></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;" class="reveal">
+        <div style="padding:2.5rem;border-radius:16px;background:var(--surface);border:1px solid rgba(255,255,255,0.04);">
+          <div style="font-size:2rem;margin-bottom:1.5rem;">📅</div>
+          <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">Daily Credits</h3>
+          <p style="color:var(--muted);font-size:0.9rem;line-height:1.7;">250 virtual credits every single day — free, no strings attached</p>
+        </div>
+        <div style="padding:2.5rem;border-radius:16px;background:var(--surface);border:1px solid rgba(255,255,255,0.04);">
+          <div style="font-size:2rem;margin-bottom:1.5rem;">🔥</div>
+          <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">Streak Bonuses</h3>
+          <p style="color:var(--muted);font-size:0.9rem;line-height:1.7;">Keep your login streak alive for escalating weekly rewards</p>
+        </div>
+        <div style="padding:2.5rem;border-radius:16px;background:var(--surface);border:1px solid rgba(255,255,255,0.04);">
+          <div style="font-size:2rem;margin-bottom:1.5rem;">🎁</div>
+          <h3 style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;">Special Events</h3>
+          <p style="color:var(--muted);font-size:0.9rem;line-height:1.7;">Seasonal tournaments and limited-time challenges with extra credits</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Big CTA -->
+  <section class="big-cta" id="join">
+    <div class="big-cta-glow"></div>
+    <div class="big-cta-inner reveal">
+      <h2>Ready to<br><em>start playing?</em></h2>
+      <p>Join millions of players who discovered their new favorite arcade experience. Free forever, no deposits required.</p>
+      <a href="index.html" class="btn btn-accent" style="padding:1rem 2.5rem;font-size:1rem;">✦ Create Free Account</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo">
+            <div class="nav-logo-icon">✦</div>
+            Aurora Play
+          </a>
+          <p>The ultimate social arcade showcase. Play 240+ games, earn daily rewards, and discover your next favorite adventure — all completely free.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4>
+          <a href="#games">Games Catalog</a>
+          <a href="#rewards">Rewards</a>
+          <a href="#">Leaderboards</a>
+          <a href="#">Events</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About Us</a>
+          <a href="#">Careers</a>
+          <a href="#">Press Kit</a>
+          <a href="#">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Terms of Service</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Responsible Play</a>
+          <a href="#">Cookie Policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Aurora Play. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="#">Support</a>
+          <a href="#">Status</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const cursor = document.querySelector('.cursor');
+    const cursorDot = document.querySelector('.cursor-dot');
+    let mx = 0, my = 0, cx = 0, cy = 0;
+    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    function animateCursor() {
+      cx += (mx - cx) * 0.15;
+      cy += (my - cy) * 0.15;
+      cursor.style.left = cx + 'px';
+      cursor.style.top = cy + 'px';
+      cursorDot.style.left = mx + 'px';
+      cursorDot.style.top = my + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+    document.querySelectorAll('a, .game-card, .btn').forEach(el => {
+      el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+      el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Nav scroll
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior:'smooth' }); }
+      });
+    });
+  </script>
+</body>
+</html>

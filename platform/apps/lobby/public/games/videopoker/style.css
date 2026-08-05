@@ -1,0 +1,139 @@
+/* Только специфика Video Poker: карты с переворотом, маркер HOLD, декор стола
+   и ряд обмена. Каркас, кнопки, HUD и токены — из ui-tokens.css + ui-shell.css. */
+
+.stage { min-height: 280px; }
+
+/* Фишка и кристалл из art/ дрейфуют за картами — сцена дышит, но не отвлекает. */
+.tableDecor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+}
+.tableDecor img {
+  position: absolute;
+  width: 76px;
+  animation: decorFloat 7s var(--ease-in-out) infinite;
+}
+.tableDecor img:first-child { left: var(--s-4); bottom: var(--s-4); }
+.tableDecor img:last-child { right: var(--s-4); top: var(--s-4); animation-delay: 1.8s; }
+
+@keyframes decorFloat {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-11px) rotate(4deg); }
+}
+
+/* ---- Карты ---- */
+.cards {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--s-2);
+  width: 100%;
+  max-width: 560px;
+}
+
+.card {
+  position: relative;
+  aspect-ratio: 0.72;
+  padding: 0;
+  border: 0;
+  background: none;
+  perspective: 640px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.card:disabled { cursor: default; }
+.card:focus-visible {
+  outline: 2px solid var(--c-primary);
+  outline-offset: 2px;
+  border-radius: var(--r-md);
+}
+
+/* Переворот: рубашка и лицо — две грани одной 3D-плоскости. */
+.card__flip {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  transform-style: preserve-3d;
+  transition: transform var(--d-base) var(--ease-out);
+}
+.card[data-face="down"] .card__flip { transform: rotateY(180deg); }
+
+.card__face,
+.card__back {
+  grid-area: 1 / 1;
+  backface-visibility: hidden;
+  border: 2px solid var(--c-line);
+  border-radius: var(--r-md);
+  box-shadow: var(--e-1);
+}
+
+.card__face {
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: var(--s-1);
+  background: var(--c-text);
+  color: var(--c-base);
+  font: 800 clamp(15px, 4vw, 24px)/1 var(--f-display);
+}
+.card[data-red="true"] .card__face { color: var(--c-loss); }
+.card__suit { font-size: 1.25em; }
+
+.card__back {
+  transform: rotateY(180deg);
+  background: var(--c-surface-2) url("art/card-back.svg") center / cover no-repeat;
+}
+
+/* Маркер удержания: появляется по клику по карте, снимается повторным кликом. */
+.card__hold {
+  position: absolute;
+  left: 50%;
+  bottom: var(--s-2);
+  transform: translate(-50%, 6px);
+  padding: 3px var(--s-2);
+  border-radius: var(--r-pill);
+  background: var(--c-gold);
+  color: var(--c-base);
+  font: var(--t-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--d-fast) var(--ease-out), transform var(--d-fast) var(--ease-pop);
+  z-index: 1;
+}
+.card.is-held .card__hold { opacity: 1; transform: translate(-50%, 0); }
+.card.is-held .card__face {
+  border-color: var(--c-gold);
+  box-shadow: 0 0 0 1px var(--c-gold), 0 0 20px var(--c-glow-soft);
+}
+
+/* Итог раунда подкрашивает сцену: выигранная сдача сияет, проигранная гаснет. */
+.stage[data-state="win"] .card__face { border-color: var(--c-gold); }
+.stage[data-state="lose"] .card__face { opacity: 0.85; }
+
+/* ---- Ряд обмена: без рамки панели, прячется вместе со своей кнопкой. ---- */
+.controls--draw {
+  grid-template-columns: 1fr;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+.controls--draw:not(:has(.btn:not([hidden]))) { display: none; }
+
+/* Кнопка звука вспомогательная — держим компактной. */
+#sound {
+  padding: var(--s-2) var(--s-3);
+  font-size: 15px;
+  line-height: 1;
+  align-self: center;
+}
+
+@media (max-width: 620px) {
+  .cards { gap: var(--s-1); }
+  .tableDecor img { width: 52px; }
+  .card__hold { letter-spacing: 0.08em; }
+}

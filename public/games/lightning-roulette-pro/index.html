@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lightning Roulette Pro — Evolution Style</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="game-header">
+    <div class="logo">
+      <span class="logo-icon">⚡</span>
+      <h1>Lightning Roulette <span class="pro-badge">PRO</span></h1>
+    </div>
+    <div class="header-info">
+      <div class="balance-display">
+        <span class="label">Balance:</span>
+        <span class="amount" id="balance">$10,000.00</span>
+      </div>
+      <div class="last-win">
+        <span class="label">Win:</span>
+        <span class="amount win-amount" id="lastWin">$0.00</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Game Area -->
+  <main class="game-container">
+    <!-- Left Panel: Statistics -->
+    <aside class="stats-panel">
+      <h3>Statistics</h3>
+      
+      <!-- Number History -->
+      <div class="history-section">
+        <h4>Last Numbers</h4>
+        <div class="number-history" id="numberHistory"></div>
+      </div>
+
+      <!-- Hot & Cold Numbers -->
+      <div class="hot-cold-section">
+        <h4>Hot Numbers</h4>
+        <div class="number-row hot-numbers" id="hotNumbers"></div>
+        <h4>Cold Numbers</h4>
+        <div class="number-row cold-numbers" id="coldNumbers"></div>
+      </div>
+
+      <!-- Statistics -->
+      <div class="stats-grid">
+        <div class="stat-item">
+          <span class="stat-label">Red</span>
+          <span class="stat-value" id="redCount">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Black</span>
+          <span class="stat-value" id="blackCount">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Green</span>
+          <span class="stat-value" id="greenCount">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Even</span>
+          <span class="stat-value" id="evenCount">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Odd</span>
+          <span class="stat-value" id="oddCount">0</span>
+        </div>
+      </div>
+
+      <!-- Roadmaps -->
+      <div class="roadmap-section">
+        <h4>Roadmap</h4>
+        <div class="bead-plate" id="beadPlate"></div>
+      </div>
+    </aside>
+
+    <!-- Center: Betting Table -->
+    <section class="betting-area">
+      <!-- Timer & Status -->
+      <div class="game-status-bar">
+        <div class="timer-display" id="timerDisplay">
+          <span class="time-value" id="timeValue">10</span>
+          <span class="time-label">seconds to bet</span>
+        </div>
+        <div class="round-info">
+          <span class="round-id" id="roundId">Round #---</span>
+          <span class="max-win">Max Win: $500,000</span>
+        </div>
+      </div>
+
+      <!-- Lightning Numbers Display -->
+      <div class="lightning-display" id="lightningDisplay" style="display:none;">
+        <h3>⚡ Lightning Multipliers ⚡</h3>
+        <div class="multiplier-grid" id="multiplierGrid"></div>
+      </div>
+
+      <!-- Roulette Table -->
+      <div class="roulette-table" id="rouletteTable">
+        <!-- Zero -->
+        <div class="bet-cell zero" data-number="0" data-type="straight">
+          <span class="cell-number">0</span>
+          <span class="lightning-badge" style="display:none;">⚡<span class="multiplier-value"></span></span>
+        </div>
+
+        <!-- Number Grid (3 columns x 12 rows) -->
+        <div class="number-grid" id="numberGrid"></div>
+
+        <!-- Outside Bets -->
+        <div class="outside-bets">
+          <!-- Dozens -->
+          <div class="bet-row dozens">
+            <div class="bet-cell dozen" data-bet="dozen1">1st 12 (1-12)</div>
+            <div class="bet-cell dozen" data-bet="dozen2">2nd 12 (13-24)</div>
+            <div class="bet-cell dozen" data-bet="dozen3">3rd 12 (25-36)</div>
+          </div>
+
+          <!-- Even Money -->
+          <div class="bet-row even-money">
+            <div class="bet-cell low" data-bet="low">1-18</div>
+            <div class="bet-cell even" data-bet="even">Even</div>
+            <div class="bet-cell red" data-bet="red" style="background:#e74c3c;">Red</div>
+            <div class="bet-cell black" data-bet="black" style="background:#2c3e50;">Black</div>
+            <div class="bet-cell odd" data-bet="odd">Odd</div>
+            <div class="bet-cell high" data-bet="high">19-36</div>
+          </div>
+
+          <!-- Column Bets -->
+          <div class="bet-row columns">
+            <div class="bet-cell column" data-bet="col2to1-1">2:1</div>
+            <div class="bet-cell column" data-bet="col2to1-2">2:1</div>
+            <div class="bet-cell column" data-bet="col2to1-3">2:1</div>
+          </div>
+        </div>
+
+        <!-- Side Bets -->
+        <div class="side-bets-panel">
+          <h4>Side Bets</h4>
+          <div class="side-bet-options">
+            <div class="side-bet-option" data-bet="anyCriss">
+              <span>Any Criss</span>
+              <span class="payout">7:1</span>
+            </div>
+            <div class="side-bet-option" data-bet="redHot">
+              <span>Red Hot</span>
+              <span class="payout">50:1</span>
+            </div>
+            <div class="side-bet-option" data-bet="luckyNumber">
+              <span>Lucky Number</span>
+              <span class="payout">249:1</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bet Controls -->
+      <div class="bet-controls">
+        <div class="current-bets" id="currentBets">
+          <h4>Current Bets</h4>
+          <div class="bets-list" id="betsList"></div>
+          <div class="bets-total">
+            <span>Total: </span>
+            <span class="total-amount" id="totalBet">$0.00</span>
+          </div>
+        </div>
+
+        <div class="control-buttons">
+          <button class="btn btn-clear" id="clearBets">Clear Bets</button>
+          <button class="btn btn-repeat" id="repeatBets">Repeat</button>
+          <button class="btn btn-auto" id="autoPlay">Auto Play</button>
+        </div>
+
+        <div class="chip-selector">
+          <span>Chip Value:</span>
+          <div class="chips" id="chipSelector">
+            <button class="chip" data-value="0.10">$0.10</button>
+            <button class="chip" data-value="0.50">$0.50</button>
+            <button class="chip active" data-value="1">$1</button>
+            <button class="chip" data-value="5">$5</button>
+            <button class="chip" data-value="10">$10</button>
+            <button class="chip" data-value="25">$25</span></button>
+            <button class="chip" data-value="50">$50</button>
+            <button class="chip" data-value="100">$100</button>
+            <button class="chip" data-value="500">$500</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Panel: Game Info -->
+    <aside class="info-panel">
+      <h3>Game Info</h3>
+      
+      <!-- RTP & Info -->
+      <div class="game-info-section">
+        <div class="info-row">
+          <span>RTP:</span>
+          <span class="value">97.30%</span>
+        </div>
+        <div class="info-row">
+          <span>Max Win:</span>
+          <span class="value">$500,000</span>
+        </div>
+        <div class="info-row">
+          <span>Min Bet:</span>
+          <span class="value">$0.50</span>
+        </div>
+        <div class="info-row">
+          <span>Max Bet:</span>
+          <span class="value">$10,000</span>
+        </div>
+      </div>
+
+      <!-- Payout Table -->
+      <div class="payout-section">
+        <h4>Payouts</h4>
+        <div class="payout-list">
+          <div class="payout-item">
+            <span>Straight (1 number)</span>
+            <span class="payout-value">35:1</span>
+          </div>
+          <div class="payout-item">
+            <span>Split (2 numbers)</span>
+            <span class="payout-value">17:1</span>
+          </div>
+          <div class="payout-item">
+            <span>Street (3 numbers)</span>
+            <span class="payout-value">11:1</span>
+          </div>
+          <div class="payout-item">
+            <span>Corner (4 numbers)</span>
+            <span class="payout-value">8:1</span>
+          </div>
+          <div class="payout-item">
+            <span>Dozen / Column</span>
+            <span class="payout-value">2:1</span>
+          </div>
+          <div class="payout-item">
+            <span>Red/Black, Odd/Even</span>
+            <span class="payout-value">1:1</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lightning History -->
+      <div class="lightning-history">
+        <h4>Recent Multipliers</h4>
+        <div class="multiplier-history" id="multiplierHistory"></div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Result Popup -->
+  <div class="result-popup" id="resultPopup">
+    <div class="result-content">
+      <div class="result-number" id="resultNumber">0</div>
+      <div class="result-color" id="resultColor"></div>
+      <div class="result-message" id="resultMessage"></div>
+      <div class="result-amount" id="resultAmount"></div>
+    </div>
+  </div>
+
+  <script src="js/game.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+{
+  "$comment": "Единственный источник правды по брендам и игровым бандлам. Меняется здесь — подхватывается vite-конфигом лобби, стейджингом бандлов, верификацией брендов и QA-скриптами.",
+  "brands": [
+    {
+      "id": "aurora",
+      "name": "Aurora Play",
+      "themeColor": "#c7ff3d",
+      "accent": "#c7ff3d",
+      "accent2": "#31d7f2",
+      "layout": "signal-control-room"
+    },
+    {
+      "id": "ember",
+      "name": "Ember Club",
+      "themeColor": "#ff5a1f",
+      "accent": "#ff5a1f",
+      "accent2": "#ff3d8d",
+      "layout": "afterdark-editorial"
+    },
+    {
+      "id": "royale",
+      "name": "Royale House",
+      "themeColor": "#b58b45",
+      "accent": "#b58b45",
+      "accent2": "#163b31",
+      "layout": "private-games-house"
+    }
+  ],
+  "localPreview": {
+    "host": "127.0.0.1",
+    "apiPort": 8797,
+    "$rateLimitComment": "Локальный стенд гоняет сотни запросов за прогон QA — прод-лимит (300) здесь только мешает.",
+    "apiRateLimit": 5000,
+    "brandPorts": { "aurora": 4183, "ember": 4184, "royale": 4185 }
+  },
+  "staticGamesDir": "apps/lobby/public/games",
+  "$qaComment": "qa.start — селектор кнопки, запускающей раунд; qa.settles=false у игр, где раунд рассчитывается не сразу (нужны дополнительные действия игрока).",
+  "gameBundles": [
+    { "slug": "slots-classic", "workspace": "@nova/slots-classic", "dir": "games/slots-classic", "qa": { "start": "#spin", "settles": true, "balance": "#balance" } },
+    { "slug": "slots-studio", "workspace": "@nova/slots-studio", "dir": "games/slots-studio", "qa": { "start": "#spin", "settles": true } },
+    { "$comment": "Один бандл на три матпрофиля slotEngine: движок выбирается ?engine=classic-lines|ways-243|cascade-ways, три карточки каталога делят его через engineSlug.", "slug": "slots-premium", "workspace": "@nova/slots-premium", "dir": "games/slots-premium", "qa": { "start": "#spin", "settles": true } },
+    { "slug": "crash", "workspace": "@nova/crash", "dir": "games/crash", "qa": { "start": "#play", "settles": false } },
+    { "slug": "plinko", "workspace": "@nova/plinko", "dir": "games/plinko", "qa": { "start": "#play", "settles": true } },
+    { "slug": "roulette", "workspace": "@nova/roulette", "dir": "games/roulette", "qa": { "start": "#play", "settles": true } },
+    { "slug": "keno", "workspace": "@nova/keno", "dir": "games/keno", "qa": { "start": "#play", "settles": true, "prepare": ["#grid button:nth-child(1)", "#grid button:nth-child(2)", "#grid button:nth-child(3)"] } },
+    { "slug": "dice", "workspace": "@nova/dice", "dir": "games/dice", "qa": { "start": "#play", "settles": true } },
+    { "slug": "limbo", "workspace": "@nova/limbo", "dir": "games/limbo", "qa": { "start": "#play", "settles": true } },
+    { "slug": "wheel", "workspace": "@nova/wheel", "dir": "games/wheel", "qa": { "start": "#play", "settles": true } },
+    { "slug": "mines", "workspace": "@nova/mines", "dir": "games/mines", "qa": { "start": "#play", "settles": false } },
+    { "slug": "hilo", "workspace": "@nova/hilo", "dir": "games/hilo", "qa": { "start": "#play", "settles": false } },
+    { "slug": "sicbo", "workspace": "@nova/sicbo", "dir": "games/sicbo", "qa": { "start": "#play", "settles": true } },
+    { "slug": "baccarat", "workspace": "@nova/baccarat", "dir": "games/baccarat", "qa": { "start": "#play", "settles": true } },
+    { "slug": "roulette-us", "workspace": "@nova/roulette-us", "dir": "games/roulette-us", "qa": { "start": "#play", "settles": true } },
+    { "slug": "blackjack", "workspace": "@nova/blackjack", "dir": "games/blackjack", "qa": { "start": "#deal", "settles": false } },
+    { "slug": "holdem", "workspace": "@nova/holdem", "dir": "games/holdem", "qa": { "start": "#deal", "settles": false } },
+    { "slug": "videopoker", "workspace": "@nova/videopoker", "dir": "games/videopoker", "qa": { "start": "#deal", "settles": false } }
+  ],
+  "staticGameSlugs": []
+}

@@ -1,0 +1,117 @@
+/* Только то, что специфично для Nova Mines: поле 5×5, плитки, подсказка
+   следующего множителя и кнопка «забрать». Каркас, HUD, кнопки и эффекты
+   приходят из дизайн-системы (ui-tokens.css + ui-shell.css). */
+
+.stage {
+  min-height: 320px;
+  gap: var(--s-3);
+  align-content: center;
+}
+
+/* Поле 5×5: ширина ограничена, чтобы плитки оставались крупными квадратами. */
+.mgrid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--s-2);
+  width: min(100%, 400px);
+  margin-inline: auto;
+}
+
+.mgrid button {
+  aspect-ratio: 1;
+  padding: var(--s-1);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  background: var(--c-surface);
+  cursor: pointer;
+  transition:
+    transform var(--d-fast) var(--ease-pop),
+    border-color var(--d-fast) var(--ease-out),
+    box-shadow var(--d-base) var(--ease-out),
+    background var(--d-base) var(--ease-out);
+}
+.mgrid button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.mgrid button:not(:disabled):hover {
+  transform: translateY(-2px);
+  border-color: var(--c-primary);
+  box-shadow: var(--e-glow);
+}
+.mgrid button:focus-visible { outline: 2px solid var(--c-primary); outline-offset: 2px; }
+.mgrid button:disabled { cursor: default; }
+
+/* Вскрытые плитки: удача светится цветом выигрыша, мина — цветом проигрыша. */
+.mgrid button.safe {
+  border-color: var(--c-win);
+  background: color-mix(in srgb, var(--c-win) 12%, var(--c-surface));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--c-win) 35%, transparent);
+}
+.mgrid button.mine {
+  border-color: var(--c-loss);
+  background: color-mix(in srgb, var(--c-loss) 16%, var(--c-surface));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--c-loss) 35%, transparent);
+}
+.mgrid button.safe img,
+.mgrid button.mine img { animation: tilePop var(--d-base) var(--ease-pop); }
+
+@keyframes tilePop {
+  from { transform: scale(0.4); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Подсказка «следующая плитка → множитель» под полем. */
+.nextHint {
+  min-height: 1.3em;
+  margin: 0;
+  font: var(--t-value);
+  font-variant-numeric: tabular-nums;
+  color: var(--c-muted);
+  transition: color var(--d-base) var(--ease-out);
+}
+.nextHint[data-state="win"] { color: var(--c-primary); }
+
+/* Панель управления: число мин · ставка · главная кнопка. */
+.controls { grid-template-columns: minmax(90px, 130px) minmax(0, 1fr) minmax(150px, 200px); }
+
+#mines {
+  width: 100%;
+  padding: var(--s-2);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-sm);
+  background: var(--c-base);
+  color: var(--c-text);
+  font: var(--t-value);
+  text-align: center;
+}
+#mines:focus-visible { outline: 2px solid var(--c-primary); outline-offset: -2px; }
+
+/* «Забрать» — золотая: читается как выигрыш ещё до нажатия. */
+.btn--cashout {
+  background: var(--c-gold);
+  color: var(--c-on-primary);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--c-gold) 45%, transparent),
+    0 0 26px color-mix(in srgb, var(--c-gold) 16%, transparent);
+}
+.btn--cashout:hover:not(:disabled) {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--c-gold) 60%, transparent),
+    0 0 40px color-mix(in srgb, var(--c-gold) 30%, transparent);
+}
+
+/* Кнопка звука вспомогательная — держим компактной. */
+#sound {
+  padding: var(--s-2) var(--s-3);
+  font-size: 15px;
+  line-height: 1;
+  align-self: center;
+}
+
+@media (max-width: 620px) {
+  .controls { grid-template-columns: 1fr; }
+  .mgrid { width: 100%; }
+}

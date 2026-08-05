@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" data-mood="luxe" data-motif="felt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Baccarat</title>
+<link rel="stylesheet" href="ui-tokens.css">
+<link rel="stylesheet" href="theme.generated.css">
+<link rel="stylesheet" href="ui-shell.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="gameShell">
+  <header class="hud">
+    <span class="hud__title">Baccarat</span>
+    <div class="hud__stats">
+      <div class="stat">
+        <span class="stat__label" data-i18n="balance">Balance</span>
+        <b class="stat__value" id="balance">—</b>
+      </div>
+      <div class="stat stat--win">
+        <span class="stat__label" data-i18n="win">Win</span>
+        <b class="stat__value" id="win">0</b>
+      </div>
+      <button class="btn btn--ghost" id="sound" type="button" data-i18n-label="sound" aria-pressed="false">♪</button>
+    </div>
+  </header>
+
+  <section class="stage" id="stage">
+    <img class="shoeArt" src="art/shoe.svg" alt="" aria-hidden="true">
+    <div class="hands">
+      <div class="hand hand--player">
+        <span class="hand__label" data-i18n="player">Player</span>
+        <div class="cards" id="pCards"></div>
+        <b class="hand__total" id="pTotal">0</b>
+      </div>
+      <div class="hand hand--banker">
+        <span class="hand__label" data-i18n="banker">Banker</span>
+        <div class="cards" id="bCards"></div>
+        <b class="hand__total" id="bTotal">0</b>
+      </div>
+    </div>
+  </section>
+
+  <p class="result" id="result" data-i18n="serverResult">Virtual credits only · server-decided result</p>
+
+  <div class="betField">
+    <span class="field__label betField__label">
+      <img class="chipIcon" src="art/chip.svg" alt="" aria-hidden="true">
+      <span data-i18n="betOn">Bet on</span>
+    </span>
+    <div class="choices" id="betChoices">
+      <button class="btn btn--ghost is-active" type="button" data-bet="player" aria-pressed="true"><span data-i18n="player">Player</span></button>
+      <button class="btn btn--ghost" type="button" data-bet="tie" aria-pressed="false"><span data-i18n="tie">Tie</span></button>
+      <button class="btn btn--ghost" type="button" data-bet="banker" aria-pressed="false"><span data-i18n="banker">Banker</span></button>
+    </div>
+    <select id="betType" class="visuallyHidden" tabindex="-1" data-i18n-label="betOn">
+      <option value="player" selected data-i18n="player">Player</option>
+      <option value="banker" data-i18n="banker">Banker</option>
+      <option value="tie" data-i18n="tie">Tie</option>
+    </select>
+  </div>
+
+  <div class="paytable">
+    <div class="paytable__row" data-outcome="player"><span data-i18n="player">Player</span><b>1:1</b></div>
+    <div class="paytable__row" data-outcome="banker"><span data-i18n="banker">Banker</span><b>0.95:1</b></div>
+    <div class="paytable__row" data-outcome="tie"><span data-i18n="tie">Tie</span><b>8:1</b></div>
+  </div>
+
+  <div class="controls">
+    <label class="field">
+      <span class="field__label" data-i18n="bet">Bet</span>
+      <span class="stepper">
+        <button type="button" id="betDown" aria-label="-">−</button>
+        <input id="amt" type="number" min="1" max="100000" value="100">
+        <button type="button" id="betUp" aria-label="+">+</button>
+      </span>
+    </label>
+    <button class="btn btn--primary" id="play" type="button" disabled data-i18n="deal">Deal</button>
+  </div>
+</main>
+<script type="module" src="game.js"></script>
+</body>
+</html>

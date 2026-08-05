@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+<defs>
+<linearGradient id="plate" x1="0" y1="0" x2="0.4" y2="1">
+<stop offset="0" stop-color="#2e232e"/><stop offset="1" stop-color="#171029"/>
+</linearGradient>
+<radialGradient id="glow" cx="0.5" cy="0.4" r="0.6">
+<stop offset="0" stop-color="#d9ab55" stop-opacity="0.5"/>
+<stop offset="1" stop-color="#d9ab55" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="accent" x1="0" y1="0" x2="0.6" y2="1">
+<stop offset="0" stop-color="#d9ab55"/><stop offset="1" stop-color="#8f6bff"/>
+</linearGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="0.5" y2="1">
+<stop offset="0" stop-color="#fff3c4"/><stop offset="0.5" stop-color="#ffd98a"/><stop offset="1" stop-color="#a8712a"/>
+</linearGradient>
+</defs>
+<rect x="8" y="8" width="104" height="104" rx="26" fill="url(#plate)" stroke="#513f36" stroke-width="2"/>
+<circle cx="60" cy="52" r="46" fill="url(#glow)"/>
+<rect x="20" y="34" width="80" height="52" rx="12" fill="url(#gold)"/>
+       <rect x="26" y="40" width="68" height="40" rx="8" fill="#08050f" opacity="0.85"/>
+       <line x1="102.4" y1="73.2" x2="109.7" y2="76.4" stroke="#ffd98a" stroke-width="4" stroke-linecap="round" opacity="0.8"/><line x1="77.3" y1="91.5" x2="80.3" y2="98.9" stroke="#ffd98a" stroke-width="4" stroke-linecap="round" opacity="0.8"/><line x1="42.1" y1="91.3" x2="39.0" y2="98.7" stroke="#ffd98a" stroke-width="4" stroke-linecap="round" opacity="0.8"/><line x1="17.4" y1="72.8" x2="10.0" y2="75.8" stroke="#ffd98a" stroke-width="4" stroke-linecap="round" opacity="0.8"/><line x1="17.6" y1="46.8" x2="10.3" y2="43.6" stroke="#ffd98a" stroke-width="4" stroke-linecap="round" opacity="0.8"/><line x1="42.7" y1="28.5" x2="39.7" y2="21.1" stroke="#ffd98a" stroke-width="4" stroke-linecap="round" opacity="0.8"/><line x1="77.9" y1="28.7" x2="81.0" y2="21.3" stroke="#ffd98a" stroke-width="4" stroke-linecap="round" opacity="0.8"/><line x1="102.6" y1="47.2" x2="110.0" y2="44.2" stroke="#ffd98a" stroke-width="4" stroke-linecap="round" opacity="0.8"/>
+       <text x="60" y="72" text-anchor="middle" font-family="Arial Black, Arial, sans-serif" font-size="30" font-weight="900" fill="url(#gold)">W</text>
+</svg>

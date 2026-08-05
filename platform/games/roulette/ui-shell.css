@@ -1,0 +1,286 @@
+/*
+ * Каркас игры: сцена, HUD, панель ставки, кнопки, результат, таблица выплат.
+ * Одна разметка на все игры — отличается только содержимое сцены и тема.
+ */
+
+* { box-sizing: border-box; }
+
+/* Атрибут hidden обязан побеждать любые display-правила компонентов
+   (.field и т.п.) — иначе скрытые поля просвечивают. */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(120% 80% at 50% -10%, var(--c-glow-soft), transparent 60%),
+    var(--c-base);
+  color: var(--c-text);
+  font: var(--t-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Фоновый узор сцены: рисуется из токенов, поэтому не тянет ни одной картинки. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background-image: var(--motif-image, none);
+  background-size: var(--motif-size, 40px 40px);
+  mask-image: radial-gradient(120% 90% at 50% 0%, #000 30%, transparent 78%);
+}
+
+[data-motif="grid"] {
+  --motif-image:
+    linear-gradient(var(--c-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--c-line) 1px, transparent 1px);
+  --motif-size: 46px 46px;
+}
+[data-motif="circuit"] {
+  --motif-image:
+    linear-gradient(90deg, var(--c-line) 1px, transparent 1px),
+    linear-gradient(var(--c-line) 1px, transparent 1px);
+  --motif-size: 92px 24px;
+}
+[data-motif="rays"] {
+  --motif-image: repeating-conic-gradient(from 0deg at 50% 0%, var(--c-glow-soft) 0deg 5deg, transparent 5deg 14deg);
+  --motif-size: auto;
+}
+[data-motif="bubbles"] {
+  --motif-image: radial-gradient(circle at 30% 30%, var(--c-glow-soft) 0 3px, transparent 4px);
+  --motif-size: 64px 64px;
+}
+[data-motif="waves"] {
+  --motif-image: repeating-linear-gradient(115deg, var(--c-glow-soft) 0 2px, transparent 2px 26px);
+  --motif-size: auto;
+}
+[data-motif="felt"] {
+  --motif-image: radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--c-primary) 6%, transparent) 0 1px, transparent 2px);
+  --motif-size: 12px 12px;
+}
+[data-motif="marble"] {
+  --motif-image: repeating-linear-gradient(48deg, var(--c-glow-soft) 0 1px, transparent 1px 32px);
+  --motif-size: auto;
+}
+
+main,
+.gameShell {
+  position: relative;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: var(--s-4);
+  display: grid;
+  gap: var(--s-3);
+}
+
+/* ---- HUD ----
+   Липкая шапка: в высоких играх (5×5 барабаны, таблицы выплат) страница
+   прокручивается, и баланс уезжал за верх окна ровно в момент спина —
+   там, где игроку он нужнее всего. */
+.hud {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--c-panel) 94%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.hud__title {
+  font: 700 15px/1 var(--f-display);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-primary);
+}
+
+.hud__stats { display: flex; gap: var(--s-4); }
+
+.stat { display: grid; gap: 2px; text-align: right; }
+.stat__label {
+  font: var(--t-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+.stat__value { font: var(--t-value); font-variant-numeric: tabular-nums; }
+.stat--win .stat__value { color: var(--c-gold); }
+
+/* ---- Сцена ---- */
+.stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 240px;
+  padding: var(--s-5) var(--s-4);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, var(--c-surface-2), var(--c-panel));
+  box-shadow: var(--e-1);
+  overflow: hidden;
+}
+
+.stage__value {
+  font: var(--t-display);
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  transition: color var(--d-base) var(--ease-out), transform var(--d-base) var(--ease-pop);
+}
+.stage__value[data-state="win"] { color: var(--c-win); transform: scale(1.06); }
+.stage__value[data-state="lose"] { color: var(--c-loss); }
+
+/* ---- Строка результата ---- */
+.result {
+  min-height: 2.4em;
+  padding: var(--s-2) var(--s-3);
+  text-align: center;
+  color: var(--c-muted);
+  font: var(--t-label);
+  letter-spacing: 0.04em;
+  border-radius: var(--r-sm);
+  transition: color var(--d-base) var(--ease-out), background var(--d-base) var(--ease-out);
+}
+.result[data-state="win"] { color: var(--c-gold); background: color-mix(in srgb, var(--c-gold) 10%, transparent); }
+.result[data-state="lose"] { color: var(--c-loss); }
+
+/* ---- Панель управления ---- */
+.controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(150px, 200px);
+  gap: var(--s-3);
+  padding: var(--s-3);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  background: var(--c-panel);
+}
+
+.field { display: grid; gap: var(--s-1); min-width: 0; }
+.field__label {
+  font: var(--t-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.stepper {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) 40px;
+  align-items: stretch;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  background: var(--c-base);
+}
+.stepper button {
+  border: 0;
+  background: var(--c-surface-2);
+  color: var(--c-primary);
+  font: 700 18px/1 var(--f-mono);
+  cursor: pointer;
+  transition: background var(--d-fast) var(--ease-out);
+}
+.stepper button:hover { background: var(--c-panel-hi); }
+.stepper input {
+  border: 0;
+  background: transparent;
+  color: var(--c-text);
+  text-align: center;
+  font: var(--t-value);
+  min-width: 0;
+  padding: var(--s-2);
+}
+.stepper input:focus-visible { outline: 2px solid var(--c-primary); outline-offset: -2px; }
+
+/* ---- Кнопки ---- */
+.btn {
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  padding: var(--s-3) var(--s-4);
+  font: 800 13px/1 var(--f-body);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    transform var(--d-fast) var(--ease-pop),
+    box-shadow var(--d-base) var(--ease-out),
+    background var(--d-fast) var(--ease-out),
+    opacity var(--d-fast) linear;
+}
+.btn:active:not(:disabled) { transform: scale(0.97); }
+.btn:disabled { opacity: 0.42; cursor: default; }
+.btn:focus-visible { outline: 2px solid var(--c-primary); outline-offset: 2px; }
+
+.btn--primary {
+  background: var(--c-primary);
+  color: var(--c-on-primary);
+  box-shadow: var(--e-glow);
+}
+.btn--primary:hover:not(:disabled) { box-shadow: 0 0 0 1px var(--c-glow), 0 0 40px var(--c-glow); }
+
+.btn--ghost {
+  background: var(--c-surface-2);
+  border-color: var(--c-line);
+  color: var(--c-text);
+}
+.btn--ghost[aria-pressed="true"],
+.btn--ghost.is-active {
+  background: var(--c-primary);
+  color: var(--c-on-primary);
+  border-color: var(--c-primary);
+  box-shadow: var(--e-glow);
+}
+
+.btn--danger { background: var(--c-loss); color: #1a0509; }
+
+/* Кнопка «крутить» пульсирует, пока игрок бездействует — мягкий призыв к действию. */
+.btn--primary[data-idle="true"] { animation: idlePulse 2.6s var(--ease-in-out) infinite; }
+@keyframes idlePulse {
+  0%, 100% { box-shadow: var(--e-glow); }
+  50% { box-shadow: 0 0 0 1px var(--c-glow), 0 0 46px var(--c-glow); }
+}
+
+/* ---- Ряд переключателей ---- */
+.choices { display: grid; grid-auto-flow: column; gap: var(--s-2); }
+
+/* ---- Таблица выплат ---- */
+.paytable {
+  display: grid;
+  gap: var(--s-1);
+  padding: var(--s-3);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  background: var(--c-panel);
+  font: var(--t-label);
+}
+.paytable__row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--s-1) 0;
+  color: var(--c-muted);
+}
+.paytable__row b { color: var(--c-text); font-family: var(--f-mono); }
+.paytable__row[data-hit="true"] { color: var(--c-gold); }
+
+/* ---- Слой эффектов ---- */
+.fxLayer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  overflow: hidden;
+}
+
+@media (max-width: 620px) {
+  main, .gameShell { padding: var(--s-2); }
+  .controls { grid-template-columns: 1fr; }
+  .controls .btn--primary { min-height: 54px; }
+  .hud { padding: var(--s-2) var(--s-3); }
+  .hud__stats { gap: var(--s-3); }
+}

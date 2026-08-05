@@ -1,5 +1,5 @@
 [CmdletBinding()]
-param([ValidatePattern('^[A-Za-z0-9_.-]+$')][string]$Name = "arcade-$(Get-Date -Format 'yyyyMMdd-HHmmss').json.gz")
+param([ValidatePattern('^[A-Za-z0-9_.-]+$')][string]$Name = "casino-$(Get-Date -Format 'yyyyMMdd-HHmmss').json.gz")
 $ErrorActionPreference='Stop'
 $root=(Resolve-Path (Join-Path $PSScriptRoot '../..')).Path
 $envFile=Join-Path $root '.env.native';if(-not(Test-Path $envFile)){throw '.env.native is required'}

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en" data-mood="luxe" data-motif="felt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Hi-Lo</title>
+<link rel="stylesheet" href="ui-tokens.css">
+<link rel="stylesheet" href="theme.generated.css">
+<link rel="stylesheet" href="ui-shell.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="gameShell">
+  <header class="hud">
+    <span class="hud__title">Hi-Lo</span>
+    <div class="hud__stats">
+      <div class="stat">
+        <span class="stat__label" data-i18n="balance">Balance</span>
+        <b class="stat__value" id="balance">—</b>
+      </div>
+      <div class="stat stat--win">
+        <span class="stat__label" data-i18n="win">Win</span>
+        <b class="stat__value" id="win">0</b>
+      </div>
+      <button class="btn btn--ghost" id="sound" type="button" data-i18n-label="sound" aria-pressed="false">♪</button>
+    </div>
+  </header>
+
+  <section class="stage" id="stage">
+    <div class="cardScene">
+      <div class="card" id="card" data-face="back" data-color="black">
+        <div class="card__inner">
+          <span class="card__side card__front">
+            <span class="card__corner"><b class="card__rank"></b><span class="card__suit"></span></span>
+            <span class="card__pip card__suit"></span>
+            <span class="card__corner card__corner--flip"><b class="card__rank"></b><span class="card__suit"></span></span>
+          </span>
+          <span class="card__side card__back"><img src="art/card-back.svg" alt=""></span>
+        </div>
+      </div>
+      <b class="stage__value multDisplay" id="mult">1.00×</b>
+    </div>
+  </section>
+
+  <p class="result" id="result" data-i18n="serverResult">Virtual credits only · server-decided result</p>
+
+  <div id="controls" class="guessPanel" hidden>
+    <div class="choices">
+      <button class="btn btn--ghost guess" id="hi" type="button">
+        <img class="guess__icon" src="art/arrow-up.svg" alt="">
+        <span class="guess__label" data-i18n="higher">Higher</span>
+        <b class="guess__mult" id="hiMult">—</b>
+      </button>
+      <button class="btn btn--ghost guess" id="lo" type="button">
+        <img class="guess__icon" src="art/arrow-down.svg" alt="">
+        <span class="guess__label" data-i18n="lower">Lower</span>
+        <b class="guess__mult" id="loMult">—</b>
+      </button>
+    </div>
+    <button class="btn btn--gold" id="cashout" type="button" disabled>
+      <span data-i18n="cashout">Cash out</span>
+      <b class="guess__mult" id="cashoutMult" hidden></b>
+    </button>
+  </div>
+
+  <div class="controls">
+    <label class="field">
+      <span class="field__label" data-i18n="bet">Bet</span>
+      <span class="stepper">
+        <button type="button" id="betDown" aria-label="-">−</button>
+        <input id="bet" type="number" min="1" max="100000" value="100">
+        <button type="button" id="betUp" aria-label="+">+</button>
+      </span>
+    </label>
+    <button class="btn btn--primary" id="play" type="button" disabled data-i18n="dealCard">Deal card</button>
+  </div>
+</main>
+<script type="module" src="game.js"></script>
+</body>
+</html>

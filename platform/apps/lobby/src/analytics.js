@@ -1,4 +1,4 @@
-const KEY="arcade_consent", SESSION="arcade_analytics_session", API=import.meta.env.VITE_API_URL||"/api";
+const KEY="casino_consent", SESSION="casino_analytics_session", API=import.meta.env.VITE_API_URL||"/api";
 const ALLOWED=new Set(["page","brand","search","filter","game_open","game_ready","bet","settle","auth","daily","favorite"]);
 let queue=[],timer;
 const sessionId=()=>{let id=sessionStorage.getItem(SESSION);if(!id){id=crypto.randomUUID().replaceAll("-","");sessionStorage.setItem(SESSION,id)}return id};

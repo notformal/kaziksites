@@ -1,166 +1,56 @@
-const studios = [
-  "Nova Forge",
-  "Pixel Harbor",
-  "Golden Reel",
-  "Orbit Labs",
-  "Wild Mint",
-  "Neon Fox",
+import slotTitles from "./slot-titles.generated.json";
+
+// Каталог витрины — ТОЛЬКО казино-игры: серверные оригиналы (bet/settle через
+// API, ни одного клиентского исхода) плюс 127 слот-титулов движка slots-studio.
+// Никаких аркад и «залипалова» — портфель провайдера казино-контента.
+//
+// Один бандл может обслуживать несколько игр: engineSlug задаёт папку бандла,
+// а engineId (?engine=) выбирает внутри неё математический движок. Так три
+// премиум-слота slotEngine живут в одном games/slots-premium.
+//
+// id вида game-N сохранены со старого каталога: на них завязаны обложки
+// (covers-v2/game-N.jpg), избранное и история игроков.
+const CASINO_STUDIO = "Nova Studio";
+
+const CORE_GAMES = [
+  { id: "game-6", title: "Nova Classic Slots", category: "Slots", icon: "🎰", slug: "slots-classic", license: "MIT" },
+  { id: "game-7", title: "Skyline Crash", category: "Crash", icon: "📈", slug: "crash", license: "Original" },
+  { id: "game-8", title: "Prism Plinko", category: "Instant", icon: "🔻", slug: "plinko", license: "Original" },
+  { id: "game-9", title: "European Roulette", category: "Table", icon: "🎡", slug: "roulette", license: "Original" },
+  { id: "game-10", title: "Keno Plus", category: "Instant", icon: "🔢", slug: "keno", license: "Original" },
+  { id: "game-11", title: "Nova Dice", category: "Instant", icon: "🎲", slug: "dice", license: "Original" },
+  { id: "game-12", title: "Limbo", category: "Instant", icon: "🚀", slug: "limbo", license: "Original" },
+  { id: "game-13", title: "Fortune Wheel", category: "Instant", icon: "🎯", slug: "wheel", license: "Original" },
+  { id: "game-14", title: "Mines", category: "Instant", icon: "💣", slug: "mines", license: "Original" },
+  { id: "game-15", title: "Hi-Lo", category: "Table", icon: "🃏", slug: "hilo", license: "Original" },
+  { id: "game-16", title: "Sic Bo", category: "Table", icon: "🎲", slug: "sicbo", license: "Original" },
+  { id: "game-17", title: "Baccarat", category: "Table", icon: "🎴", slug: "baccarat", license: "Original" },
+  { id: "game-18", title: "American Roulette", category: "Table", icon: "🎡", slug: "roulette-us", license: "Original" },
+  { id: "game-19", title: "Blackjack", category: "Table", icon: "♠️", slug: "blackjack", license: "Original" },
+  { id: "game-20", title: "Casino Hold'em", category: "Table", icon: "🃏", slug: "holdem", license: "Original" },
+  { id: "game-21", title: "Video Poker", category: "Table", icon: "🎴", slug: "videopoker", license: "Original" },
+  // Премиум-слоты на движке slotEngine: три матпрофиля делят один бандл
+  // games/slots-premium — движок выбирается engineId (→ ?engine= в iframe).
+  // slug совпадает с id профиля в apps/api/src/gameRegistry.js: именно его
+  // хост шлёт в /api/wallet/bet, поэтому ставка уходит в нужную математику.
+  { id: "game-22", title: "Royal Lines", category: "Slots", icon: "👑", slug: "classic-lines", engineSlug: "slots-premium", engineId: "classic-lines", license: "Original" },
+  { id: "game-23", title: "Gem Ways 243", category: "Slots", icon: "💎", slug: "ways-243", engineSlug: "slots-premium", engineId: "ways-243", license: "Original" },
+  { id: "game-24", title: "Tumble Peaks", category: "Slots", icon: "🏔️", slug: "cascade-ways", engineSlug: "slots-premium", engineId: "cascade-ways", license: "Original" },
 ];
-const types = [
-  "Slots",
-  "Crash",
-  "Jackpots",
-  "Arcade",
-  "Table",
-  "Instant",
-  "New",
-];
-const nouns = [
-  "Fortune",
-  "Dragon",
-  "Vault",
-  "Jungle",
-  "Cosmos",
-  "Pharaoh",
-  "Candy",
-  "Pirate",
-  "Ember",
-  "Tiger",
-  "Moon",
-  "Diamond",
-  "Temple",
-  "Rush",
-  "Crown",
-  "Safari",
-  "Cash",
-  "Mystic",
-  "Wolf",
-  "Galaxy",
-];
-const icons = [
-  "💎",
-  "🐉",
-  "👑",
-  "🌙",
-  "🔥",
-  "🍒",
-  "⚡",
-  "🪙",
-  "🦁",
-  "🚀",
-  "🎯",
-  "🏆",
-];
-const playable = {
-  5: {
-    title: "Nova Classic Slots",
-    studio: "Open Arcade",
-    category: "Slots",
-    icon: "🎰",
-    slug: "slots-classic",
-    serverGame: true,
-    license: "MIT",
-  },
-  6: {
-    title: "Skyline Crash",
-    studio: "Open Arcade",
-    category: "Crash",
-    icon: "📈",
-    slug: "crash",
-    serverGame: true,
-    license: "Original",
-  },
-  7: {
-    title: "Prism Plinko",
-    studio: "Open Arcade",
-    category: "Instant",
-    icon: "🔻",
-    slug: "plinko",
-    serverGame: true,
-    license: "Original",
-  },
-  8: {
-    title: "European Roulette",
-    studio: "Open Arcade",
-    category: "Table",
-    icon: "🎡",
-    slug: "roulette",
-    serverGame: true,
-    license: "Original",
-  },
-  9: {
-    title: "Keno Plus",
-    studio: "Open Arcade",
-    category: "Table",
-    icon: "🔢",
-    slug: "keno",
-    serverGame: true,
-    license: "Original",
-  },
-  0: {
-    title: "Classic 2048",
-    studio: "Gabriele Cirulli",
-    category: "Arcade",
-    icon: "🔢",
-    url: "./games/2048/index.html",
-    license: "MIT",
-  },
-  1: {
-    title: "Canvas Tetris",
-    studio: "Dionysis Zindros",
-    category: "Arcade",
-    icon: "🧱",
-    url: "./games/tetris/index.html",
-    license: "MIT",
-  },
-  2: {
-    title: "Night Racer",
-    studio: "Jake Gordon",
-    category: "Arcade",
-    icon: "🏎️",
-    url: "./games/racer/index.html",
-    license: "MIT",
-  },
-  3: {
-    title: "Radius Raid",
-    studio: "Jack Rugile",
-    category: "Arcade",
-    icon: "🚀",
-    url: "./games/radius-raid/index.html",
-    license: "MIT",
-  },
-  4: {
-    title: "Classic Pong",
-    studio: "Jake Gordon",
-    category: "Arcade",
-    icon: "🏓",
-    url: "./games/pong/index.html",
-    license: "MIT",
-  },
-};
-const coreGames = Array.from({ length: 10 }, (_, i) => ({
-  id: `game-${i + 1}`,
-  title: `${nouns[i % nouns.length]} ${nouns[(i * 7 + 3) % nouns.length]}`,
-  studio: studios[i % studios.length],
-  category: types[i % types.length],
-  icon: icons[i % icons.length],
-  hot: i % 7 === 0,
-  new: i % 11 === 0,
-  rating: (4 + (i % 10) / 10).toFixed(1),
-  hue: (i * 37) % 360,
-  ...playable[i],
-}));
+
 export const games = [
-  ...coreGames,
-  ...littleJsGames.map((game, index) => ({
-    ...game,
-    hot: index % 13 === 0,
-    new: index % 17 === 0,
+  ...CORE_GAMES.map((game, index) => ({
+    studio: CASINO_STUDIO,
+    serverGame: true,
+    hot: index % 5 === 0,
+    new: index % 9 === 0,
     rating: (4 + (index % 10) / 10).toFixed(1),
-    hue: ((index + 10) * 37) % 360,
+    hue: (index * 37) % 360,
+    ...game,
   })),
   ...slotTitles,
 ];
+
 export const categories = [
   "All",
   "Popular",
@@ -168,5 +58,3 @@ export const categories = [
   "Recent",
   ...new Set(games.map((game) => game.category)),
 ];
-import littleJsGames from "./littlejs.generated.json";
-import slotTitles from "./slot-titles.generated.json";

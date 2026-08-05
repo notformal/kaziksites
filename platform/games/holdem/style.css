@@ -1,0 +1,132 @@
+/* Только специфика Casino Hold'em: три ряда карт (дилер, борд, игрок).
+   Каркас, HUD, кнопки, степпер и эффекты приходят из дизайн-системы. */
+
+.stage {
+  min-height: 320px;
+  padding: var(--s-4);
+  align-items: stretch;
+}
+
+/* Фишка и масть в углах сцены: тихие приметы покерного стола. */
+.stage::before,
+.stage::after {
+  content: "";
+  position: absolute;
+  width: 84px;
+  height: 84px;
+  opacity: 0.14;
+  pointer-events: none;
+}
+.stage::before {
+  inset: auto auto var(--s-3) var(--s-3);
+  background: url("art/chip.svg") center / contain no-repeat;
+}
+.stage::after {
+  inset: auto var(--s-3) var(--s-3) auto;
+  background: url("art/spade.svg") center / contain no-repeat;
+}
+
+.table {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--s-3);
+  width: 100%;
+}
+
+.hand {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-2) var(--s-3) var(--s-3);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--c-panel) 76%, transparent);
+  transition: border-color var(--d-base) var(--ease-out), box-shadow var(--d-base) var(--ease-out);
+}
+.hand--board { border-color: color-mix(in srgb, var(--c-primary) 32%, var(--c-line)); }
+.hand--player[data-state="win"] {
+  border-color: var(--c-gold);
+  box-shadow: var(--e-glow);
+}
+.hand--player[data-state="win"] .hand__name { color: var(--c-gold); }
+.hand--player[data-state="lose"] { border-color: color-mix(in srgb, var(--c-loss) 45%, var(--c-line)); }
+
+.hand__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--s-2);
+  min-height: 1.2em;
+}
+.hand__label {
+  font: var(--t-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+/* Название собранной комбинации — появляется на вскрытии. */
+.hand__name { font: var(--t-label); letter-spacing: 0.06em; color: var(--c-primary); }
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: 76px;
+}
+
+/* Карта: рубашка и лицо рисуются темой, красные масти — цветом проигрыша. */
+.card {
+  display: grid;
+  place-items: center;
+  gap: var(--s-1);
+  width: 54px;
+  height: 76px;
+  border-radius: var(--r-sm);
+  background: linear-gradient(160deg, var(--c-text), color-mix(in srgb, var(--c-text) 82%, var(--c-primary)));
+  color: var(--c-on-primary);
+  box-shadow: var(--e-1);
+  animation: cardIn var(--d-base) var(--ease-pop) backwards;
+}
+.card b { font: var(--t-value); }
+.card i { font-style: normal; font: var(--t-label); font-size: 15px; line-height: 1; }
+.card[data-red="true"] { color: var(--c-loss); }
+
+.card--back {
+  background: var(--c-surface-2) url("art/card-back.svg") center / cover no-repeat;
+  border: 1px solid var(--c-line);
+}
+
+/* Пустой слот: место будущей карты, чтобы стол не «прыгал». */
+.card--slot {
+  background: transparent;
+  border: 1px dashed var(--c-line);
+  box-shadow: none;
+  animation: none;
+}
+
+.card--still { animation: none; }
+
+@keyframes cardIn {
+  from { transform: translateY(calc(-1 * var(--s-3))) rotateY(80deg); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* .choices задаёт display:grid и перебил бы атрибут hidden — возвращаем скрытие. */
+#actions[hidden] { display: none; }
+
+/* Кнопка звука вспомогательная — держим компактной. */
+#sound {
+  padding: var(--s-2) var(--s-3);
+  font-size: 15px;
+  line-height: 1;
+  align-self: center;
+}
+
+@media (max-width: 620px) {
+  .stage { min-height: 280px; padding: var(--s-3); }
+  .stage::before, .stage::after { width: 56px; height: 56px; }
+  .card { width: 44px; height: 62px; }
+  .card b { font-size: 16px; }
+  .cards { min-height: 62px; }
+}

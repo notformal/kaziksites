@@ -1,0 +1,64 @@
+/* Только то, что специфично для Nova Dice. Каркас, кнопки, HUD и эффекты
+   приходят из дизайн-системы (ui-tokens.css + ui-shell.css). */
+
+.stage { min-height: 260px; }
+
+/* Полоса кубиков за числом: медленный дрейф даёт сцене глубину. */
+.diceTrack {
+  position: absolute;
+  inset: auto 0 var(--s-3) 0;
+  display: flex;
+  gap: var(--s-3);
+  justify-content: center;
+  opacity: 0.32;
+  pointer-events: none;
+}
+.diceTrack img {
+  width: 46px;
+  height: 46px;
+  filter: drop-shadow(0 6px 12px rgb(0 0 0 / 0.5));
+  animation: diceFloat 5.5s var(--ease-in-out) infinite;
+}
+.diceTrack img:nth-child(2n) { animation-delay: 0.7s; }
+.diceTrack img:nth-child(3n) { animation-delay: 1.4s; }
+
+@keyframes diceFloat {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-9px) rotate(3deg); }
+}
+
+.odds {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--s-2);
+  padding: var(--s-3);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  background: var(--c-panel);
+  text-align: center;
+}
+.odds .field { justify-items: center; }
+.odds input {
+  width: 100%;
+  padding: var(--s-2);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-sm);
+  background: var(--c-base);
+  color: var(--c-text);
+  text-align: center;
+  font: var(--t-value);
+}
+.odds input:focus-visible { outline: 2px solid var(--c-primary); outline-offset: -2px; }
+
+/* Кнопка звука вспомогательная — держим компактной. */
+#sound {
+  padding: var(--s-2) var(--s-3);
+  font-size: 15px;
+  line-height: 1;
+  align-self: center;
+}
+
+@media (max-width: 620px) {
+  .diceTrack img { width: 34px; height: 34px; }
+  .odds { grid-template-columns: 1fr; }
+}

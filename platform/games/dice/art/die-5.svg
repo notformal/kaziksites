@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+<defs>
+<linearGradient id="plate" x1="0" y1="0" x2="0.4" y2="1">
+<stop offset="0" stop-color="#173544"/><stop offset="1" stop-color="#0f1d2b"/>
+</linearGradient>
+<radialGradient id="glow" cx="0.5" cy="0.4" r="0.6">
+<stop offset="0" stop-color="#4fe3ff" stop-opacity="0.5"/>
+<stop offset="1" stop-color="#4fe3ff" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="accent" x1="0" y1="0" x2="0.6" y2="1">
+<stop offset="0" stop-color="#4fe3ff"/><stop offset="1" stop-color="#2f7fff"/>
+</linearGradient>
+<linearGradient id="gold" x1="0" y1="0" x2="0.5" y2="1">
+<stop offset="0" stop-color="#fff3c4"/><stop offset="0.5" stop-color="#ffd15c"/><stop offset="1" stop-color="#a8712a"/>
+</linearGradient>
+</defs>
+<rect x="8" y="8" width="104" height="104" rx="26" fill="url(#plate)" stroke="#22586b" stroke-width="2"/>
+<circle cx="60" cy="52" r="46" fill="url(#glow)"/>
+<rect x="26" y="26" width="68" height="68" rx="16" fill="#eef4ff" opacity="0.94"/><circle cx="42" cy="42" r="7.5" fill="#071018"/><circle cx="78" cy="42" r="7.5" fill="#071018"/><circle cx="60" cy="60" r="7.5" fill="#071018"/><circle cx="42" cy="78" r="7.5" fill="#071018"/><circle cx="78" cy="78" r="7.5" fill="#071018"/>
+</svg>

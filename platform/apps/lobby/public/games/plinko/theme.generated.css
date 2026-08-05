@@ -1,0 +1,15 @@
+/* Сгенерировано scripts/generate-game-art.mjs из config/game-themes.json. Не редактируйте вручную. */
+:root {
+  --c-base: #05121a;
+  --c-surface: #0d2430;
+  --c-surface-2: #123b40;
+  --c-line: #1a5c59;
+  --c-primary: #39e0b8;
+  --c-secondary: #5ec6ff;
+  --c-gold: #ffd15c;
+  --c-win: #3ddc84;
+  --c-loss: #ff5d73;
+  --c-text: #eef4ff;
+  --c-muted: #8c959f;
+  --c-on-primary: #08121c;
+}

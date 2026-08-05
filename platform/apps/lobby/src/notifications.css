@@ -1,0 +1,116 @@
+.notif {
+  position: relative;
+  display: inline-flex;
+}
+.notif__btn {
+  position: relative;
+}
+.notif__badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 8px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 16px;
+  text-align: center;
+  box-shadow: 0 0 0 2px rgba(10, 12, 20, 0.9);
+}
+.notif__scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+}
+.notif__panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 41;
+  width: min(340px, 92vw);
+  max-height: 460px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: #12151f;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+.notif__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+.notif__markall {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: none;
+  color: #34d399;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.notif__list {
+  overflow-y: auto;
+}
+.notif__empty {
+  padding: 28px 14px;
+  text-align: center;
+  color: rgba(226, 232, 240, 0.5);
+  font-size: 13px;
+}
+.notif__item {
+  padding: 11px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.notif__item--unread {
+  background: rgba(52, 211, 153, 0.06);
+  border-left: 3px solid #34d399;
+}
+.notif__title {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+.notif__body {
+  color: rgba(226, 232, 240, 0.72);
+  font-size: 12px;
+  margin-top: 2px;
+}
+.notif__time {
+  color: rgba(226, 232, 240, 0.42);
+  font-size: 11px;
+  margin-top: 4px;
+}
+.notif__push {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 11px 14px;
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(52, 211, 153, 0.06);
+  color: #34d399;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.notif__push:hover {
+  background: rgba(52, 211, 153, 0.12);
+}
+.notif__push:disabled {
+  opacity: 0.6;
+  cursor: default;
+}

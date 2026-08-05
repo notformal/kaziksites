@@ -38,22 +38,17 @@ const post = (url, body, expected = 200) => json(url, {
 }, expected);
 
 async function loadCatalog() {
-  const [slots, little] = await Promise.all([
-    fs.readFile(path.join(root, 'apps/lobby/src/slot-titles.generated.json'), 'utf8').then(JSON.parse),
-    fs.readFile(path.join(root, 'apps/lobby/src/littlejs.generated.json'), 'utf8').then(JSON.parse)
-  ]);
+  const slots = await fs.readFile(path.join(root, 'apps/lobby/src/slot-titles.generated.json'), 'utf8').then(JSON.parse);
+  // Портфель — только казино: серверные оригиналы + слот-титулы движка.
   const core = [
-    '/games/2048/index.html', '/games/tetris/index.html', '/games/racer/index.html',
-    '/games/radius-raid/index.html', '/games/pong/index.html',
     '/games/slots-classic/index.html', '/games/crash/index.html', '/games/plinko/index.html',
     '/games/roulette/index.html', '/games/keno/index.html'
   ];
   const urls = [
     ...core,
-    ...little.map(x => new URL(x.url.replace(/^\.\//, '/'), `${games}/`).href),
     ...slots.map(x => `${games}/games/slots-studio/index.html?title=${encodeURIComponent(x.id)}`)
   ];
-  return { slots, little, urls: urls.map(x => x.startsWith('http') ? x : `${games}${x}`) };
+  return { slots, urls: urls.map(x => x.startsWith('http') ? x : `${games}${x}`) };
 }
 
 async function verifySurface(catalog) {
@@ -91,7 +86,7 @@ async function register() {
   const result = await post(`${api}/auth/register`, credentials, 201);
   check(result.body?.token, 'registration did not return a token');
   const setCookie = result.response.headers.get('set-cookie') || '';
-  check(/arcade_session=/.test(setCookie), 'registration did not set arcade_session cookie');
+  check(/casino_session=/.test(setCookie), 'registration did not set casino_session cookie');
   check(/HttpOnly/i.test(setCookie), 'session cookie is not HttpOnly');
   check(/SameSite=Lax/i.test(setCookie), 'session cookie is not SameSite=Lax');
   const balance = await json(`${api}/wallet/balance`);

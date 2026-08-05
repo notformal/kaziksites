@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ember Club — Ignite Your Gaming Spirit</title>
+  <meta name="description" content="Ember Club: where the fire of gaming lives. 240+ social casino and arcade games with daily bonuses and a passionate community.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0303;
+      --surface: rgba(239,68,68,0.03);
+      --text: #faf5f0;
+      --muted: #7a6060;
+      --fire: #ef4444;
+      --fire2: #f59e0b;
+      --fire3: #dc2626;
+      --glow: rgba(239,68,68,0.3);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* === NOISE === */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 160px;
+    }
+
+    /* === CUSTOM CURSOR === */
+    .cursor-ring {
+      width: 44px; height: 44px;
+      border: 1px solid rgba(239,68,68,0.4);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none; z-index: 10000;
+      transition: width 0.3s, height 0.3s, border-color 0.3s, background 0.3s;
+      transform: translate(-50%, -50%);
+    }
+    .cursor-ring.hover {
+      width: 72px; height: 72px;
+      border-color: rgba(245,158,11,0.5);
+      background: rgba(239,68,68,0.04);
+    }
+    .cursor-dot {
+      width: 6px; height: 6px;
+      background: var(--fire);
+      border-radius: 50%;
+      position: fixed; pointer-events: none; z-index: 10001;
+      transform: translate(-50%, -50%);
+    }
+
+    /* === NAV === */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.25rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      background: transparent;
+      transition: all 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(10,3,3,0.7);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(239,68,68,0.06);
+    }
+    .nav-logo {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: var(--text);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .nav-logo-mark {
+      width: 36px; height: 36px;
+      background: linear-gradient(160deg, var(--fire), var(--fire2));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+      font-style: normal;
+      animation: glow-pulse 3s ease-in-out infinite;
+    }
+    @keyframes glow-pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(239,68,68,0.3); }
+      50% { box-shadow: 0 0 35px rgba(239,68,68,0.6); }
+    }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--fire); }
+    .nav-cta {
+      padding: 0.6rem 1.5rem !important;
+      background: linear-gradient(135deg, var(--fire), var(--fire3)) !important;
+      border-radius: 100px !important;
+      color: white !important;
+      font-weight: 500 !important;
+      transition: all 0.3s !important;
+      box-shadow: 0 2px 25px rgba(239,68,68,0.3);
+      text-transform: uppercase !important;
+      letter-spacing: 1px !important;
+      font-size: 0.75rem !important;
+    }
+    .nav-cta:hover {
+      box-shadow: 0 4px 35px rgba(239,68,68,0.5) !important;
+      transform: translateY(-1px);
+    }
+
+    /* === HERO === */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 8rem 3rem 4rem;
+      overflow: hidden;
+    }
+    /* Fire gradient background */
+    .hero-fire {
+      position: absolute; inset: 0; z-index: 0; overflow: hidden;
+    }
+    .fire-orb {
+      position: absolute; border-radius: 50%; filter: blur(100px);
+    }
+    .fire-orb:nth-child(1) {
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(239,68,68,0.35), transparent 70%);
+      bottom: -20%; left: 30%;
+      animation: fire-rise 15s ease-in-out infinite;
+    }
+    .fire-orb:nth-child(2) {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(245,158,11,0.25), transparent 70%);
+      top: 10%; left: 10%;
+      animation: fire-rise 18s ease-in-out infinite reverse;
+    }
+    .fire-orb:nth-child(3) {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(220,38,68,0.2), transparent 70%);
+      top: 40%; right: 5%;
+      animation: fire-rise 12s ease-in-out infinite 3s;
+    }
+    @keyframes fire-rise {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(5%, -10%) scale(1.15); }
+      66% { transform: translate(-5%, 5%) scale(0.9); }
+    }
+    /* Flame particles */
+    .flame-container {
+      position: absolute; inset: 0; z-index: 1; overflow: hidden;
+    }
+    .flame {
+      position: absolute; bottom: -20px;
+      width: 4px; border-radius: 50%;
+      background: var(--fire);
+      opacity: 0;
+      animation: flame-rise linear infinite;
+    }
+    @keyframes flame-rise {
+      0% { opacity: 0; transform: translateY(0) translateX(0) scale(1); }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.1; }
+      100% { opacity: 0; transform: translateY(-100vh) translateX(var(--drift)) scale(0); }
+    }
+
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center;
+      max-width: 1000px;
+    }
+    .hero-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--fire);
+      margin-bottom: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .hero-tag::before, .hero-tag::after {
+      content: '';
+      width: 40px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--fire));
+    }
+    .hero-tag::after {
+      background: linear-gradient(90deg, var(--fire), transparent);
+    }
+    .hero h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(4rem, 10vw, 8.5rem);
+      font-style: italic;
+      line-height: 0.9;
+      letter-spacing: -2px;
+      margin-bottom: 2.5rem;
+    }
+    .hero h1 .fire-text {
+      background: linear-gradient(180deg, var(--fire2) 0%, var(--fire) 50%, var(--fire3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+    .hero-desc {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 500px;
+      margin: 0 auto 3rem;
+      line-height: 1.9;
+      font-weight: 300;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; justify-content: center; align-items: center; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.9rem 2rem; border-radius: 100px;
+      font-weight: 500; font-size: 0.95rem;
+      text-decoration: none; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: pointer; border: none; font-family: inherit;
+    }
+    .btn-fire {
+      background: linear-gradient(135deg, var(--fire), var(--fire3));
+      color: white;
+      box-shadow: 0 4px 30px rgba(239,68,68,0.3);
+    }
+    .btn-fire:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 40px rgba(239,68,68,0.5);
+    }
+    .btn-ghost {
+      border: 1px solid rgba(239,68,68,0.2);
+      color: var(--fire);
+      background: transparent;
+    }
+    .btn-ghost:hover {
+      border-color: var(--fire);
+      background: rgba(239,68,68,0.05);
+    }
+
+    /* === TICKER === */
+    .ticker {
+      padding: 2.5rem 0;
+      border-top: 1px solid rgba(239,68,68,0.08);
+      border-bottom: 1px solid rgba(239,68,68,0.08);
+      overflow: hidden;
+      position: relative;
+    }
+    .ticker-track {
+      display: flex; gap: 4rem;
+      animation: ticker 35s linear infinite;
+      width: max-content;
+    }
+    .ticker-item {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--muted);
+      white-space: nowrap;
+      display: flex; align-items: center; gap: 4rem;
+    }
+    .ticker-item::after {
+      content: '🔥';
+      font-size: 0.8rem;
+      opacity: 0.4;
+    }
+    @keyframes ticker { to { transform: translateX(-50%); } }
+
+    /* === STATS === */
+    .stats {
+      padding: 6rem 3rem;
+    }
+    .stats-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      border: 1px solid rgba(239,68,68,0.08);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .stat-cell {
+      text-align: center;
+      padding: 3rem 2rem;
+      position: relative;
+      transition: background 0.3s;
+    }
+    .stat-cell:hover { background: rgba(239,68,68,0.03); }
+    .stat-cell:not(:last-child)::after {
+      content: '';
+      position: absolute; right: 0; top: 20%; bottom: 20%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(239,68,68,0.15), transparent);
+    }
+    .stat-value {
+      font-family: 'Instrument Serif', serif;
+      font-size: 3.5rem;
+      font-style: italic;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--fire2), var(--fire));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+
+    /* === FEATURES === */
+    .features {
+      padding: 8rem 3rem;
+    }
+    .features-inner { max-width: 1200px; margin: 0 auto; }
+    .section-top { margin-bottom: 5rem; }
+    .section-overline {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--fire);
+      margin-bottom: 1.5rem;
+      display: block;
+    }
+    .section-title {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-style: italic;
+      letter-spacing: -1px;
+      line-height: 1.1;
+    }
+    .section-title .fire-text {
+      background: linear-gradient(135deg, var(--fire2), var(--fire));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Asymmetric grid */
+    .features-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .feature-main {
+      grid-row: span 2;
+      padding: 3.5rem;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid rgba(239,68,68,0.06);
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-main::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--fire), var(--fire2));
+    }
+    .feature-main:hover {
+      border-color: rgba(239,68,68,0.15);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    .feature-main .fi { font-size: 3rem; margin-bottom: 2rem; display: block; }
+    .feature-main h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2rem;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    .feature-main p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.8;
+      font-weight: 300;
+      max-width: 400px;
+    }
+    .feature-side {
+      padding: 2.5rem;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid rgba(239,68,68,0.06);
+      transition: all 0.4s;
+    }
+    .feature-side:hover {
+      border-color: rgba(239,68,68,0.15);
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    .feature-side .fi { font-size: 2rem; margin-bottom: 1.5rem; display: block; }
+    .feature-side h3 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+    .feature-side p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* === GAMES === */
+    .games-section {
+      padding: 8rem 3rem;
+      position: relative;
+    }
+    .games-inner { max-width: 1200px; margin: 0 auto; }
+    .games-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 1.5rem;
+      height: 600px;
+    }
+    .game-card {
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(239,68,68,0.06);
+    }
+    .game-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(239,68,68,0.2);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .game-card.featured {
+      grid-row: span 2;
+    }
+    .game-thumb {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem;
+      position: relative;
+    }
+    .game-thumb::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,3,3,0.9) 0%, transparent 60%);
+    }
+    .game-thumb.slots { background: linear-gradient(135deg, #3b0a0a, #7a1a1a, #dc2626); }
+    .game-thumb.jackpot { background: linear-gradient(135deg, #2a0a0a, #6e1a1a, #b91c1c); }
+    .game-thumb.arcade { background: linear-gradient(135deg, #2a1a0a, #6e4a0e, #f59e0b); }
+    .game-thumb.table { background: linear-gradient(135deg, #1a0a0a, #4a1a1a, #ef4444); }
+    .game-info {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 2rem; z-index: 2;
+    }
+    .game-info h4 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.3rem;
+      font-style: italic;
+      margin-bottom: 0.25rem;
+    }
+    .game-info span {
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+    }
+    .game-play-icon {
+      position: absolute;
+      top: 1.5rem; right: 1.5rem;
+      width: 40px; height: 40px;
+      background: rgba(239,68,68,0.2);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(239,68,68,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.8rem;
+      opacity: 0;
+      transition: all 0.4s;
+      z-index: 3;
+    }
+    .game-card:hover .game-play-icon { opacity: 1; }
+
+    /* === HOW IT WORKS === */
+    .how-section {
+      padding: 8rem 3rem;
+    }
+    .how-inner { max-width: 900px; margin: 0 auto; }
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 4rem;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      gap: 2.5rem;
+      padding: 3rem 0;
+      border-bottom: 1px solid rgba(239,68,68,0.08);
+      transition: all 0.4s;
+    }
+    .step:first-child { border-top: 1px solid rgba(239,68,68,0.08); }
+    .step:hover { padding-left: 1rem; }
+    .step-num {
+      font-family: 'Instrument Serif', serif;
+      font-size: 2.5rem;
+      font-style: italic;
+      background: linear-gradient(135deg, var(--fire2), var(--fire));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+    }
+    .step h4 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.6rem;
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+    .step p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* === TESTIMONIALS === */
+    .proof-section {
+      padding: 8rem 3rem;
+    }
+    .proof-inner { max-width: 1100px; margin: 0 auto; }
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+    .proof-card {
+      padding: 2.5rem;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid rgba(239,68,68,0.06);
+      transition: all 0.4s;
+    }
+    .proof-card:hover {
+      border-color: rgba(239,68,68,0.15);
+      transform: translateY(-4px);
+    }
+    .proof-stars {
+      color: var(--fire2);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 2px;
+    }
+    .proof-card blockquote {
+      font-family: 'Instrument Serif', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      color: var(--text);
+    }
+    .proof-author {
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .proof-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--fire), var(--fire2));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Instrument Serif', serif;
+      font-size: 1rem;
+      font-style: italic;
+    }
+    .proof-name {
+      font-weight: 500;
+      font-size: 0.85rem;
+    }
+    .proof-role {
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* === CTA === */
+    .big-cta {
+      padding: 10rem 3rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .big-cta-inner {
+      text-align: center;
+      max-width: 700px;
+      position: relative; z-index: 1;
+    }
+    .big-cta h2 {
+      font-family: 'Instrument Serif', serif;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      font-style: italic;
+      letter-spacing: -2px;
+      line-height: 1;
+      margin-bottom: 2rem;
+    }
+    .big-cta h2 .fire-text {
+      background: linear-gradient(135deg, var(--fire2), var(--fire));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .big-cta p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+    .big-cta-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(239,68,68,0.12), transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      animation: cta-glow 5s ease-in-out infinite;
+    }
+    @keyframes cta-glow {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+      50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+    }
+
+    /* === FOOTER === */
+    footer {
+      padding: 5rem 3rem 3rem;
+      border-top: 1px solid rgba(239,68,68,0.06);
+      position: relative; z-index: 1;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 4rem;
+    }
+    .footer-brand p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      font-weight: 300;
+      max-width: 300px;
+      margin-top: 1.5rem;
+    }
+    .footer-col h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+    .footer-col a {
+      display: block;
+      color: var(--text);
+      text-decoration: none;
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 300;
+      transition: color 0.3s;
+    }
+    .footer-col a:hover { color: var(--fire); }
+    .footer-bottom {
+      border-top: 1px solid rgba(239,68,68,0.06);
+      padding-top: 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--muted); font-size: 0.8rem;
+    }
+    .footer-legal { display: flex; gap: 2rem; }
+    .footer-legal a { color: var(--muted); text-decoration: none; transition: color 0.3s; }
+    .footer-legal a:hover { color: var(--text); }
+
+    /* === REVEAL === */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === RESPONSIVE === */
+    @media (max-width: 1024px) {
+      .hero { padding: 8rem 2rem 4rem; }
+      .nav { padding: 1rem 2rem; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .features-layout { grid-template-columns: 1fr; }
+      .feature-main { grid-row: span 1; }
+      .games-grid { grid-template-columns: 1fr 1fr; height: auto; }
+      .game-card.featured { grid-row: span 1; }
+      .games-section { padding: 6rem 2rem; }
+      .features, .how-section { padding: 6rem 2rem; }
+      .big-cta { padding: 6rem 2rem; }
+      .proof-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .stats-inner { grid-template-columns: 1fr; }
+      .games-grid { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+      .cursor-ring, .cursor-dot { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-ring"></div>
+  <div class="cursor-dot"></div>
+
+  <nav>
+    <a href="#" class="nav-logo">
+      <span class="nav-logo-mark">🔥</span>
+      Ember Club
+    </a>
+    <div class="nav-links">
+      <a href="#features">Why Ember</a>
+      <a href="#games">Games</a>
+      <a href="#how">How It Works</a>
+      <a href="../index.html" class="btn btn-ghost" style="padding:0.6rem 1.3rem;font-size:0.8rem;">Launch</a>
+      <a href="#join" class="nav-cta">Join the Fire</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-fire">
+      <div class="fire-orb"></div>
+      <div class="fire-orb"></div>
+      <div class="fire-orb"></div>
+      <div class="flame-container" id="flames"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-tag">The Warmest Arcade on the Web</div>
+      <h1>
+        <span>Ignite Your</span><br>
+        <span class="fire-text">Gaming Spirit</span>
+      </h1>
+      <p class="hero-desc">Ember Club is where passion meets play. 240+ social casino and arcade games, a community that burns bright, and daily rewards that keep the fire alive.</p>
+      <div class="hero-actions">
+        <a href="#games" class="btn btn-fire">🔥 Enter the Club</a>
+        <a href="#how" class="btn btn-ghost">See How It Works →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="ticker">
+    <div class="ticker-track">
+      <span class="ticker-item">Slots Classic</span>
+      <span class="ticker-item">Jackpot Royale</span>
+      <span class="ticker-item">Blackjack Fury</span>
+      <span class="ticker-item">Plinko Blaze</span>
+      <span class="ticker-item">Crash Fire</span>
+      <span class="ticker-item">Roulette Royal</span>
+      <span class="ticker-item">Keno Inferno</span>
+      <span class="ticker-item">Cosmos Spin</span>
+      <span class="ticker-item">Tris Master</span>
+      <span class="ticker-item">Card Rush</span>
+      <span class="ticker-item">Slots Classic</span>
+      <span class="ticker-item">Jackpot Royale</span>
+      <span class="ticker-item">Blackjack Fury</span>
+      <span class="ticker-item">Plinko Blaze</span>
+      <span class="ticker-item">Crash Fire</span>
+      <span class="ticker-item">Roulette Royal</span>
+      <span class="ticker-item">Keno Inferno</span>
+      <span class="ticker-item">Cosmos Spin</span>
+      <span class="ticker-item">Tris Master</span>
+      <span class="ticker-item">Card Rush</span>
+    </div>
+  </section>
+
+  <section class="stats">
+    <div class="stats-inner">
+      <div class="stat-cell reveal">
+        <div class="stat-value">240+</div>
+        <div class="stat-label">Fiery Games</div>
+      </div>
+      <div class="stat-cell reveal">
+        <div class="stat-value">250</div>
+        <div class="stat-label">Daily Fire Credits</div>
+      </div>
+      <div class="stat-cell reveal">
+        <div class="stat-value">12K+</div>
+        <div class="stat-label">Club Members</div>
+      </div>
+      <div class="stat-cell reveal">
+        <div class="stat-value">∞</div>
+        <div class="stat-label">Endless Heat</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="features-inner">
+      <div class="section-top reveal">
+        <span class="section-overline">Why Ember Club</span>
+        <h2 class="section-title">We don't just host games.<br>We <span class="fire-text">build a flame</span>.</h2>
+      </div>
+      <div class="features-layout">
+        <div class="feature-main reveal">
+          <span class="fi">🔥</span>
+          <h3>Daily Fire Bonuses</h3>
+          <p>Wake up and claim your daily credits. The longer your streak, the bigger the flame of rewards grows. Our members burn through 250+ credits every single day.</p>
+        </div>
+        <div class="feature-side reveal">
+          <span class="fi">🎰</span>
+          <h3>240+ Game Library</h3>
+          <p>Slots, jackpots, arcade classics, table games — every genre covered with studio-quality demos.</p>
+        </div>
+        <div class="feature-side reveal">
+          <span class="fi">⚡</span>
+          <h3>Instant Load Speed</h3>
+          <p>Games fire up in milliseconds. Optimized loading means zero downtime between your sessions.</p>
+        </div>
+        <div class="feature-side reveal">
+          <span class="fi">🤝</span>
+          <h3>Warm Community</h3>
+          <p>Share wins, join tournaments, and connect with fellow ember members who share your passion.</p>
+        </div>
+        <div class="feature-side reveal">
+          <span class="fi">🔐</span>
+          <h3>Secure & Fair</h3>
+          <p>No real money, no risk. Pure social entertainment with privacy-by-design architecture.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="games-section" id="games">
+    <div class="games-inner">
+      <div class="section-top reveal">
+        <span class="section-overline">This Week</span>
+        <h2 class="section-title">Heaviest <span class="fire-text">burning</span> right now</h2>
+      </div>
+      <div class="games-grid">
+        <div class="game-card featured reveal">
+          <div class="game-thumb slots">🎰
+            <div class="game-play-icon">▶</div>
+          </div>
+          <div class="game-info">
+            <h4>Mega Blaze Slots</h4>
+            <span>SLOTS · 5.0★</span>
+          </div>
+        </div>
+        <div class="game-card reveal">
+          <div class="game-thumb jackpot">💎
+            <div class="game-play-icon">▶</div>
+          </div>
+          <div class="game-info">
+            <h4>Diamond Rush</h4>
+            <span>JACKPOT · 4.9★</span>
+          </div>
+        </div>
+        <div class="game-card reveal">
+          <div class="game-thumb arcade">🏎️
+            <div class="game-play-icon">▶</div>
+          </div>
+          <div class="game-info">
+            <h4>Racer's Inferno</h4>
+            <span>ARCADE · 4.8★</span>
+          </div>
+        </div>
+        <div class="game-card reveal">
+          <div class="game-thumb table">🃏
+            <div class="game-play-icon">▶</div>
+          </div>
+          <div class="game-info">
+            <h4>Blackjack Blaze</h4>
+            <span>TABLE · 4.9★</span>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:3rem;" class="reveal">
+        <a href="../index.html" class="btn btn-fire">Explore All 240 Games →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="how-section" id="how">
+    <div class="how-inner">
+      <div class="section-top reveal">
+        <span class="section-overline">How It Works</span>
+        <h2 class="section-title">Three steps to<br>the <span class="fire-text">fire</span></h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <div>
+            <h4>Create Your Account</h4>
+            <p>Sign up in seconds. No deposit, no credit card — just your email and you're in the club.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">02</div>
+          <div>
+            <h4>Claim Daily Fire</h4>
+            <p>Every day you log in, grab 250 free credits. Build streaks for bonus multipliers.</p>
+          </div>
+        </div>
+        <div class="step reveal">
+          <div class="step-num">03</div>
+          <div>
+            <h4>Play What You Love</h4>
+            <p>Browse 240+ games, save favorites, and let the algorithm learn your burning taste.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof-section">
+    <div class="proof-inner">
+      <div class="section-top reveal" style="text-align:center;">
+        <span class="section-overline" style="text-align:center;">Community</span>
+        <h2 class="section-title">What the <span class="fire-text">ember crew</span> says</h2>
+      </div>
+      <div class="proof-grid">
+        <div class="proof-card reveal">
+          <div class="proof-stars">★★★★★</div>
+          <blockquote>"The daily bonuses keep me coming back. Best social arcade experience I've found online."</blockquote>
+          <div class="proof-author">
+            <div class="proof-avatar">M</div>
+            <div><div class="proof-name">Marcus T.</div><div class="proof-role">ember member</div></div>
+          </div>
+        </div>
+        <div class="proof-card reveal">
+          <div class="proof-stars">★★★★★</div>
+          <blockquote>"Game load speed is insane. Zero lag, zero hassle. Just instant fun on any device."</blockquote>
+          <div class="proof-author">
+            <div class="proof-avatar">S</div>
+            <div><div class="proof-name">Sofia K.</div><div class="proof-role">ember member</div></div>
+          </div>
+        </div>
+        <div class="proof-card reveal">
+          <div class="proof-stars">★★★★☆</div>
+          <blockquote>"Finally a platform that feels like a real community. The tournaments are addictive!"</blockquote>
+          <div class="proof-author">
+            <div class="proof-avatar">D</div>
+            <div><div class="proof-name">David R.</div><div class="proof-role">ember member</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="big-cta" id="join">
+    <div class="big-cta-glow"></div>
+    <div class="big-cta-inner reveal">
+      <h2>Step into<br>the <span class="fire-text">fire</span></h2>
+      <p>Your seat by the ember is waiting. Free account, instant rewards, no strings attached.</p>
+      <a href="../index.html" class="btn btn-fire" style="padding:1rem 2.5rem;font-size:1rem;">🔥 Join Ember Club Free</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#" class="nav-logo">
+            <span class="nav-logo-mark">🔥</span>
+            Ember Club
+          </a>
+          <p>The warmest corner of the internet for gaming enthusiasts. Social arcade, daily rewards, and a community that burns bright — forever free.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Club</h4>
+          <a href="#games">Games</a>
+          <a href="#rewards">Rewards</a>
+          <a href="#">Tournaments</a>
+          <a href="#">Leaderboard</a>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <a href="#">About Us</a>
+          <a href="#">Careers</a>
+          <a href="#">Press Kit</a>
+          <a href="#">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <a href="#">Terms</a>
+          <a href="#">Privacy</a>
+          <a href="#">Responsible Play</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Ember Club. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="#">Support</a>
+          <a href="#">Status</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Custom cursor
+    const ring = document.querySelector('.cursor-ring');
+    const dot = document.querySelector('.cursor-dot');
+    let mx=0, my=0, rx=0, ry=0;
+    document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+    function animateCursor() {
+      rx += (mx-rx)*0.15; ry += (my-ry)*0.15;
+      ring.style.left = rx+'px'; ring.style.top = ry+'px';
+      dot.style.left = mx+'px'; dot.style.top = my+'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+    document.querySelectorAll('a, .game-card, .btn').forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+    });
+
+    // Flame particles
+    const flameContainer = document.getElementById('flames');
+    for (let i = 0; i < 30; i++) {
+      const f = document.createElement('div');
+      f.className = 'flame';
+      f.style.left = Math.random()*100 + '%';
+      f.style.width = (2 + Math.random()*4) + 'px';
+      f.style.height = f.style.width;
+      f.style.animationDuration = (6 + Math.random()*8) + 's';
+      f.style.animationDelay = Math.random()*10 + 's';
+      f.style.setProperty('--drift', (Math.random()*60-30)+'px');
+      if (Math.random() > 0.5) f.style.background = 'var(--fire2)';
+      flameContainer.appendChild(f);
+    }
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Nav scroll
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior:'smooth' }); }
+      });
+    });
+  </script>
+</body>
+</html>

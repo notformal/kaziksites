@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="description" content="Blackjack Pro v3 — Premium Blackjack with Card Graphics & Insurance">
+<title>Blackjack Pro v3</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&display=swap');
+/* ═══════════════════════════════════════════
+   BLACKJACK PRO v3 — PREMIUM DESIGN SYSTEM
+   Playson-Style | House Edge: 0.5% | RTP: 99.5%
+   Glassmorphism • Neon Glow • Animated Backgrounds
+   ═══════════════════════════════════════════ */
+:root{
+  --bg:#07071a;--sf:#0d0d2b;--sfl:#13133d;
+  --purp:#a855f7;--purp-dark:#7c3aed;--purp-light:#c084fc;
+  --gold:#fbbf24;--gold-dark:#d97706;
+  --green:#10b981;--green-dark:#059669;
+  --red:#ef4444;--red-dark:#dc2626;
+  --blue:#3b82f6;--blue-dark:#2563eb;
+  --cyan:#06b6d4;--pink:#ec4899;
+  --txt:#f8fafc;--tdim:#cbd5e1;--tdim2:#94a3b8;--tdim3:#64748b;
+  --brd:rgba(168,85,247,.25);
+  --r:10px;--rm:14px;--rl:20px;--rxl:24px;
+  --font:'Inter',system-ui,-apple-system,sans-serif;
+  --shadow-glow-purple:0 0 25px rgba(168,85,247,.35),0 0 50px rgba(168,85,247,.15);
+  --shadow-glow-gold:0 0 25px rgba(251,191,36,.35),0 0 50px rgba(251,191,36,.15);
+  --shadow-glow-green:0 0 25px rgba(16,185,129,.35),0 0 50px rgba(16,185,129,.15);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow-x:hidden;background:var(--bg);font-family:var(--font);color:var(--txt);-webkit-tap-highlight-color:transparent}
+
+/* ── Animated Background ── */
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.bg-orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.12;animation:orbFloat 25s ease-in-out infinite}
+.bg-orb:nth-child(1){width:450px;height:450px;background:var(--purp);top:-15%;left:-10%;animation-delay:0s}
+.bg-orb:nth-child(2){width:380px;height:380px;background:var(--green);bottom:-12%;right:-8%;animation-delay:-8s}
+.bg-orb:nth-child(3){width:300px;height:300px;background:var(--pink);top:45%;left:55%;animation-delay:-16s}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(40px,-50px) scale(1.08)}50%{transform:translate(-30px,30px) scale(.92)}75%{transform:translate(50px,40px) scale(1.04)}}
+.bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:80px 80px;animation:gridPulse 10s ease-in-out infinite}
+@keyframes gridPulse{0%,100%{opacity:.4}50%{opacity:.9}}
+
+#app{width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1;overflow:hidden;padding:10px 8px}
+
+/* ── Header ── */
+.header{width:100%;max-width:540px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;background:rgba(13,13,43,.8);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(255,255,255,.06);border-radius:var(--rxl);flex-shrink:0;transition:all .3s}
+.header:hover{border-color:rgba(168,85,247,.2)}
+.hdr-l{display:flex;align-items:center;gap:12px}
+.logo{font-size:30px;cursor:pointer;filter:drop-shadow(0 0 12px rgba(251,191,36,.5));transition:all .3s cubic-bezier(.34,1.56,.64,1)}
+.logo:hover{transform:scale(1.15) rotate(-12deg);filter:drop-shadow(0 0 18px rgba(251,191,36,.7))}
+.ttl{font-family:'Poppins',sans-serif;font-size:16px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--red));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.01em}
+.sub{font-size:9px;color:var(--tdim3);letter-spacing:.12em;text-transform:uppercase;margin-top:-1px}
+.bal{display:flex;flex-direction:column;align-items:center;padding:8px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);min-width:120px;transition:all .3s}
+.bal:hover{border-color:rgba(168,85,247,.25);background:rgba(255,255,255,.05)}
+.bl{font-size:8px;color:var(--tdim3);text-transform:uppercase;letter-spacing:.1em}
+.bv{font-family:'Poppins',sans-serif;font-size:17px;font-weight:800;color:var(--green);transition:all .4s cubic-bezier(.34,1.56,.64,1)}
+.bv.pulse{animation:bp .5s ease}
+@keyframes bp{0%{transform:scale(1)}50%{transform:scale(1.18);color:var(--gold);text-shadow:0 0 25px rgba(251,191,36,.6)}100%{transform:scale(1)}}
+
+.sm{width:100%;max-width:540px;flex:1;display:flex;flex-direction:column;gap:10px;padding:10px 0;position:relative}
+
+/* ── Blackjack Table ── */
+.table{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#0d5e2f,#1a7a42);border:3px solid var(--gold);border-radius:var(--rxl);position:relative;overflow:hidden;min-height:200px;box-shadow:0 8px 32px rgba(0,0,0,.5),inset 0 0 60px rgba(0,0,0,.4)}
+.table-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:15%}
+.hand-area{text-align:center;width:100%}
+.hand-label{font-size:10px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.2em;margin-bottom:8px;font-weight:600}
+.hand-value{font-family:'Poppins',sans-serif;font-size:24px;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.5);margin-bottom:8px}
+.cards-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;min-height:80px;align-items:center}
+.card{width:52px;height:74px;background:#fff;border-radius:var(--r);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;box-shadow:0 3px 10px rgba(0,0,0,.4);transition:all .3s cubic-bezier(.34,1.56,.64,1);position:relative;user-select:none}
+.card.red{color:#d32f2f}
+.card.black{color:#1a1a1a}
+.card.face-down{background:linear-gradient(135deg,var(--purp),var(--blue-dark));border:2px solid var(--gold)}
+.card.face-down::after{content:'🂠';font-size:28px;color:rgba(255,255,255,.3)}
+.card:hover{transform:translateY(-6px)}
+.result-bar{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Poppins',sans-serif;font-size:22px;font-weight:900;padding:12px 28px;border-radius:var(--rm);text-align:center;z-index:10;animation:resultIn .5s ease;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.result-bar.win{background:rgba(16,185,129,.2);color:var(--green);border:2px solid var(--green);box-shadow:0 0 30px rgba(16,185,129,.3)}
+.result-bar.lose{background:rgba(239,68,68,.2);color:var(--red);border:2px solid var(--red);box-shadow:0 0 30px rgba(239,68,68,.3)}
+.result-bar.push{background:rgba(251,191,36,.2);color:var(--gold);border:2px solid var(--gold);box-shadow:0 0 30px rgba(251,191,36,.3)}
+.result-bar.blackjack{background:linear-gradient(135deg,rgba(251,191,36,.3),rgba(255,165,0,.3));color:var(--gold);border:2px solid var(--gold);font-size:28px;box-shadow:0 0 40px rgba(251,191,36,.5)}
+@keyframes resultIn{from{opacity:0;transform:translate(-50%,-50%) scale(.5)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+
+/* ── History Bar ── */
+.history-bar{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:8px 0}
+.hist-item{padding:5px 12px;border-radius:var(--rm);font-size:12px;font-weight:700;border:1px solid;animation:histIn .3s ease}
+@keyframes histIn{from{opacity:0;transform:translateY(-8px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+.hist-item.win{background:rgba(16,185,129,.12);color:var(--green);border-color:rgba(16,185,129,.25)}
+.hist-item.lose{background:rgba(239,68,68,.08);color:var(--red);border-color:rgba(239,68,68,.18)}
+.hist-item.push{background:rgba(251,191,36,.12);color:var(--gold);border-color:rgba(251,191,36,.25)}
+
+/* ── Panels ── */
+.bet-panel{padding:14px;background:rgba(13,13,43,.7);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(255,255,255,.06);border-radius:var(--rxl);transition:all .3s}
+.bet-panel:hover{border-color:rgba(168,85,247,.15)}
+.bet-title{font-size:10px;color:var(--tdim3);text-transform:uppercase;letter-spacing:.15em;text-align:center;margin-bottom:10px;font-weight:600}
+.bet-ctrl{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;padding:4px 0}
+
+/* ── Inputs ── */
+.bet-inp{width:85px;padding:11px 8px;background:var(--sfl);border:2px solid rgba(255,255,255,.06);border-radius:var(--r);color:var(--gold);font-family:'Poppins',sans-serif;font-size:17px;font-weight:700;text-align:center;transition:all .3s}
+.bet-inp:focus{outline:none;border-color:var(--purp);box-shadow:0 0 0 3px rgba(168,85,247,.15)}
+input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+input[type="number"]{-moz-appearance:textfield}
+
+/* ── Small Buttons ── */
+.bet-sm{padding:9px 14px;border:1px solid rgba(255,255,255,.08);border-radius:var(--r);background:rgba(255,255,255,.03);color:var(--tdim);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;min-height:40px}
+.bet-sm:hover{border-color:var(--gold);color:var(--txt);background:rgba(251,191,36,.08);transform:translateY(-1px)}
+.bet-sm:active{transform:translateY(0) scale(.97)}
+
+/* ── Main Buttons ── */
+.controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:6px 0}
+.btn{padding:15px 32px;border:none;border-radius:var(--rm);font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .25s cubic-bezier(.4,0,.2,1);text-transform:uppercase;letter-spacing:.08em;min-width:95px;text-align:center;position:relative;overflow:hidden;user-select:none}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.18) 0%,transparent 50%);opacity:0;transition:opacity .2s}
+.btn:hover::before{opacity:1}
+.btn:hover:not(:disabled){transform:translateY(-3px)}
+.btn:active:not(:disabled){transform:translateY(0) scale(.97)}
+.btn:disabled{opacity:.35;cursor:not-allowed;pointer-events:none}
+.btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#000;box-shadow:0 4px 15px rgba(251,191,36,.3)}
+.btn.gold:hover:not(:disabled){box-shadow:0 8px 30px rgba(251,191,36,.4),var(--shadow-glow-gold)}
+.btn.primary{background:linear-gradient(135deg,var(--green),var(--green-dark));color:#fff;box-shadow:0 4px 15px rgba(16,185,129,.3)}
+.btn.primary:hover:not(:disabled){box-shadow:0 8px 30px rgba(16,185,129,.4),var(--shadow-glow-green)}
+.btn.danger,.btn.red{background:linear-gradient(135deg,var(--red),var(--red-dark));color:#fff;box-shadow:0 4px 15px rgba(239,68,68,.25)}
+.btn.danger:hover:not(:disabled),.btn.red:hover:not(:disabled){box-shadow:0 8px 30px rgba(239,68,68,.35)}
+.btn.blue{background:linear-gradient(135deg,var(--blue),var(--blue-dark));color:#fff;box-shadow:0 4px 15px rgba(59,130,246,.25)}
+.btn.blue:hover:not(:disabled){box-shadow:0 8px 30px rgba(59,130,246,.35)}
+.btn.cyan{background:linear-gradient(135deg,var(--cyan),#0891b2);color:#fff;box-shadow:0 4px 15px rgba(6,182,212,.25)}
+.btn.cyan:hover:not(:disabled){box-shadow:0 8px 30px rgba(6,182,212,.35)}
+
+/* ── Toast Notifications ── */
+.toast{position:fixed;top:24px;left:50%;transform:translateX(-50%);padding:14px 28px;border-radius:var(--rm);font-size:15px;font-weight:700;z-index:999;animation:tIn .3s ease,tOut .3s ease 2.5s forwards;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.toast.g{background:rgba(13,13,43,.92);color:var(--gold);border:1px solid var(--gold);box-shadow:0 0 35px rgba(251,191,36,.3),0 8px 32px rgba(0,0,0,.4)}
+.toast.gr{background:rgba(13,13,43,.92);color:var(--green);border:1px solid var(--green);box-shadow:0 0 35px rgba(16,185,129,.3),0 8px 32px rgba(0,0,0,.4)}
+.toast.r{background:rgba(13,13,43,.92);color:var(--red);border:1px solid var(--red);box-shadow:0 0 35px rgba(239,68,68,.3),0 8px 32px rgba(0,0,0,.4)}
+.toast.p{background:rgba(13,13,43,.92);color:var(--purp-light);border:1px solid var(--purp);box-shadow:0 0 35px rgba(168,85,247,.3),0 8px 32px rgba(0,0,0,.4)}
+@keyframes tIn{from{opacity:0;transform:translateX(-50%) translateY(-15px) scale(.95)}to{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
+@keyframes tOut{from{opacity:1}to{opacity:0;transform:translateX(-50%) translateY(-15px)}}
+
+/* ── Paytable ── */
+.paytable{max-width:540px;width:100%;background:rgba(13,13,43,.85);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(255,255,255,.06);border-radius:var(--rxl);overflow:hidden;display:none;animation:pts .3s ease}
+.paytable.show{display:block}
+@keyframes pts{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.pth{padding:12px 16px;background:var(--sfl);border-bottom:1px solid rgba(255,255,255,.06);font-weight:700;font-size:13px;color:var(--gold);text-align:center}
+.png{padding:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pi{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:var(--r);background:rgba(255,255,255,.02);border:1px solid transparent;transition:all .2s}
+.pi:hover{border-color:rgba(168,85,247,.2);background:rgba(255,255,255,.04)}
+.pi .sy{font-size:22px}
+.pi .vl{font-size:10px;color:var(--tdim2)}
+.pi .vl span{color:var(--gold);font-weight:700}
+
+@media(max-width:400px){
+  .btn{padding:13px 22px;font-size:12px;min-width:80px}
+  .bet-inp{width:70px;font-size:15px}
+  .header{padding:10px 12px}
+  .ttl{font-size:14px}
+  .card{width:42px;height:60px;font-size:12px}
+  .result-bar{font-size:16px;padding:8px 16px}
+}
+@media(min-width:768px){
+  #app{padding:16px}
+  .table{min-height:280px}
+}
+</style>
+<body>
+<div class="bg" id="bg"></div>
+<div id="app">
+  <div class="header">
+    <div class="hdr-l"><span class="logo" id="logo-btn" role="button" tabindex="0" aria-label="Paytable">🃏</span><div><div class="ttl" id="gt">BLACKJACK PRO v3</div><div class="sub" data-i18n="subtitle">Premium Card Game</div></div></div>
+    <div class="bal"><div class="bl" data-i18n="balance">Balance</div><div class="bv" id="bal-display">$10,000</div></div>
+  </div>
+  <div class="sm">
+    <div class="table" id="table">
+      <div class="table-inner">
+        <div class="hand-area">
+          <div class="hand-label" data-i18n="dealer">DEALER</div>
+          <div class="hand-value" id="dealer-value">0</div>
+          <div class="cards-row" id="dealer-cards"></div>
+        </div>
+        <div class="result-bar" id="result-bar">Place your bet</div>
+        <div class="hand-area">
+          <div class="hand-label" data-i18n="your_hand">YOUR HAND</div>
+          <div class="hand-value" id="player-value">0</div>
+          <div class="cards-row" id="player-cards"></div>
+        </div>
+      </div>
+    </div>
+    <div class="history-bar" id="hist"></div>
+    <div class="bet-panel">
+      <div class="bet-title" data-i18n="bet_amount">Bet Amount</div>
+      <div class="bet-ctrl">
+        <input type="number" class="bet-inp" id="bet-inp" value="10" min="1" max="1000" step="1" aria-label="Bet amount">
+        <button class="bet-sm" id="btn-half" data-i18n="half">½</button>
+        <button class="bet-sm" id="btn-double" data-i18n="double">2×</button>
+        <button class="bet-sm" id="btn-max" data-i18n="max">MAX</button>
+      </div>
+    </div>
+    <div class="controls">
+      <button class="btn gold" id="btn-deal" data-i18n-attr="text:deal">🃏 DEAL</button>
+      <button class="btn primary" id="btn-hit" data-i18n-attr="text:hit" disabled>👆 HIT</button>
+      <button class="btn red" id="btn-stand" data-i18n-attr="text:stand" disabled>✋ STAND</button>
+      <button class="btn blue" id="btn-double-btn" data-i18n-attr="text:double" disabled>2×</button>
+      <button class="btn cyan" id="btn-insure" data-i18n-attr="text:insure" disabled>🛡 INSURE</button>
+    </div>
+  </div>
+</div>
+<div class="paytable" id="paytable"><div class="pth" data-i18n="paytable">🃏 BLACKJACK PRO v3 — Rules</div><div class="png">
+  <div class="pi"><span class="sy">🃏</span><div class="vl"><span>3:2×</span> Blackjack payout</div></div>
+  <div class="pi"><span class="sy">✅</span><div class="vl"><span>1:1×</span> Standard win</div></div>
+  <div class="pi"><span class="sy">🔙</span><div class="vl"><span>Push</span> = bet returned</div></div>
+  <div class="pi"><span class="sy">🛡️</span><div class="vl"><span>Insurance</span> 1:1</div></div>
+  <div class="pi"><span class="sy">📊</span><div class="vl">House Edge <span>0.5%</span></div></div>
+  <div class="pi"><span class="sy">🎯</span><div class="vl">6 deck <span>shuffle</span></div></div>
+</div></div>
+<script>
+/* ═══════════════════════════════════════════════════════════
+   BLACKJACK PRO v3 — PREMIUM BLACKJACK
+   Config-driven | House Edge: 0.5% | RTP: 99.5%
+   ═══════════════════════════════════════════════════════════ */
+const C = Object.freeze({
+  id: 'blackjack-pro', version: '3.0.0', name: 'Blackjack Pro',
+  houseEdge: 0.005, rtp: 0.995,
+  betMin: 1, betMax: 1000, betSteps: [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000],
+  deckCount: 6, blackjackPayout: 2.5, insurancePayout: 3,
+  anim: { cardDelay: 200, toastDuration: 2000 },
+  sound: { enabled: true, masterVolume: 0.5 },
+  defaultLang: 'en', supportedLangs: ['en','es','fr','de','jp','ru','zh','ko','pt','ar']
+});
+
+const I18N = Object.freeze({
+  en: { subtitle:'Premium Card Game', balance:'Balance', bet_amount:'Bet Amount', dealer:'DEALER', your_hand:'YOUR HAND', playing:'Playing...', deal:'🃏 DEAL', hit:'👆 HIT', stand:'✋ STAND', double:'2×', insure:'🛡 INSURE', won:'You won!', lost:'You lost', push:'Push — bet returned', blackjack:'BLACKJACK!', bust:'BUST!', insurance_won:'Insurance won!', half:'½', double:'2×', max:'MAX' },
+  es: { subtitle:'Juego de Cartas Premium', balance:'Saldo', bet_amount:'Cantidad de Apuesta', dealer:'CRAPIER', your_hand:'TU MANO', playing:'Jugando...', deal:'🃏 REPARTIR', hit:'👆 PEDIR', stand:'✋ PLANTARSE', double:'2×', insure:'🛡 SEGURO', won:'¡Ganaste!', lost:'Perdiste', push:'Empate — apuesta devuelta', blackjack:'¡BLACKJACK!', bust:'¡PASASTE!', insurance_won:'¡Seguro ganado!', half:'½', double:'2×', max:'MAX' },
+  fr: { subtitle:'Jeu de Cartes Premium', balance:'Solde', bet_amount:'Montant de Pari', dealer:'CABOCHON', your_hand:'VOTRE MAIN', playing:'En cours...', deal:'🃏 DONNER', hit:'👆 TIRER', stand:'✋ RESTER', double:'2×', insure:'🛡 ASSURANCE', won:'Vous avez gagné!', lost:'Vous avez perdu', push:'Égalité — mise rendue', blackjack:'BLACKJACK!', bust:'RÉDOUTE!', insurance_won:'Assurance gagnée!', half:'½', double:'2×', max:'MAX' },
+  de: { subtitle:'Premium Kartenspiel', balance:'Guthaben', bet_amount:'Wetteinsatz', dealer:'GEBER', your_hand:'DEINE HAND', playing:'Am Spiel...', deal:'🃏 AUTEILEN', hit:'👆 KARTEN', stand:'✋ STEHEN', double:'2×', insure:'🛡 VERSICHERUNG', won:'Sie haben gewonnen!', lost:'Sie haben verloren', push:'Unentschieden — Einsatz zurück', blackjack:'BLACKJACK!', bust:'ÜBERZEICHNET!', insurance_won:'Versicherung gewonnen!', half:'½', double:'2×', max:'MAX' },
+  jp: { subtitle:'プレミアムカードゲーム', balance:'残高', bet_amount:'ベット額', dealer:'ディーラー', your_hand:'あなたの手', playing:'プレイ中...', deal:'🃏 ディール', hit:'👆 ヒット', stand:'✋ スタンド', double:'2×', insure:'🛡 インシュアランス', won:'勝ち！', lost:'負け', push:'プッシュ — ベット返還', blackjack:'ブラックジャック！', bust:'バスト！', insurance_won:'インシュアランス勝ち！', half:'½', double:'2×', max:'MAX' },
+  ru: { subtitle:'Карточная Игра', balance:'Баланс', bet_amount:'Сумма ставки', dealer:'ДИЛЕР', your_hand:'ВАША РУКА', playing:'Играем...', deal:'🃏 РАЗДАТЬ', hit:'👆 ЕЩЁ', stand:'✋ ХВАТИТ', double:'2×', insure:'🛡 СТРАХОВКА', won:'Вы выиграли!', lost:'Вы проиграли', push:'Ничья — ставка возвращена', blackjack:'БЛЭКДЖЕК!', bust:'БУСТ!', insurance_won:'Страховка сыграла!', half:'½', double:'2×', max:'MAX' },
+  zh: { subtitle:'高级纸牌游戏', balance:'余额', bet_amount:'投注金额', dealer:'荷官', your_hand:'你的手牌', playing:'游戏中...', deal:'🃏 发牌', hit:'👆 要牌', stand:'✋ 停牌', double:'2×', insure:'🛡 保险', won:'你赢了！', lost:'你输了', push:'平局 — 返还赌注', blackjack:'BLACKJACK！', bust:'爆牌！', insurance_won:'保险赔付！', half:'½', double:'2×', max:'MAX' },
+  ko: { subtitle:'프리미엄 카드 게임', balance:'잔액', bet_amount:'베팅 금액', dealer:'딜러', your_hand:'내 카드', playing:'플레이 중...', deal:'🃏 딜', hit:'👆 히트', stand:'✋ 스탠드', double:'2×', insure:'🛡 보험', won:'승리!', lost:'패배', push:'푸시 — 베팅 반환', blackjack:'블랙잭!', bust:'버스트!', insurance_won:'보험 당첨!', half:'½', double:'2×', max:'MAX' },
+  pt: { subtitle:'Jogo de Cartas Premium', balance:'Saldo', bet_amount:'Valor da Aposta', dealer:'DISTRIBUIDOR', your_hand:'SUA MÃO', playing:'Jogando...', deal:'🃏 DISTRIBUIR', hit:'👆 PEDIR', stand:'✋ PARAR', double:'2×', insure:'🛡 SEGURO', won:'Você ganhou!', lost:'Você perdeu', push:'Empate — aposta devolvida', blackjack:'BLACKJACK!', bust:'ESTOUROU!', insurance_won:'Seguro ganhou!', half:'½', double:'2×', max:'MAX' },
+  ar: { subtitle:'لعبة البطاقات المميزة', balance:'الرصيد', bet_amount:'مبلغ الرهان', dealer:'الديلر', your_hand:'يدك', playing:'جاري اللعب...', deal:'🃏 ووزع', hit:'👆 سحب', stand:'✋ وقف', double:'2×', insure:'🛡 تأمين', won:'فزت!', lost:'خسرت', push:'تعادل — تم إرجاع الرهان', blackjack:'بلاك جاك!', bust:'انفجر!', insurance_won:'التأمين فاز!', half:'½', double:'2×', max:'MAX' }
+});
+
+let lang = localStorage.getItem('bj-lang') || 'en';
+if (!I18N[lang]) lang = 'en';
+function t(k, p) { let s = I18N[lang]?.[k] || I18N.en[k] || k; if (p) { for (const [k2, v2] of Object.entries(p)) s = s.replace('{' + k2 + '}', v2); } return s; }
+function applyI18n() {
+  document.querySelectorAll('[data-i18n]').forEach(e => { e.textContent = t(e.getAttribute('data-i18n')); });
+  document.querySelectorAll('[data-i18n-attr]').forEach(e => { const [a, k] = e.getAttribute('data-i18n-attr').split(':'); e[a] = t(k); });
+}
+function switchLang() { const ls = C.supportedLangs; const i = ls.indexOf(lang); lang = ls[(i + 1) % ls.length]; localStorage.setItem('bj-lang', lang); applyI18n(); showToast('🌐 ' + lang.toUpperCase(), 'p'); }
+
+let actx = null;
+function getActx() { if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)(); return actx; }
+function tone(f, d, type = 'sine', v = 0.3) {
+  if (!C.sound.enabled) return;
+  try { const c = getActx(), o = c.createOscillator(), g = c.createGain(); o.type = type; o.frequency.setValueAtTime(f, c.currentTime); g.gain.setValueAtTime(v * C.sound.masterVolume, c.currentTime); g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + d); o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + d); } catch (e) {}
+}
+const SND = {
+  click: () => tone(800, 0.04, 'sine', 0.15),
+  deal: () => tone(600, 0.08, 'triangle', 0.15),
+  win: (m) => { if (m >= 3) { tone(880, 0.2, 'sine', 0.4); setTimeout(() => tone(1100, 0.3, 'sine', 0.35), 150); } else { tone(660, 0.15, 'sine', 0.3); } },
+  lose: () => tone(250, 0.2, 'sine', 0.1),
+  bust: () => { tone(200, 0.3, 'sawtooth', 0.2); setTimeout(() => tone(150, 0.4, 'sawtooth', 0.15), 100); }
+};
+
+function showToast(m, t = 'g') { const e = document.createElement('div'); e.className = 'toast ' + t; e.textContent = m; document.body.appendChild(e); setTimeout(() => e.remove(), C.anim.toastDuration + 500); }
+
+// Card suits and values
+const SUITS = ['♠','♥','♦','♣'];
+const VALUES = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+
+// ── Seeded PRNG for card shuffling (Mulberry32) ────────────────
+// Seeded from crypto.getRandomValues for unpredictability.
+
+function _bjSeedFromCrypto() {
+  const bytes = new Uint8Array(4);
+  if (globalThis.crypto?.getRandomValues) {
+    globalThis.crypto.getRandomValues(bytes);
+  } else {
+    for (let i = 0; i < 4; i++) bytes[i] = Math.floor(Math.random() * 256);
+  }
+  return (bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | bytes[3];
+}
+
+let _bjSeed = _bjSeedFromCrypto();
+
+function mulberry32bj(seed) {
+  let s = (seed | 0) >>> 0;
+  return function() {
+    s |= 0; s = (s + 0x6D2B79F5) | 0;
+    let t = Math.imul(s ^ (s >>> 15), 1 | s);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function createDeck(count) {
+  const deck = [];
+  for (let d = 0; d < count; d++) {
+    for (const suit of SUITS) {
+      for (const value of VALUES) {
+        deck.push({ suit, value, color: (suit === '♥' || suit === '♦') ? 'red' : 'black' });
+      }
+    }
+  }
+  // Generate fresh seed from crypto each round so every deal is independent
+  if (globalThis.crypto?.getRandomValues) {
+    const nb = new Uint8Array(4);
+    globalThis.crypto.getRandomValues(nb);
+    _bjSeed = (nb[0] << 24) | (nb[1] << 16) | (nb[2] << 8) | nb[3];
+  } else {
+    _bjSeed = (_bjSeed * 1664525 + 1013904223) >>> 0;
+  }
+  // Fisher-Yates shuffle with seeded PRNG
+  const rng = mulberry32bj(_bjSeed);
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+  return deck;
+}
+
+function getCardValue(hand) {
+  let total = 0, aces = 0;
+  for (const card of hand) {
+    if (card.value === 'A') { aces++; total += 11; }
+    else if (['K','Q','J'].includes(card.value)) total += 10;
+    else total += parseInt(card.value);
+  }
+  while (total > 21 && aces > 0) { total -= 10; aces--; }
+  return total;
+}
+
+function renderCard(card, faceDown = false) {
+  if (faceDown) return '<div class="card face-down dealer-card"></div>';
+  return '<div class="card face-up ' + card.color + '">' + card.value + card.suit + '</div>';
+}
+
+let S = { balance: 10000, betAmount: 10, deck: [], playerHand: [], dealerHand: [], betInPlay: 0, insuranceBet: 0, gameActive: false, history: [] };
+
+function updateBal() { const e = document.getElementById('bal-display'); e.textContent = '$' + S.balance.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); e.classList.add('pulse'); setTimeout(() => e.classList.remove('pulse'), 500); }
+function renderHist() { const b = document.getElementById('hist'); b.innerHTML = ''; S.history.slice(0, 15).forEach(h => { const i = document.createElement('div'); i.className = 'hist-item ' + h.result; i.textContent = h.label; b.appendChild(i); }); }
+function updatePlayerCards() { const el = document.getElementById('player-cards'); el.innerHTML = S.playerHand.map(c => renderCard(c)).join(''); }
+function updateDealerCards(hideSecond = false) { const el = document.getElementById('dealer-cards'); if (hideSecond && S.dealerHand.length > 1) { el.innerHTML = renderCard(S.dealerHand[0]) + renderCard(null, true); } else { el.innerHTML = S.dealerHand.map(c => renderCard(c)).join(''); } }
+function updateValues() { document.getElementById('player-value').textContent = getCardValue(S.playerHand); const hide = S.gameActive && S.dealerHand.length > 0; document.getElementById('dealer-value').textContent = hide ? (S.dealerHand.length > 0 ? getCardValue([S.dealerHand[0]]) : '0') : getCardValue(S.dealerHand); }
+function setResult(text, cls) { const el = document.getElementById('result-bar'); el.textContent = text; el.className = 'result-bar ' + (cls || ''); }
+
+// ── i18n fallback for not_enough ───────────────────────────────
+function tSafe(k, p) {
+  const v = t(k, p);
+  // If the key doesn't exist in I18N, provide English fallback
+  if (!I18N.en[k]) return v;
+  return v;
+}
+function setButtons(isDealing) {
+  // isDealing=true → начальное состояние (готов к раздачи)
+  // isDealing=false → игра идёт (активны HIT/STAND/DOUBLE/INSURE)
+  document.getElementById('btn-deal').disabled = !isDealing;
+  document.getElementById('btn-hit').disabled = isDealing || !S.gameActive;
+  document.getElementById('btn-stand').disabled = isDealing || !S.gameActive;
+  document.getElementById('btn-double-btn').disabled = isDealing || !S.gameActive || S.playerHand.length !== 2 || S.balance < S.betInPlay;
+  // Insurance только если дилер показывает Ace и у игрока ровно 2 карты
+  const dealerShowsAce = S.dealerHand.length > 0 && S.dealerHand[0].value === 'A';
+  document.getElementById('btn-insure').disabled = isDealing || !S.gameActive || !dealerShowsAce || S.playerHand.length !== 2;
+}
+
+function deal() {
+  if (S.betAmount > S.balance) { showToast(t('not_enough'), 'r'); return; }
+  S.balance -= S.betAmount; updateBal();
+  S.betInPlay = S.betAmount; S.insuranceBet = 0;
+  S.deck = createDeck(C.deckCount);
+  S.playerHand = [S.deck.pop(), S.deck.pop()];
+  S.dealerHand = [S.deck.pop(), S.deck.pop()];
+  S.gameActive = true;
+  updatePlayerCards(); updateDealerCards(true); updateValues(); setResult(t('playing'), ''); setButtons(false); SND.deal();
+
+  // Check for instant blackjack
+  const pv = getCardValue(S.playerHand);
+  if (pv === 21) {
+    setTimeout(() => resolveGame(), C.anim.cardDelay);
+    return;
+  }
+}
+
+function hit() {
+  if (!S.gameActive) return;
+  S.playerHand.push(S.deck.pop());
+  updatePlayerCards(); updateValues(); SND.deal();
+  document.getElementById('btn-double-btn').disabled = true;
+  const pv = getCardValue(S.playerHand);
+  if (pv >= 21) { setTimeout(() => resolveGame(), C.anim.cardDelay); }
+}
+
+function stand() {
+  if (!S.gameActive) return;
+  S.gameActive = false;
+  // Dealer draws
+  const drawLoop = () => {
+    if (getCardValue(S.dealerHand) < 17) {
+      S.dealerHand.push(S.deck.pop());
+      updateDealerCards(false); updateValues();
+      setTimeout(drawLoop, C.anim.cardDelay);
+    } else {
+      resolveGame();
+    }
+  };
+  updateDealerCards(false);
+  setTimeout(drawLoop, C.anim.cardDelay);
+}
+
+function doubleDown() {
+  if (!S.gameActive || S.playerHand.length !== 2) return;
+  if (S.balance < S.betInPlay) { showToast(S.balance < S.betInPlay ? (I18N[lang]?.not_enough || 'Not enough balance!') : '', 'r'); return; }
+  S.balance -= S.betInPlay; S.betInPlay *= 2; updateBal();
+  S.playerHand.push(S.deck.pop());
+  updatePlayerCards(); updateValues();
+  S.gameActive = false;
+  setTimeout(() => resolveGame(), C.anim.cardDelay);
+}
+
+function resolveGame() {
+  S.gameActive = false;
+  const pv = getCardValue(S.playerHand);
+  const dv = getCardValue(S.dealerHand);
+  const playerBJ = S.playerHand.length === 2 && pv === 21;
+  const dealerBJ = S.dealerHand.length === 2 && dv === 21;
+
+  updateDealerCards(false);
+  let result, cls, label;
+  let totalNet = S.betInPlay; // Main bet always returned on push
+
+  // ── Insurance resolution ──
+  // Insurance is a side bet that pays 3:1 (i.e., insBet × 3 total return)
+  // when the dealer has blackjack. If dealer doesn't have BJ, insurance is lost.
+  if (S.insuranceBet > 0) {
+    if (dealerBJ && !playerBJ) {
+      // Dealer has BJ and player doesn't — insurance wins
+      const insWin = S.insuranceBet * C.insurancePayout; // insBet × 3
+      totalNet += insWin; // insurance bet was already deducted, add winnings
+      showToast(t('insurance_won') + ' $' + insWin.toFixed(2), 'g');
+    }
+    // If both have BJ (push) or player has BJ — insurance is lost (already deducted)
+  }
+
+  if (playerBJ && !dealerBJ) {
+    // Player blackjack — pays 3:2
+    const win = S.betInPlay * C.blackjackPayout; // betInPlay × 2.5 (original bet + 1.5× win)
+    totalNet = win;
+    result = t('blackjack'); cls = 'blackjack'; label = 'BJ';
+    SND.win(3); showToast(t('won') + ' $' + win.toFixed(2) + ' ' + t('blackjack'), 'g');
+  } else if (playerBJ && dealerBJ) {
+    // Both blackjack — push on main bet
+    result = t('push'); cls = 'push'; label = 'P';
+    showToast(t('push'), 'p');
+  } else if (pv > 21) {
+    // Player bust — lose entire bet
+    totalNet = 0;
+    result = t('bust'); cls = 'lose'; label = 'BUST';
+    SND.bust(); showToast(t('lost'), 'r');
+  } else if (dealerBJ) {
+    // Dealer blackjack, player didn't bust — lose
+    totalNet = 0;
+    result = t('lost'); cls = 'lose'; label = 'L';
+    SND.lose(); showToast(t('lost'), 'r');
+  } else if (pv > dv) {
+    // Player wins — pays 1:1
+    const win = S.betInPlay * 2;
+    totalNet = win;
+    result = t('won'); cls = 'win'; label = 'W';
+    SND.win(1); showToast(t('won') + ' $' + win.toFixed(2), 'gr');
+  } else if (pv === dv) {
+    // Push — bet returned
+    totalNet = S.betInPlay;
+    result = t('push'); cls = 'push'; label = 'P';
+    showToast(t('push'), 'p');
+  } else {
+    // Dealer wins
+    totalNet = 0;
+    result = t('lost'); cls = 'lose'; label = 'L';
+    SND.lose(); showToast(t('lost'), 'r');
+  }
+
+  S.balance += totalNet;
+  updateBal(); setResult(result, cls);
+  S.history.unshift({ result: cls, label }); renderHist();
+  setButtons(true);
+}
+
+function setupEvents() {
+  document.getElementById('btn-deal').addEventListener('click', () => { SND.click(); deal(); });
+  document.getElementById('btn-hit').addEventListener('click', () => { SND.click(); hit(); });
+  document.getElementById('btn-stand').addEventListener('click', () => { SND.click(); stand(); });
+  document.getElementById('btn-double-btn').addEventListener('click', () => { SND.click(); doubleDown(); });
+  document.getElementById('btn-insure').addEventListener('click', () => {
+    SND.click();
+    if (S.insuranceBet > 0) { showToast('Insurance already placed', 'p'); return; }
+    // Insurance must be up to half the original bet
+    const insAmt = Math.min(S.betAmount / 2, S.balance);
+    if (insAmt < 1) { showToast('Not enough for insurance', 'r'); return; }
+    S.insuranceBet = insAmt; S.balance -= insAmt; updateBal();
+    document.getElementById('btn-insure').disabled = true;
+    showToast('Insurance: $' + insAmt.toFixed(2), 'p');
+  });
+  document.getElementById('bet-inp').addEventListener('change', e => { let v = parseInt(e.target.value) || C.betMin; v = Math.max(C.betMin, Math.min(C.betMax, v)); e.target.value = v; S.betAmount = v; });
+  document.getElementById('btn-half').addEventListener('click', () => { SND.click(); S.betAmount = Math.max(C.betMin, Math.floor(S.betAmount / 2)); document.getElementById('bet-inp').value = S.betAmount; });
+  document.getElementById('btn-double').addEventListener('click', () => { SND.click(); S.betAmount = Math.min(C.betMax, S.betAmount * 2); document.getElementById('bet-inp').value = S.betAmount; });
+  document.getElementById('btn-max').addEventListener('click', () => { SND.click(); S.betAmount = Math.min(C.betMax, S.balance); document.getElementById('bet-inp').value = S.betAmount; });
+  document.getElementById('logo-btn').addEventListener('dblclick', e => { e.preventDefault(); switchLang(); });
+  document.getElementById('logo-btn').addEventListener('click', () => { document.getElementById('paytable').classList.toggle('show'); });
+}
+
+function init() { applyI18n(); updateBal(); renderHist(); setButtons(true); setupEvents(); }
+init();
+</script>
+</body>
+</html>

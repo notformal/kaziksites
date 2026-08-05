@@ -1,0 +1,139 @@
+/* Только специфика Hi-Lo: игральная карта с флипом через рубашку, кнопки
+   догадок и золотой кэшаут. Каркас, HUD и эффекты — из дизайн-системы
+   (ui-tokens.css + ui-shell.css), палитра — из theme.generated.css. */
+
+.stage { min-height: 320px; }
+
+.cardScene {
+  display: grid;
+  justify-items: center;
+  gap: var(--s-3);
+}
+
+/* ---- Карта: две стороны, поворот по data-face на #card ---- */
+.card {
+  width: min(46vw, 176px);
+  aspect-ratio: 0.72;
+  perspective: 900px;
+}
+
+.card__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform var(--d-base) var(--ease-in-out);
+}
+.card[data-face="back"] .card__inner { transform: rotateY(180deg); }
+
+.card__side {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--r-md);
+  box-shadow: var(--e-2);
+  overflow: hidden;
+}
+
+/* Лицо карты: светлая «бумага» из токена текста, масти красятся токенами. */
+.card__front {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: var(--s-3);
+  background: var(--c-text);
+  color: var(--c-base);
+}
+.card[data-color="red"] .card__front { color: var(--c-loss); }
+
+.card__corner {
+  display: grid;
+  justify-items: center;
+  justify-self: start;
+  font: 800 clamp(16px, 4vw, 22px)/1.05 var(--f-display);
+}
+.card__corner--flip {
+  justify-self: end;
+  transform: rotate(180deg);
+}
+
+.card__pip {
+  place-self: center;
+  font-size: clamp(42px, 11vw, 74px);
+  line-height: 1;
+}
+
+/* Рубашка: эмблема из art/ на панельной подложке. */
+.card__back {
+  transform: rotateY(180deg);
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(80% 60% at 50% 35%, var(--c-glow-soft), transparent 70%),
+    var(--c-surface-2);
+  border: 1px solid var(--c-line);
+}
+.card__back img {
+  width: 72%;
+  filter: drop-shadow(0 10px 22px rgb(0 0 0 / 0.45));
+}
+
+/* Множитель раунда: компактнее гигантского stage__value, но с его состояниями. */
+.multDisplay {
+  font: var(--t-value);
+  font-size: clamp(22px, 6vw, 34px);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Панель догадок ---- */
+.guessPanel { display: grid; gap: var(--s-2); }
+
+.guess {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: var(--s-3);
+  padding: var(--s-3) var(--s-4);
+  text-align: left;
+}
+.guess__icon {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 4px 10px rgb(0 0 0 / 0.4));
+}
+.guess__label { justify-self: start; }
+.guess__mult {
+  font: var(--t-value);
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+}
+#hi .guess__mult { color: var(--c-win); }
+#lo .guess__mult { color: var(--c-loss); }
+
+/* Кэшаут — золотой: главное позитивное действие внутри сессии. */
+.btn--gold {
+  background: var(--c-gold);
+  color: var(--c-on-primary);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--c-gold) 45%, transparent),
+    0 0 26px color-mix(in srgb, var(--c-gold) 16%, transparent);
+}
+.btn--gold:hover:not(:disabled) {
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--c-gold) 60%, transparent),
+    0 0 40px color-mix(in srgb, var(--c-gold) 30%, transparent);
+}
+.btn--gold .guess__mult { font-size: 13px; color: inherit; }
+
+/* Кнопка звука вспомогательная — держим компактной. */
+#sound {
+  padding: var(--s-2) var(--s-3);
+  font-size: 15px;
+  line-height: 1;
+  align-self: center;
+}
+
+@media (max-width: 620px) {
+  .stage { min-height: 260px; }
+  .card { width: min(52vw, 150px); }
+  .guess { padding: var(--s-3); }
+}

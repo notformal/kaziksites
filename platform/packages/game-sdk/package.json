@@ -1,1 +1,1 @@
-{"name":"@arcade/game-sdk","version":"1.0.0","type":"module","exports":{".":"./src/index.js","./host":"./src/host.js"},"scripts":{"test":"node --test"}}
+{"name":"@nova/game-sdk","version":"1.0.0","type":"module","exports":{".":"./src/index.js","./host":"./src/host.js","./i18n":"./src/i18n.js","./protocol":"./src/protocol.js"},"scripts":{"test":"node --test"}}

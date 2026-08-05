@@ -1,0 +1,143 @@
+/* Только то, что специфично для Baccarat: две руки, CSS-карты, выбор ставки.
+   Каркас, кнопки, HUD и эффекты приходят из ui-tokens.css + ui-shell.css. */
+
+.stage { min-height: 280px; }
+
+/* Башмак крупье — декоративный акцент сцены, не перехватывает клики. */
+.shoeArt {
+  position: absolute;
+  top: var(--s-3);
+  right: var(--s-4);
+  width: 62px;
+  opacity: 0.3;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 12px rgb(0 0 0 / 0.5));
+}
+
+/* ---- Руки игрока и банкира ---- */
+.hands {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--s-4);
+}
+
+.hand {
+  display: grid;
+  gap: var(--s-2);
+  justify-items: center;
+  align-content: start;
+  padding: var(--s-4) var(--s-3);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--c-surface) 72%, transparent);
+  transition:
+    border-color var(--d-base) var(--ease-out),
+    box-shadow var(--d-base) var(--ease-out);
+}
+
+.hand__label {
+  font: var(--t-eyebrow);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.hand__total {
+  font: var(--t-value);
+  font-size: 28px;
+  color: var(--c-primary);
+  font-variant-numeric: tabular-nums;
+  transition: color var(--d-base) var(--ease-out);
+}
+.hand__total[data-state="win"] { color: var(--c-gold); }
+.hand__total[data-state="lose"] { color: var(--c-muted); }
+.hand__total[data-state="tie"] { color: var(--c-secondary); }
+
+/* Победившая сторона подсвечивается золотом, ничья — вторичным цветом темы. */
+.stage[data-winner="player"] .hand--player,
+.stage[data-winner="banker"] .hand--banker {
+  border-color: var(--c-gold);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--c-gold) 55%, transparent),
+    0 0 32px color-mix(in srgb, var(--c-gold) 22%, transparent);
+}
+.stage[data-winner="tie"] .hand {
+  border-color: var(--c-secondary);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--c-secondary) 55%, transparent),
+    0 0 32px color-mix(in srgb, var(--c-secondary) 22%, transparent);
+}
+
+/* ---- Карты ---- */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-2);
+  min-height: 84px;
+}
+
+.card {
+  width: 56px;
+  height: 80px;
+  display: inline-grid;
+  align-content: center;
+  justify-items: center;
+  gap: var(--s-1);
+  border-radius: var(--r-sm);
+  background: var(--c-text);
+  color: var(--c-base);
+  box-shadow: var(--e-1);
+  animation: cardIn var(--d-base) var(--ease-pop) backwards;
+}
+.card[data-red="true"] { color: var(--c-loss); }
+.card__rank { font: 800 24px/1 var(--f-display); letter-spacing: 0; }
+.card__suit { font: 700 17px/1 var(--f-body); }
+
+/* Рубашка до первой сдачи: стол не выглядит пустым. */
+.card--back {
+  object-fit: cover;
+  opacity: 0.75;
+  background: var(--c-surface-2);
+  animation: none;
+}
+
+@keyframes cardIn {
+  from { transform: translateY(-16px) scale(0.72) rotate(-5deg); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* ---- Выбор ставки ---- */
+.betField { display: grid; gap: var(--s-2); }
+.betField__label { display: inline-flex; align-items: center; gap: var(--s-2); }
+.chipIcon { width: 18px; height: 18px; }
+
+/* Селект остаётся в DOM ради внешнего QA, но управление — кнопками .choices. */
+.visuallyHidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Кнопка звука вспомогательная — держим компактной. */
+#sound {
+  padding: var(--s-2) var(--s-3);
+  font-size: 15px;
+  line-height: 1;
+  align-self: center;
+}
+
+@media (max-width: 620px) {
+  .stage { min-height: 240px; }
+  .hands { gap: var(--s-2); }
+  .card { width: 44px; height: 64px; }
+  .card__rank { font-size: 19px; }
+  .card__suit { font-size: 14px; }
+  .cards { min-height: 68px; }
+  .shoeArt { width: 44px; }
+}

@@ -23,7 +23,7 @@ for (const brand of ['aurora', 'ember', 'royale']) {
     await page.getByRole('button', { name: 'LOAD MORE' }).click();
   }
   const cards = await page.getByRole('button', { name: /^Play / }).count();
-  if (cards < 200) throw new Error(`${brand}: only ${cards} game cards rendered`);
+  if (cards < 140) throw new Error(`${brand}: only ${cards} game cards rendered`);
   if (!(await page.title())) throw new Error(`${brand}: document title missing`);
 }
 

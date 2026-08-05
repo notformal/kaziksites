@@ -1,4 +1,4 @@
-name: virtual-arcade
+name: nova-casino
 
 services:
   postgres:

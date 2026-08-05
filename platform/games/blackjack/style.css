@@ -1,0 +1,122 @@
+/* Только специфика блэкджека: сукно стола, руки и CSS-карты. Каркас, HUD,
+   кнопки, степпер и эффекты приходят из ui-tokens.css + ui-shell.css. */
+
+/* Сцена-стол: руки дилера и игрока друг под другом, «башмак» в углу. */
+.stage {
+  min-height: 340px;
+  place-items: stretch;
+}
+
+/* Башмак дилера — декоративный якорь сцены; карты «вылетают» с его стороны. */
+.stage__shoe {
+  position: absolute;
+  top: var(--s-3);
+  right: var(--s-3);
+  width: 54px;
+  opacity: 0.4;
+  pointer-events: none;
+  filter: drop-shadow(0 6px 12px rgb(0 0 0 / 0.4));
+}
+
+.table {
+  display: grid;
+  gap: var(--s-4);
+  width: 100%;
+  align-content: space-between;
+}
+
+.hand { display: grid; gap: var(--s-2); justify-items: start; }
+.hand__meta { display: flex; align-items: baseline; gap: var(--s-2); }
+.hand__label {
+  font: var(--t-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+.hand__value {
+  font: var(--t-value);
+  font-variant-numeric: tabular-nums;
+  color: var(--c-primary);
+  min-width: 1.2em;
+  transition: color var(--d-base) var(--ease-out);
+}
+.hand__value[data-state="win"] { color: var(--c-win); }
+.hand__value[data-state="lose"] { color: var(--c-loss); }
+
+/* ---- CSS-карты ---- */
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+  min-height: 110px;
+}
+
+.card {
+  position: relative;
+  width: clamp(64px, 15vw, 82px);
+  aspect-ratio: 5 / 7;
+  border-radius: var(--r-sm);
+  background: linear-gradient(155deg, var(--c-text) 60%, color-mix(in srgb, var(--c-text) 84%, var(--c-line)));
+  color: var(--c-base);
+  box-shadow: var(--e-1);
+  display: grid;
+  place-items: center;
+}
+.card[data-color="red"] { color: var(--c-loss); }
+
+.card__corner {
+  position: absolute;
+  top: var(--s-1);
+  left: var(--s-2);
+  display: grid;
+  justify-items: center;
+  font: 800 14px/1.05 var(--f-body);
+}
+.card__corner i { font-style: normal; }
+.card__corner--flip {
+  top: auto;
+  left: auto;
+  bottom: var(--s-1);
+  right: var(--s-2);
+  transform: rotate(180deg);
+}
+.card__pip { font: 800 clamp(26px, 6vw, 34px)/1 var(--f-display); }
+
+/* Закрытая карта дилера — рубашка из art/. */
+.card--back {
+  background: var(--c-surface-2) url("art/card-back.svg") center / 72% auto no-repeat;
+  border: 1px solid var(--c-line);
+}
+
+/* Новая карта вылетает со стороны башмака; backwards прячет её до своей очереди. */
+.card.is-new { animation: cardDeal var(--d-slow) var(--ease-pop) backwards; }
+@keyframes cardDeal {
+  from { transform: translate(56px, -34px) rotate(8deg); opacity: 0; }
+  to { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+}
+
+/* .choices задаёт display:grid — возвращаем силу атрибуту hidden. */
+#actions[hidden] { display: none; }
+
+/* Ходы: лёгкая цветовая подсказка в духе исходной раскладки. */
+#hit:not(:disabled) { color: var(--c-primary); }
+#stand:not(:disabled) { color: var(--c-gold); }
+#double:not(:disabled) { color: var(--c-secondary); }
+
+/* Фишка у подписи ставки. */
+.field__label { display: inline-flex; align-items: center; gap: var(--s-1); }
+.field__chip { width: 14px; height: 14px; }
+
+/* Кнопка звука вспомогательная — держим компактной. */
+#sound {
+  padding: var(--s-2) var(--s-3);
+  line-height: 1;
+  align-self: center;
+}
+
+@media (max-width: 620px) {
+  .stage { min-height: 300px; }
+  .stage__shoe { width: 40px; }
+  .card { width: clamp(52px, 17vw, 64px); }
+  .cards { min-height: 86px; }
+}

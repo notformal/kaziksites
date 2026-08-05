@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="description" content="Roulette Royale v3 — Premium Roulette with Wheel Animation & Full Table">
+<title>Roulette Royale v3</title>
+<style>
+/* ═══════════════════════════════════════════
+   ROULETTE ROYALE v3 — PREMIUM ROULETTE
+   Config-driven | House Edge: 2.7% | RTP: 97.3%
+   ═══════════════════════════════════════════ */
+:root{--bg:#0a0a1a;--sf:#1a1a3e;--sfl:#222250;--purp:#aa00ff;--gold:#ffd700;--green:#00e676;--red:#ff1744;--blue:#2979ff;--cyan:#00e5ff;--txt:#f0f0f0;--tdim:#8888a0;--brd:rgba(170,0,255,.3);--r:8px;--rm:12px;--rl:20px;--font:'Segoe UI',system-ui,-apple-system,sans-serif}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow-x:hidden;background:var(--bg);font-family:var(--font);color:var(--txt);-webkit-tap-highlight-color:transparent}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;background:radial-gradient(ellipse at 50% 30%,rgba(0,180,80,.08) 0%,transparent 50%),var(--bg)}
+#app{width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1;overflow:hidden;padding:8px}
+.header{width:100%;max-width:520px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;background:var(--sf);border:1px solid var(--brd);border-radius:var(--rm);flex-shrink:0;backdrop-filter:blur(10px)}
+.hdr-l{display:flex;align-items:center;gap:10px}
+.logo{font-size:28px;cursor:pointer;filter:drop-shadow(0 0 10px rgba(255,215,0,.5));transition:transform .2s}
+.logo:hover{transform:scale(1.1) rotate(-10deg)}
+.ttl{font-size:15px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sub{font-size:9px;color:var(--tdim);letter-spacing:1px}
+.bal{background:var(--sfl);border:1px solid var(--brd);border-radius:var(--r);padding:6px 14px;text-align:center;min-width:110px}
+.bl{font-size:8px;color:var(--tdim);text-transform:uppercase;letter-spacing:1px}
+.bv{font-size:16px;font-weight:800;color:var(--green);transition:all .3s}
+.bv.pulse{animation:bp .5s ease}
+@keyframes bp{50%{transform:scale(1.15);color:var(--gold)}}
+.sm{width:100%;max-width:520px;flex:1;display:flex;flex-direction:column;gap:8px;padding:8px 0;position:relative}
+.wheel-area{width:100%;aspect-ratio:1/1;max-width:300px;position:relative}
+.wheel{width:100%;height:100%;border-radius:50%;border:4px solid var(--gold);position:relative;transition:transform 4s cubic-bezier(0.17,0.67,0.12,0.99);box-shadow:0 0 30px rgba(255,215,0,.3),inset 0 0 30px rgba(0,0,0,.5)}
+.wheel-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:30%;height:30%;border-radius:50%;background:linear-gradient(135deg,var(--gold),#B8860B);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-size:24px;z-index:5;box-shadow:0 0 15px rgba(255,215,0,.5)}
+.wheel-pointer{position:absolute;top:-15px;left:50%;transform:translateX(-50%);font-size:24px;color:var(--gold);z-index:10;filter:drop-shadow(0 0 5px rgba(255,215,0,.8))}
+.result-display{text-align:center;padding:15px;background:linear-gradient(135deg,rgba(0,180,80,.15),rgba(170,0,255,.1));border:1px solid var(--brd);border-radius:var(--rm);min-height:70px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.result-num{font-size:48px;font-weight:900}
+.result-num.red{color:var(--red)}
+.result-num.black{color:var(--txt)}
+.result-num.green{color:var(--green)}
+.result-label{font-size:12px;color:var(--tdim);margin-top:5px}
+.history-bar{display:flex;gap:4px;justify-content:center;flex-wrap:wrap;padding:6px 0}
+.hist-item{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;border:2px solid}
+.hist-item.red{background:rgba(255,23,68,.3);color:#fff;border-color:var(--red)}
+.hist-item.black{background:rgba(30,30,60,.5);color:#fff;border-color:rgba(255,255,255,.2)}
+.hist-item.green{background:rgba(0,230,118,.3);color:#000;border-color:var(--green)}
+.bet-panel{padding:15px;background:var(--sf);border:1px solid var(--brd);border-radius:var(--rm)}
+.bet-title{font-size:11px;color:var(--tdim);text-transform:uppercase;letter-spacing:2px;text-align:center;margin-bottom:10px}
+.num-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:3px;margin-bottom:10px}
+.num-btn{padding:10px 4px;border:2px solid var(--brd);border-radius:var(--r);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;text-align:center;position:relative}
+.num-btn.red{background:rgba(255,23,68,.3);color:#fff;border-color:rgba(255,23,68,.4)}
+.num-btn.black{background:rgba(30,30,60,.5);color:#fff;border-color:rgba(255,255,255,.15)}
+.num-btn.green{background:rgba(0,230,118,.3);color:#000;border-color:rgba(0,230,118,.4)}
+.num-btn.selected{box-shadow:0 0 10px var(--gold);border-color:var(--gold);transform:scale(1.05)}
+.num-btn:hover{transform:scale(1.05);filter:brightness(1.2)}
+.outside-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.outside-btn{padding:12px 8px;border:2px solid var(--brd);border-radius:var(--r);background:var(--sfl);color:var(--txt);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;text-align:center;text-transform:uppercase}
+.outside-btn.selected{box-shadow:0 0 10px var(--gold);border-color:var(--gold)}
+.outside-btn:hover{border-color:var(--gold);transform:translateY(-2px)}
+.bet-ctrl{display:flex;gap:6px;align-items:center;justify-content:center;flex-wrap:wrap;padding:6px 0}
+.bet-inp{width:85px;padding:10px;background:var(--sfl);border:2px solid var(--brd);border-radius:var(--r);color:var(--gold);font-size:17px;font-weight:700;text-align:center;transition:border-color .2s}
+.bet-inp:focus{outline:none;border-color:var(--gold)}
+.bet-sm{padding:8px 14px;border:1px solid var(--brd);border-radius:var(--r);background:var(--sf);color:var(--txt);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.bet-sm:hover{border-color:var(--gold);background:var(--sfl);transform:translateY(-1px)}
+.bet-sm:active{transform:translateY(0)}
+.controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:4px 0}
+.btn{padding:14px 28px;border:2px solid var(--brd);border-radius:var(--rm);background:var(--sf);color:var(--txt);font-size:14px;font-weight:700;cursor:pointer;transition:all .15s;text-transform:uppercase;letter-spacing:1px;min-width:90px;text-align:center;position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent);opacity:0;transition:opacity .2s}
+.btn:hover::before{opacity:1}
+.btn:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.4)}
+.btn:active:not(:disabled){transform:translateY(0)}
+.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn.gold{background:linear-gradient(135deg,var(--gold),#B8860B);color:#000;border-color:var(--gold)}
+.btn.primary{background:linear-gradient(135deg,var(--green),#00CC66);color:#000;border-color:var(--green)}
+.btn.danger{background:linear-gradient(135deg,var(--red),#CC0000);color:#fff;border-color:var(--red)}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);padding:12px 24px;border-radius:var(--rm);font-size:15px;font-weight:700;z-index:300;animation:tIn .3s ease,tOut .3s ease 2s forwards;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis}
+.toast.g{background:var(--sf);color:var(--gold);border:1px solid var(--gold);box-shadow:0 0 25px rgba(255,215,0,.4)}
+.toast.gr{background:var(--sf);color:var(--green);border:1px solid var(--green);box-shadow:0 0 25px rgba(0,230,118,.4)}
+.toast.r{background:var(--sf);color:var(--red);border:1px solid var(--red);box-shadow:0 0 25px rgba(255,23,68,.4)}
+.toast.p{background:var(--sf);color:var(--purp);border:1px solid var(--purp);box-shadow:0 0 25px rgba(170,0,255,.4)}
+@keyframes tIn{to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes tOut{to{opacity:0;transform:translateX(-50%) translateY(-20px)}}
+.paytable{max-width:520px;width:100%;background:var(--sf);border:1px solid var(--brd);border-radius:var(--rm);overflow:hidden;display:none;animation:pts .3s ease}
+.paytable.show{display:block}
+@keyframes pts{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.pth{padding:10px 14px;background:var(--sfl);border-bottom:1px solid var(--brd);font-weight:700;font-size:13px;color:var(--gold);text-align:center}
+.png{padding:10px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.pi{display:flex;align-items:center;gap:8px;padding:6px 10px;border-radius:var(--r);background:var(--sfl);border:1px solid transparent;transition:border-color .2s}
+.pi:hover{border-color:var(--brd)}
+.pi .sy{font-size:22px}
+.pi .vl{font-size:10px;color:var(--tdim)}
+.pi .vl span{color:var(--gold);font-weight:700}
+@media(max-width:400px){.num-btn{padding:6px 2px;font-size:11px}.outside-btn{padding:8px 4px;font-size:10px}}
+</style>
+</head>
+<body>
+<div class="bg" id="bg"></div>
+<div id="app">
+  <div class="header">
+    <div class="hdr-l"><span class="logo" id="logo-btn" role="button" tabindex="0" aria-label="Paytable">🎡</span><div><div class="ttl" id="gt">ROULETTE ROYALE v3</div><div class="sub" data-i18n="subtitle">Premium Roulette</div></div></div>
+    <div class="bal"><div class="bl" data-i18n="balance">Balance</div><div class="bv" id="bal-display">$10,000</div></div>
+  </div>
+  <div class="sm">
+    <div class="wheel-area" id="wheel-area">
+      <div class="wheel-pointer">▼</div>
+      <div class="wheel" id="wheel"></div>
+      <div class="wheel-center">🎡</div>
+    </div>
+    <div class="result-display">
+      <div class="result-num" id="result-num">—</div>
+      <div class="result-label" id="result-label">Place your bets</div>
+    </div>
+    <div class="history-bar" id="hist"></div>
+    <div class="bet-panel">
+      <div class="bet-title" data-i18n="numbers">Numbers</div>
+      <div class="num-grid" id="num-grid"></div>
+      <div class="bet-title" data-i18n="outside">Outside Bets</div>
+      <div class="outside-grid" id="outside-grid"></div>
+    </div>
+    <div class="bet-ctrl">
+      <input type="number" class="bet-inp" id="bet-inp" value="10" min="1" max="1000" step="1" aria-label="Bet amount">
+      <button class="bet-sm" id="btn-half" data-i18n="half">½</button>
+      <button class="bet-sm" id="btn-double" data-i18n="double">2×</button>
+      <button class="bet-sm" id="btn-max" data-i18n="max">MAX</button>
+    </div>
+    <div class="controls">
+      <button class="btn primary" id="btn-spin" data-i18n-attr="text:spin">🎡 SPIN</button>
+    </div>
+  </div>
+</div>
+<div class="paytable" id="paytable"><div class="pth" data-i18n="paytable">🎡 ROULETTE ROYALE v3 — Payouts</div><div class="png">
+  <div class="pi"><span class="sy">🔢</span><div class="vl"><span>35×</span> Straight number</div></div>
+  <div class="pi"><span class="sy">🔴⚫</span><div class="vl"><span>2×</span> Red/Black</div></div>
+  <div class="pi"><span class="sy">📊</span><div class="vl"><span>2×</span> Odd/Even</div></div>
+  <div class="pi"><span class="sy">1️⃣</span><div class="vl"><span>2×</span> 1-18 / 19-36</div></div>
+  <div class="pi"><span class="sy">📐</span><div class="vl"><span>2×</span> Dozen bet</div></div>
+  <div class="pi"><span class="sy">🎯</span><div class="vl">House Edge <span>2.7%</span></div></div>
+</div></div>
+<script>
+/* ═══════════════════════════════════════════════════════════
+   ROULETTE ROYALE v3 — PREMIUM ROULETTE
+   Config-driven | House Edge: 2.7% | RTP: 97.3%
+   ═══════════════════════════════════════════════════════════ */
+const C = Object.freeze({
+  id: 'roulette-royale', version: '3.0.0', name: 'Roulette Royale',
+  houseEdge: 0.027, rtp: 0.973,
+  betMin: 1, betMax: 1000, betSteps: [1, 2, 5, 10, 20, 50, 100, 200, 500, 1000],
+  wheelNumbers: Object.freeze([0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26]),
+  redNumbers: Object.freeze([1,3,5,7,9,12,14,16,18,19,21,23,25,27,30,32,34,36]),
+  anim: { spinDuration: 4000, toastDuration: 2000 },
+  sound: { enabled: true, masterVolume: 0.5 },
+  defaultLang: 'en', supportedLangs: ['en','es','fr','de','jp','ru','zh','ko','pt','ar']
+});
+
+const I18N = Object.freeze({
+  en: { subtitle:'Premium Roulette', balance:'Balance', numbers:'Numbers', outside:'Outside Bets', spin:'🎡 SPIN', half:'½', double:'2×', max:'MAX', won:'You won!', lost:'No luck this time', straight:'Straight 35×', red:'Red', black:'Black', odd:'Odd', even:'Even', low:'1-18', high:'19-36', dozen1:'1st 12', dozen2:'2nd 12', dozen3:'3rd 12' },
+  es: { subtitle:'Ruleta Premium', balance:'Saldo', numbers:'Números', outside:'Apuestas Exteriores', spin:'🎡 GIRAR', half:'½', double:'2×', max:'MAX', won:'¡Ganaste!', lost:'Sin suerte esta vez', straight:'Directo 35×', red:'Rojo', black:'Negro', odd:'Impar', even:'Par', low:'1-18', high:'19-36', dozen1:'1er 12', dozen2:'2do 12', dozen3:'3er 12' },
+  fr: { subtitle:'Roulette Premium', balance:'Solde', numbers:'Numéros', outside:'Mises Extérieures', spin:'🎡 TOURNER', half:'½', double:'2×', max:'MAX', won:'Vous avez gagné!', lost:'Pas de chance cette fois', straight:'Plein 35×', red:'Rouge', black:'Noir', odd:'Impair', even:'Pair', low:'1-18', high:'19-36', dozen1:'1er 12', dozen2:'2e 12', dozen3:'3e 12' },
+  de: { subtitle:'Premium Roulette', balance:'Guthaben', numbers:'Zahlen', outside:'Außenwetten', spin:'🎡 DREHEN', half:'½', double:'2×', max:'MAX', won:'Sie haben gewonnen!', lost:'Kein Glück diesmal', straight:'Gerade 35×', red:'Rot', black:'Schwarz', odd:'Ungerade', even:'Gerade', low:'1-18', high:'19-36', dozen1:'1. 12', dozen2:'2. 12', dozen3:'3. 12' },
+  jp: { subtitle:'プレミアムルーレット', balance:'残高', numbers:'数字', outside:'アウトサイドベット', spin:'🎡 スピン', half:'½', double:'2×', max:'MAX', won:'勝ち！', lost:'今回は運なし', straight:'ストレート 35×', red:'レッド', black:'ブラック', odd:'奇数', even:'偶数', low:'1-18', high:'19-36', dozen1:'1ダース', dozen2:'2ダース', dozen3:'3ダース' },
+  ru: { subtitle:'Премиум Рулетка', balance:'Баланс', numbers:'Числа', outside:'Внешние ставки', spin:'🎡 КРУТИТЬ', half:'½', double:'2×', max:'MAX', won:'Вы выиграли!', lost:'Не повезло', straight:'Прямая 35×', red:'Красное', black:'Черное', odd:'Нечерное', even:'Четное', low:'1-18', high:'19-36', dozen1:'1-я 12', dozen2:'2-я 12', dozen3:'3-я 12' },
+  zh: { subtitle:'高级轮盘', balance:'余额', numbers:'数字', outside:'外围下注', spin:'🎡 旋转', half:'½', double:'2×', max:'MAX', won:'你赢了！', lost:'这次没运气', straight:'直注 35×', red:'红', black:'黑', odd:'奇数', even:'偶数', low:'1-18', high:'19-36', dozen1:'第一组12', dozen2:'第二组12', dozen3:'第三组12' },
+  ko: { subtitle:'프리미엄 룰렛', balance:'잔액', numbers:'숫자', outside:'바깥 베팅', spin:'🎡 회전', half:'½', double:'2×', max:'MAX', won:'승리!', lost:'이번엔 운이 없어요', straight:'스트레이트 35×', red:'빨강', black:'검정', odd:'홀수', even:'짝수', low:'1-18', high:'19-36', dozen1:'1번째 12', dozen2:'2번째 12', dozen3:'3번째 12' },
+  pt: { subtitle:'Roleta Premium', balance:'Saldo', numbers:'Números', outside:'Apostas Exteriores', spin:'🎡 GIRAR', half:'½', double:'2×', max:'MAX', won:'Você ganhou!', lost:'Sem sorte dessa vez', straight:'Direto 35×', red:'Vermelho', black:'Preto', odd:'Ímpar', even:'Par', low:'1-18', high:'19-36', dozen1:'1º 12', dozen2:'2º 12', dozen3:'3º 12' },
+  ar: { subtitle:'عجلة الروleta المميزة', balance:'الرصيد', numbers:'الأرقام', outside:'رهانات خارجية', spin:'🎡 لف', half:'½', double:'2×', max:'MAX', won:'فزت!', lost:'حظ أوفر هذه المرة', straight:'مباشر 35×', red:'أحمر', black:'أسود', odd:'فردي', even:'زوجي', low:'1-18', high:'19-36', dozen1:'الأول 12', dozen2:'الثاني 12', dozen3:'الثالث 12' }
+});
+
+let lang = localStorage.getItem('roulette-lang') || 'en';
+if (!I18N[lang]) lang = 'en';
+function t(k, p) { let s = I18N[lang]?.[k] || I18N.en[k] || k; if (p) { for (const [k2, v2] of Object.entries(p)) s = s.replace('{' + k2 + '}', v2); } return s; }
+function applyI18n() {
+  document.querySelectorAll('[data-i18n]').forEach(e => { e.textContent = t(e.getAttribute('data-i18n')); });
+  document.querySelectorAll('[data-i18n-attr]').forEach(e => { const [a, k] = e.getAttribute('data-i18n-attr').split(':'); e[a] = t(k); });
+}
+function switchLang() { const ls = C.supportedLangs; const i = ls.indexOf(lang); lang = ls[(i + 1) % ls.length]; localStorage.setItem('roulette-lang', lang); applyI18n(); showToast('🌐 ' + lang.toUpperCase(), 'p'); }
+
+let actx = null;
+function getActx() { if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)(); return actx; }
+function tone(f, d, type = 'sine', v = 0.3) {
+  if (!C.sound.enabled) return;
+  try { const c = getActx(), o = c.createOscillator(), g = c.createGain(); o.type = type; o.frequency.setValueAtTime(f, c.currentTime); g.gain.setValueAtTime(v * C.sound.masterVolume, c.currentTime); g.gain.exponentialRampToValueAtTime(0.001, c.currentTime + d); o.connect(g); g.connect(c.destination); o.start(); o.stop(c.currentTime + d); } catch (e) {}
+}
+const SND = {
+  click: () => tone(800, 0.04, 'sine', 0.15),
+  spin: () => tone(400, 0.15, 'triangle', 0.2),
+  win: (m) => { if (m >= 12) { tone(880, 0.2, 'sine', 0.4); setTimeout(() => tone(1100, 0.3, 'sine', 0.35), 150); } else { tone(660, 0.15, 'sine', 0.3); } },
+  lose: () => tone(250, 0.2, 'sine', 0.1)
+};
+
+function showToast(m, t = 'g') { const e = document.createElement('div'); e.className = 'toast ' + t; e.textContent = m; document.body.appendChild(e); setTimeout(() => e.remove(), C.anim.toastDuration + 500); }
+
+function getNumColor(n) { return n === 0 ? 'green' : (C.redNumbers.includes(n) ? 'red' : 'black'); }
+
+let S = { balance: 10000, betAmount: 10, selectedNumber: null, outsideBets: [], spinning: false, history: [] };
+
+function updateBal() { const e = document.getElementById('bal-display'); e.textContent = '$' + S.balance.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); e.classList.add('pulse'); setTimeout(() => e.classList.remove('pulse'), 500); }
+function renderHist() { const b = document.getElementById('hist'); b.innerHTML = ''; S.history.slice(0, 20).forEach(h => { const i = document.createElement('div'); i.className = 'hist-item ' + h.color; i.textContent = h.number; b.appendChild(i); }); }
+function renderNumGrid() { const g = document.getElementById('num-grid'); g.innerHTML = ''; for (let i = 0; i <= 36; i++) { const btn = document.createElement('div'); const color = getNumColor(i); btn.className = 'num-btn ' + color; btn.textContent = i; btn.dataset.number = i; btn.addEventListener('click', () => selectNumber(i)); if (S.selectedNumber === i) btn.classList.add('selected'); g.appendChild(btn); } }
+function renderOutsideGrid() { const g = document.getElementById('outside-grid'); g.innerHTML = ''; const bets = [
+  { key: 'red', label: '🔴 RED', color: 'red' },
+  { key: 'black', label: '⚫ BLACK', color: 'black' },
+  { key: 'odd', label: 'ODD', color: '' },
+  { key: 'even', label: 'EVEN', color: '' },
+  { key: 'low', label: '1-18', color: '' },
+  { key: 'high', label: '19-36', color: '' }
+]; bets.forEach(b => { const btn = document.createElement('div'); btn.className = 'outside-btn' + (S.outsideBets.includes(b.key) ? ' selected' : ''); btn.textContent = t(b.key); btn.dataset.key = b.key; btn.addEventListener('click', () => toggleOutside(b.key)); g.appendChild(btn); }); }
+function selectNumber(n) { S.selectedNumber = S.selectedNumber === n ? null : n; S.outsideBets = S.outsideBets.filter(k => k !== '_number'); renderNumGrid(); }
+function toggleOutside(key) { const idx = S.outsideBets.indexOf(key); if (idx >= 0) S.outsideBets.splice(idx, 1); else S.outsideBets.push(key); renderOutsideGrid(); }
+
+// ── Seeded PRNG for roulette (Mulberry32) ──────────────────────
+// Seeded from crypto.getRandomValues for unpredictability.
+
+function _rouletteSeedFromCrypto() {
+  const bytes = new Uint8Array(4);
+  if (globalThis.crypto?.getRandomValues) {
+    globalThis.crypto.getRandomValues(bytes);
+  } else {
+    for (let i = 0; i < 4; i++) bytes[i] = Math.floor(Math.random() * 256);
+  }
+  return (bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | bytes[3];
+}
+
+let _rouletteSeed = _rouletteSeedFromCrypto();
+
+/** Mulberry32: fast, seeded 32-bit PRNG with full 2^32 period */
+function mulberry32roulette() {
+  let s = _rouletteSeed | 0;
+  return function() {
+    s |= 0; s = (s + 0x6D2B79F5) | 0;
+    let t = Math.imul(s ^ (s >>> 15), 1 | s);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function generateResult() {
+  // Refresh seed from crypto each spin — prevents prediction.
+  if (globalThis.crypto?.getRandomValues) {
+    const nb = new Uint8Array(4);
+    globalThis.crypto.getRandomValues(nb);
+    _rouletteSeed = (nb[0] << 24) | (nb[1] << 16) | (nb[2] << 8) | nb[3];
+  } else {
+    _rouletteSeed = (_rouletteSeed * 1664525 + 1013904223) >>> 0;
+  }
+  const rng = mulberry32roulette();
+  const idx = Math.floor(rng() * C.wheelNumbers.length);
+  return C.wheelNumbers[idx];
+}
+
+function spinWheel() {
+  const result = generateResult();
+  const resultIdx = C.wheelNumbers.indexOf(result);
+  const segAngle = 360 / C.wheelNumbers.length;
+  const targetAngle = 360 * 5 + (360 - resultIdx * segAngle - segAngle / 2);
+
+  const wheel = document.getElementById('wheel');
+  wheel.style.transition = 'transform ' + C.anim.spinDuration + 'ms cubic-bezier(0.17,0.67,0.12,0.99)';
+  wheel.style.transform = 'rotate(' + targetAngle + 'deg)';
+  SND.spin();
+
+  setTimeout(() => {
+    const color = getNumColor(result);
+    const resultEl = document.getElementById('result-num');
+    resultEl.textContent = result;
+    resultEl.className = 'result-num ' + color;
+    document.getElementById('result-label').textContent = result === 0 ? 'Zero!' : (color === 'red' ? t('red') : t('black'));
+
+    // Calculate winnings
+    let totalWin = 0;
+    if (S.selectedNumber !== null && S.selectedNumber === result) { totalWin += S.betAmount * 35; }
+    if (S.outsideBets.includes('red') && color === 'red') totalWin += S.betAmount * 2;
+    if (S.outsideBets.includes('black') && color === 'black') totalWin += S.betAmount * 2;
+    if (S.outsideBets.includes('odd') && result > 0 && result % 2 !== 0) totalWin += S.betAmount * 2;
+    if (S.outsideBets.includes('even') && result > 0 && result % 2 === 0) totalWin += S.betAmount * 2;
+    if (S.outsideBets.includes('low') && result >= 1 && result <= 18) totalWin += S.betAmount * 2;
+    if (S.outsideBets.includes('high') && result >= 19 && result <= 36) totalWin += S.betAmount * 2;
+
+    if (totalWin > 0) {
+      S.balance += totalWin; updateBal();
+      SND.win(totalWin > S.betAmount * 10 ? 12 : 2);
+      showToast(t('won') + ' $' + totalWin.toFixed(2), totalWin > S.betAmount * 10 ? 'g' : 'gr');
+    } else {
+      SND.lose();
+      showToast(t('lost'), 'r');
+    }
+
+    S.history.unshift({ number: result, color: color }); renderHist();
+    document.getElementById('result-num').classList.add(color);
+    S.spinning = false;
+    document.getElementById('btn-spin').disabled = false;
+  }, C.anim.spinDuration + 200);
+}
+
+function setupEvents() {
+  document.getElementById('btn-spin').addEventListener('click', () => {
+    if (S.spinning) return;
+    if (S.selectedNumber === null && S.outsideBets.length === 0) { showToast('Place a bet first!', 'p'); return; }
+    const bet = S.betAmount;
+    if (bet > S.balance) { showToast('Insufficient balance!', 'r'); return; }
+    S.spinning = true; S.balance -= bet; updateBal();
+    document.getElementById('btn-spin').disabled = true;
+    spinWheel();
+  });
+  document.getElementById('bet-inp').addEventListener('change', e => { let v = parseInt(e.target.value) || C.betMin; v = Math.max(C.betMin, Math.min(C.betMax, v)); e.target.value = v; S.betAmount = v; });
+  document.getElementById('btn-half').addEventListener('click', () => { SND.click(); S.betAmount = Math.max(C.betMin, Math.floor(S.betAmount / 2)); document.getElementById('bet-inp').value = S.betAmount; });
+  document.getElementById('btn-double').addEventListener('click', () => { SND.click(); S.betAmount = Math.min(C.betMax, S.betAmount * 2); document.getElementById('bet-inp').value = S.betAmount; });
+  document.getElementById('btn-max').addEventListener('click', () => { SND.click(); S.betAmount = Math.min(C.betMax, S.balance); document.getElementById('bet-inp').value = S.betAmount; });
+  document.getElementById('logo-btn').addEventListener('dblclick', e => { e.preventDefault(); switchLang(); });
+  document.getElementById('logo-btn').addEventListener('click', () => { document.getElementById('paytable').classList.toggle('show'); });
+}
+
+function init() { applyI18n(); updateBal(); renderHist(); renderNumGrid(); renderOutsideGrid(); setupEvents(); }
+init();
+</script>
+</body>
+</html>

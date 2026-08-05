@@ -1,0 +1,31 @@
+ID,Module,Element/Scenario,Role,Precondition,Action,Expected,TestLevel,Evidence,Status,DefectID
+TM-01,api,POST /api/account/responsible-play first call (no row),user,authenticated,save daily loss limit,200 + limit persisted,Integration (node:test),test/accountLifecycle.test.js:36,PASS,DEF-003
+TM-02,api,Self-exclusion survives unrelated save,user,self-excluded,save a loss limit,self_excluded_until unchanged,Integration,accountLifecycle.test.js:45,PASS,DEF-002
+TM-03,api,Self-exclusion cannot be shortened,user,self-excluded 168h,submit 1h exclusion,window not reduced,Integration,accountLifecycle.test.js:45,PASS,DEF-002
+TM-04,api,Bet rejected during self-exclusion,user,self-excluded,POST /api/wallet/bet,403 responsible_play_block + balance untouched,Integration,accountLifecycle.test.js:61,PASS,DEF-001
+TM-05,api,Daily wager limit blocks further bets,user,wager limit reached,POST /api/wallet/bet,403 daily_wager_limit,Integration,accountLifecycle.test.js:71,PASS,DEF-001
+TM-06,api,GET /api/account/responsible-play auto-creates row,user,authenticated,GET settings,200 + nulls,Runtime,evidence/repro-after.md,PASS,DEF-003
+TM-07,api,GET /api/account/responsible-play/check,user,authenticated,GET check,mirrors rpStatus,Code+Integration,app.js rpStatus,PASS,DEF-001
+TM-08,api,POST /api/account/password/change keeps current session,user,two sessions,change password,200 + current valid + others 401,Integration,accountLifecycle.test.js:84,PASS,DEF-004
+TM-09,api,Password change: new password works old fails,user,changed,login old/new,401 old / 200 new,Integration,accountLifecycle.test.js:84,PASS,DEF-004
+TM-10,api,POST /api/account/delete wrong/missing password,user,authenticated,delete w/ bad pw,401,Integration,accountLifecycle.test.js:98,PASS,DEF-005/DEF-008
+TM-11,api,POST /api/account/delete anonymises + preserves ledger,user,has ledger rows,delete w/ correct pw,200 + email masked + ledger kept,Integration,accountLifecycle.test.js:98,PASS,DEF-005
+TM-12,api,GET /api/account/devices lists recorded sessions,user,logged in twice,GET devices,2 devices one current,Integration,accountLifecycle.test.js:114,PASS,DEF-009
+TM-13,api,POST /api/account/devices/revoke-others,user,2 devices,revoke others,1 device (current) + other session 401,Integration,accountLifecycle.test.js:114,PASS,DEF-009
+TM-14,api,DELETE /api/account/devices/:id,user,owns device,revoke device,session+device removed,Code review,app.js device delete,PASS,DEF-009
+TM-15,api,Email change rejected when taken,user,authenticated,request-verify existing email,409 email_exists,Integration,accountLifecycle.test.js:135,PASS,DEF-011
+TM-16,api,POST /api/account/email/request-verify (auth),user,authenticated,request verify,200 sent,Code review,app.js,PASS,-
+TM-17,api,POST /api/account/password/request-reset no user enumeration,anon,-,request reset,200 sent regardless,Code review,app.js,PASS,-
+TM-18,api,POST /api/account/password/reset invalidates all sessions,anon,valid token,reset,sessions deleted,Code review,app.js,PASS,-
+TM-19,api,POST /api/account/export/request + status,user,authenticated,request export,200 pending,Code review,app.js,PASS,-
+TM-20,api,Register/login record device_sessions,user,-,register/login,device row inserted,Integration,accountLifecycle.test.js:114,PASS,DEF-009
+TM-21,lobby,AccountPanel renders (build),user,-,vite build,compiles,Build,04-test-results.md,PASS,DEF-006
+TM-22,lobby,Responsible Play reachable via account panel,user,logged in,click Play responsibly,modal opens,Static+Build,AccountPanel.jsx,PASS (UI click-through residual),DEF-007
+TM-23,lobby,Restriction banner rendered for logged-in user,user,restricted,open account,banner shown,Static+Build,AccountPanel.jsx ResponsibleCheckBanner,PASS (UI click-through residual),DEF-007
+TM-24,lobby,Delete-account UI collects+sends password,user,logged in,delete flow,password sent,Static+Build,AccountSettings.jsx DangerTab,PASS (UI click-through residual),DEF-008
+TM-25,lobby,Reset vs verify email use separate inputs,user,logged in,security tab,independent fields,Static,AccountSettings.jsx,PASS,DEF-015
+TM-26,tooling,npm run lint executes,dev,-,run lint,exit 0,Gate,04-test-results.md,PASS,DEF-012
+TM-27,tooling,memory.js E2E boots with account tables,dev,-,node src/memory.js,serves /api/account/*,Runtime,04-test-results.md,PASS,DEF-013
+TM-28,regression,All pre-existing platform API tests still pass,-,-,npm test,24/24,Integration,04-test-results.md,PASS,-
+TM-29,regression,Root + server + lobby suites still pass,-,-,npm test,3+5+6,Integration,04-test-results.md,PASS,-
+TM-30,security,Dependency audit (4 workspaces),-,-,npm audit,0 vulnerabilities,Scan,04-test-results.md,PASS,-

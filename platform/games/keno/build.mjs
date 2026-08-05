@@ -1,1 +1,1 @@
-import{cp,rm,mkdir}from'node:fs/promises';await rm('dist',{recursive:true,force:true});await mkdir('dist');for(const f of['index.html','style.css','game.js','sdk.js'])await cp(f,`dist/${f}`);
+import{cp,rm,mkdir}from'node:fs/promises';await rm('dist',{recursive:true,force:true});await mkdir('dist');for(const f of['index.html','style.css','game.js','sdk.js','ui-symbols.js','theme.generated.css','ui-audio.js','ui-fx.js','ui-shell.css','ui-tokens.css','i18n.js'])await cp(f,`dist/${f}`);await cp('art','dist/art',{recursive:true,force:true}).catch(()=>{});

@@ -1,0 +1,132 @@
+{
+  "$comment": "Визуальная идентичность каждой игры. Один источник для CSS-токенов, генератора арта и звуковой палитры. Меняете здесь — меняется вся игра: фон, свечение, символы, тембр звука.",
+  "$fields": {
+    "mood": "Настроение — задаёт кривые анимаций и тембр звука: calm | electric | luxe | hot | deep",
+    "palette": "base — глубина фона, surface — панели, primary — главный акцент, secondary — второй акцент, gold — выигрыш",
+    "motif": "Фоновый узор сцены: grid | rays | bubbles | waves | felt | circuit | marble",
+    "symbols": "Набор символов для генератора арта (SVG)"
+  },
+  "defaults": {
+    "mood": "electric",
+    "motif": "grid",
+    "palette": {
+      "base": "#080d16",
+      "surface": "#111a28",
+      "primary": "#56e4ff",
+      "secondary": "#7a5cff",
+      "gold": "#ffd15c",
+      "loss": "#ff5d73",
+      "win": "#3ddc84"
+    }
+  },
+  "games": {
+    "dice": {
+      "mood": "electric",
+      "motif": "grid",
+      "palette": { "base": "#071018", "surface": "#0f1d2b", "primary": "#4fe3ff", "secondary": "#2f7fff", "gold": "#ffd15c" },
+      "symbols": ["die-1", "die-2", "die-3", "die-4", "die-5", "die-6"]
+    },
+    "limbo": {
+      "mood": "deep",
+      "motif": "rays",
+      "palette": { "base": "#0a0718", "surface": "#171029", "primary": "#a97bff", "secondary": "#ff6ec7", "gold": "#ffd15c" },
+      "symbols": ["rocket", "arrow-up", "star-burst"]
+    },
+    "crash": {
+      "mood": "hot",
+      "motif": "circuit",
+      "palette": { "base": "#100608", "surface": "#220d11", "primary": "#ff5a3c", "secondary": "#ffb347", "gold": "#ffd15c" },
+      "symbols": ["rocket", "flame", "graph"]
+    },
+    "plinko": {
+      "mood": "calm",
+      "motif": "bubbles",
+      "palette": { "base": "#05121a", "surface": "#0d2430", "primary": "#39e0b8", "secondary": "#5ec6ff", "gold": "#ffd15c" },
+      "symbols": ["ball", "peg", "bucket"]
+    },
+    "wheel": {
+      "mood": "luxe",
+      "motif": "rays",
+      "palette": { "base": "#0d0a16", "surface": "#1a1428", "primary": "#ffcf5c", "secondary": "#c77dff", "gold": "#ffd15c" },
+      "symbols": ["wheel-segment", "pointer", "crown"]
+    },
+    "keno": {
+      "mood": "calm",
+      "motif": "grid",
+      "palette": { "base": "#061318", "surface": "#0e2229", "primary": "#5ce1c0", "secondary": "#4fa8ff", "gold": "#ffd15c" },
+      "symbols": ["ball-number", "grid-cell"]
+    },
+    "mines": {
+      "mood": "deep",
+      "motif": "circuit",
+      "palette": { "base": "#0b0f14", "surface": "#161d26", "primary": "#7dffb0", "secondary": "#ff6b6b", "gold": "#ffd15c" },
+      "symbols": ["gem", "mine", "tile"]
+    },
+    "hilo": {
+      "mood": "luxe",
+      "motif": "felt",
+      "palette": { "base": "#08150f", "surface": "#0f2619", "primary": "#5fe08a", "secondary": "#ffd15c", "gold": "#ffd15c" },
+      "symbols": ["card-back", "arrow-up", "arrow-down"]
+    },
+    "sicbo": {
+      "mood": "hot",
+      "motif": "marble",
+      "palette": { "base": "#150710", "surface": "#28101f", "primary": "#ff5c8a", "secondary": "#ffb347", "gold": "#ffd15c" },
+      "symbols": ["die-1", "die-3", "die-6", "bowl"]
+    },
+    "baccarat": {
+      "mood": "luxe",
+      "motif": "felt",
+      "palette": { "base": "#0a1410", "surface": "#12261c", "primary": "#d9b871", "secondary": "#5fe08a", "gold": "#ffd15c" },
+      "symbols": ["card-back", "shoe", "chip"]
+    },
+    "roulette": {
+      "mood": "luxe",
+      "motif": "felt",
+      "palette": { "base": "#0a140f", "surface": "#12251b", "primary": "#e0c07a", "secondary": "#ff5d73", "gold": "#ffd15c" },
+      "symbols": ["wheel-segment", "ball", "chip"]
+    },
+    "roulette-us": {
+      "mood": "luxe",
+      "motif": "felt",
+      "palette": { "base": "#12100a", "surface": "#241f14", "primary": "#f0c96b", "secondary": "#ff6b6b", "gold": "#ffd15c" },
+      "symbols": ["wheel-segment", "ball", "chip"]
+    },
+    "blackjack": {
+      "mood": "luxe",
+      "motif": "felt",
+      "palette": { "base": "#08140f", "surface": "#10261b", "primary": "#6fe3a0", "secondary": "#e0c07a", "gold": "#ffd15c" },
+      "symbols": ["card-back", "chip", "shoe"]
+    },
+    "holdem": {
+      "mood": "deep",
+      "motif": "felt",
+      "palette": { "base": "#0a1018", "surface": "#141f2c", "primary": "#7fb0ff", "secondary": "#e0c07a", "gold": "#ffd15c" },
+      "symbols": ["card-back", "chip", "spade"]
+    },
+    "videopoker": {
+      "mood": "electric",
+      "motif": "circuit",
+      "palette": { "base": "#0a0714", "surface": "#171126", "primary": "#8f7bff", "secondary": "#4fe3ff", "gold": "#ffd15c" },
+      "symbols": ["card-back", "chip", "diamond"]
+    },
+    "slots-classic": {
+      "mood": "hot",
+      "motif": "rays",
+      "palette": { "base": "#0f0a1e", "surface": "#1d1435", "primary": "#ffd15c", "secondary": "#ff5a8a", "gold": "#ffd15c" },
+      "symbols": ["seven", "crown", "gem", "star", "bolt", "moon"]
+    },
+    "slots-studio": {
+      "mood": "electric",
+      "motif": "waves",
+      "palette": { "base": "#071524", "surface": "#102940", "primary": "#78f7ff", "secondary": "#ffcd57", "gold": "#ffd15c" },
+      "symbols": ["crown", "gem", "star", "bell", "moon", "spark"]
+    },
+    "slots-premium": {
+      "mood": "luxe",
+      "motif": "marble",
+      "palette": { "base": "#08050f", "surface": "#171029", "primary": "#d9ab55", "secondary": "#8f6bff", "gold": "#ffd98a" },
+      "symbols": ["crown", "gem", "star", "diamond", "spark", "bell", "moon", "wild", "bonus"]
+    }
+  }
+}

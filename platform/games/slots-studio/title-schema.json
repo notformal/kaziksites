@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://virtual-arcade.local/schemas/slot-title.json",
+  "$id": "https://nova-casino.local/schemas/slot-title.json",
   "title": "Original slot title manifest",
   "type": "object",
   "additionalProperties": false,
@@ -15,7 +15,7 @@
     "reels":{"const":5}, "rows":{"const":3}, "lines":{"type":"integer","minimum":1,"maximum":50},
     "betOptions":{"type":"array","minItems":3,"uniqueItems":true,"items":{"type":"integer","minimum":1}},
     "volatility":{"enum":["low","medium","high"]},
-    "mathProfile":{"type":"object","additionalProperties":false,"required":["version","hitRate","weights","bonus"],"properties":{"version":{"const":"1.0.0"},"hitRate":{"type":"number","exclusiveMinimum":0,"exclusiveMaximum":1},"weights":{"type":"object","minProperties":8,"additionalProperties":{"type":"integer","minimum":1}},"bonus":{"type":"object","additionalProperties":false,"required":["type","triggerSymbol","triggerCount","freeSpins","multiplier"],"properties":{"type":{"enum":["free-spins","multiplier","respin"]},"triggerSymbol":{"type":"string"},"triggerCount":{"type":"integer","minimum":3,"maximum":5},"freeSpins":{"type":"integer","minimum":0,"maximum":25},"multiplier":{"type":"number","minimum":1,"maximum":10}}}}}
+    "mathProfile":{"type":"object","additionalProperties":false,"required":["version","hitRate","weights","bonus"],"properties":{"version":{"enum":["1.0.0","1.1.0"]},"measuredRtp":{"type":"number","exclusiveMinimum":0.5,"maximum":1},"hitRate":{"type":"number","exclusiveMinimum":0,"exclusiveMaximum":1},"weights":{"type":"object","minProperties":8,"additionalProperties":{"type":"integer","minimum":1}},"bonus":{"type":"object","additionalProperties":false,"required":["type","triggerSymbol","triggerCount","freeSpins","multiplier"],"properties":{"type":{"enum":["free-spins","multiplier","respin"]},"triggerSymbol":{"type":"string"},"triggerCount":{"type":"integer","minimum":3,"maximum":5},"freeSpins":{"type":"integer","minimum":0,"maximum":25},"multiplier":{"type":"number","minimum":1,"maximum":10}}}}}
   },
   "$defs":{"color":{"type":"string","pattern":"^#[0-9A-Fa-f]{6}$"}}
 }

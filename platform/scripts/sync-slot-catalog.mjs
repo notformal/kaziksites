@@ -11,7 +11,7 @@ const icons = ["♛", "◆", "★", "●", "☾", "✦", "7", "BAR"];
 const records = titles.map((title, index) => ({
   id: title.id,
   title: title.title,
-  studio: "Open Arcade Studio",
+  studio: "Nova Slots Studio",
   category: "Slots",
   icon: icons[index % icons.length],
   slug: title.id,

@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "description": "Reusable slot symbol asset base. Symbol ids match slotEngine/slotLibrary reel ids so a theme drops straight into a slot definition.",
+  "themes": {
+    "royal-gems": {
+      "generator": "svg",
+      "path": "royal-gems/",
+      "size": 512,
+      "format": "png-rgba-transparent",
+      "symbols": ["ten", "jack", "queen", "king", "ace", "ruby", "crown", "wild", "scatter"]
+    },
+    "royal-gems-flux": {
+      "generator": "flux",
+      "path": "royal-gems-flux/",
+      "size": 1024,
+      "format": "png-rgb",
+      "background": "deep-teal",
+      "symbols": ["ten", "jack", "queen", "king", "ace", "ruby", "crown", "wild", "scatter"]
+    }
+  }
+}

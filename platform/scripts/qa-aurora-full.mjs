@@ -30,22 +30,26 @@ await dismissFirstVisit();
 check("fixed Aurora identity", await page.getByText("Aurora Play", { exact: true }).count() >= 1, await page.title());
 await page.goto(`${base}/?brand=ember`, { waitUntil: "networkidle" });
 check("autonomous brand ignores query override", await page.getByText("Aurora Play", { exact: true }).count() >= 1, await page.title());
-check("analytics consent persisted", await page.evaluate(() => localStorage.getItem("arcade_consent")) === "yes");
+check("analytics consent persisted", await page.evaluate(() => localStorage.getItem("casino_consent")) === "yes");
 
 while (await page.getByRole("button", { name: "LOAD MORE", exact: true }).count()) await page.getByRole("button", { name: "LOAD MORE", exact: true }).click();
 const cards = page.getByRole("button", { name: /^Play / });
-check("200 catalog cards", await cards.count() === 200, `rendered=${await cards.count()}`);
+// Размер портфеля считается по самому каталогу (core-игры + слот-титулы),
+// поэтому новая игра не роняет QA на устаревшем магическом числе.
+const expectedCards =
+  [...(await fs.readFile(new URL("../apps/lobby/src/catalog.js", import.meta.url), "utf8"))
+    .matchAll(/\{\s*id:\s*"game-\d+"/g)].length +
+  JSON.parse(await fs.readFile(new URL("../apps/lobby/src/slot-titles.generated.json", import.meta.url), "utf8")).length;
+check(`${expectedCards} catalog cards`, await cards.count() === expectedCards, `rendered=${await cards.count()}`);
 const names = await cards.evaluateAll(xs => xs.map(x => x.getAttribute("aria-label")));
 const duplicateNames = names.filter((name, index) => names.indexOf(name) !== index);
-check("unique accessible game names", new Set(names).size === 200, `unique=${new Set(names).size}; duplicates=${duplicateNames.join(",")}`);
+check("unique accessible game names", new Set(names).size === expectedCards, `unique=${new Set(names).size}; duplicates=${duplicateNames.join(",")}`);
 
 const api = await request.newContext();
 const urls = await cards.evaluateAll(xs => xs.map(x => x.getAttribute("aria-label")?.slice(5)));
 check("all cards have titles", urls.every(Boolean), `titles=${urls.length}`);
-const littleJs = JSON.parse(await fs.readFile(new URL("../apps/lobby/src/littlejs.generated.json", import.meta.url), "utf8"));
 const catalogText = await fs.readFile(new URL("../apps/lobby/src/catalog.js", import.meta.url), "utf8");
 const paths = [...new Set([
-  ...littleJs.map(g => g.url),
   ...[...catalogText.matchAll(/url:\s*["'`]([^"'`]+)["'`]/g)].map(m => m[1]),
 ])];
 let reachable = 0;
@@ -122,7 +126,7 @@ await page.getByRole("button", { name: "All", exact: true }).click();
 await page.getByRole("button", { name: "Help", exact: true }).click();
 check("help/fairness dialog", await page.getByRole("heading", { name: "Straight answers" }).isVisible());
 await page.getByLabel("Session reminder interval").selectOption("15");
-check("reminder setting persisted", await page.evaluate(() => localStorage.getItem("arcade_session_reminder_minutes")) === "15");
+check("reminder setting persisted", await page.evaluate(() => localStorage.getItem("casino_session_reminder_minutes")) === "15");
 await page.getByRole("button", { name: "Close help" }).click();
 check("social proof periods", await page.getByRole("button", { name: "Today" }).count() === 1 && await page.getByRole("button", { name: "7 days" }).count() === 1);
 

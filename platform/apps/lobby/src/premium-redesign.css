@@ -3,12 +3,14 @@
 .art{overflow:hidden;background:#0c1018}
 .art img{width:100%;height:100%;display:block;object-fit:cover;object-position:center;transition:transform .45s cubic-bezier(.2,.75,.2,1),filter .3s}
 .game:hover .art img{transform:scale(1.045);filter:saturate(1.12) contrast(1.04)}
-main>.legacyChrome{display:none!important}
 
 /* shared premium product primitives */
 .brandExperience{min-height:100vh;position:relative}
 .brandExperience header{position:relative}
 .brandExperience .hero{isolation:isolate}
+/* Свечение — фоновый слой, а не ячейка грида: без absolute он занимал первую
+   колонку hero и сдвигал текст, картинку и виджет миссии на позицию вправо. */
+.brandExperience .heroGlow{position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(60% 55% at 22% 20%,color-mix(in srgb,var(--accent) 12%,transparent),transparent 70%)}
 .brandExperience .heroVisual{overflow:hidden;background-position:center;background-size:cover}
 .brandExperience .heroVisual .orb{display:none}
 .brandExperience .heroVisual:after{content:"";position:absolute;inset:0;pointer-events:none}
@@ -48,12 +50,12 @@ main>.legacyChrome{display:none!important}
 [data-brand=aurora] .commandSearch{width:min(520px,55vw);display:flex;align-items:center;gap:12px;border:1px solid #2b3a42;background:#0c1519;padding:11px 14px;text-decoration:none;color:#8c9aa1;font:12px 'IBM Plex Mono'}
 [data-brand=aurora] .commandSearch kbd{margin-left:auto;color:#c7ff3d}
 [data-brand=aurora] .join{border-radius:2px;background:#c7ff3d;color:#05080a}
-[data-brand=aurora] .auroraStage{min-height:570px;padding:32px;display:grid;grid-template-columns:minmax(360px,1fr) minmax(360px,1.1fr) 240px;gap:12px;align-items:stretch}
+[data-brand=aurora] .auroraStage{min-height:570px;padding:32px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) minmax(0,.6fr);gap:12px;align-items:stretch}
 [data-brand=aurora] .auroraStage .heroCopy{padding:46px 34px;display:flex;flex-direction:column;justify-content:flex-end;background:#0b1216;border:1px solid #233039;max-width:none}
 [data-brand=aurora] .hero h1{font:800 clamp(65px,7vw,118px)/.78 'Barlow Condensed';letter-spacing:-.035em;text-transform:uppercase;margin:20px 0}
 [data-brand=aurora] .hero p{font-size:14px;line-height:1.55;max-width:450px;color:#94a2a8}
-[data-brand=aurora] .auroraStage .heroVisual{position:relative;background-image:linear-gradient(180deg,transparent 45%,#071013e8),url('/covers/slot-original-001.jpg');border:1px solid #2d4149}
-[data-brand=aurora] .auroraStage .heroVisual:before{content:'FEATURED TRANSMISSION 001';position:absolute;left:18px;top:18px;z-index:2;background:#c7ff3d;color:#05080a;padding:7px 9px;font:600 9px 'IBM Plex Mono';letter-spacing:.08em}
+[data-brand=aurora] .auroraStage .heroVisual{position:relative;background-image:linear-gradient(180deg,transparent 45%,#071013e8),url('/brand/hero-aurora.jpg');border:1px solid #2d4149}
+[data-brand=aurora] .auroraStage .heroVisual:before{content:'';position:absolute;left:18px;top:18px;width:54px;height:4px;z-index:2;background:#c7ff3d}
 [data-brand=aurora] .auroraStage .heroVisual:after{background:linear-gradient(90deg,#31d7f211 1px,transparent 1px),linear-gradient(#31d7f211 1px,transparent 1px);background-size:32px 32px;mix-blend-mode:screen}
 [data-brand=aurora] .auroraMission{border:1px solid #2d4149;background:#071014;padding:24px;display:flex;flex-direction:column;justify-content:flex-end;gap:13px}
 [data-brand=aurora] .auroraMission small,[data-brand=aurora] .eyebrow{font:600 10px 'IBM Plex Mono';letter-spacing:.12em;color:#31d7f2}
@@ -67,8 +69,6 @@ main>.legacyChrome{display:none!important}
 [data-brand=aurora] .sectionHead h2{font:800 clamp(42px,5vw,72px)/.85 'Barlow Condensed';text-transform:uppercase;letter-spacing:-.025em}
 [data-brand=aurora] .grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
 [data-brand=aurora] .game{border:1px solid #233039;border-radius:3px}
-[data-brand=aurora] .game:nth-child(10n+1){grid-column:span 2}
-[data-brand=aurora] .game:nth-child(10n+1) .art{height:230px}
 [data-brand=aurora] .art{height:145px}
 [data-brand=aurora] .gameMeta{border-top:1px solid #233039;background:#0a1115}
 [data-brand=aurora] .gameMeta small{font-family:'IBM Plex Mono'}
@@ -85,7 +85,7 @@ main>.legacyChrome{display:none!important}
 [data-brand=ember] .emberTakeover .heroCopy{grid-column:1;padding:65px 0 30px;display:flex;flex-direction:column;justify-content:flex-end;z-index:3}
 [data-brand=ember] .hero h1{font:400 clamp(92px,12vw,190px)/.7 'Bebas Neue';letter-spacing:-.03em;text-transform:uppercase;margin:22px 0;max-width:820px}
 [data-brand=ember] .hero p{font:600 italic 22px/1.15 'Fraunces';max-width:520px;color:#f2e9dc}
-[data-brand=ember] .emberTakeover .heroVisual{position:relative;grid-column:2;grid-row:1;background-image:linear-gradient(90deg,#090607 0%,transparent 30%),linear-gradient(180deg,transparent 60%,#090607),url('/covers/game-7.jpg');margin-right:-4vw;min-height:650px;filter:saturate(1.3) contrast(1.08)}
+[data-brand=ember] .emberTakeover .heroVisual{position:relative;grid-column:2;grid-row:1;background-image:linear-gradient(90deg,#090607 0%,transparent 30%),linear-gradient(180deg,transparent 60%,#090607),url('/brand/hero-ember.jpg');margin-right:-4vw;min-height:650px;filter:saturate(1.3) contrast(1.08)}
 [data-brand=ember] .emberTakeover .heroVisual:after{background:linear-gradient(125deg,#ff3d8d22,#ff5a1f33);mix-blend-mode:color}
 [data-brand=ember] .emberTicker{display:flex;gap:34px;overflow:hidden;padding:15px 4vw;background:#ff5a1f;color:#0a0708;font:700 12px 'Archivo';text-transform:uppercase;white-space:nowrap}
 [data-brand=ember] .emberTicker span{font-family:'IBM Plex Mono'}
@@ -93,12 +93,10 @@ main>.legacyChrome{display:none!important}
 [data-brand=ember] .emberPosterIntro h2{font:400 clamp(55px,7vw,98px)/.85 'Bebas Neue';margin:14px 0;text-transform:uppercase}
 [data-brand=ember] .library{padding:34px 4vw 100px}
 [data-brand=ember] .library>.sectionHead{align-items:center;border-block:1px solid #4a3037;padding:20px 0}
-[data-brand=ember] .sectionHead h2{display:none}
+[data-brand=ember] .library>.sectionHead h2{display:none}
 [data-brand=ember] .filters button{border-radius:0;text-transform:uppercase;font:600 10px 'Archivo'}
 [data-brand=ember] .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;align-items:start}
 [data-brand=ember] .game{border:0;border-radius:0;background:transparent}
-[data-brand=ember] .game:nth-child(8n+1),[data-brand=ember] .game:nth-child(8n+6){grid-row:span 2}
-[data-brand=ember] .game:nth-child(8n+1) .art,[data-brand=ember] .game:nth-child(8n+6) .art{height:430px}
 [data-brand=ember] .art{height:260px;border:1px solid #3d252c}
 [data-brand=ember] .gameMeta{padding:14px 0;border-bottom:1px solid #493039}
 [data-brand=ember] .gameMeta strong{font:400 25px 'Bebas Neue';letter-spacing:.025em}
@@ -127,7 +125,7 @@ main>.legacyChrome{display:none!important}
 [data-brand=royale] .hero h1{font:600 clamp(74px,9vw,150px)/.72 'Cormorant Garamond';letter-spacing:-.055em;text-transform:none;font-style:italic;margin:30px 0;color:#17201c}
 [data-brand=royale] .hero p{color:#354039;font-size:16px;max-width:520px}
 [data-brand=royale] .eyebrow{font:500 9px 'IBM Plex Mono';letter-spacing:.18em;color:#6e2831}
-[data-brand=royale] .royaleCover .heroVisual{position:relative;min-height:580px;background-image:linear-gradient(180deg,transparent 70%,#0d181477),url('/covers/slot-original-055.jpg');border:12px solid #faf7f0;box-shadow:0 0 0 1px #d2c8b5}
+[data-brand=royale] .royaleCover .heroVisual{position:relative;min-height:580px;background-image:linear-gradient(180deg,transparent 70%,#0d181477),url('/brand/hero-royale.jpg');border:12px solid #faf7f0;box-shadow:0 0 0 1px #d2c8b5}
 [data-brand=royale] .royaleCover .heroVisual:before{content:'THE CURATOR\2019S SELECTION';position:absolute;right:18px;bottom:16px;z-index:2;color:#f3ebdd;font:500 9px 'IBM Plex Mono';letter-spacing:.14em}
 [data-brand=royale] .online{color:#6d766f}
 [data-brand=royale] .royaleSalons{padding:0 4vw 70px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#cfc5b2}
@@ -143,12 +141,18 @@ main>.legacyChrome{display:none!important}
 [data-brand=royale] .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:34px 14px}
 [data-brand=royale] .game{border:0;border-radius:0;background:transparent;color:#17201c}
 [data-brand=royale] .art{height:245px;border:1px solid #d8cfbe}
-[data-brand=royale] .game:nth-child(9n+1){grid-column:span 2}
-[data-brand=royale] .game:nth-child(9n+1) .art{height:420px}
 [data-brand=royale] .gameMeta{padding:11px 0;border-bottom:1px solid #d8cfbe}
 [data-brand=royale] .gameMeta strong{font:600 22px 'Cormorant Garamond'}
 [data-brand=royale] .gameMeta small{color:#6e746f;font-family:'IBM Plex Mono'}
 [data-brand=royale] .royaleJournal{background:#0d1814;color:#f3ebdd;padding-block:25px}
+/* Тёмная секция внутри светлого бренда: заголовок и текст наследовали светлую
+   палитру и сливались с фоном. */
+[data-brand=royale] .royaleJournal .sectionHead h2,[data-brand=royale] .royaleJournal h2{color:#f7f1e4}
+[data-brand=royale] .royaleJournal .sectionHead p,[data-brand=royale] .royaleJournal p{color:#c9c2b2}
+[data-brand=royale] .royaleJournal .eyebrow{color:#d9b871}
+/* Модальные карточки всегда тёмные — принудительно светлый текст в royale. */
+[data-brand=royale] .trustCard,[data-brand=royale] .trustCard h2,[data-brand=royale] .trustCard summary{color:#f3ebdd}
+[data-brand=royale] .trustCard p,[data-brand=royale] .trustCard small{color:#bfb8a8}
 [data-brand=royale] .reward{background:#163b31;color:#f3ebdd;border-radius:0;border:0}
 [data-brand=royale] .reward h2{font-family:'Cormorant Garamond';font-weight:600}
 [data-brand=royale] .trust{background:#f1ece0;border-color:#cfc5b2}
@@ -171,9 +175,8 @@ main>.legacyChrome{display:none!important}
   .brandExperience .bottomNav{display:flex}
   [data-brand=aurora] .auroraExperience{display:block}[data-brand=aurora] .auroraRail{display:none}[data-brand=aurora]>.library,[data-brand=aurora]>.socialProof,[data-brand=aurora]>.reward,[data-brand=aurora]>footer{margin-left:0}
   [data-brand=aurora] .auroraCommandBar{padding:0 16px}[data-brand=aurora] .auroraMobileLogo{display:flex}[data-brand=aurora] .commandSearch{width:auto;flex:1;margin:0 10px}[data-brand=aurora] .commandSearch span,[data-brand=aurora] .commandSearch kbd{display:none}
-  [data-brand=aurora] .auroraStage{display:flex;flex-direction:column;padding:12px;min-height:0}[data-brand=aurora] .auroraStage .heroVisual{order:-1;min-height:260px}[data-brand=aurora] .auroraStage .heroCopy{padding:30px 20px}[data-brand=aurora] .auroraMission{min-height:140px}[data-brand=aurora] .hero h1{font-size:66px}[data-brand=aurora] .grid{grid-template-columns:repeat(2,1fr)}[data-brand=aurora] .game:nth-child(10n+1){grid-column:span 2}
-  [data-brand=ember] .emberHeader{padding:0 18px}[data-brand=ember] .emberHeader nav{display:none}[data-brand=ember] .emberTakeover{display:flex;flex-direction:column;padding:0 18px 36px}[data-brand=ember] .emberTakeover .heroVisual{order:-1;margin:0 -18px;min-height:58vh;background-image:linear-gradient(180deg,transparent 50%,#090607),url('/covers/game-7.jpg')}[data-brand=ember] .hero h1{font-size:90px}[data-brand=ember] .grid{grid-template-columns:repeat(2,1fr);gap:10px}[data-brand=ember] .art,[data-brand=ember] .game:nth-child(8n+1) .art,[data-brand=ember] .game:nth-child(8n+6) .art{height:230px}[data-brand=ember] .emberMemberDock{bottom:74px}
-  [data-brand=royale] .royaleMasthead{grid-template-columns:1fr auto;height:70px;padding:0 18px}[data-brand=royale] .royaleMasthead nav{display:none}[data-brand=royale] .royaleMasthead>.logo{justify-self:start}[data-brand=royale] .royaleMasthead .actions{grid-column:2}[data-brand=royale] .royaleCover{display:flex;flex-direction:column;padding:22px 18px 55px}[data-brand=royale] .royaleCover .heroVisual{order:-1;min-height:60vh;border-width:7px}[data-brand=royale] .hero h1{font-size:72px}[data-brand=royale] .royaleSalons{grid-template-columns:1fr;padding-inline:18px}[data-brand=royale] .grid{grid-template-columns:1fr 1fr;gap:28px 10px}[data-brand=royale] .game:nth-child(9n+1){grid-column:span 2}[data-brand=royale] .art,[data-brand=royale] .game:nth-child(9n+1) .art{height:270px}
+  [data-brand=aurora] .auroraStage{display:flex;flex-direction:column;padding:12px;min-height:0}[data-brand=aurora] .auroraStage .heroVisual{order:-1;min-height:260px}[data-brand=aurora] .auroraStage .heroCopy{padding:30px 20px}[data-brand=aurora] .auroraMission{min-height:140px}[data-brand=aurora] .hero h1{font-size:66px}[data-brand=aurora] .grid{grid-template-columns:repeat(2,1fr)}  [data-brand=ember] .emberHeader{padding:0 18px}[data-brand=ember] .emberHeader nav{display:none}[data-brand=ember] .emberTakeover{display:flex;flex-direction:column;padding:0 18px 36px}[data-brand=ember] .emberTakeover .heroVisual{order:-1;margin:0 -18px;min-height:58vh;background-image:linear-gradient(180deg,transparent 50%,#090607),url('/brand/hero-ember.jpg')}[data-brand=ember] .hero h1{font-size:90px}[data-brand=ember] .grid{grid-template-columns:repeat(2,1fr);gap:10px}[data-brand=ember] .art{height:230px}[data-brand=ember] .emberMemberDock{bottom:74px}
+  [data-brand=royale] .royaleMasthead{grid-template-columns:1fr auto;height:70px;padding:0 18px}[data-brand=royale] .royaleMasthead nav{display:none}[data-brand=royale] .royaleMasthead>.logo{justify-self:start}[data-brand=royale] .royaleMasthead .actions{grid-column:2}[data-brand=royale] .royaleCover{display:flex;flex-direction:column;padding:22px 18px 55px}[data-brand=royale] .royaleCover .heroVisual{order:-1;min-height:60vh;border-width:7px}[data-brand=royale] .hero h1{font-size:72px}[data-brand=royale] .royaleSalons{grid-template-columns:1fr;padding-inline:18px}[data-brand=royale] .grid{grid-template-columns:1fr 1fr;gap:28px 10px}[data-brand=royale] .art{height:270px}
 }
 
 @media(prefers-reduced-motion:reduce){.art img,.game,.play{transition:none!important}.emberTicker{animation:none!important}}
@@ -181,23 +184,24 @@ main>.legacyChrome{display:none!important}
 /* Design-review pass: keep hero art legible and make the library scan like a
    commercial lobby rather than a gallery of uneven source screenshots. */
 @media(min-width:1101px){
-  [data-brand=aurora] .auroraStage{grid-template-columns:minmax(420px,.9fr) minmax(520px,1.35fr) 220px;min-height:640px}
+  /* minmax(0,…) обязателен: жёсткие минимумы колонок раньше делали hero шире
+     рабочей области и обрезали заголовок на ноутбучных ширинах. */
+  [data-brand=aurora] .auroraStage{grid-template-columns:minmax(0,.9fr) minmax(0,1.35fr) minmax(0,.55fr);min-height:640px}
   [data-brand=aurora] .auroraStage .heroVisual{background-size:cover;background-position:46% center}
   [data-brand=aurora] .library{padding-inline:clamp(32px,4vw,72px)}
   [data-brand=aurora] .grid{grid-template-columns:repeat(5,minmax(150px,1fr));gap:14px}
 
-  [data-brand=ember] .emberTakeover{grid-template-columns:minmax(470px,.92fr) minmax(600px,1.08fr);min-height:760px}
-  [data-brand=ember] .emberTakeover .heroVisual{min-height:760px;background-image:linear-gradient(90deg,#090607 0%,transparent 38%),linear-gradient(180deg,transparent 48%,#090607 98%),url('/covers/slot-original-110.jpg');background-position:42% center}
+  [data-brand=ember] .emberTakeover{grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);min-height:760px}
+  [data-brand=ember] .emberTakeover .heroVisual{min-height:760px;background-image:linear-gradient(90deg,#090607 0%,transparent 38%),linear-gradient(180deg,transparent 48%,#090607 98%),url('/brand/hero-ember.jpg');background-position:42% center}
   [data-brand=ember] .hero h1{font-size:clamp(104px,10vw,168px);line-height:.72}
 
-  [data-brand=royale] .royaleCover{grid-template-columns:minmax(520px,1fr) minmax(520px,.92fr);min-height:760px}
+  [data-brand=royale] .royaleCover{grid-template-columns:minmax(0,1fr) minmax(0,.92fr);min-height:760px}
   [data-brand=royale] .royaleCover .heroVisual{background-position:43% center}
 }
 
 /* Raw gameplay captures vary wildly. A consistent landscape window, restrained
    metadata, and a dark matte prevent white canvases from dominating the page. */
 [data-brand=aurora] .art,[data-brand=ember] .art,[data-brand=royale] .art{aspect-ratio:16/10;height:auto!important;min-height:0}
-[data-brand=aurora] .game:nth-child(10n+1) .art,[data-brand=ember] .game:nth-child(8n+1) .art,[data-brand=ember] .game:nth-child(8n+6) .art,[data-brand=royale] .game:nth-child(9n+1) .art{aspect-ratio:16/9;height:auto!important}
 [data-brand=aurora] .art img,[data-brand=ember] .art img,[data-brand=royale] .art img{background:#0b1018}
 [data-brand=ember] .gameMeta strong,[data-brand=royale] .gameMeta strong{font-size:clamp(17px,1.25vw,22px);line-height:1.05}
 
@@ -208,7 +212,7 @@ main>.legacyChrome{display:none!important}
   [data-brand=aurora] .auroraMission{min-height:112px}
   [data-brand=aurora] .library{padding:48px 12px}
 
-  [data-brand=ember] .emberTakeover .heroVisual{width:calc(100% + 36px);min-height:340px;background-image:linear-gradient(180deg,transparent 42%,#090607),url('/covers/slot-original-110.jpg');background-position:43% center}
+  [data-brand=ember] .emberTakeover .heroVisual{width:calc(100% + 36px);min-height:340px;background-image:linear-gradient(180deg,transparent 42%,#090607),url('/brand/hero-ember.jpg');background-position:43% center}
   [data-brand=ember] .emberTakeover .heroCopy{padding:28px 0 18px}
   [data-brand=ember] .hero h1{font-size:68px;line-height:.76;margin:14px 0}
   [data-brand=ember] .hero p{font-size:17px}
@@ -222,7 +226,6 @@ main>.legacyChrome{display:none!important}
   [data-brand=royale] .royaleSalons article{padding-block:18px}
 
   [data-brand=aurora] .grid,[data-brand=ember] .grid,[data-brand=royale] .grid{gap:18px 8px}
-  [data-brand=aurora] .game:nth-child(10n+1),[data-brand=ember] .game:nth-child(8n+1),[data-brand=ember] .game:nth-child(8n+6),[data-brand=royale] .game:nth-child(9n+1){grid-column:span 2;grid-row:auto}
-  [data-brand=aurora] .art,[data-brand=ember] .art,[data-brand=royale] .art,[data-brand=aurora] .game:nth-child(10n+1) .art,[data-brand=ember] .game:nth-child(8n+1) .art,[data-brand=ember] .game:nth-child(8n+6) .art,[data-brand=royale] .game:nth-child(9n+1) .art{aspect-ratio:4/3}
+  [data-brand=aurora] .art,[data-brand=ember] .art,[data-brand=royale] .art{aspect-ratio:4/3}
   [data-brand=ember] .gameMeta strong,[data-brand=royale] .gameMeta strong{font-size:16px}
 }
