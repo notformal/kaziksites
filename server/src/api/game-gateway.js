@@ -7,6 +7,7 @@
 
 import crypto from 'node:crypto';
 import { getLiveGamesEngine } from '../live-games/engine.js';
+import { BlackjackEngine, BaccaratEngine, RouletteEngine } from '../../src/engine/table-engine.js';
 
 const GAME_CATEGORIES = {
   slots: ['slots-royal','cosmic-queen',"dragons-fortune","pharaohs-treasure",
@@ -167,6 +168,45 @@ export function createGameGatewayRoutes() {
     if (cat.startsWith('live_')) {
       try { const engine = getLiveGamesEngine(); result = engine.startRound(sessionId); }
       catch (e) { return res.status(500).json({ error: e.message }); }
+    } else if (gameId === 'blackjack-pro') {
+      const bj = new BlackjackEngine({ decks: 6, dealerStandsOn17: true });
+      const sideBets = {};
+      if (gameState.perfectPairs) sideBets.perfectPairs = betAmountCents;
+      if (gameState.twentyThree) sideBets.twentyThree = betAmountCents;
+      const handResult = bj.dealHand({ main: betAmountCents }, sideBets);
+      // Player auto-hits to 17+ or stands, simplified for API
+      let playerDone = false;
+      while (!playerDone && !handResult.busted) {
+        if (handResult.playerValue >= 17 || handResult.playerValue === 21) { playerDone = true; break; }
+        const hitResult = bj.hit(handResult.playerHand);
+        handResult.playerHand = hitResult.hand;
+        handResult.playerValue = hitResult.value;
+        if (hitResult.busted) { playerDone = true; handResult.outcome = 'bust'; handResult.payout = 0; }
+      }
+      if (!handResult.outcome || handResult.outcome === undefined) {
+        const dealerResult = bj.stand(handResult.dealerHand);
+        handResult.dealerValue = dealerResult.value;
+        handResult.dealerHand = dealerResult.hand;
+        if (dealerResult.busted || handResult.playerValue > dealerResult.value) {
+          handResult.outcome = 'win'; handResult.payout = betAmountCents * 2;
+        } else if (handResult.playerValue < dealerResult.value) {
+          handResult.outcome = 'lose'; handResult.payout = 0;
+        } else { handResult.outcome = 'push'; handResult.payout = betAmountCents; }
+      }
+      result = { totalWin: handResult.payout || 0, multiplier: (handResult.payout || 0) / betAmountCents };
+    } else if (gameId === 'baccarat-pro') {
+      const bg = new BaccaratEngine({ decks: 8, commission: 0.05 });
+      const baccResult = bg.dealHand({ player: betAmountCents, banker: 0, tie: 0 });
+      result = { totalWin: (baccResult.payouts.player || 0) + (baccResult.payouts.banker || 0) + (baccResult.payouts.tie || 0), multiplier: ((baccResult.payouts.player || 0) / betAmountCents) };
+      result.outcome = baccResult.outcome;
+    } else if (gameId === 'roulette-royale') {
+      const rl = new RouletteEngine({ type: 'european' });
+      const spin = rl.spin();
+      const bets = gameState.bets || { red: betAmountCents };
+      const evalResult = rl.evaluateBets(bets, spin);
+      let totalWin = 0;
+      for (const v of Object.values(evalResult.payouts)) totalWin += v;
+      result = { totalWin, multiplier: totalWin / betAmountCents, number: spin.number, color: spin.color };
     } else if (['crash-pro','plinko-master'].includes(gameId)) {
       result = await executeInstantRound(db, gameId, session, betAmountCents, gameState);
     } else {
