@@ -102,35 +102,73 @@ nav a:hover::after{width:100%}
 .filters button:hover{background:rgba(255,255,255,0.1);border-color:var(--accent);color:#fff}
 .filters button.active{background:var(--accent);color:#071005;border-color:var(--accent);font-weight:800;box-shadow:0 4px 15px var(--glowColor)}
 
-/* ── Game Cards Enhanced ──────────────────────────────── */
+/* ── Game Cards Premium Enhanced ──────────────────────── */
 .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
-.game{text-align:left;padding:0;background:rgba(16,19,28,0.8);border:1px solid rgba(255,255,255,0.08);border-radius:14px;overflow:hidden;position:relative;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);backdrop-filter:blur(10px)}
-.game::before{content:'';position:absolute;inset:0;border-radius:14px;padding:1px;background:linear-gradient(135deg,transparent,var(--accent),transparent);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity 0.3s ease;pointer-events:none}
+.game{text-align:left;padding:0;background:rgba(16,19,28,0.85);border:1px solid rgba(255,255,255,0.08);border-radius:16px;overflow:hidden;position:relative;transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);backdrop-filter:blur(12px)}
+.game::before{content:'';position:absolute;inset:0;border-radius:16px;padding:1px;background:linear-gradient(135deg,transparent 40%,var(--accent) 70%,transparent 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity 0.4s ease;pointer-events:none}
 .game:hover::before{opacity:1}
-.game:hover{transform:translateY(-8px) scale(1.02);border-color:var(--accent);box-shadow:0 20px 40px rgba(0,0,0,0.4),0 0 30px var(--glowColor)}
+.game::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at center,var(--glowColor) 0%,transparent 40%);opacity:0;transition:opacity 0.4s ease;pointer-events:none;z-index:0}
+.game:hover::after{opacity:0.15}
+.game:hover{transform:translateY(-10px) scale(1.03);border-color:var(--accent);box-shadow:0 25px 50px rgba(0,0,0,0.5),0 0 40px var(--glowColor)}
 
-.art{height:170px;display:grid;place-items:center;position:relative;background:radial-gradient(circle at 50% 45%,hsl(var(--h) 90% 58% / .7),transparent 38%),linear-gradient(145deg,hsl(var(--h) 50% 18%),#0a0d15)}
+.art{height:170px;display:grid;place-items:center;position:relative;background:radial-gradient(circle at 50% 45%,hsl(var(--h) 90% 58% / .7),transparent 38%),linear-gradient(145deg,hsl(var(--h) 50% 18%),#0a0d15);overflow:hidden}
+.art::before{content:'';position:absolute;top:0;left:0;right:0;height:60%;background:linear-gradient(180deg,rgba(255,255,255,0.06) 0%,transparent 100%);pointer-events:none}
 .art.hasCover{background:#0a0d15;padding:0}
-.art.hasCover img{width:100%;height:100%;object-fit:cover;display:block}
-.art b{font-size:55px;filter:drop-shadow(0 12px 15px #0008);transition:transform 0.3s ease}
-.game:hover .art b{transform:scale(1.1)}
-.art i,.art em{position:absolute;top:9px;left:9px;background:#ff3b5c;border-radius:5px;font:800 9px DM Sans;padding:5px 7px;animation:badgePulse 2s ease-in-out infinite}
-.art em{left:auto;right:9px;background:var(--accent);color:#071005;animation:none}
-@keyframes badgePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+.art.hasCover img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)}
+.game:hover .art.hasCover img{transform:scale(1.08)}
+.art b{font-size:55px;filter:drop-shadow(0 12px 15px #0008);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1)}
+.game:hover .art b{transform:scale(1.15) translateY(-3px)}
+.art i,.art em{position:absolute;top:9px;left:9px;background:#ff3b5c;border-radius:6px;font:800 9px DM Sans;padding:5px 8px;animation:badgePulse 2s ease-in-out infinite;letter-spacing:.08em;z-index:2}
+.art em{left:auto;right:9px;background:var(--accent);color:#071005;animation:none;font-size:8px}
+@keyframes badgePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 
-.gameMeta{display:block;padding:13px}
-.gameMeta strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;transition:color 0.2s ease}
+/* RTP Badge */
+.rtpBadge{position:absolute;bottom:7px;left:9px;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,0.12);border-radius:6px;padding:3px 7px;font-size:9px;font-weight:700;color:#a9acb7;z-index:2;letter-spacing:.04em}
+.rtpBadge span{color:#4ade80;font-weight:800}
+
+/* Volatility indicator */
+.volIndicator{position:absolute;bottom:7px;right:9px;display:flex;gap:2px;z-index:2}
+.volDot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.15);transition:all 0.3s ease}
+.volIndicator .volDot.active.low{background:#4ade80;box-shadow:0 0 4px #4ade80}
+.volIndicator .volDot.active.medium{background:#fbbf24;box-shadow:0 0 4px #fbbf24}
+.volIndicator .volDot.active.high{background:#f97316;box-shadow:0 0 4px #f97316}
+.volIndicator .volDot.active.very-high{background:#ef4444;box-shadow:0 0 4px #ef4444}
+
+/* Studio tag on hover */
+.studioTag{position:absolute;top:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.1);border-radius:999px;padding:3px 9px;font-size:8px;font-weight:700;color:#a9acb7;letter-spacing:.06em;text-transform:uppercase;z-index:3;opacity:0;transition:all 0.3s ease}
+.game:hover .studioTag{opacity:1}
+
+.gameMeta{display:block;padding:13px;position:relative;z-index:1}
+.gameMeta strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13px;font-weight:700;transition:color 0.25s ease}
 .game:hover .gameMeta strong{color:var(--accent)}
-.gameMeta small{display:flex;justify-content:space-between;margin-top:6px;color:#7f838f;font-size:10px}
+.gameMeta small{display:flex;justify-content:space-between;margin-top:6px;color:#7f838f;font-size:10px;align-items:center}
 .gameMeta small span{display:flex;align-items:center;gap:3px;color:#e9c46a}
 
-.play{position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(5,7,12,0.95) 100%);display:grid;place-items:center;opacity:0;transition:all 0.3s ease;font-size:12px;font-weight:800;letter-spacing:.15em;color:var(--accent)}
+.play{position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(5,7,12,0.96) 100%);display:grid;place-items:center;opacity:0;transition:all 0.35s ease;font-size:12px;font-weight:800;letter-spacing:.18em;color:var(--accent);z-index:4}
+.play::before{content:'';position:absolute;top:50%;left:50%;width:60px;height:60px;border-radius:50%;background:var(--glowColor);transform:translate(-50%,-50%) scale(0);transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1);z-index:-1}
+.game:hover .play::before{transform:translate(-50%,-50%) scale(1)}
 .game:hover .play{opacity:1}
 
-.favoriteBtn{position:absolute;top:8px;z-index:5;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.1);border-radius:50%;width:32px;height:32px;display:grid;place-items:center;opacity:0;transition:all 0.2s ease}
-.favoriteBtn:hover{background:rgba(0,0,0,0.8);transform:scale(1.1)}
-.favoriteBtn.saved{opacity:1}
+.favoriteBtn{position:absolute;top:8px;z-index:5;background:rgba(0,0,0,0.5);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.1);border-radius:50%;width:32px;height:32px;display:grid;place-items:center;opacity:0;transition:all 0.25s ease}
+.favoriteBtn:hover{background:rgba(0,0,0,0.8);transform:scale(1.15)}
+.favoriteBtn.saved{opacity:1;background:rgba(255,59,92,0.2);border-color:rgba(255,59,92,0.4)}
 .favoriteBtn svg{width:14px;color:#ff3b5c}
+
+/* ── Live Players Widget ──────────────────────────────── */
+.livePlayersWidget{position:fixed;bottom:70px;right:16px;z-index:90;width:280px;background:rgba(12,14,22,0.95);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.1);border-radius:16px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.livePlayersHeader{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.liveDot{width:8px;height:8px;border-radius:50%;background:#4ade80;animation:livePulse 2s ease-in-out infinite}
+@keyframes livePulse{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,0.4)}50%{box-shadow:0 0 0 6px rgba(74,222,128,0)}}
+.livePlayersHeader span{font-size:11px;font-weight:700;color:#a9acb7;letter-spacing:.06em}
+.livePlayersCount{margin-left:auto;font-size:11px;font-weight:800;color:#4ade80}
+.livePlayerItem{display:flex;align-items:center;gap:8px;padding:8px 14px;border-bottom:1px solid rgba(255,255,255,0.03);transition:background 0.2s ease}
+.livePlayerItem:hover{background:rgba(255,255,255,0.03)}
+.liveAvatar{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:14px;background:rgba(255,255,255,0.06);flex-shrink:0}
+.liveInfo{min-width:0;flex:1}
+.liveName{font-size:11px;font-weight:600;color:#d1d5db;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.liveGame{font-size:9px;color:#7f838f;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.liveWin{font-size:10px;font-weight:700;color:#4ade80;text-align:right;flex-shrink:0}
+.liveWin.loss{color:#ef4444}
 
 /* ── Load More Button ─────────────────────────────────── */
 .load{display:block;margin:38px auto 0;padding:14px 24px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.06);border-radius:9px;font-size:12px;color:#ddd;transition:all 0.2s ease;backdrop-filter:blur(5px)}

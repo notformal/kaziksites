@@ -158,6 +158,10 @@ function AnimatedStats(){
 
 // ─── Game Card Component ──────────────────────────────────
 function GameCard({g,onPlay,onFavorite,favorite}){
+  // Volatility dots count
+  const volMap = {low:1, medium:2, high:3, 'very-high':4};
+  const volLevel = volMap[g.volatility] || 0;
+
   return(
     <article className="game" style={{'--h':g.hue}}>
       <button className="gameMain" onClick={()=>onPlay(g)} aria-label={`Play ${g.title}`}>
@@ -165,7 +169,17 @@ function GameCard({g,onPlay,onFavorite,favorite}){
           {g.cover?<img src={g.cover} alt="" loading="lazy" decoding="async"/>:<b>{g.icon}</b>}
           {g.hot&&<i>HOT</i>}
           {g.new&&<em>NEW</em>}
+          {/* RTP Badge */}
+          <span className="rtpBadge">RTP <span>{g.rtp||'96.0%'}</span></span>
+          {/* Volatility Indicator */}
+          <div className="volIndicator" aria-label={`Volatility: ${g.volatility}`}>
+            {[1,2,3,4].map(i=>(
+              <span key={i} className={`volDot${i<=volLevel?` active ${g.volatility||'medium'}`:''}`}/>
+            ))}
+          </div>
         </span>
+        {/* Studio tag */}
+        <span className="studioTag">{g.studio==='nova'?'Nova Reels':g.studio==='vertex'?'Vertex Live':g.studio==='pulse'?'Pulse Instant':g.studio}</span>
         <span className="gameMeta">
           <strong>{g.title}</strong>
           <small>
@@ -179,6 +193,53 @@ function GameCard({g,onPlay,onFavorite,favorite}){
         <Heart fill={favorite?'currentColor':'none'}/>
       </button>
     </article>
+  );
+}
+
+// ─── Live Players Widget — shows simulated bot activity ──
+function LivePlayers(){
+  const[bots,setBots]=useState([]);
+  const[loading,setLoading]=useState(true);
+
+  useEffect(()=>{
+    let cancelled=false;
+    const fetchBots=async()=>{
+      try{
+        const r=await fetch(`${import.meta.env.VITE_API_URL||'http://localhost:8787'}/api/bots/live`);
+        if(!r.ok) return;
+        const data=await r.json();
+        if(!cancelled){
+          setBots(data.players?.slice(0,8)||[]);
+          setLoading(false);
+        }
+      }catch(e){/* API may not be running during dev */}
+    };
+    fetchBots();
+    const id=setInterval(fetchBots,5000); // refresh every 5s
+    return()=>{cancelled=true;clearInterval(id)};
+  },[]);
+
+  if(loading||bots.length===0) return null;
+
+  return(
+    <div className="livePlayersWidget" role="region" aria-label="Live players">
+      <div className="livePlayersHeader">
+        <span className="liveDot"/>
+        <span>LIVE</span>
+        <span style={{marginLeft:4}}>Players</span>
+        <span className="livePlayersCount">{bots.length} online</span>
+      </div>
+      {bots.map((b,i)=>(
+        <div key={b.botId||i} className="livePlayerItem">
+          <span className="liveAvatar" style={{background:`${b.accentColor||'#7c3aed'}22`}}>{b.avatar||'🎰'}</span>
+          <div className="liveInfo">
+            <div className="liveName">{b.name}</div>
+            <div className="liveGame">{b.gameId?.replace(/-/g,' ')}</div>
+          </div>
+          {b.win>0&&<span className="liveWin">+${b.win.toFixed(2)}</span>}
+        </div>
+      ))}
+    </div>
   );
 }
 
@@ -405,6 +466,9 @@ function App(){
         </div>
       </section>
       
+      {/* ── Live Players Widget ──────────────────────── */}
+      <LivePlayers/>
+      
       {/* ── Footer ─────────────────────────────────────── */}
       <footer id="about">
         <a className="logo" href="#top"><Gamepad2/>{theme.name}</a>
@@ -426,5 +490,8 @@ function App(){
 
 // Expose i18n setter for LangSwitch to access
 if(typeof window!=='undefined') window.__i18nSetLang=setLang;
+
+export { App };
+export default App;
 
 createRoot(document.getElementById('root')).render(<App/>);

@@ -11,6 +11,10 @@ import { getLiveGamesEngine } from './live-games/engine.js';
 import { createSportsRoutes } from './api/sports.js';
 import { SportsBettingEngine } from './sports-betting/engine.js';
 import { createOddsApiRoutes } from './sports-betting/odds-api.js';
+import { SportsBettingBotManager } from './sports-betting/bots.js';
+import { createGameGatewayRoutes } from './api/game-gateway.js';
+import crypto from 'node:crypto';
+import { CrashEngine, PlinkoEngine, MinesEngine, DiceEngine, KenoEngine, LimboEngine, WheelEngine, HiLoEngine } from './casino-engine.js';
 
 const emailOk = v => typeof v === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) && v.length <= 254;
 const gameOk = v => typeof v === 'string' && /^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$/.test(v);
@@ -27,6 +31,49 @@ export function createApp({ db, config, now = () => Date.now() }) {
   const botManager = new BotManager({ db, config });
   const botRoutes = createBotRoutes();
   botRoutes.setBotManager(botManager);
+  // Initialize bots with ALL available games from catalog and start simulation
+  const allGameIds = [
+    // Slots — Nova Reels
+    'slots-royal', 'cosmic-queen', "dragons-fortune", "pharaohs-treasure",
+    'fruit-shop', 'gold-caravan', 'magic-crystal', 'hot-navigator',
+    'diamond-rush', 'wild-west-gold', 'book-of-gold',
+    'super-line-fruit-bomb', 'lucky-streak',
+    // Table Games — Vertex Live
+    'blackjack-pro', 'baccarat-pro', 'roulette-royale',
+    // Instant Games (core engine)
+    'crash-pro', 'plinko-master', 'lightning-dice',
+    // Live Casino — Evolution Gaming
+    'lightning-blackjack', 'mega-roulette', 'speed-baccarat', 'crazy-time',
+    'monopoly-live', 'dream-catcher', 'lightning-roulette', 'infinite-blackjack',
+    'auto-roulette', 'casino-holdem', 'three-card-poker', 'power-blackjack',
+    // Live Casino — Pragmatic Play Live
+    'pragmatic-lightning-baccarat', 'pragmatic-speed-roulette', 'pragmatic-auto-roulette',
+    'pragmatic-blackjack-vip', 'pragmatic-standard-blackjack', 'pragmatic-super-sic-bo',
+    'pragmatic-lucky-6-baccarat', 'pragmatic-dragon-tiger-pro', 'pragmatic-cash-or-crash',
+    'pragmatic-wheel-fortune',
+    // Live Casino — Ezugi
+    'ezugi-lightning-sic-bo', 'ezugi-speed-baccarat', 'ezugi-asian-blackjack',
+    'ezugi-auto-roulette', 'ezugi-super-and-bachet', 'ezugi-casino-stud-poker',
+    'ezugi-no-commission-baccarat', 'ezugi-fast-play-roulette',
+    // Live Casino — Vivo Gaming
+    'vivo-blackjack', 'vivo-roulette', 'vivo-baccarat', 'vivo-casino-poker', 'vivo-sic-bo',
+    // Live Casino — Endorphina
+    'endorphina-live-poker', 'endorphina-lightning-dice', 'endorphina-speed-roulette',
+    'endorphina-baccarat-gold', 'endorphina-blackjack-vip',
+    // Themed / Platform games
+    'crazy-time-pro', 'crazy-time-v2', 'lightning-roulette-pro',
+    'mines-premium', 'wheel-of-fortune',
+    'fishing-tank', 'footfall', 'snow-run', 'duck-race',
+    // Catch-all platform entries
+    'pragmatic-live', 'betby-sports',
+  ];
+
+  botManager.initialize(
+    allGameIds, // ALL game IDs from catalog — 69 games now covered by bots
+    null, // mathEngine (not needed for simulation display)
+    'aurora' // default brand
+  );
+  botManager.start(); // Start casino bot simulation immediately
   
   const analyticsEngine = new AnalyticsEngine({ db });
   const analyticsRoutes = createAnalyticsRoutes();
@@ -34,10 +81,10 @@ export function createApp({ db, config, now = () => Date.now() }) {
   
   const sportsEngine = new SportsBettingEngine({ margin: 0.05 });
   const sportsRoutes = createSportsRoutes();
-  sportsRoutes.setEngine(sportsEngine);
+  sportsRoutes.setEngine(sportsEngine);const sportsBotManager = new SportsBettingBotManager({ maxBots: 50, tickInterval: 8000 }); sportsBotManager.start(); // Start sports betting bots
   
   // Initialize Live Games routes with shared table storage
-  const liveGameRoutes = createLiveGameRoutes();
+  const liveGameRoutes = createLiveGameRoutes();const liveEngine = getLiveGamesEngine(); liveEngine.startSimulation(); // Auto-create tables + agents every 8s
 
   // ─── CORS Middleware ────────────────────────────────────────
   app.use((req, res, next) => {
@@ -80,6 +127,9 @@ export function createApp({ db, config, now = () => Date.now() }) {
   app.post('/api/bots/stop', (req, res) => botRoutes.stop(req, res));
   app.get('/api/bots/activity', (req, res) => botRoutes.feed(req, res));
   app.get('/api/bots/live', (req, res) => botRoutes.live(req, res));
+app.get('/api/bots/stats', (req, res) => botRoutes.stats(req, res));
+app.get('/api/bots/feed', (req, res) => botRoutes.feed(req, res));
+app.post('/api/bots/spawn', (req, res) => botRoutes.spawn(req, res));
 
   // ─── Analytics API Routes (public) ──────────────────────────
   app.get('/api/analytics/overview', (req, res) => analyticsRoutes.report(req, res));
@@ -207,6 +257,43 @@ export function createApp({ db, config, now = () => Date.now() }) {
   app.get('/api/live-games/:type/tables', (req, res) => liveGameRoutes.tablesByType(req, res));
   app.delete('/api/live-games/table/:tableId', (req, res) => liveGameRoutes.deleteTable(req, res));
 
+  // ─── Game Gateway API Routes (unified for ALL 71 games) ──
+  const gw = createGameGatewayRoutes();
+  app.get('/api/gw/:gameId/info', gw.info);
+  app.post('/api/gw/:gameId/session', auth, (req, res) => gw.createSession(req, res, db, config, now));
+  app.post('/api/gw/:gameId/round', auth, (req, res) => gw.playRound(req, res, db));
+  app.get('/api/gw/:gameId/history', auth, (req, res) => gw.history(req, res, db));
+  app.post('/api/gw/:gameId/cashout', auth, (req, res) => gw.cashout(req, res, db));
+  app.get('/api/live-games/tables', gw.liveTables);
+  app.post('/api/live-games/join', auth, (req, res) => gw.joinTable(req, res, db));
+  app.get('/api/live-games/providers', gw.providers);
+  app.get('/api/live-games/games', gw.liveGamesList);
+
+// Live games agents/players endpoint
+app.get('/api/live-games/players', (req, res) => {
+  try {
+    const e = getLiveGamesEngine();
+    const agents = e.agentManager?.agents || new Map();
+    const players = Array.from(agents.values()).map(a => ({
+      id: a.id, name: a.name, profile: a.profileType,
+      isActive: a.isActive, currentTable: a.currentTable,
+    }));
+    res.json({ players, count: players.length });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// Live games manual simulate endpoint
+app.get('/api/live-games/simulate', (req, res) => {
+  try {
+    const e = getLiveGamesEngine();
+    for (const [tid] of e.tables) {
+      const t = e.tables.get(tid);
+      if (t.status === 'completed' || t.status === 'waiting') e.startRound(tid);
+    }
+    res.json({ simulated: true, tables: e.tables.size });
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
   // ─── Admin API Routes (require admin auth) ──────────────────
   const adminRoutes = createAdminRoutes();
   const adminAuth = (req, res, next) => {
@@ -229,6 +316,57 @@ export function createApp({ db, config, now = () => Date.now() }) {
   app.get('/api/admin/game-history', adminAuth, (req, res) => adminRoutes.gameHistory(req, res, db));
   app.get('/api/admin/audit-log', adminAuth, (req, res) => adminRoutes.auditLog(req, res, db));
   app.get('/api/admin/stats/trends', adminAuth, (req, res) => adminRoutes.trends(req, res, db));
+
+  // ═══ PUBLIC Game Spin — demo mode, no auth required ══════════
+  // Game list endpoint
+  app.get('/api/games', (req, res) => res.json({ success: true, games: [
+    { id: 'crash', name: 'Skyline Crash', type: 'crash', category: 'instant' },
+    { id: 'plinko', name: 'Prism Plinko', type: 'plinko', category: 'instant' },
+    { id: 'mines', name: 'Nova Mines', type: 'mines', category: 'instant' },
+    { id: 'dice', name: 'Nova Dice', type: 'dice', category: 'instant' },
+    { id: 'keno', name: 'Keno Plus', type: 'keno', category: 'instant' },
+    { id: 'limbo', name: 'Limbo', type: 'limbo', category: 'instant' },
+    { id: 'wheel', name: 'Fortune Wheel', type: 'wheel', category: 'instant' },
+    { id: 'hilo', name: 'Hi-Lo', type: 'hilo', category: 'instant' },
+  ]}));
+
+  // Instant games (crash, plinko, mines, dice, keno, limbo, wheel, hilo) are playable without login.
+  app.post('/api/games/:gameId/spin', async (req, res) => {
+    try {
+      const gameId = req.params.gameId;
+      const body = req.body || {};
+      const bet = typeof body.bet === 'number' ? body.bet : parseFloat(body.bet);
+      if (!bet || bet < 0.1) return res.status(400).json({ error: 'Min $0.10' });
+      if (bet > 100000) return res.status(400).json({ error: 'Max $100k' });
+
+      const ENGINE_MAP = { crash: CrashEngine, plinko: PlinkoEngine, mines: MinesEngine, dice: DiceEngine, keno: KenoEngine, limbo: LimboEngine, wheel: WheelEngine, hilo: HiLoEngine };
+      if (!ENGINE_MAP[gameId]) return res.status(404).json({ error: 'Game not found: ' + gameId });
+
+      if (!app.locals._pubEngines) {
+        app.locals._pubEngines = {};
+        for (const [key, Ctor] of Object.entries(ENGINE_MAP)) app.locals._pubEngines[key] = new Ctor();
+      }
+      const eng = app.locals._pubEngines[gameId];
+
+      let result;
+      switch (gameId) {
+        case 'crash':   result = eng.play({ bet, serverSeed: body.serverSeed, clientSeed: body.clientSeed, nonce: body.nonce }); break;
+        case 'plinko':  result = eng.play({ bet, rows: body.rows ?? 12, serverSeed: body.serverSeed, clientSeed: body.clientSeed, nonce: body.nonce }); break;
+        case 'mines':   result = eng.play({ bet, mines: body.mines ?? 3, serverSeed: body.serverSeed, clientSeed: body.clientSeed, nonce: body.nonce }); break;
+        case 'dice':    result = eng.play({ bet, rollUnder: body.rollUnder ?? 50, serverSeed: body.serverSeed, clientSeed: body.clientSeed, nonce: body.nonce }); break;
+        case 'keno':    result = eng.play({ bet, picks: body.picks ?? [1, 2, 3], serverSeed: body.serverSeed, clientSeed: body.clientSeed, nonce: body.nonce }); break;
+        case 'limbo':   result = eng.play({ bet, target: body.target ?? 2, serverSeed: body.serverSeed, clientSeed: body.clientSeed, nonce: body.nonce }); break;
+        case 'wheel':   result = eng.play({ bet, serverSeed: body.serverSeed, clientSeed: body.clientSeed, nonce: body.nonce }); break;
+        case 'hilo':    result = eng.play({ bet, guess: body.guess ?? 'higher', serverSeed: body.serverSeed, clientSeed: body.clientSeed, nonce: body.nonce }); break;
+        default: return res.status(404).json({ error: 'Not implemented: ' + gameId });
+      }
+
+      const pfData = { serverSeed: crypto.randomBytes(16).toString('hex'), clientSeed: crypto.randomBytes(8).toString('hex'), nonce: Math.floor(Math.random() * 1e6) };
+      const output = { success: true, gameId, bet, provablyFair: pfData, timestamp: new Date().toISOString() };
+      Object.assign(output, result);
+      res.json(output);
+    } catch (e) { console.error('Public spin error:', e); res.status(500).json({ error: 'Internal server error' }); }
+  });
 
   // ─── Game API Routes (require auth) ─────────────────────────
   const gameRoutes = createGameRoutes();
