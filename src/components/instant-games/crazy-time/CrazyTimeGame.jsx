@@ -26,6 +26,8 @@ const BET_PANELS = [
   { id: 'bonus_crazy_time', label: '\ud83c\udf89 Crazy Time', payout: 2, color: '#ef4444', bg: '#4a1a1a' },
 ];
 
+
+import './styles.css';
 async function apiFetch(url, opts={}) {
   const res = await fetch(url, { headers: { 'Content-Type': 'application/json', ...opts.headers }, ...opts });
   if (!res.ok) throw new Error('API '+res.status+' '+url);
@@ -167,7 +169,7 @@ function CrazyTimeGame({ balance = 10000, onBalanceChange }) {
 
               {/* Wheel Visualization */}
               <div className="flex justify-center mb-8">
-                <div className="relative w-64 h-64 rounded-full border-4 border-purple-500/50 bg-gradient-to-br from-purple-900 to-pink-900 flex items-center justify-center shadow-2xl">
+                <div className={`relative w-64 h-64 rounded-full border-4 border-purple-500/50 bg-gradient-to-br from-purple-900 to-pink-900 flex items-center justify-center shadow-2xl ${spinning ? 'wheel-spinning' : ''}`}>
                   {currentSpin && currentSpin.resultSeg ? (
                     <div className="text-center">
                       {currentSpin.resultSeg.type === 'bonus' ? (
@@ -187,7 +189,7 @@ function CrazyTimeGame({ balance = 10000, onBalanceChange }) {
 
               {/* Result Display */}
               {currentSpin && (
-                <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-xl p-4 border border-yellow-500/30 mb-6">
+                <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-xl p-4 border border-yellow-500/30 mb-6 result-flash">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="text-sm text-slate-400">Result</p>
@@ -244,8 +246,8 @@ function CrazyTimeGame({ balance = 10000, onBalanceChange }) {
           {/* Bonus Round Display */}
           {bonusActive && bonusResult && (
             <section className="mb-8">
-              <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-2xl border border-yellow-500/30 p-6 text-center">
-                <h3 className="text-2xl font-black mb-4 flex items-center justify-center gap-2">
+              <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 rounded-2xl border border-yellow-500/30 p-6 text-center bonus-appear">
+                <h3 className="text-2xl font-black mb-4 flex items-center justify-center gap-2 glow-pulse">
                   {BET_PANELS.find(b => b.id === `bonus_${bonusActive}`)?.label}
                   <Trophy size={28} className="text-yellow-400" />
                 </h3>
@@ -349,3 +351,4 @@ function CrazyTimeGame({ balance = 10000, onBalanceChange }) {
 }
 
 export default CrazyTimeGame;
+

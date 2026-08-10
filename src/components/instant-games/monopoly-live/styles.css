@@ -1,0 +1,91 @@
+﻿/* Monopoly Live Game Styles */
+
+@keyframes wheel-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes glow-pulse-green {
+  0%, 100% { box-shadow: 0 0 20px rgba(34, 197, 94, 0.5); }
+  50% { box-shadow: 0 0 40px rgba(34, 197, 94, 0.8), 0 0 60px rgba(34, 197, 94, 0.4); }
+}
+
+@keyframes bonus-appear {
+  from { opacity: 0; transform: scale(0.8) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes result-flash-green {
+  0% { background-color: rgba(255, 255, 255, 0.3); }
+  50% { background-color: rgba(34, 197, 94, 0.4); }
+  100% { background-color: transparent; }
+}
+
+@keyframes chip-bounce-green {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+
+.wheel-spinning-ml {
+  animation: wheel-spin 2s ease-out;
+}
+
+.glow-pulse-green {
+  animation: glow-pulse-green 2s infinite;
+}
+
+.bonus-appear-ml {
+  animation: bonus-appear 0.5s ease-out;
+}
+
+.result-flash-green {
+  animation: result-flash-green 1s ease-out;
+}
+
+.chip-bounce-green:hover {
+  animation: chip-bounce-green 0.3s ease-in-out infinite;
+}
+
+.bet-panel-selected-ml {
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.6);
+  transform: scale(1.05);
+}
+
+.history-item-bonus-ml {
+  background-color: rgba(34, 197, 94, 0.1);
+  border-left: 3px solid #22c55e;
+}
+
+/* Monopoly board animation */
+@keyframes property-slide {
+  from { transform: translateX(-100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+.property-appear {
+  animation: property-slide 0.3s ease-out;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .wheel-container-ml {
+    width: 220px !important;
+    height: 220px !important;
+  }
+  
+  .bet-panels-grid-ml {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Loading skeleton */
+.skeleton-loading-ml {
+  background: linear-gradient(90deg, #0a1a0a 25%, #1a3a1a 50%, #0a1a0a 75%);
+  background-size: 200% 100%;
+  animation: skeleton-loading-ml 1.5s infinite;
+}
+
+@keyframes skeleton-loading-ml {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
