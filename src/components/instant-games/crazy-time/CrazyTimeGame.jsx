@@ -169,7 +169,7 @@ function CrazyTimeGame({ balance = 10000, onBalanceChange }) {
 
               {/* Wheel Visualization */}
               <div className="flex justify-center mb-8">
-                <div className={`relative w-64 h-64 rounded-full border-4 border-purple-500/50 bg-gradient-to-br from-purple-900 to-pink-900 flex items-center justify-center shadow-2xl ${spinning ? 'wheel-spinning' : ''}`}>
+                <div className={`relative w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-purple-500/50 bg-gradient-to-br from-purple-900 to-pink-900 flex items-center justify-center shadow-2xl ${spinning ? 'wheel-spinning' : ''}`}>
                   {currentSpin && currentSpin.resultSeg ? (
                     <div className="text-center">
                       {currentSpin.resultSeg.type === 'bonus' ? (
@@ -208,11 +208,11 @@ function CrazyTimeGame({ balance = 10000, onBalanceChange }) {
               )}
 
               {/* Bet Panels */}
-              <div className="grid gap-3 md:grid-cols-4">
+              <div className="grid gap-2 md:gap-3 grid-cols-2 md:grid-cols-4">
                 {BET_PANELS.map(panel => (
                   <button key={panel.id} onClick={() => addToSlip(panel.id, panel.payout)}
                     disabled={spinning || !sessionId}
-                    className={`relative p-4 rounded-xl border transition-all ${selectedOdds[panel.id] ? 'border-[#a855f7] bg-purple-500/20 scale-105' : 'bg-white/[0.03] border-white/8 hover:bg-white/[0.06]'} disabled:opacity-30`}>
+                    className={`relative p-3 md:p-4 rounded-xl border transition-all active:scale-95 touch-manipulation ${selectedOdds[panel.id] ? 'border-[#a855f7] bg-purple-500/20 scale-105' : 'bg-white/[0.03] border-white/8 hover:bg-white/[0.06]'} disabled:opacity-30`}>
                     <div className="flex items-center justify-between mb-1">
                       <span className="text-xs font-bold uppercase tracking-wider" style={{ color: panel.color }}>{panel.label}</span>
                       {selectedOdds[panel.id] && (<span className="px-1.5 py-0.5 rounded-full bg-[#a855f7] text-white text-[10px] font-bold">✓</span>)}
