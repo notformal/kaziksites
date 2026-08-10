@@ -1,4 +1,4 @@
-import express from 'express';
+﻿import express from 'express';
 import helmet from 'helmet';
 import { hashPassword, verifyPassword, newToken, tokenHash, rateLimiter } from './security.js';
 import { createGameRoutes } from './api/games.js';
@@ -15,6 +15,9 @@ import { SportsBettingBotManager } from './sports-betting/bots.js';
 import { createGameGatewayRoutes } from './api/game-gateway.js';
 import crypto from 'node:crypto';
 import { CrashEngine, PlinkoEngine, MinesEngine, DiceEngine, KenoEngine, LimboEngine, WheelEngine, HiLoEngine } from './casino-engine.js';
+import { CrazyTimeEngine } from './crazy-time/engine.js';
+import { MonopolyLiveEngine } from './monopoly-live/engine.js';
+import { setCrazyTimeRoutes, setMonopolyLiveRoutes } from './routes/crazy-time-routes.js';
 
 const emailOk = v => typeof v === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) && v.length <= 254;
 const gameOk = v => typeof v === 'string' && /^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$/.test(v);
@@ -26,38 +29,38 @@ export function createApp({ db, config, now = () => Date.now() }) {
   app.set('trust proxy', config.trustProxy);
   app.use(helmet({ crossOriginResourcePolicy: { policy: 'same-site' } }));
 
-  // ─── Initialize Systems ─────────────────────────────────────
+  // в”Ђв”Ђв”Ђ Initialize Systems в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   
   const botManager = new BotManager({ db, config });
   const botRoutes = createBotRoutes();
   botRoutes.setBotManager(botManager);
   // Initialize bots with ALL available games from catalog and start simulation
   const allGameIds = [
-    // Slots — Nova Reels
+    // Slots вЂ” Nova Reels
     'slots-royal', 'cosmic-queen', "dragons-fortune", "pharaohs-treasure",
     'fruit-shop', 'gold-caravan', 'magic-crystal', 'hot-navigator',
     'diamond-rush', 'wild-west-gold', 'book-of-gold',
     'super-line-fruit-bomb', 'lucky-streak',
-    // Table Games — Vertex Live
+    // Table Games вЂ” Vertex Live
     'blackjack-pro', 'baccarat-pro', 'roulette-royale',
     // Instant Games (core engine)
     'crash-pro', 'plinko-master', 'lightning-dice',
-    // Live Casino — Evolution Gaming
+    // Live Casino вЂ” Evolution Gaming
     'lightning-blackjack', 'mega-roulette', 'speed-baccarat', 'crazy-time',
     'monopoly-live', 'dream-catcher', 'lightning-roulette', 'infinite-blackjack',
     'auto-roulette', 'casino-holdem', 'three-card-poker', 'power-blackjack',
-    // Live Casino — Pragmatic Play Live
+    // Live Casino вЂ” Pragmatic Play Live
     'pragmatic-lightning-baccarat', 'pragmatic-speed-roulette', 'pragmatic-auto-roulette',
     'pragmatic-blackjack-vip', 'pragmatic-standard-blackjack', 'pragmatic-super-sic-bo',
     'pragmatic-lucky-6-baccarat', 'pragmatic-dragon-tiger-pro', 'pragmatic-cash-or-crash',
     'pragmatic-wheel-fortune',
-    // Live Casino — Ezugi
+    // Live Casino вЂ” Ezugi
     'ezugi-lightning-sic-bo', 'ezugi-speed-baccarat', 'ezugi-asian-blackjack',
     'ezugi-auto-roulette', 'ezugi-super-and-bachet', 'ezugi-casino-stud-poker',
     'ezugi-no-commission-baccarat', 'ezugi-fast-play-roulette',
-    // Live Casino — Vivo Gaming
+    // Live Casino вЂ” Vivo Gaming
     'vivo-blackjack', 'vivo-roulette', 'vivo-baccarat', 'vivo-casino-poker', 'vivo-sic-bo',
-    // Live Casino — Endorphina
+    // Live Casino вЂ” Endorphina
     'endorphina-live-poker', 'endorphina-lightning-dice', 'endorphina-speed-roulette',
     'endorphina-baccarat-gold', 'endorphina-blackjack-vip',
     // Themed / Platform games
@@ -69,7 +72,7 @@ export function createApp({ db, config, now = () => Date.now() }) {
   ];
 
   botManager.initialize(
-    allGameIds, // ALL game IDs from catalog — 69 games now covered by bots
+    allGameIds, // ALL game IDs from catalog вЂ” 69 games now covered by bots
     null, // mathEngine (not needed for simulation display)
     'aurora' // default brand
   );
@@ -84,9 +87,15 @@ export function createApp({ db, config, now = () => Date.now() }) {
   sportsRoutes.setEngine(sportsEngine);const sportsBotManager = new SportsBettingBotManager({ maxBots: 50, tickInterval: 8000 }); sportsBotManager.start(); // Start sports betting bots
   
   // Initialize Live Games routes with shared table storage
-  const liveGameRoutes = createLiveGameRoutes();const liveEngine = getLiveGamesEngine(); liveEngine.startSimulation(); // Auto-create tables + agents every 8s
+  const liveGameRoutes = createLiveGameRoutes();app.use('/api/live-games', liveGameRoutes);
+  app.use('/api/crazy-time', crazyTimeRoutes);
+  app.use('/api/monopoly-live', monopolyLiveRoutes);
+  const crazyTimeEngine = new CrazyTimeEngine();
+  const monopolyLiveEngine = new MonopolyLiveEngine();
+  setCrazyTimeRoutes(crazyTimeEngine);
+  setMonopolyLiveRoutes(monopolyLiveEngine);const liveEngine = getLiveGamesEngine(); liveEngine.startSimulation(); // Auto-create tables + agents every 8s
 
-  // ─── CORS Middleware ────────────────────────────────────────
+  // в”Ђв”Ђв”Ђ CORS Middleware в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   app.use((req, res, next) => {
     const origin = req.headers.origin;
     if (origin && config.allowedOrigins.has(origin)) {
@@ -101,11 +110,11 @@ export function createApp({ db, config, now = () => Date.now() }) {
     next();
   });
 
-  // ─── Body Parser & Rate Limiter ─────────────────────────────
+  // в”Ђв”Ђв”Ђ Body Parser & Rate Limiter в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   app.use(express.json({ limit: '16kb' }));
   app.use(rateLimiter());
 
-  // ─── Auth Middleware ────────────────────────────────────────
+  // в”Ђв”Ђв”Ђ Auth Middleware в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   const auth = (req, res, next) => {
     const m = req.headers.authorization?.match(/^Bearer ([A-Za-z0-9_-]{40,})$/);
     if (!m) return res.status(401).json({ error: 'unauthorized' });
@@ -118,10 +127,10 @@ export function createApp({ db, config, now = () => Date.now() }) {
     next();
   };
 
-  // ─── Health Check ───────────────────────────────────────────
+  // в”Ђв”Ђв”Ђ Health Check в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   app.get('/health', (_req, res) => res.json({ ok: true }));
 
-  // ─── Bot API Routes (public) ────────────────────────────────
+  // в”Ђв”Ђв”Ђ Bot API Routes (public) в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   app.get('/api/bots/status', (req, res) => botRoutes.stats(req, res));
   app.post('/api/bots/start', (req, res) => botRoutes.start(req, res));
   app.post('/api/bots/stop', (req, res) => botRoutes.stop(req, res));
@@ -131,7 +140,7 @@ app.get('/api/bots/stats', (req, res) => botRoutes.stats(req, res));
 app.get('/api/bots/feed', (req, res) => botRoutes.feed(req, res));
 app.post('/api/bots/spawn', (req, res) => botRoutes.spawn(req, res));
 
-  // ─── Analytics API Routes (public) ──────────────────────────
+  // в”Ђв”Ђв”Ђ Analytics API Routes (public) в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   app.get('/api/analytics/overview', (req, res) => analyticsRoutes.report(req, res));
   app.get('/api/analytics/realtime', (req, res) => analyticsRoutes.realtime(req, res));
   app.get('/api/analytics/events', (req, res) => analyticsRoutes.events(req, res));
@@ -144,7 +153,7 @@ app.post('/api/bots/spawn', (req, res) => botRoutes.spawn(req, res));
     res.json({ tracked: true });
   });
 
-  // ─── Sports Betting API Routes ──────────────────────────────
+  // в”Ђв”Ђв”Ђ Sports Betting API Routes в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   app.get('/api/sports', (req, res) => sportsRoutes.sports(req, res));
   app.get('/api/sports/events', (req, res) => sportsRoutes.events(req, res));
   app.get('/api/sports/events/:id', (req, res) => sportsRoutes.eventDetails(req, res));
@@ -161,7 +170,7 @@ app.post('/api/bots/spawn', (req, res) => botRoutes.spawn(req, res));
   app.get('/api/sports/leagues/:sport', (req, res) => sportsRoutes.leagues(req, res));
   app.get('/api/sports/status', (req, res) => sportsRoutes.status(req, res));
 
-  // ─── Sports Odds API Routes ─────────────────────────────────
+  // в”Ђв”Ђв”Ђ Sports Odds API Routes в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   const oddsApiRoutes = createOddsApiRoutes();
   app.get('/api/sports/odds/providers', (req, res) => oddsApiRoutes.getProviders(req, res));
   app.get('/api/sports/odds/fetch', (req, res) => oddsApiRoutes.fetchOdds(req, res));
@@ -169,7 +178,7 @@ app.post('/api/bots/spawn', (req, res) => botRoutes.spawn(req, res));
   app.get('/api/sports/odds/market-types', (req, res) => oddsApiRoutes.getMarketTypes(req, res));
   app.get('/api/sports/odds/stats', (req, res) => oddsApiRoutes.getStats(req, res));
 
-  // ─── Live Games API Routes ──────────────────────────────────
+  // в”Ђв”Ђв”Ђ Live Games API Routes в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   app.get('/api/live-games/status', (req, res) => liveGameRoutes.status(req, res));
   app.get('/api/live-games/tables', (req, res) => liveGameRoutes.tables(req, res));
   app.post('/api/live-games/create', (req, res) => liveGameRoutes.create(req, res));
@@ -257,7 +266,7 @@ app.post('/api/bots/spawn', (req, res) => botRoutes.spawn(req, res));
   app.get('/api/live-games/:type/tables', (req, res) => liveGameRoutes.tablesByType(req, res));
   app.delete('/api/live-games/table/:tableId', (req, res) => liveGameRoutes.deleteTable(req, res));
 
-  // ─── Game Gateway API Routes (unified for ALL 71 games) ──
+  // в”Ђв”Ђв”Ђ Game Gateway API Routes (unified for ALL 71 games) в”Ђв”Ђ
   const gw = createGameGatewayRoutes();
   app.get('/api/gw/:gameId/info', gw.info);
   app.post('/api/gw/:gameId/session', auth, (req, res) => gw.createSession(req, res, db, config, now));
@@ -294,7 +303,7 @@ app.get('/api/live-games/simulate', (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
-  // ─── Admin API Routes (require admin auth) ──────────────────
+  // в”Ђв”Ђв”Ђ Admin API Routes (require admin auth) в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   const adminRoutes = createAdminRoutes();
   const adminAuth = (req, res, next) => {
     const err = adminAuthMiddleware(req, res, db);
@@ -317,7 +326,7 @@ app.get('/api/live-games/simulate', (req, res) => {
   app.get('/api/admin/audit-log', adminAuth, (req, res) => adminRoutes.auditLog(req, res, db));
   app.get('/api/admin/stats/trends', adminAuth, (req, res) => adminRoutes.trends(req, res, db));
 
-  // ═══ PUBLIC Game Spin — demo mode, no auth required ══════════
+  // в•ђв•ђв•ђ PUBLIC Game Spin вЂ” demo mode, no auth required в•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђ
   // Game list endpoint
   app.get('/api/games', (req, res) => res.json({ success: true, games: [
     { id: 'crash', name: 'Skyline Crash', type: 'crash', category: 'instant' },
@@ -368,7 +377,7 @@ app.get('/api/live-games/simulate', (req, res) => {
     } catch (e) { console.error('Public spin error:', e); res.status(500).json({ error: 'Internal server error' }); }
   });
 
-  // ─── Game API Routes (require auth) ─────────────────────────
+  // в”Ђв”Ђв”Ђ Game API Routes (require auth) в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   const gameRoutes = createGameRoutes();
   app.post('/api/games/:gameId/session', auth, (req, res) => gameRoutes.session(req, res, db, config, now));
   app.post('/api/games/:gameId/spin', auth, (req, res) => gameRoutes.spin(req, res, db, config, now));
@@ -376,7 +385,7 @@ app.get('/api/live-games/simulate', (req, res) => {
   app.get('/api/games/:gameId/history', auth, (req, res) => gameRoutes.history(req, res, db));
   app.get('/api/games/:gameId/verify', auth, (req, res) => gameRoutes.verify(req, res, db));
 
-  // ─── Auth Routes ────────────────────────────────────────────
+  // в”Ђв”Ђв”Ђ Auth Routes в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   app.post('/api/auth/register', rateLimiter({ limit: 10 }), async (req, res, next) => {
     try {
       const { email, password, displayName } = req.body || {};
@@ -431,7 +440,7 @@ app.get('/api/live-games/simulate', (req, res) => {
     res.sendStatus(204);
   });
 
-  // ─── Profile Routes ─────────────────────────────────────────
+  // в”Ђв”Ђв”Ђ Profile Routes в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   app.get('/api/profile', auth, (req, res) => res.json({ user: publicUser(req.user) }));
   app.put('/api/profile', auth, (req, res) => {
     const n = req.body?.displayName;
@@ -442,7 +451,7 @@ app.get('/api/live-games/simulate', (req, res) => {
     res.json({ user: publicUser(db.prepare('SELECT * FROM users WHERE id=?').get(req.user.id)) });
   });
 
-  // ─── Favorites Routes ───────────────────────────────────────
+  // в”Ђв”Ђв”Ђ Favorites Routes в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   app.get('/api/favorites', auth, (req, res) =>
     res.json({ games: db.prepare('SELECT game_id AS gameId,created_at AS createdAt FROM favorites WHERE user_id=? ORDER BY created_at DESC').all(req.user.id) }));
   app.put('/api/favorites/:gameId', auth, (req, res) => {
@@ -455,7 +464,7 @@ app.get('/api/live-games/simulate', (req, res) => {
     res.sendStatus(204);
   });
 
-  // ─── Recents Routes ─────────────────────────────────────────
+  // в”Ђв”Ђв”Ђ Recents Routes в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   app.post('/api/recents/:gameId', auth, (req, res) => {
     if (!gameOk(req.params.gameId)) return res.status(400).json({ error: 'invalid_game' });
     db.prepare("INSERT INTO recents(user_id,game_id) VALUES(?,?) ON CONFLICT(user_id,game_id) DO UPDATE SET played_at=datetime('now'),play_count=play_count+1")
@@ -465,7 +474,7 @@ app.get('/api/live-games/simulate', (req, res) => {
   app.get('/api/recents', auth, (req, res) =>
     res.json({ games: db.prepare('SELECT game_id AS gameId,played_at AS playedAt,play_count AS playCount FROM recents WHERE user_id=? ORDER BY played_at DESC LIMIT 50').all(req.user.id) }));
 
-  // ─── Wallet Routes ──────────────────────────────────────────
+  // в”Ђв”Ђв”Ђ Wallet Routes в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   const wallet = uid => ({
     balance: db.prepare('SELECT COALESCE(SUM(amount),0) balance FROM wallet_ledger WHERE user_id=?').get(uid).balance,
     ledger: db.prepare('SELECT id,amount,kind,idempotency_key AS idempotencyKey,metadata,created_at AS createdAt FROM wallet_ledger WHERE user_id=? ORDER BY id DESC LIMIT 100').all(uid)
@@ -485,8 +494,10 @@ app.get('/api/live-games/simulate', (req, res) => {
     res.json({ claimed, reward: claimed ? 250 : 0, ...wallet(req.user.id) });
   });
 
-  // ─── Error Handler ──────────────────────────────────────────
+  // в”Ђв”Ђв”Ђ Error Handler в”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђв”Ђ
   app.use((err, _req, res, _next) => { console.error(err); res.status(500).json({ error: 'internal_error' }); });
 
   return app;
 }
+
+
