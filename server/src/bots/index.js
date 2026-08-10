@@ -1,29 +1,61 @@
 /**
  * Bot Simulation System — Имитация активности реальных игроков
- * 
- * Создает реалистичных ботов с разными профилями поведения
- * для создания живого сообщества на платформе
+ * Enhanced: More realistic behavior patterns, emotional states, brand-specific names
  */
 
 import crypto from 'node:crypto';
 
-// ─── Bot Name Generation ──────────────────────────────────────
+// ─── Brand-Specific Bot Names & Avatars ──────────────────
 
-const NAME_PREFIXES = ['Lucky', 'Win', 'Gold', 'Star', 'Royal', 'Mega', 'Super', 'Pro', 'Ace', 'Diamond'];
-const NAME_SUFFIXES = ['Player', 'Gamer', 'Pro', 'Master', 'King', 'Queen', 'Ace', 'Chaser', 'Hunter', 'Boss'];
-const AVATARS = ['🎰', '🎲', '🃏', '♠️', '♥️', '♦️', '♣️', '🎯', '💎', '🔥', '⚡', '🌟', '👑', '🦁', '🐉'];
+const BRAND_CONFIGS = {
+  aurora: {
+    prefix: ['Nebula','Star','Cosmic','Aurora','Polaris','Nova','Orion','Zenith'],
+    suffix: ['Voyager','Drifter','Wanderer','Seeker','Chaser','Runner','Flyer','Rider'],
+    avatars: ['🌌','✨','💫','🔮','🌀','⚡','🪐','🌠'],
+    colors: ['#7c3aed','#06b6d4','#a78bfa','#22d3ee'],
+  },
+  ember: {
+    prefix: ['Flame','Blaze','Ember','Inferno','Pyro','Scorch','Sear','Cinder'],
+    suffix: ['Blazer','Burner','Smasher','Crusher','Howler','Roarer','Stoker','Welder'],
+    avatars: ['🔥','💥','⚡','🌋','☄️','🎆','🎇','💢'],
+    colors: ['#ef4444','#f59e0b','#dc2626','#fb923c'],
+  },
+  royale: {
+    prefix: ['Royal','Noble','Grand','Majestic','Imperial','Regal','Sovereign','Crown'],
+    suffix: ['Monarch','Emperor','Queen','Duke','Lord','Baron','Knight','Prince'],
+    avatars: ['👑','💎','🏆','🎩','⚜️','🦅','🛡️','🗡️'],
+    colors: ['#d4a843','#f5d77a','#b8941f','#e8c547'],
+  },
+};
 
-/** Generate random bot name */
-function generateName() {
-  const prefix = NAME_PREFIXES[Math.floor(Math.random() * NAME_PREFIXES.length)];
-  const suffix = NAME_SUFFIXES[Math.floor(Math.random() * NAME_SUFFIXES.length)];
+// ─── Global Fallback Names ──────────────────────────────
+
+const GLOBAL_PREFIXES = ['Lucky','Win','Gold','Star','Royal','Mega','Super','Pro','Ace','Diamond','Platinum','Silver'];
+const GLOBAL_SUFFIXES = ['Player','Gamer','Pro','Master','King','Queen','Ace','Chaser','Hunter','Boss','Wizard','Mage'];
+const GLOBAL_AVATARS = ['🎰','🎲','🃏','♠️','♥️','♦️','♣️','🎯','💎','🔥','⚡','🌟','👑','🦁','🐉','🍀','🌈','⭐'];
+
+/** Generate random bot name with brand context */
+function generateName(brand) {
+  const config = brand ? BRAND_CONFIGS[brand] : null;
+  const pfx = config ? config.prefix : GLOBAL_PREFIXES;
+  const sfx = config ? config.suffix : GLOBAL_SUFFIXES;
+  const prefix = pfx[Math.floor(Math.random() * pfx.length)];
+  const suffix = sfx[Math.floor(Math.random() * sfx.length)];
   const num = Math.floor(Math.random() * 999) + 1;
   return `${prefix}${num}_${suffix}`;
 }
 
-/** Generate random avatar emoji */
-function generateAvatar() {
-  return AVATARS[Math.floor(Math.random() * AVATARS.length)];
+/** Generate random avatar with brand context */
+function generateAvatar(brand) {
+  const config = brand ? BRAND_CONFIGS[brand] : null;
+  const avatars = config ? config.avatars : GLOBAL_AVATARS;
+  return avatars[Math.floor(Math.random() * avatars.length)];
+}
+
+/** Generate accent color for brand */
+function generateColor(brand) {
+  const config = brand ? BRAND_CONFIGS[brand] : null;
+  return config ? config.colors[Math.floor(Math.random() * config.colors.length)] : '#7c3aed';
 }
 
 // ─── Bot Profiles ─────────────────────────────────────────────
@@ -76,31 +108,41 @@ function selectProfile() {
 // ─── Bot Player Class ─────────────────────────────────────────
 
 class BotPlayer {
-  constructor(availableGames, config) {
+  constructor(availableGames, config, brand) {
     this.id = `bot_${crypto.randomBytes(8).toString('hex')}`;
-    this.name = generateName();
-    this.avatar = generateAvatar();
+    this.name = generateName(brand);
+    this.avatar = generateAvatar(brand);
+    this.accentColor = generateColor(brand);
     
     const profile = selectProfile();
     this.profile = profile.name;
     this.playStyle = profile.playStyle;
+    this.mood = 'happy'; // happy, cautious, excited, tired, greedy
     this.sessionDuration = config.randomRange(...profile.sessionDuration);
     this.balance = config.calculateStartingBalance(this.profile);
     this.favoriteGames = this.selectFavoriteGames(availableGames);
     this.currentGame = null;
     this.currentBet = 0;
     this.gamesPlayedInSession = 0;
-    this.maxGamesInSession = config.randomRange(...profile.avgGamesPerSession[0], ...profile.avgGamesPerSession[1]);
+    this.maxGamesInSession = config.randomRange(profile.avgGamesPerSession[0], profile.avgGamesPerSession[1]);
     this.isOnline = false;
     this.sessionStart = null;
     this.lastActive = Date.now();
     this.winningsHistory = [];
     
-    // Emotional behavior flags
+    // Emotional behavior flags with enhanced state machine
     this.onLossStreak = false;
     this.lossStreakCount = 0;
     this.onWinStreak = false;
     this.winStreakCount = 0;
+    this.lastDecision = null;
+    this.thinkingDelay = config.randomRange(500, 3000); // Simulate "thinking" time
+    this.playSpeed = config.randomRange(2000, 8000); // Time between games
+    
+    // Personality traits
+    this.tolerance = config.randomRange(0.1, 0.9); // How tolerant to losses before quitting
+    this.winsNeededForQuit = config.randomRange(3, 8); // Wins needed after big loss to leave
+    this.lossesBeforeQuit = Math.floor(config.randomRange(2, 6) * (1 + (1 - this.tolerance) * 3));
   }
   
   selectFavoriteGames(games) {
@@ -118,6 +160,34 @@ class BotPlayer {
     this.onWinStreak = false;
     this.lossStreakCount = 0;
     this.winStreakCount = 0;
+    this.mood = 'happy';
+    this.lastActive = Date.now();
+  }
+  
+  /** Update emotional mood based on recent results */
+  updateMood(lastWin, lastBet) {
+    if (lastWin > lastBet * 5) this.mood = 'excited';
+    else if (lastWin > lastBet * 2) this.mood = 'happy';
+    else if (lastWin < lastBet * 0.1 && !this.onLossStreak) this.mood = 'cautious';
+    else if (this.lossStreakCount >= 3) this.mood = 'greedy';
+    else if (this.gamesPlayedInSession > this.maxGamesInSession * 0.8) this.mood = 'tired';
+    else this.mood = 'happy';
+    
+    // Adjust play style based on mood
+    if (this.mood === 'greedy') {
+      // Increase bet sizes when greedy after loss streak
+      const profile = BOT_PROFILES[this.profile];
+      this.currentBet = Math.min(
+        this.currentBet * 1.5, 
+        profile.betRange[1]
+      );
+    } else if (this.mood === 'tired') {
+      // Decrease bet sizes when tired
+      this.currentBet = Math.max(
+        this.currentBet * 0.7, 
+        profile.betRange[0]
+      );
+    }
   }
   
   calculateBet() {
@@ -264,11 +334,12 @@ class BotManager {
   }
   
   /** Initialize bot manager */
-  initialize(availableGames, mathEngine) {
+  initialize(availableGames, mathEngine, brand) {
     this.availableGames = availableGames;
     this.mathEngine = mathEngine;
+    this.brand = brand || null;
     
-    // Create initial bot population
+    // Create initial bot population with brand context
     this.spawnBots();
     
     return this;
@@ -295,7 +366,7 @@ class BotManager {
             default: return config.randomRange(10000, 500000);             // $100-$5k
           }
         }
-      });
+      }, this.brand);
       
       bot.startSession();
       this.bots.set(bot.id, bot);
@@ -347,8 +418,14 @@ class BotManager {
       if (action === 'play' && !bot.currentGame) {
         const gameId = bot.favoriteGames[Math.floor(Math.random() * bot.favoriteGames.length)];
         try {
+          // Simulate "thinking" delay for realism
+          await new Promise(r => setTimeout(r, bot.thinkingDelay));
+          
           const result = await bot.playGame(gameId, this.mathEngine);
           if (result) {
+            // Update mood based on result
+            bot.updateMood(result.win || 0, bot.currentBet);
+            
             this.simulationFeed.push(result);
             this.stats.totalSimulatedBets += bot.currentBet;
             this.stats.totalSimulatedWinnings += result.win || 0;
@@ -406,10 +483,16 @@ class BotManager {
         id: b.id,
         name: b.name,
         avatar: b.avatar,
+        accentColor: b.accentColor,
         profile: b.profile,
+        mood: b.mood,
+        currentGame: b.currentGame,
+        balance: b.balance / 100,
         lastWin: b.winningsHistory[b.winningsHistory.length - 1]?.win / 100 || 0,
         gamesPlayed: b.winningsHistory.length,
-        online: true
+        playSpeed: b.playSpeed,
+        online: true,
+        joinTimestamp: b.sessionStart,
       }));
   }
   

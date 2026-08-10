@@ -1,20 +1,31 @@
-/* Специфика Pulse Plinko: доска на всю сцену. */
+/* ═══ PLINKO Premium — Neon Board (Stake/Roobet Level) ═══ */
+.stage { min-height:min(75vh,600px); padding:var(--s-3); align-items:stretch; position:relative; overflow:hidden; }
 
-.stage {
-  min-height: min(70vh, 540px);
-  padding: var(--s-3);
-  align-items: stretch;
+/* ─── Animated Background ─── */
+.stage::before {
+  content:''; position:absolute; inset:0; pointer-events:none; opacity:.12;
+  background-image:linear-gradient(rgba(99,102,241,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(99,102,241,.2) 1px,transparent 1px);
+  background-size:30px 30px; animation:plinkoGridMove 15s linear infinite;
 }
+@keyframes plinkoGridMove { 0%{transform:translateY(0)} 100%{transform:translateY(30px)} }
 
+/* ─── Board — Premium Glow ─── */
 #board {
-  width: 100%;
-  height: min(66vh, 500px);
-  border-radius: var(--r-md);
-  background: radial-gradient(120% 80% at 50% 0%, var(--c-glow-soft), transparent 60%), var(--c-base);
+  width:100%; height:min(66vh,520px); border-radius:20px; position:relative; z-index:1;
+  background:radial-gradient(120% 80% at 50% 0%,rgba(99,102,241,.15),transparent 60%),linear-gradient(135deg,rgba(15,23,42,.9),rgba(30,41,59,.7));
+  border:1px solid rgba(99,102,241,.2); box-shadow:0 8px 40px rgba(0,0,0,.4),0 0 60px rgba(99,102,241,.15),inset 0 1px 0 rgba(255,255,255,.05);
+  transition:all .3s ease-out;
 }
+#board:hover { box-shadow:0 8px 50px rgba(0,0,0,.5),0 0 80px rgba(99,102,241,.25),inset 0 1px 0 rgba(255,255,255,.08); }
 
-#sound { padding: var(--s-2) var(--s-3); font-size: 15px; line-height: 1; align-self: center; }
+/* ─── Sound Button ─── */
+#sound { padding:var(--s-2) var(--s-3); font-size:18px; line-height:1; align-self:center; background:rgba(99,102,241,.15); border:1px solid rgba(99,102,241,.3); border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; transition:all .2s ease-out; }
+#sound:hover { background:rgba(99,102,241,.3); transform:scale(1.1); }
 
-@media (max-width: 620px) {
-  #board { height: 58vh; }
-}
+/* ─── Responsive ─── */
+@media (max-width:768px) { .stage{min-height:500px} #board{height:58vh;border-radius:16px} }
+@media (max-width:480px) { .stage{padding:var(--s-2)} #board{height:52vh} }
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important} }
+

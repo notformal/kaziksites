@@ -1,36 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="color-scheme" content="dark">
-<title>Lightning Dice</title>
-<meta name="description" content="Lightning Dice — three dice, sixteen totals, lightning multipliers up to 50×. 96.19% RTP. Demo credits only.">
-<style>
-  html,body{margin:0;height:100%;background:#06070c}
-  #game{position:fixed;inset:0}
-  #boot{position:fixed;inset:0;display:grid;place-items:center;color:#8d93ab;
-    font:600 13px/1.6 "Segoe UI",system-ui,sans-serif;text-align:center;padding:24px}
-  #boot[data-error="true"]{color:#ff6b81}
-</style>
-</head>
-<body>
-<div id="game"></div>
-<div id="boot">Loading Lightning Dice…</div>
-<script type="module">
-  import { bootDice } from '../_engine/dice-engine.js';
-
-  const boot = document.getElementById('boot');
-  try {
-    const engine = await bootDice({ parent: document.getElementById('game') });
-    boot.remove();
-    window.__game = engine;
-    window.dispatchEvent(new CustomEvent('game:ready', { detail: { id: 'lightning-dice' } }));
-  } catch (error) {
-    boot.dataset.error = 'true';
-    boot.textContent = 'Could not start Lightning Dice: ' + error.message;
-    console.error(error);
-  }
-</script>
-</body>
-</html>
+<!DOCTYPE html><html lang=en><head><meta charset=UTF-8/><meta name=viewport content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/><title>Dice - KazikSites</title><link rel=preconnect href=https://fonts.googleapis.com/><link href=https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap rel=stylesheet/>
+<style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#0a0e27;--panel:rgba(16,20,50,0.8);--accent:#a855f7;--green:#22c55e;--red:#ef4444;--gold:#fbbf24;--text:#e2e8f0;--dim:#94a3b8}
+html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
+.game-header{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:var(--panel);border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;z-index:10}
+.game-title{font-size:14px;font-weight:800;display:flex;align-items:center;gap:6px}.game-title .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(34,197,94,.5)}
+.header-balance{font-size:12px;color:var(--dim);text-align:right}.header-balance b{color:var(--gold);font-size:14px}
+#game-wrap{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.game-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;gap:12px;background:radial-gradient(ellipse at 50% 40%,rgba(168,85,247,.06) 0%,transparent 60%)}
+.dice-stage{position:relative;width:160px;height:160px;display:flex;align-items:center;justify-content:center}
+.dc{width:120px;height:120px;border-radius:20px;background:linear-gradient(145deg,#1e293b,#0f172a);border:2px solid rgba(168,85,247,.3);display:flex;align-items:center;justify-content:center;font-size:56px;font-weight:900;color:var(--gold);text-shadow:0 0 30px rgba(251,191,36,.5);box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.1);transition:transform .1s ease-out;position:relative;z-index:2}
+.dc.r{animation:dR .6s ease-out}.dc.w{border-color:#22c55e;box-shadow:0 0 40px rgba(34,197,94,.4)}.dc.l{border-color:#ef4444;box-shadow:0 0 40px rgba(239,68,68,.3)}
+@keyframes dR{0%{transform:rotateX(0) rotateZ(0) scale(1)}25%{transform:rotateX(180deg) rotateZ(90deg) scale(.9)}50%{transform:rotateX(360deg) rotateZ(180deg) scale(1.05)}75%{transform:rotateX(540deg) rotateZ(270deg) scale(.95)}100%{transform:rotateX(720deg) rotateZ(360deg) scale(1)}}
+.rt{font-size:18px;font-weight:800;text-align:center;margin-top:4px;min-height:24px}.rt.w{color:#22c55e}.rt.l{color:#ef4444}
+.mb{position:absolute;top:-12px;right:-12px;background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:99px;box-shadow:0 4px 16px rgba(168,85,247,.4);z-index:3;display:none}.mb.s{display:block;animation:bP .3s ease-out}
+@keyframes bP{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.ss{width:100%;max-width:400px;padding:16px;background:var(--panel);border-radius:16px;border:1px solid rgba(255,255,255,.06)}
+.sl{display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em}
+.st{position:relative;width:100%;height:48px;display:flex;align-items:center}
+input[type=range]{-webkit-appearance:none;width:100%;height:8px;border-radius:99px;background:rgba(255,255,255,.06);outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:linear-gradient(135deg,#a855f7,#7c3aed);border:3px solid var(--bg);box-shadow:0 0 12px rgba(168,85,247,.5);cursor:pointer}
+.sv{position:absolute;right:0;top:50%;transform:translateY(-50%);font-size:20px;font-weight:900;color:#a855f7}
+.wc{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;background:rgba(255,255,255,.03);border-radius:10px;margin-top:8px}
+.wcl{font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.05em}.wcv{font-size:14px;font-weight:800;color:#22c55e}
+.gc{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--panel);border-top:1px solid rgba(255,255,255,.06);flex-shrink:0;z-index:10;flex-wrap:wrap;justify-content:center}
+.bc{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:4px}
+.bc button{width:32px;height:32px;border:none;border-radius:6px;background:rgba(255,255,255,.08);color:#e2e8f0;font-size:16px;font-weight:700;cursor:pointer}.bc button:hover:not(:disabled){background:#a855f7}
+.bv{min-width:70px;text-align:center;font-size:14px;font-weight:700;color:#fbbf24}
+.ab{padding:12px 36px;border:none;border-radius:12px;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;transition:all .15s}
+.ab.rn{background:linear-gradient(135deg,#a855f7,#7c3aed);color:#fff;box-shadow:0 4px 20px rgba(168,85,247,.4)}.ab.rn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 8px 32px rgba(168,85,247,.6)}
+.ab.rl{background:#334155;color:#94a3b8;cursor:not-allowed}
+.qb{display:flex;gap:4px;margin-left:auto}.qbe{padding:6px 12px;border:none;border-radius:8px;font-size:11px;font-weight:700;background:rgba(255,255,255,.06);color:#94a3b8;cursor:pointer;transition:all .15s}.qbe:hover{background:rgba(168,85,247,.2);color:#a855f7}
+.hbar{display:flex;align-items:center;gap:4px;padding:6px 16px;background:rgba(0,0,0,.3);flex-shrink:0;overflow-x:auto;justify-content:flex-end}
+.hit{padding:2px 8px;border-radius:99px;font-size:11px;font-weight:700;white-space:nowrap}.hit.hg{background:rgba(34,197,94,.15);color:#22c55e}.hit.mi{background:rgba(168,85,247,.15);color:#a78bfa}.hit.lo{background:rgba(239,68,68,.15);color:#ef4444}
+.pt{position:absolute;pointer-events:none;border-radius:50%;z-index:100}
+@keyframes pFly{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--px),var(--py)) scale(0)}}
+@media(max-width:640px){.gc{gap:4px;padding:8px}.ab{padding:10px 20px;font-size:13px}.dc{width:90px;height:90px;font-size:40px;border-radius:16px}}
+</style></head><body><div id=game-wrap>
+<div class=game-header><div class=game-title><span class=dot></span>Dice</div><div class=header-balance>Balance: <b id=balance-display>10,000.00</b></div></div>
+<div class=game-main id=main-area>
+<div class=dice-stage><div class=mb id=mult-badge>2.00x</div><div class=dc id=dice-cube>&#127922;</div></div>
+<div class=rt id=result-text></div>
+<div class=ss><div class=sl><span>Roll Under</span><span>Target</span></div><div class=st><input type=range id=target-slider min=5 max=95 value=50/><div class=sv id=target-value>50.00</div></div>
+<div class=wc><span class=wcl>Win Chance</span><span class=wcv id=win-chance>47.50%</span></div></div>
+</div><div class=hbar id=history-bar></div>
+<div class=gc><div class=bc><button onclick=aB(-10)>-</button><span class=bv id=bet-display>10.00</span><button onclick=aB(10)>+</button></div>
+<div class=qb><button class=qbe onclick=sB(5)>5</button><button class=qbe onclick=sB(25)>25</button><button class=qbe onclick=sB(100)>100</button><button class=qbe onclick=sB(500)>500</button></div>
+<button class=ab rn id=roll-btn onclick=rD()>ROLL DICE</button></div></div>
+<script type=module>const S={b:10000,tgt:50,bet:10,r:false,h:[]};const c=document.getElementById('dice-cube'),rt=document.getElementById('result-text'),ts=document.getElementById('target-slider'),tv=document.getElementById('target-value'),wc=document.getElementById('win-chance'),bd=document.getElementById('balance-display'),betd=document.getElementById('bet-display'),rb=document.getElementById('roll-btn'),mb=document.getElementById('mult-badge'),hb=document.getElementById('history-bar');function gM(){return Math.floor(99/S.tgt*100)/100}function gWc(){return S.tgt/100*.99}function U(){bd.textContent=S.b.toFixed(2);betd.textContent=S.bet.toFixed(2);tv.textContent=S.tgt.toFixed(2);const m=gM();wc.textContent=(gWc()*100).toFixed(2)+'%';mb.textContent=m+'x'}window.aB=function(d){if(S.r)return;S.bet=Math.max(1,Math.min(S.b,S.bet+d));U()};window.sB=function(a){if(S.r)return;S.bet=Math.max(1,a);U()};ts.addEventListener('input',()=>{S.tgt=parseInt(ts.value);U()});function sp(x,y,col,n){const a=document.getElementById('main-area');for(let i=0;i<n;i++){const p=document.createElement('div');p.className='pt';const sz=4+Math.random()*8,ag=Math.random()*6.28,di=60+Math.random()*120;p.style.cssText='left:'+x+'px;top:'+y+'px;width:'+sz+'px;height:'+sz+'px;background:'+col+';--px:'+(Math.cos(ag)*di)+'px;--py:'+(Math.sin(ag)*di)+'px;animation:pFly '+(.4+Math.random()*.4)+'s ease-out forwards';a.appendChild(p);setTimeout(function(){p.remove()},900)}}window.rD=async function(){if(S.r)return;S.r=true;rb.textContent='ROLLING...';rb.classList.add('rl');rt.textContent='';rt.className='rt';c.className='dc r';mb.classList.remove('s');const f=['\u2680','\u2681','\u2682','\u2683','\u2684','\u2685'];let fc=0;const fi=setInterval(function(){c.textContent=f[Math.floor(Math.random()*6)];fc++},80);await new Promise(function(r){setTimeout(r,700)});clearInterval(fi);const roll=Math.floor(Math.random()*100)+1;const won=roll<S.tgt;const m=gM();const wa=won?+(S.bet*m).toFixed(2):0;if(won){S.b+=wa-S.bet}else{S.b-=S.bet}c.textContent=f[roll-1]||'\uD83C\uDFB2';if(won){c.className='dc w';rt.textContent='+'+wa.toFixed(2)+' ('+m+'x)';rt.className='rt w';mb.classList.add('s');const rect=c.getBoundingClientRect();const ar=document.getElementById('main-area').getBoundingClientRect();sp(rect.left-ar.left+rect.width/2,rect.top-ar.top+rect.height/2,'#22c55e',25)}else{c.className='dc l';rt.textContent='-'+S.bet.toFixed(2);rt.className='rt l'}S.h.unshift({r:roll,w:won,m:m});if(S.h.length>20)S.h.pop();rh();U();await new Promise(function(r){setTimeout(r,400)});c.className='dc';S.r=false;rb.textContent='ROLL DICE';rb.classList.remove('rl')};function rh(){let h='';for(let i=0;i<S.h.length;i++){const x=S.h[i];const cl=x.w?(x.m>=5?'hg':'mi'):'lo';h+='<div class="hit '+cl+'">'+x.r+(x.w?' \u2713'+x.m+'x':'')+'</div>'}hb.innerHTML=h}U();</script>
+<script type=module>import{setupBotOverlay}from'../_engine/core/bot-overlay.js';try{setupBotOverlay('#game-wrap',{gameName:'lightning-dice',refreshInterval:3000})}catch(e){console.warn('[BotOverlay]',e.message)}</script><script type="module">import{initVFX}from'../_engine/core/vfx.js';import{playSound}from'../_engine/core/audio.js';document.querySelectorAll('#game-wrap button').forEach(function(b){b.addEventListener('click',function(){try{playSound('click')}catch(e){}})});try{initVFX({container:document.getElementById('game-wrap'),intensity:'medium'})}catch(e){console.warn('[VFX]',e.message)}</script></body></html>

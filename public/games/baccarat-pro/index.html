@@ -217,7 +217,6 @@ input[type="number"]{-moz-appearance:textfield}
   <div class="pi"><span class="sy">📊</span><div class="vl">Banker HE <span>1.06%</span></div></div>
   <div class="pi"><span class="sy">📊</span><div class="vl">Tie HE <span>14.36%</span></div></div>
 </div></div>
-<script>
 /* ═══════════════════════════════════════════════════════════
    BACCARAT PRO v3 — PREMIUM BACCARAT
    Config-driven | House Edge: 1.06% (Banker) | RTP: 98.94%
@@ -334,7 +333,22 @@ function renderBCard(card) {
 
 let S = { balance: 10000, betAmount: 10, betType: null, deck: [], playerHand: [], bankerHand: [], gameActive: false, history: [] };
 
-function updateBal() { const e = document.getElementById('bal-display'); e.textContent = '$' + S.balance.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); e.classList.add('pulse'); setTimeout(() => e.classList.remove('pulse'), 500); }
+function updateBal() { const e = document.getElementById('bal-display'); e.textContent = '
+<script type="module">import{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})</script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { setupBotOverlay } from '../_engine/core/bot-overlay.js';
+try { setupBotOverlay('#bg', { gameName: 'baccarat-pro', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
+</body>
+</html> + S.balance.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); e.classList.add('pulse'); setTimeout(() => e.classList.remove('pulse'), 500); }
 function renderHist() { const b = document.getElementById('hist'); b.innerHTML = ''; S.history.slice(0, 20).forEach(h => { const i = document.createElement('div'); i.className = 'hist-dot ' + h.result; b.appendChild(i); }); }
 function renderCards() {
   document.getElementById('player-cards').innerHTML = S.playerHand.map(c => renderBCard(c)).join('');
@@ -443,7 +457,19 @@ function resolveBaccarat() {
       const win = S.betAmount * C.payouts.tie + S.betAmount;
       S.balance += win; updateBal();
       result = t('won') + ' ' + t('tie_result'); cls = 'tie-result'; label = 'T';
-      SND.win(8); showToast(t('won') + ' $' + win.toFixed(2) + ' ' + t('tie_result'), 'g');
+      SND.win(8); showToast(t('won') + ' 
+<script type="module">import{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})</script><script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+/* REMOVED DUPLICATE */
+try { setupBotOverlay('#bg', { gameName: 'baccarat-pro', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
+</body>
+</html> + win.toFixed(2) + ' ' + t('tie_result'), 'g');
     } else {
       S.balance += S.betAmount; updateBal();
       result = t('tie_result'); cls = 'tie-result'; label = 'T';
@@ -454,7 +480,19 @@ function resolveBaccarat() {
       const win = S.betAmount * (C.payouts.player + 1);
       S.balance += win; updateBal();
       result = t('won') + ' ' + t('player_won'); cls = 'player-win'; label = 'P';
-      SND.win(1); showToast(t('won') + ' $' + win.toFixed(2) + ' ' + t('player_won'), 'gr');
+      SND.win(1); showToast(t('won') + ' 
+<script type="module">import{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})</script><script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+/* REMOVED DUPLICATE */
+try { setupBotOverlay('#bg', { gameName: 'baccarat-pro', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
+</body>
+</html> + win.toFixed(2) + ' ' + t('player_won'), 'gr');
     } else {
       result = t('lost'); cls = 'lose';
       SND.lose(); showToast(t('lost') + ' ' + t('player_won'), 'r');
@@ -464,7 +502,19 @@ function resolveBaccarat() {
       const win = S.betAmount * (C.payouts.banker + 1);
       S.balance += win; updateBal();
       result = t('won') + ' ' + t('banker_won'); cls = 'banker-win'; label = 'B';
-      SND.win(1); showToast(t('won') + ' $' + win.toFixed(2) + ' ' + t('banker_won'), 'gr');
+      SND.win(1); showToast(t('won') + ' 
+<script type="module">import{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})</script><script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+/* REMOVED DUPLICATE */
+try { setupBotOverlay('#bg', { gameName: 'baccarat-pro', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
+</body>
+</html> + win.toFixed(2) + ' ' + t('banker_won'), 'gr');
     } else {
       result = t('lost'); cls = 'lose';
       SND.lose(); showToast(t('lost') + ' ' + t('banker_won'), 'r');
@@ -491,6 +541,23 @@ function setupEvents() {
 
 function init() { applyI18n(); updateBal(); renderHist(); setupEvents(); }
 init();
+
+(function() {
+  const s = document.createElement('script');
+/* REMOVED DUPLICATE */
+  s.onload = function() { } catch(e) { console.warn('[BotOverlay]', e.message); }
+  };
+  document.body.appendChild(s);
+})();
+<script type="module">import{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})</script><script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+/* REMOVED DUPLICATE */
+try { setupBotOverlay('#bg', { gameName: 'baccarat-pro', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
 </script>
 </body>
 </html>

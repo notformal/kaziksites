@@ -1,19 +1,22 @@
 /**
  * ═══════════════════════════════════════════════════════════
- * KAZIKSITES PREMIUM DESIGN SYSTEM v4.0
+ * KAZIKSITES PREMIUM DESIGN SYSTEM v5.0 — MASSIVE EXPANSION
  * 
  * Professional casino-grade design system
  * Inspired by Playson, Pragmatic Play, NetEnt standards
  * 
  * Features:
- * - Glassmorphism UI panels
- * - Neon glow effects
- * - Canvas particle systems
- * - Animated gradient backgrounds
- * - Professional typography hierarchy
- * - Micro-interactions and transitions
- * - Mobile-optimized touch targets
- * - Accessibility (WCAG AA contrast)
+ * - Glassmorphism UI panels with backdrop-filter
+ * - Neon glow effects & animated gradients
+ * - Canvas particle systems for win celebrations
+ * - Animated gradient backgrounds with floating orbs
+ * - Professional typography hierarchy (Inter + Poppins)
+ * - Micro-interactions and spring animations
+ * - Mobile-optimized touch targets (min 44px)
+ * - Accessibility (WCAG AA contrast ratios)
+ * - Brand theming tokens (Aurora/Ember/Royale)
+ * - Live player overlay system for bot simulation display
+ * - Premium game wrappers with slot/live/sports variants
  * ═══════════════════════════════════════════════════════════
  */
 
@@ -115,6 +118,40 @@
   --max-width: 540px;
   --header-height: 64px;
   --touch-target-min: 44px;
+}
+
+/* ═══════════════════════════════════════════
+   BRAND THEMING TOKENS
+   ═══════════════════════════════════════════ */
+
+/* Aurora Play — Purple/Gold premium */
+[data-brand="aurora"] {
+  --brand-primary: #a855f7;
+  --brand-secondary: #fbbf24;
+  --brand-gradient: linear-gradient(135deg, #7c3aed, #a855f7, #fbbf24);
+  --brand-glow: 0 0 30px rgba(168, 85, 247, 0.5);
+  --brand-bg-deep: #0f0520;
+  --brand-panel: rgba(124, 58, 237, 0.15);
+}
+
+/* Ember Club — Red/Orange fiery */
+[data-brand="ember"] {
+  --brand-primary: #ef4444;
+  --brand-secondary: #f97316;
+  --brand-gradient: linear-gradient(135deg, #dc2626, #ef4444, #f97316);
+  --brand-glow: 0 0 30px rgba(239, 68, 68, 0.5);
+  --brand-bg-deep: #1a0505;
+  --brand-panel: rgba(239, 68, 68, 0.15);
+}
+
+/* Royale House — Royal Blue/Silver */
+[data-brand="royale"] {
+  --brand-primary: #3b82f6;
+  --brand-secondary: #c0c0c0;
+  --brand-gradient: linear-gradient(135deg, #2563eb, #3b82f6, #94a3b8);
+  --brand-glow: 0 0 30px rgba(59, 130, 246, 0.5);
+  --brand-bg-deep: #050d1a;
+  --brand-panel: rgba(59, 130, 246, 0.15);
 }
 
 /* ═══════════════════════════════════════════

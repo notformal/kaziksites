@@ -1,60 +1,85 @@
-/* Специфика Limbo. Каркас и компоненты — из дизайн-системы. */
+/* ═══ LIMBO Premium Style — Stake/Roobet Level ═══ */
+.stage { min-height: 400px; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
 
-.stage { min-height: 300px; overflow: hidden; }
+/* Animated Background Grid */
+.stage::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(99,102,241,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,.1) 1px, transparent 1px);
+  background-size: 40px 40px; animation: gridMove 20s linear infinite; opacity: .3; pointer-events: none;
+}
+@keyframes gridMove { 0%{transform:translateY(0)} 100%{transform:translateY(40px)} }
 
-/* Ракета набирает высоту вместе с множителем: data-flight ставит игра. */
+/* Multiplier Display — Hero */
+.crashMult {
+  font-size: clamp(3rem,8vw,6rem) !important; font-weight:900 !important; letter-spacing:-.02em;
+  text-shadow: 0 0 20px rgba(99,102,241,.8), 0 0 40px rgba(99,102,241,.5), 0 0 60px rgba(99,102,241,.3) !important;
+  transition: all .3s cubic-bezier(.4,0,.2,1); position:relative; z-index:10;
+}
+.crashMult[data-state="win"] {
+  color:#10b981 !important; text-shadow: 0 0 30px rgba(16,185,129,.9), 0 0 60px rgba(16,185,129,.6) !important;
+  animation: winPulse .6s ease-out;
+}
+.crashMult[data-state="lose"] {
+  color:#ef4444 !important; text-shadow: 0 0 20px rgba(239,68,68,.7), 0 0 40px rgba(239,68,68,.4) !important;
+}
+@keyframes winPulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
+
+/* Rocket Art with Glow */
 .limboArt {
-  position: absolute;
-  right: 8%;
-  bottom: 12%;
-  width: 92px;
-  height: 92px;
-  opacity: 0.75;
-  filter: drop-shadow(0 10px 26px rgb(0 0 0 / 0.55));
-  transition: transform var(--d-slow) var(--ease-out), opacity var(--d-base) linear;
+  position:absolute; right:10%; bottom:15%; width:120px; height:120px; opacity:.9;
+  filter:drop-shadow(0 0 30px rgba(99,102,241,.8));
+  transition:all .8s cubic-bezier(.34,1.56,.64,1); z-index:5;
 }
-.stage[data-flight="up"] .limboArt { transform: translateY(-46px) rotate(-8deg); opacity: 1; }
-.stage[data-flight="down"] .limboArt { transform: translateY(34px) rotate(14deg); opacity: 0.4; }
+.stage[data-flight="up"] .limboArt { transform:translateY(-80px) rotate(-12deg) scale(1.1); opacity:1; filter:drop-shadow(0 0 40px rgba(99,102,241,1)); }
+.stage[data-flight="down"] .limboArt { transform:translateY(60px) rotate(20deg) scale(.8); opacity:.3; filter:drop-shadow(0 0 10px rgba(239,68,68,.5)); }
 
-/* След от разгона — читается как «полёт вверх». */
+/* Flight Trail */
 .stage::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 55%;
-  background: linear-gradient(0deg, var(--c-glow-soft), transparent);
-  opacity: 0;
-  transition: opacity var(--d-base) linear;
-  pointer-events: none;
+  content:''; position:absolute; inset:auto 0 0 50%; height:70%;
+  background:linear-gradient(0deg, rgba(99,102,241,.4) 0%, rgba(139,92,246,.2) 50%, transparent 100%);
+  opacity:0; transition:opacity .6s ease-out; pointer-events:none; clip-path:polygon(40% 0%,60% 0%,80% 100%,20% 100%);
 }
-.stage[data-flight="up"]::after { opacity: 1; }
+.stage[data-flight="up"]::after { opacity:1; animation:trailPulse 1.5s ease-in-out infinite; }
+@keyframes trailPulse { 0%,100%{opacity:.6} 50%{opacity:1} }
 
+/* ─── Odds Panel — Glassmorphism ─── */
 .odds {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--s-2);
-  padding: var(--s-3);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-md);
-  background: var(--c-panel);
-  text-align: center;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:var(--s-2); padding:var(--s-3);
+  border:1px solid rgba(99,102,241,.3); border-radius:16px;
+  background:linear-gradient(135deg,rgba(15,23,42,.8),rgba(30,41,59,.6));
+  backdrop-filter:blur(12px); text-align:center;
+  box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.05);
+  transition:all .3s ease-out;
 }
-.odds .field { justify-items: center; }
+.odds:hover { border-color:rgba(99,102,241,.6); box-shadow:0 8px 32px rgba(99,102,241,.2),inset 0 1px 0 rgba(255,255,255,.1); }
+.odds .field { justify-items:center; }
 .odds input {
-  width: 100%;
-  padding: var(--s-2);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-sm);
-  background: var(--c-base);
-  color: var(--c-text);
-  text-align: center;
-  font: var(--t-value);
+  width:100%; padding:var(--s-3) var(--s-2); border:2px solid rgba(99,102,241,.3); border-radius:var(--r-md);
+  background:rgba(15,23,42,.6); color:var(--c-text); text-align:center; font:var(--t-value); transition:all .2s ease-out;
 }
-.odds input:focus-visible { outline: 2px solid var(--c-primary); outline-offset: -2px; }
+.odds input:focus { border-color:#6366f1; box-shadow:0 0 0 4px rgba(99,102,241,.2); outline:none; }
+.odds input:focus-visible { outline:2px solid var(--c-primary); outline-offset:-2px; }
 
-#sound { padding: var(--s-2) var(--s-3); font-size: 15px; line-height: 1; align-self: center; }
-
-@media (max-width: 620px) {
-  .limboArt { width: 64px; height: 64px; }
-  .odds { grid-template-columns: 1fr; }
+/* ─── Status & Result ─── */
+.crashStatus { font-size:1.1rem; font-weight:600; color:rgba(255,255,255,.8); text-align:center; margin-top:var(--s-3); position:relative; z-index:10; }
+.result {
+  font-size:1.1rem; font-weight:600; padding:var(--s-3) var(--s-4); border-radius:var(--r-lg); text-align:center; margin:var(--s-3) auto; max-width:500px; transition:all .3s ease-out;
 }
+.result[data-state="win"] { background:linear-gradient(135deg,rgba(16,185,129,.2),rgba(16,185,129,.1)); border:1px solid rgba(16,185,129,.4); color:#10b981; box-shadow:0 0 20px rgba(16,185,129,.3); }
+.result[data-state="lose"] { background:linear-gradient(135deg,rgba(239,68,68,.15),rgba(239,68,68,.05)); border:1px solid rgba(239,68,68,.3); color:#ef4444; }
+
+/* ─── Sound Button ─── */
+#sound { padding:var(--s-2) var(--s-3); font-size:18px; line-height:1; align-self:center; background:rgba(99,102,241,.15); border:1px solid rgba(99,102,241,.3); border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; transition:all .2s ease-out; }
+#sound:hover { background:rgba(99,102,241,.3); transform:scale(1.1); }
+
+/* ─── Responsive ─── */
+@media (max-width:768px) { .stage{min-height:320px} .limboArt{width:90px;height:90px;right:5%;bottom:10%} .odds{grid-template-columns:1fr;gap:var(--s-2)} .crashMult{font-size:clamp(2.5rem,10vw,4rem) !important} }
+@media (max-width:480px) { .stage{min-height:280px} .limboArt{width:70px;height:70px} .odds input{padding:var(--s-2);font-size:1rem} }
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important} }
+
+/* ─── Big Win Glow ─── */
+.crashMult[data-state="win"] { animation:bigWinGlow 1s ease-in-out infinite alternate; }
+@keyframes bigWinGlow { from{text-shadow:0 0 30px rgba(16,185,129,.9),0 0 60px rgba(16,185,129,.6)} to{text-shadow:0 0 40px rgba(16,185,129,1),0 0 80px rgba(16,185,129,.8),0 0 120px rgba(16,185,129,.5)} }
+

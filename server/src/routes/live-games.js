@@ -1,10 +1,11 @@
 // ═══════════════════════════════════════════════════════════
-// LIVE GAMES API ROUTES
-// Provides REST API for all 40+ live dealer games
+// LIVE GAMES API ROUTES — Extended with Provider Support
+// Provides REST API for all 40+ live dealer games from 5 providers
 // ═══════════════════════════════════════════════════════════
 
 import { Router } from 'express';
 import { getLiveGamesEngine } from '../live-games/engine.js';
+import { getAllGames, getGameById, getProviderStats } from '../live-games/providers/registry.js';
 
 const router = Router();
 
@@ -14,24 +15,85 @@ router.get('/status', (req, res) => {
   res.json(engine.getStatus());
 });
 
+// ─── GET /api/live-games/providers — NEW: Provider Info & Stats ──
+router.get('/providers', (req, res) => {
+  const engine = getLiveGamesEngine();
+  res.json(engine.getProviderInfo());
+});
+
+// ─── GET /api/live-games/games — NEW: All Games from Registry ──
+router.get('/games', (req, res) => {
+  const allGames = getAllGames();
+  
+  // Optional filters
+  let filtered = allGames;
+  if (req.query.provider) {
+    filtered = filtered.filter(g => g.provider === req.query.provider);
+  }
+  if (req.query.type) {
+    filtered = filtered.filter(g => g.type === req.query.type);
+  }
+  
+  res.json({ 
+    games: filtered,
+    total: filtered.length,
+    providers: Object.keys(getProviderStats()),
+  });
+});
+
+// ─── GET /api/live-games/games/:gameId — NEW: Single Game Info ──
+router.get('/games/:gameId', (req, res) => {
+  const game = getGameById(req.params.gameId);
+  if (!game) {
+    return res.status(404).json({ error: 'Game not found' });
+  }
+  res.json(game);
+});
+
 // ─── GET /api/live-games/tables ──────────────────────────────
 router.get('/tables', (req, res) => {
   const engine = getLiveGamesEngine();
-  res.json({ tables: engine.getTableList() });
+  const tables = engine.getTableList();
+  
+  // Optional filter by provider or type
+  let filtered = tables;
+  if (req.query.provider) {
+    filtered = filtered.filter(t => t.provider === req.query.provider);
+  }
+  if (req.query.type) {
+    filtered = filtered.filter(t => t.gameType === req.query.type);
+  }
+  
+  res.json({ tables: filtered, total: filtered.length });
 });
 
-// ─── POST /api/live-games/tables ─────────────────────────────
+// ─── POST /api/live-games/tables — Enhanced with Provider Support ──
 router.post('/tables', (req, res) => {
   const { gameId, gameType, name, maxPlayers, minBet, maxBet, dealer } = req.body;
   const engine = getLiveGamesEngine();
   
+  // If gameId is provided, use provider registry for configuration
+  if (gameId) {
+    const table = engine.createTable({ gameId });
+    
+    // Apply any overrides from request body
+    if (name) table.name = name;
+    if (maxPlayers) table.maxPlayers = maxPlayers;
+    if (minBet) table.minBet = minBet;
+    if (maxBet) table.maxBet = maxBet;
+    if (dealer) table.dealer = dealer;
+    
+    return res.json({ table });
+  }
+  
+  // Fallback to basic table creation
   const table = engine.createTable({
     gameId,
     gameType,
     name: name || `${gameId} Table`,
     maxPlayers: maxPlayers || 200,
-    minBet: minBet || 0.5,
-    maxBet: maxBet || 10000,
+    minBet: minBet || 50,
+    maxBet: maxBet || 100000,
     dealer,
     engineConfig: req.body.engineConfig || {},
   });

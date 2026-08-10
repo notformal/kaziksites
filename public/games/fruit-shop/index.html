@@ -155,8 +155,7 @@
         <div class="pi"><span class="sy">⭐</span><div class="vl">Scatter <span>Free Spins</span></div></div>
         <div class="pi"><span class="sy">⚡</span><div class="vl">x2 Multiplier <span>FS Bonus</span></div></div>
     </div></div>
-    <script>
-        /* ═══════════════════════════════════════════════════════════
+    /* ═══════════════════════════════════════════════════════════
            FRUIT SHOP v1 — PLAYSON-STYLE SLOT GAME
            Config-driven | House Edge: 4% | RTP: 96%
            Features: 5x3 grid, 10 paylines, Free spins, Gamble feature,
@@ -373,7 +372,22 @@
         // ═══════════════════════════════════════════
         // UI HELPERS
         // ═══════════════════════════════════════════
-        function updateBal(){const e=document.getElementById('bal-display');e.textContent='$'+S.balance.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});e.classList.add('pulse');setTimeout(()=>e.classList.remove('pulse'),500);}
+        function updateBal(){const e=document.getElementById('bal-display');e.textContent='
+<script type="module">import{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})</script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { setupBotOverlay } from '../_engine/core/bot-overlay.js';
+try { setupBotOverlay('#bg', { gameName: 'fruit-shop', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
+</body>
+</html>+S.balance.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});e.classList.add('pulse');setTimeout(()=>e.classList.remove('pulse'),500);}
         function updateStatus(){const dot=document.getElementById('status-dot');const txt=document.getElementById('status-text');if(S.running){dot.className='status-dot green';txt.textContent=t('playing');}else{dot.className='status-dot gold';txt.textContent=t('ready');}}
         function updateRTP(){if(S.totalBet===0){document.getElementById('rtp-display').textContent='RTP: --';return;}const rtp=(S.totalWon/S.totalBet)*100;document.getElementById('rtp-display').textContent='RTP: '+rtp.toFixed(1)+'%';}
         function showToast(m,type='g'){const e=document.createElement('div');e.className='toast '+type;e.textContent=m;document.body.appendChild(e);setTimeout(()=>e.remove(),CFG.anim.toastDuration+500);}
@@ -438,7 +452,19 @@
                         S.balance += totalWin;
                         S.totalWon += totalWin;
                         S.lastWin = totalWin;
-                        showToast(t('won')+' $'+totalWin.toFixed(2),'gr');
+                        showToast(t('won')+' 
+<script type="module">import{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})</script><script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+/* REMOVED DUPLICATE */
+try { setupBotOverlay('#bg', { gameName: 'fruit-shop', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
+</body>
+</html>+totalWin.toFixed(2),'gr');
                         SND.win();
                         
                         // Show win animation
@@ -555,6 +581,23 @@
         // ═══════════════════════════════════════════
         function init(){applyI18n();updateBal();setupEvents();initBg();updateStatus();updateRTP();}
         init();
-    </script>
+
+(function() {
+  const s = document.createElement('script');
+/* REMOVED DUPLICATE */
+  s.onload = function() { } catch(e) { console.warn('[BotOverlay]', e.message); }
+  };
+  document.body.appendChild(s);
+})();
+<script type="module">import{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})</script><script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+/* REMOVED DUPLICATE */
+try { setupBotOverlay('#bg', { gameName: 'fruit-shop', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
 </body>
 </html>

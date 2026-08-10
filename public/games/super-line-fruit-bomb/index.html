@@ -17,8 +17,7 @@
 <body>
 <div id="game"></div>
 <div id="boot">Loading Super Line: Fruit Bomb…</div>
-<script type="module">
-  import { bootSlot } from '../_engine/slot-engine.js';
+import { bootSlot } from '../_engine/slot-engine.js';
 
   const boot = document.getElementById('boot');
   try {
@@ -32,6 +31,22 @@
     boot.textContent = 'Could not start Super Line: Fruit Bomb: ' + error.message;
     console.error(error);
   }
+{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})
+ }
+</script><script type="module"> } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
+
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { setupBotOverlay } from '../_engine/core/bot-overlay.js';
+try { setupBotOverlay('#game', { gameName: 'super-line-fruit-bomb', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
 </script>
 </body>
 </html>

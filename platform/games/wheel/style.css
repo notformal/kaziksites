@@ -1,38 +1,42 @@
-/* Специфика Fortune Wheel: сцена с колесом и указателем. */
+/* ═══ WHEEL Premium — Fortune Spin (Stake/Roobet Level) ═══ */
+.stage { min-height:min(80vw,500px); padding:var(--s-4); position:relative; display:flex; align-items:center; justify-content:center; }
 
-.stage {
-  min-height: min(78vw, 460px);
-  padding: var(--s-4);
+/* ─── Stage Glow Background ─── */
+.stage::before {
+  content:''; position:absolute; inset:0; pointer-events:none; opacity:.2;
+  background:radial-gradient(circle at center,rgba(139,92,246,.3) 0%,transparent 70%); animation:wheelGlow 4s ease-in-out infinite alternate;
 }
+@keyframes wheelGlow { 0%{opacity:.15} 100%{opacity:.3} }
 
+/* ─── Wheel — Premium Neon ─── */
 #wheel {
-  display: block;
-  width: min(74vw, 380px);
-  aspect-ratio: 1;
-  filter: drop-shadow(0 18px 40px rgb(0 0 0 / 0.55));
+  display:block; width:min(74vw,400px); aspect-ratio:1; position:relative; z-index:1;
+  filter:drop-shadow(0 0 30px rgba(139,92,246,.5)) drop-shadow(0 18px 40px rgba(0,0,0,.6));
+  transition:filter .3s ease-out;
 }
+.stage[data-spinning="true"] #wheel { filter:drop-shadow(0 0 50px rgba(139,92,246,.8)) drop-shadow(0 0 80px rgba(139,92,246,.4)); }
 
-/* Указатель поверх колеса — вздрагивает на каждом секторе (класс ставит игра). */
+/* ─── Pointer — Enhanced with Glow ─── */
 .wheelPointer {
-  position: absolute;
-  top: calc(var(--s-2) * -1);
-  left: 50%;
-  width: 54px;
-  height: 54px;
-  transform: translateX(-50%);
-  transform-origin: 50% 20%;
-  filter: drop-shadow(0 6px 14px rgb(0 0 0 / 0.6));
-  z-index: 2;
+  position:absolute; top:calc(var(--s-2)*-1); left:50%; width:54px; height:54px; transform:translateX(-50%);
+  transform-origin:50% 20%; filter:drop-shadow(0 0 15px rgba(244,63,94,.6)) drop-shadow(0 6px 14px rgba(0,0,0,.6)); z-index:2;
 }
-.stage[data-spinning="true"] .wheelPointer { animation: pointerTick 90ms linear infinite; }
+.stage[data-spinning="true"] .wheelPointer { animation:pointerTick 80ms linear infinite; }
+@keyframes pointerTick { 0%,100%{transform:translateX(-50%) rotate(0deg)} 50%{transform:translateX(-50%) rotate(-10deg)} }
 
-@keyframes pointerTick {
-  0%, 100% { transform: translateX(-50%) rotate(0deg); }
-  50% { transform: translateX(-50%) rotate(-7deg); }
-}
+/* ─── Result Display ─── */
+.result { text-align:center; margin-top:var(--s-3); font-size:1.2rem; font-weight:700; position:relative; z-index:1; }
+.result[data-state="win"] { color:#10b981; text-shadow:0 0 20px rgba(16,185,129,.6); }
+.result[data-state="lose"] { color:#f43f5e; text-shadow:0 0 15px rgba(244,63,94,.4); }
 
-#sound { padding: var(--s-2) var(--s-3); font-size: 15px; line-height: 1; align-self: center; }
+/* ─── Sound Button ─── */
+#sound { padding:var(--s-2) var(--s-3); font-size:18px; line-height:1; align-self:center; background:rgba(139,92,246,.15); border:1px solid rgba(139,92,246,.3); border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; transition:all .2s ease-out; }
+#sound:hover { background:rgba(139,92,246,.3); transform:scale(1.1); }
 
-@media (max-width: 620px) {
-  .wheelPointer { width: 40px; height: 40px; }
-}
+/* ─── Responsive ─── */
+@media (max-width:768px) { .stage{min-height:400px} #wheel{width:min(80vw,350px)} .wheelPointer{width:44px;height:44px} }
+@media (max-width:480px) { #wheel{width:min(90vw,280px)} .wheelPointer{width:36px;height:36px} .result{font-size:1rem} }
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important} }
+

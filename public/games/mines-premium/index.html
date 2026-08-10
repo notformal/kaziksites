@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang=en><head><meta charset=UTF-8/><meta name=viewport content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no"/><title>Mines - KazikSites</title><link rel=preconnect href=https://fonts.googleapis.com/><link href=https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap rel=stylesheet/>
+<style>*{margin:0;padding:0;box-sizing:border-box}:root{--bg:#0a0e27;--panel:rgba(16,20,50,0.8);--accent:#ef4444;--green:#22c55e;--red:#ef4444;--gold:#fbbf24;--text:#e2e8f0;--dim:#94a3b8}
+html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
+.game-header{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:var(--panel);border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0;z-index:10}
+.game-title{font-size:14px;font-weight:800;display:flex;align-items:center;gap:6px}.game-title .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(34,197,94,.5)}
+.header-balance{font-size:12px;color:var(--dim);text-align:right}.header-balance b{color:var(--gold);font-size:14px}
+#game-wrap{flex:1;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.game-main{flex:1;display:flex;align-items:center;justify-content:center;padding:8px;gap:8px;background:radial-gradient(ellipse at 50% 50%,rgba(239,68,68,.04) 0%,transparent 60%)}
+.ml{display:flex;gap:12px;width:100%;max-width:600px;height:100%;align-items:center}
+.sp{width:160px;display:flex;flex-direction:column;gap:8px}
+.pb{background:var(--panel);border-radius:14px;padding:12px;border:1px solid rgba(255,255,255,.06)}
+.pl{font-size:10px;color:#94a3b8;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.pv{font-size:16px;font-weight:800;color:#22c55e}
+.md{font-size:22px;font-weight:900;color:#fbbf24;text-align:center;padding:8px;background:rgba(251,191,36,.08);border-radius:10px}
+.ga{flex:1;display:flex;align-items:center;justify-content:center}
+.mg{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:100%;max-width:340px;aspect-ratio:1}
+.ti{background:rgba(255,255,255,.06);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px;cursor:pointer;transition:all .15s;border:2px solid transparent}
+.ti:hover:not(.rv){background:rgba(255,255,255,.1);border-color:rgba(168,85,247,.3);transform:scale(1.03)}
+.ti.rv.sf{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.3);animation:tR .3s ease-out}
+.ti.rv.mn{background:rgba(239,68,68,.15);border-color:rgba(239,68,68,.4);animation:tS .4s ease-out}
+@keyframes tR{from{transform:scale(.8) rotateY(90deg);opacity:0}to{transform:scale(1) rotateY(0);opacity:1}}
+@keyframes tS{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.gc{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--panel);border-top:1px solid rgba(255,255,255,.06);flex-shrink:0;z-index:10;flex-wrap:wrap;justify-content:center}
+.bc{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:4px}
+.bc button{width:32px;height:32px;border:none;border-radius:6px;background:rgba(255,255,255,.08);color:#e2e8f0;font-size:16px;font-weight:700;cursor:pointer}.bc button:hover:not(:disabled){background:var(--accent)}
+.bv{min-width:70px;text-align:center;font-size:14px;font-weight:700;color:#fbbf24}
+.ab{padding:12px 36px;border:none;border-radius:12px;font-size:15px;font-weight:800;text-transform:uppercase;letter-spacing:.08em;cursor:pointer;transition:all .15s}
+.ab.st{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;box-shadow:0 4px 20px rgba(239,68,68,.4)}
+.ab.co{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#000;box-shadow:0 4px 20px rgba(251,191,36,.4);animation:cP .8s ease-in-out infinite}
+@keyframes cP{0%,100%{box-shadow:0 0 20px rgba(251,191,36,.3)}50%{box-shadow:0 0 40px rgba(251,191,36,.6)}}
+.ab:disabled{background:#334155;color:#94a3b8;cursor:not-allowed;animation:none}
+.qb{display:flex;gap:4px;margin-left:auto}.qbe{padding:6px 12px;border:none;border-radius:8px;font-size:11px;font-weight:700;background:rgba(255,255,255,.06);color:#94a3b8;cursor:pointer;transition:all .15s}.qbe:hover{background:rgba(239,68,68,.2);color:#ef4444}
+.mc{display:flex;align-items:center;gap:6px}
+.mn{width:28px;height:28px;border:none;border-radius:6px;background:rgba(239,68,68,.15);color:#ef4444;font-size:14px;font-weight:700;cursor:pointer}
+.mv{font-size:14px;font-weight:800;color:#e2e8f0;min-width:20px;text-align:center}
+@media(max-width:640px){.ml{flex-direction:column}.sp{width:100%;flex-direction:row;flex-wrap:wrap}.pb{flex:1;min-width:80px}}
+</style></head><body><div id=game-wrap>
+<div class=game-header><div class=game-title><span class=dot></span>Mines</div><div class=header-balance>Balance: <b id=balance-display>10,000.00</b></div></div>
+<div class=game-main id=main-area><div class=ml>
+<div class=sp><div class=pb><div class=pl>Mines</div><div style="display:flex;align-items:center;gap:6px;margin-top:4px"><button class=mn onclick=aM(-1)>-</button><span class=mv id=mine-count>3</span><button class=mn onclick=aM(1)>+</button></div></div>
+<div class=pb><div class=pl>Next Win</div><div class=md id=next-mult>1.13x</div></div>
+<div class=pb><div class=pl>Current</div><div class=md id=current-mult style=color:#94a3b8;font-size:16px>-</div></div>
+</div><div class=ga><div class=mg id=mines-grid></div></div>
+</div></div>
+<div class=gc><div class=bc><button onclick=aB(-10)>-</button><span class=bv id=bet-display>10.00</span><button onclick=aB(10)>+</button></div>
+<button class=ab st id=game-btn onclick=sG()>START GAME</button></div></div>
+<script type=module>const S={b:10000,bet:10,ms:3,g:[],rv:false,a:false,rc:0};const ge=document.getElementById('mines-grid');
+function iG(){ge.innerHTML='';for(let i=0;i<25;i++){const t=document.createElement('div');t.className='ti';t.dataset.idx=i;t.textContent="?";t.addEventListener("click",function(){rT(i)});ge.appendChild(t)}}
+function cM(r,m){let mt=1;for(let i=0;i<r;i++)mt*=(25-i)/(25-m-i);return Math.floor(mt*100)/100}
+function pM(){S.g=new Array(25).fill(false);let p=0;while(p<S.ms){const pp=Math.floor(Math.random()*25);if(!S.g[pp]){S.g[pp]=true;p++}}}
+function rT(i){if(!S.a||S.rv[i]||S.g[i])return;S.rv[i]=true;S.rc++;const t=ge.children[i];t.classList.add('rv');if(S.g[i]){t.classList.add('mn');t.textContent='\uD83D\uDCA3';S.a=false;S.g.forEach(function(isM,idx){if(isM){const tt=ge.children[idx];tt.classList.add('rv','mn');tt.textContent='\uD83D\uDCA3'}});document.getElementById('game-btn').textContent='START GAME';document.getElementById('game-btn').className='ab st'}else{t.classList.add('sf');t.textContent='\u2728';const m=cM(S.rc,S.ms);document.getElementById('current-mult').textContent=m+'x';if(S.rc>=25-S.ms)cO()}}
+window.sG=function(){S.a=true;S.rv=new Array(25).fill(false);S.rc=0;pM();iG();document.getElementById('game-btn').textContent='CASHOUT';document.getElementById('game-btn').className='ab co';document.getElementById('current-mult').textContent='1.00x';uNM()};
+window.cO=function(){if(!S.a)return;const m=cM(S.rc,S.ms);const w=S.bet*m;S.b+=w-S.bet;document.getElementById('balance-display').textContent=S.b.toFixed(2);S.a=false;S.g.forEach(function(isM,i){const t=ge.children[i];t.classList.add('rv');if(isM){t.classList.add('mn');t.textContent='\uD83D\uDCA3'}else{t.classList.add('sf');t.textContent='\u2728'}});document.getElementById('game-btn').textContent='START GAME';document.getElementById('game-btn').className='ab st'};
+window.aB=function(d){if(S.a)return;S.bet=Math.max(1,Math.min(S.b,S.bet+d));document.getElementById('bet-display').textContent=S.bet.toFixed(2)};window.aM=function(d){if(S.a)return;S.ms=Math.max(1,Math.min(24,S.ms+d));document.getElementById('mine-count').textContent=S.ms;uNM()};
+function uNM(){const m=cM(1,S.ms);document.getElementById('next-mult').textContent=m+'x'}
+iG();</script>
+<script type=module>import{setupBotOverlay}from'../_engine/core/bot-overlay.js';try{setupBotOverlay('#game-wrap',{gameName:'mines-premium',refreshInterval:3000})}catch(e){console.warn('[BotOverlay]',e.message)}</script><script type="module">import{initVFX}from'../_engine/core/vfx.js';import{playSound}from'../_engine/core/audio.js';document.querySelectorAll('#game-wrap button').forEach(function(b){b.addEventListener('click',function(){try{playSound('click')}catch(e){}})});try{initVFX({container:document.getElementById('game-wrap'),intensity:'medium'})}catch(e){console.warn('[VFX]',e.message)}</script></body></html>

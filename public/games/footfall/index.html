@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<title>FootFall — KazikSites</title>
+<style>@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400..900&family=Poppins:wght@600..900&display=swap");
+:root{--bg:#07071a;--purp:#a855f7;--green:#10b981;--red:#ef4444;--gold:#fbbf24}
+*{margin:0;padding:0;box-sizing:border-box}html,body{width:100%;height:100%;background:var(--bg);font-family:Inter,system-ui,sans-serif;color:#f8fafc;display:flex;align-items:center;justify-content:center}
+#app{max-width:600px;width:95%;display:flex;flex-direction:column;gap:8px;padding:12px}.hdr{display:flex;align-items:center;justify-content:space-between;padding:4px 0}
+.bal{padding:4px 12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:8px;font-size:13px;font-weight:700;color:var(--green)}
+.hdr h1{font-family:Poppins,sans-serif;font-size:20px;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--purp));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.board{width:100%;aspect-ratio:16/9;position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.06);background:#0a0e27}.board canvas{width:100%!important;height:100%!important;display:block}
+.ctrls{display:flex;gap:8px;padding:8px;background:rgba(13,13,43,.6);border-radius:12px;border:1px solid rgba(255,255,255,.05)}.ctrls label{font-size:10px;color:#94a3b8;text-transform:uppercase}
+input[type=number]{width:70px;padding:6px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:6px;color:#fff;font-size:13px;text-align:center}
+.bp{flex:1;padding:10px;border:none;border-radius:8px;font-size:14px;font-weight:800;cursor:pointer;text-transform:uppercase;background:linear-gradient(135deg,var(--green),#059669);color:#fff}.bp.cashout{background:linear-gradient(135deg,var(--gold),#d97706);color:#000}
+.status{text-align:center;font-size:12px;color:#94a3b8;padding:4px 0}.status.win{color:var(--green)}.status.loss{color:var(--red)}
+.hist-bar{display:flex;gap:3px;padding:6px 0;overflow-x:auto;font-size:10px}
+.h-item{padding:2px 7px;border-radius:4px;font-weight:700;white-space:nowrap}.h-item.win{background:rgba(16,185,129,.15);color:var(--green)}
+.h-item.mid{background:rgba(168,85,247,.15);color:#a78bfa}.h-item.loss{background:rgba(239,68,68,.1);color:var(--red)}
+</style></head><body>
+<div id="app"><div class="hdr"><h1>FOOTFALL</h1><div class="bal" id="ff-bal">$10,000.00</div></div>
+<div class="board"><canvas id="ff-canvas"></canvas></div>
+<div class="status" id="ff-status">Place your bet and watch the multiplier climb...</div>
+<div class="hist-bar" id="ff-history-items"><span style="color:#64748b;font-size:10px">History will appear here</span></div>
+<div class="ctrls"><label>Bet</label><input type="number" id="ff-bet" value="10" min="1" max="10000"/><button class="bp" id="ff-action">PLACE BET</button></div>
+</div>
+{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})
+ }
+</script>
+<script type="module"> } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
+
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { setupBotOverlay } from '../_engine/core/bot-overlay.js';
+try { setupBotOverlay('#app', { gameName: 'footfall', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
+</body></html>

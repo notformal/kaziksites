@@ -1,7 +1,74 @@
 import{track}from'./analytics';
 const API=import.meta.env.VITE_API_URL||'/api';
 let active=sessionStorage.getItem('casino_authenticated')==='1';
-async function request(path,options={}){const r=await fetch(`${API}${path}`,{...options,credentials:'include',headers:{'Content-Type':'application/json',...options.headers}});if(r.status===204)return null;const body=await r.json().catch(()=>({error:'invalid_response'}));if(r.status===401){active=false;sessionStorage.removeItem('casino_authenticated')}if(!r.ok)throw new Error(body.error||`request_${r.status}`);return body}
+
+// ═══════════════════════════════════════════
+// REQUEST CACHING — deduplicate identical calls
+// ═══════════════════════════════════════════
+const cache=new Map();
+const CACHE_TTL=5000; // 5s for social/activity, leaderboard, etc.
+function cached(key,fn){
+  const hit=cache.get(key);
+  if(hit&&hit.ts>Date.now()-CACHE_TTL)return Promise.resolve(hit.val);
+  return fn().then(r=>{cache.set(key,{val:r,ts:Date.now()});return r});
+}
+
+// ═══════════════════════════════════════════
+// HTTP CLIENT — timeout + retry + JSON typed
+// ═══════════════════════════════════════════
+const DEFAULT_TIMEOUT=8000; // 8s per request
+const RETRY_MAX=2;          // up to 1 reattempt (not on auth errors)
+
+function jsonParse(body){
+  try{return body.json()}catch{return Promise.resolve({error:'invalid_response'})}
+}
+
+async function request(path,options={}){
+  const timeout=options.timeout??DEFAULT_TIMEOUT;
+  let lastErr;
+  for(let attempt=0;attempt<=RETRY_MAX;attempt++){
+    const ctl=new AbortController();
+    const timer=setTimeout(()=>ctl.abort(),timeout);
+    try{
+      const r=await fetch(`${API}${path}`,{
+        ...options,
+        credentials:'include',
+        headers:{'Content-Type':'application/json',...options.headers},
+        signal:ctl.signal,
+      });
+      clearTimeout(timer);
+
+      if(r.status===204){sessionStorage.clear();return null}
+      const body=await jsonParse(r);
+
+      // 401 — invalidate session globally
+      if(r.status===401){
+        active=false;
+        sessionStorage.removeItem('casino_authenticated');
+        track('auth',{action:'expired',success:false});
+      }
+
+      // Retry on server errors (5xx) and timeouts — NOT on client errors (4xx)
+      if(!r.ok&&(attempt<RETRY_MAX)){
+        const isRetryable=r.status>=500||!r.bodyUsed&&ctl.signal.aborted;
+        if(!isRetryable)throw new Error(body.error||`request_${r.status}`);
+        // Exponential backoff 200ms → 400ms
+        await new Promise(r=>setTimeout(r,200*Math.pow(2,attempt)));
+        lastErr=new Error(body.error||'retry_failed');
+        continue;
+      }
+
+      if(!r.ok)throw new Error(body.error||`request_${r.status}`);
+      return body;
+    }catch(e){
+      clearTimeout(timer);
+      lastErr=e;
+      if(attempt>=RETRY_MAX)break;
+      await new Promise(r=>setTimeout(r,200*Math.pow(2,attempt)));
+    }
+  }
+  throw lastErr;
+}
 export const api={
  register:async data=>{try{const r=await request('/auth/register',{method:'POST',body:JSON.stringify(data)});active=true;sessionStorage.setItem('casino_authenticated','1');track('auth',{action:'register',success:true});return r}catch(e){track('auth',{action:'register',success:false});throw e}},
  login:async data=>{try{const r=await request('/auth/login',{method:'POST',body:JSON.stringify(data)});active=true;sessionStorage.setItem('casino_authenticated','1');track('auth',{action:'login',success:true});return r}catch(e){track('auth',{action:'login',success:false});throw e}},

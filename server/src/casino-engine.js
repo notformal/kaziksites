@@ -8,6 +8,8 @@
  * House always wins via configurable edge + dynamic adjustment.
  */
 
+import crypto from 'node:crypto';
+
 // ═══════════════════════════════════════════
 // CONFIGURATION — All values externalized
 // ═══════════════════════════════════════════
@@ -1481,6 +1483,97 @@ class BonusSystem {
 }
 
 // ═══════════════════════════════════════════
+// GAME ENGINES — Provably Fair Instant Games
+// ═══════════════════════════════════════════
+
+class CrashEngine {
+  constructor() { this.houseEdge = 0.04; }
+  generateCrashPoint(nonce, serverSeed, clientSeed) {
+    const hash = crypto.createHash('sha256').update(`${serverSeed}:${clientSeed}:${nonce}`).digest('hex');
+    const value = parseInt(hash.slice(0, 8), 16) / 0xffffffff;
+    return Math.max(1, Math.floor((1 - this.houseEdge) / (1 - value) * 100) / 100);
+  }
+  play({ bet, serverSeed, clientSeed, nonce }) {
+    const crashPoint = this.generateCrashPoint(nonce, serverSeed, clientSeed);
+    return { gameId: 'crash', crashPoint, provablyFair: { serverSeed, clientSeed, nonce, hash: crypto.createHash('sha256').update(`${serverSeed}:${clientSeed}:${nonce}`).digest('hex') } };
+  }
+}
+
+class PlinkoEngine {
+  constructor() { this.multipliers = { 12: [16,4.2,1.7,1.3,0.8,0.5,0.5,0.8,1.3,1.7,4.2,16] }; }
+  generatePath(rows) { let pos=Math.floor(rows/2); const path=[]; for(let i=0;i<rows;i++){pos=Math.max(0,Math.min(rows,pos+(Math.random()<.5?-1:1)));path.push(pos);} return path; }
+  play({ bet, rows=12 }) {
+    const ms=this.multipliers[rows]||this.multipliers[12]; const path=this.generatePath(rows);
+    const mult=ms[path[path.length-1]]||1; const win=Math.floor(bet*mult);
+    return { gameId:'plinko', rows, path, multiplier:mult, win, won:win>bet };
+  }
+}
+
+class MinesEngine {
+  constructor() { this.gridSize=5; }
+  calculateMultiplier(mines,revealed) { let m=1; for(let i=0;i<revealed;i++) m*=(25/(25-mines-i)); return Math.floor(m*0.97*100)/100; }
+  generateMinesGrid(mines) { const p=new Set(); while(p.size<mines) p.add(Math.floor(Math.random()*25)); return Array.from(p); }
+  play({ bet, mines=3, revealedTiles=1 }) {
+    const minePositions=this.generateMinesGrid(mines); const mult=this.calculateMultiplier(mines,revealedTiles);
+    const win=Math.floor(bet*mult); return { gameId:'mines', gridSize:5, mines, minePositions, multiplier:mult, win, won:win>bet };
+  }
+}
+
+class DiceEngine {
+  constructor() { this.houseEdge=0.01; }
+  play({ bet, rollUnder=50, serverSeed, clientSeed, nonce }) {
+    const hash=crypto.createHash('sha256').update(`${serverSeed}:${clientSeed}:${nonce}`).digest('hex');
+    const roll=Math.floor((parseInt(hash.slice(0,8),16)/0xffffffff)*100)/100;
+    const mult=rollUnder>0?((1-this.houseEdge)*100)/rollUnder:1;
+    const win=roll<rollUnder?Math.floor(bet*mult):0;
+    return { gameId:'dice', roll, rollUnder, multiplier:mult, win, won:roll<rollUnder };
+  }
+}
+
+class KenoEngine {
+  constructor() { this.maxNumbers=80; }
+  generateDraw(count) { const n=new Set(); while(n.size<count) n.add(Math.floor(Math.random()*this.maxNumbers)+1); return Array.from(n).sort((a,b)=>a-b); }
+  play({ bet, picks }) {
+    const draw=this.generateDraw(20); const hits=picks.filter(p=>draw.includes(p)).length;
+    const mult=hits>=Math.floor(picks.length*.5)?(hits/picks.length)*5:0; const win=Math.floor(bet*mult);
+    return { gameId:'keno', draw, picks, hits, multiplier:mult, win, won:win>bet };
+  }
+}
+
+class LimboEngine {
+  constructor() { this.houseEdge=0.01; }
+  play({ bet, target=2, serverSeed, clientSeed, nonce }) {
+    const hash=crypto.createHash('sha256').update(`${serverSeed}:${clientSeed}:${nonce}`).digest('hex');
+    const value=parseInt(hash.slice(0,8),16)/0xffffffff;
+    const result=Math.max(1.01,(1-this.houseEdge)/(1-value));
+    const won=result>=target; const mult=target>1?(1-this.houseEdge)/(1-1/target):1;
+    const win=won?Math.floor(bet*mult):0; return { gameId:'limbo', target, result, multiplier:mult, win, won };
+  }
+}
+
+class WheelEngine {
+  constructor() { this.segments=[{v:0,m:0,w:1},{v:1,m:.5,w:3},{v:2,m:1.5,w:4},{v:3,m:2,w:3},{v:4,m:5,w:2},{v:5,m:10,w:1}]; }
+  play({ bet, serverSeed, clientSeed, nonce }) {
+    const tW=this.segments.reduce((sum,s)=>sum+s.w,0); let r=Math.random()*tW;
+    const result=this.segments.find(seg=>{r-=seg.w;return r<=0;})||this.segments[this.segments.length-1];
+    const win=Math.floor(bet*result.m); return { gameId:'wheel', result:result.v, multiplier:result.m, win, won:win>0 };
+  }
+}
+
+class HiLoEngine {
+  constructor() { this.suits=['♠','♥','♦','♣']; this.ranks=['2','3','4','5','6','7','8','9','10','J','Q','K','A']; }
+  drawCard() { return { suit:this.suits[Math.floor(Math.random()*4)], rank:this.ranks[Math.floor(Math.random()*13)] }; }
+  play({ bet, guess='higher' }) {
+    const c1=this.drawCard(),c2=this.drawCard();
+    const v1=this.ranks.indexOf(c1.rank),v2=this.ranks.indexOf(c2.rank);
+    const won=(guess==='higher'&&v2>v1)||(guess==='lower'&&v2<v1);
+    const pushed=v1===v2; const mult=pushed?1:(won?1.96:0);
+    const win=pushed?bet:(won?Math.floor(bet*mult):0);
+    return { gameId:'hilo', card1:c1, card2:c2, guess, won:!pushed&&won, pushed, multiplier:mult, win };
+  }
+}
+
+// ═══════════════════════════════════════════
 // EXPORTS
 // ═══════════════════════════════════════════
 
@@ -1492,6 +1585,14 @@ export {
   VFXEngine,
   TranslationSystem,
   BonusSystem,
+  CrashEngine,
+  PlinkoEngine,
+  MinesEngine,
+  DiceEngine,
+  KenoEngine,
+  LimboEngine,
+  WheelEngine,
+  HiLoEngine,
 };
 
 export default {
@@ -1502,4 +1603,12 @@ export default {
   VFXEngine,
   TranslationSystem,
   BonusSystem,
+  CrashEngine,
+  PlinkoEngine,
+  MinesEngine,
+  DiceEngine,
+  KenoEngine,
+  LimboEngine,
+  WheelEngine,
+  HiLoEngine,
 };

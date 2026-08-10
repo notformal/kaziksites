@@ -4,6 +4,9 @@
 // ═══════════════════════════════════════════════════════════
 
 import { randomUUID } from 'crypto';
+import { TexasHoldemEngine } from './poker-engine.js';
+import { CashOrCrashEngine } from './cash-or-crash-engine.js';
+import { getAllGames, getGameById, getProviderStats } from './providers/registry.js';
 
 // ─── Utility Functions ────────────────────────────────────────
 function random(min, max) {
@@ -800,8 +803,9 @@ class LiveGameAgentManager {
     agent.lastActivity = Date.now();
     
     if (agent.balance < agent.profile.betRange[0]) {
-      agent.isActive = false;
-      agent.emotionalState = 'offline';
+      // Demo agents: refuel instead of going offline
+      agent.balance = this.randomBalance(profile);
+      agent.emotionalState = 'recharged';
     }
   }
   
@@ -888,6 +892,8 @@ class LiveGamesEngine {
   constructor() {
     this.tables = new Map();
     this.agentManager = new LiveGameAgentManager();
+    
+    // ─── Game Engine Registry (Extended with New Engines) ──────────────
     this.gameEngines = {
       blackjack: BlackjackEngine,
       roulette: RouletteEngine,
@@ -895,36 +901,181 @@ class LiveGamesEngine {
       'three-card-poker': ThreeCardPokerEngine,
       'dragon-tiger': DragonTigerEngine,
       'sic-bo': SicBoEngine,
+      poker: TexasHoldemEngine, // Casino Hold'em / Texas Hold'em
+      crash: CashOrCrashEngine, // Cash or Crash game show
     };
+
+    // ─── Provider-Aware Game Type Mapping ──────────────────────
+    this.providerGameTypes = new Map();
+    const allGames = getAllGames();
+    for (const game of allGames) {
+      if (!this.providerGameTypes.has(game.type)) {
+        this.providerGameTypes.set(game.type, []);
+      }
+      this.providerGameTypes.get(game.type).push({
+        id: game.id,
+        provider: game.provider,
+        variant: game.variant,
+        features: game.features || [],
+      });
+    }
+
     this.status = 'running';
     this.totalRounds = 0;
     this.startSimulation();
   }
   
+  /**
+   * Enhanced table creation with provider-specific configurations
+   */
   createTable(config) {
     const tableId = `table_${randomUUID()}`;
+    
+    // ─── Resolve game config from provider registry if available ──────
+    let resolvedConfig = config;
+    if (config.gameId) {
+      const gameDef = getGameById(config.gameId);
+      if (gameDef) {
+        resolvedConfig = { ...gameDef, ...config };
+        const engineConfig = this._resolveEngineConfig(resolvedConfig);
+        
+        return this._createProviderTable(tableId, gameDef, config, engineConfig);
+      }
+    }
+    
+    // ─── Fallback to basic table creation ──────────────────────
+    return this._createBasicTable(tableId, config);
+  }
+
+  /**
+   * Create a provider-aware table with enhanced configuration
+   */
+  _createProviderTable(tableId, gameDef, overrideConfig, engineConfig) {
+    const engineClass = this.gameEngines[gameDef.type];
+    
+    return {
+      id: tableId,
+      gameId: gameDef.id,
+      gameType: gameDef.type,
+      variant: gameDef.variant || 'standard',
+      provider: gameDef.provider,
+      name: overrideConfig.name || gameDef.name || `${gameDef.id} Table`,
+      dealer: overrideConfig.dealer || this.randomDealer(),
+      maxPlayers: gameDef.maxPlayers || 200,
+      minBet: gameDef.minBet || 50,
+      maxBet: gameDef.maxBet || 100000,
+      status: 'waiting',
+      players: [],
+      history: [],
+      createdAt: Date.now(),
+      features: gameDef.features || [],
+      engine: engineClass ? new engineClass(engineConfig) : null,
+    };
+  }
+
+  /**
+   * Create a basic table without provider configuration
+   */
+  _createBasicTable(tableId, config) {
     const engineClass = this.gameEngines[config.gameType];
     
-    const table = {
+    return {
       id: tableId,
       gameId: config.gameId,
       gameType: config.gameType,
+      variant: config.variant || 'standard',
+      provider: config.provider || null,
       name: config.name || `${config.gameId} Table`,
       dealer: config.dealer || this.randomDealer(),
       maxPlayers: config.maxPlayers || 200,
-      minBet: config.minBet || 0.5,
-      maxBet: config.maxBet || 10000,
+      minBet: config.minBet || 50,
+      maxBet: config.maxBet || 100000,
       status: 'waiting',
       players: [],
       history: [],
       createdAt: Date.now(),
       engine: engineClass ? new engineClass(config.engineConfig) : null,
     };
-    
-    this.tables.set(tableId, table);
-    return table;
   }
-  
+
+  /**
+   * Resolve engine-specific configuration based on game type and features
+   */
+  _resolveEngineConfig(gameDef) {
+    const config = {};
+    
+    if (gameDef.type === 'blackjack') {
+      config.decks = gameDef.decks || 6;
+      if (gameDef.features?.includes('lightningMultipliers')) {
+        config.lightningMultipliers = [2, 3, 4, 5, 8, 10];
+      }
+      if (gameDef.variant === 'infinite') {
+        config.maxHands = Infinity;
+      }
+    }
+    
+    if (gameDef.type === 'roulette') {
+      if (gameDef.features?.includes('lightningNumbers')) {
+        const lc = gameDef.lightningConfig || {};
+        config.lightningNumbers = lc.numbersCount || 5;
+        config.lightningMultipliers = lc.multipliers || [50, 100, 200, 300, 400, 500];
+      }
+      if (gameDef.features?.includes('straightUpJackpot')) {
+        config.progressiveJackpot = true;
+      }
+      if (gameDef.spinDuration) {
+        config.spinDuration = gameDef.spinDuration;
+      }
+    }
+    
+    if (gameDef.type === 'baccarat') {
+      config.decks = gameDef.decks || 8;
+      if (gameDef.features?.includes('lightningMultipliers')) {
+        const lc = gameDef.lightningConfig || {};
+        config.lightningMultipliers = lc.multipliers || [2, 3, 4, 5, 8];
+      }
+      if (gameDef.features?.includes('noCommission')) {
+        config.noCommission = true;
+      }
+    }
+    
+    if (gameDef.type === 'sic-bo') {
+      if (gameDef.features?.includes('lightningBonus')) {
+        config.lightningMultipliers = [10, 25, 50, 100];
+      }
+    }
+
+    return config;
+  }
+
+  /**
+   * Get provider statistics and game listings
+   */
+  getProviderInfo() {
+    const stats = getProviderStats();
+    const allGames = getAllGames();
+    
+    // Count games by type
+    const gamesByType = {};
+    for (const g of allGames) {
+      gamesByType[g.type] = (gamesByType[g.type] || 0) + 1;
+    }
+    
+    return {
+      providers: Object.entries(stats).map(([id, info]) => ({ id, ...info })),
+      totalGames: allGames.length,
+      gamesByType,
+    };
+  }
+
+  /**
+   * Get games available for a specific provider
+   */
+  getProviderGames(providerId) {
+    const allGames = getAllGames();
+    return allGames.filter(g => g.provider === providerId);
+  }
+
   randomDealer() {
     const names = ['Sofia', 'Emma', 'Isabella', 'Mia', 'Charlotte', 'Amelia', 'Harper', 'Evelyn', 'Abigail', 'Emily'];
     const languages = ['EN', 'RU', 'ES', 'PT', 'DE', 'JA', 'KO', 'ZH'];
@@ -1145,6 +1296,22 @@ class LiveGamesEngine {
   
   // Start background simulation loop
   startSimulation() {
+    // Auto-create initial tables for all live game types on startup
+    const initialTables = [
+      { gameId: 'live-blackjack-1', gameType: 'blackjack', name: 'Live Blackjack Table 1', maxPlayers: 50, minBet: 50, maxBet: 500000 },
+      { gameId: 'live-roulette-1', gameType: 'roulette', name: 'Live Roulette Table 1', maxPlayers: 100, minBet: 25, maxBet: 1000000 },
+      { gameId: 'live-baccarat-1', gameType: 'baccarat', name: 'Live Baccarat Table 1', maxPlayers: 50, minBet: 50, maxBet: 500000 },
+      { gameId: 'live-sicbo-1', gameType: 'sicbo', name: 'Live Sic Bo Table 1', maxPlayers: 50, minBet: 25, maxBet: 250000 },
+      { gameId: 'live-dragon-tiger-1', gameType: 'dragon-tiger', name: 'Live Dragon Tiger Table 1', maxPlayers: 50, minBet: 25, maxBet: 250000 },
+      { gameId: 'live-three-card-poker-1', gameType: 'three-card-poker', name: 'Live Three Card Poker Table 1', maxPlayers: 30, minBet: 50, maxBet: 500000 },
+      { gameId: 'crazy-time-table', gameType: 'crazy-time', name: 'Crazy Time', maxPlayers: 200, minBet: 50, maxBet: 1000000 },
+      { gameId: 'monopoly-live-table', gameType: 'monopoly-live', name: 'Monopoly Live', maxPlayers: 200, minBet: 50, maxBet: 1000000 },
+      { gameId: 'dream-catcher-table', gameType: 'dream-catcher', name: 'Dream Catcher', maxPlayers: 200, minBet: 10, maxBet: 500000 },
+    ];
+    for (const t of initialTables) {
+      try { this.createTable(t); } catch(e) { /* skip duplicates */ }
+    }
+
     setInterval(() => {
       for (const [tableId, table] of this.tables) {
         if (table.status === 'completed' || table.status === 'waiting') {

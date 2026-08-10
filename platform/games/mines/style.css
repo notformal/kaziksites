@@ -1,117 +1,86 @@
-/* Только то, что специфично для Nova Mines: поле 5×5, плитки, подсказка
-   следующего множителя и кнопка «забрать». Каркас, HUD, кнопки и эффекты
-   приходят из дизайн-системы (ui-tokens.css + ui-shell.css). */
+/* ═══ MINES Premium — Neon Diamond Grid (Stake/Roobet Level) ═══ */
+.stage { min-height:400px; gap:var(--s-3); align-content:center; }
 
-.stage {
-  min-height: 320px;
-  gap: var(--s-3);
-  align-content: center;
+/* ─── Animated Background Grid ─── */
+.stage::before {
+  content:''; position:absolute; inset:0; pointer-events:none; opacity:.15;
+  background-image:radial-gradient(circle at center,rgba(99,102,241,.3) 1px,transparent 1px);
+  background-size:24px 24px; animation:minesGridPulse 6s ease-in-out infinite alternate;
 }
+@keyframes minesGridPulse { 0%{opacity:.1} 100%{opacity:.25} }
 
-/* Поле 5×5: ширина ограничена, чтобы плитки оставались крупными квадратами. */
+/* ─── 5×5 Grid — Premium Glassmorphism ─── */
 .mgrid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: var(--s-2);
-  width: min(100%, 400px);
-  margin-inline: auto;
+  display:grid; grid-template-columns:repeat(5,1fr); gap:var(--s-2); width:min(100%,420px); margin-inline:auto;
+  padding:var(--s-3); border-radius:20px; position:relative; z-index:1;
 }
 
+/* ─── Tiles — Enhanced with Neon ─── */
 .mgrid button {
-  aspect-ratio: 1;
-  padding: var(--s-1);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-md);
-  background: var(--c-surface);
-  cursor: pointer;
-  transition:
-    transform var(--d-fast) var(--ease-pop),
-    border-color var(--d-fast) var(--ease-out),
-    box-shadow var(--d-base) var(--ease-out),
-    background var(--d-base) var(--ease-out);
+  aspect-ratio:1; padding:var(--s-1); border:2px solid rgba(99,102,241,.2); border-radius:var(--r-md);
+  background:linear-gradient(135deg,rgba(15,23,42,.8),rgba(30,41,59,.6)); backdrop-filter:blur(8px);
+  cursor:pointer; transition:all .2s cubic-bezier(.4,0,.2,1); position:relative; overflow:hidden;
 }
-.mgrid button img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+.mgrid button::before {
+  content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(99,102,241,.1),transparent); opacity:0; transition:opacity .2s ease-out;
 }
+.mgrid button:not(:disabled):hover::before { opacity:1; }
 .mgrid button:not(:disabled):hover {
-  transform: translateY(-2px);
-  border-color: var(--c-primary);
-  box-shadow: var(--e-glow);
+  transform:translateY(-3px) scale(1.05); border-color:#6366f1;
+  box-shadow:0 8px 25px rgba(99,102,241,.3),0 0 15px rgba(99,102,241,.2);
 }
-.mgrid button:focus-visible { outline: 2px solid var(--c-primary); outline-offset: 2px; }
-.mgrid button:disabled { cursor: default; }
+.mgrid button:focus-visible { outline:2px solid var(--c-primary); outline-offset:2px; }
+.mgrid button:disabled { cursor:default; opacity:.7; }
+.mgrid button img { display:block; width:100%; height:100%; pointer-events:none; }
 
-/* Вскрытые плитки: удача светится цветом выигрыша, мина — цветом проигрыша. */
+/* ─── Revealed Tiles — Win/Lose States ─── */
 .mgrid button.safe {
-  border-color: var(--c-win);
-  background: color-mix(in srgb, var(--c-win) 12%, var(--c-surface));
-  box-shadow: 0 0 18px color-mix(in srgb, var(--c-win) 35%, transparent);
+  border-color:#10b981 !important; background:linear-gradient(135deg,rgba(16,185,129,.2),rgba(16,185,129,.08)) !important;
+  box-shadow:0 0 25px rgba(16,185,129,.4),inset 0 0 15px rgba(16,185,129,.2) !important; animation:tileReveal .4s ease-out;
 }
 .mgrid button.mine {
-  border-color: var(--c-loss);
-  background: color-mix(in srgb, var(--c-loss) 16%, var(--c-surface));
-  box-shadow: 0 0 18px color-mix(in srgb, var(--c-loss) 35%, transparent);
+  border-color:#ef4444 !important; background:linear-gradient(135deg,rgba(239,68,68,.25),rgba(239,68,68,.1)) !important;
+  box-shadow:0 0 30px rgba(239,68,68,.5),inset 0 0 20px rgba(239,68,68,.2) !important; animation:tileExplode .5s ease-out;
 }
-.mgrid button.safe img,
-.mgrid button.mine img { animation: tilePop var(--d-base) var(--ease-pop); }
+.mgrid button.safe img,.mgrid button.mine img { animation:tilePop var(--d-base) var(--ease-pop); }
 
-@keyframes tilePop {
-  from { transform: scale(0.4); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
+@keyframes tileReveal { 0%{transform:scale(.7) rotateY(90deg)} 100%{transform:scale(1) rotateY(0)} }
+@keyframes tileExplode { 0%{transform:scale(1)} 30%{transform:scale(1.15)} 100%{transform:scale(1)} }
+@keyframes tilePop { from{transform:scale(.4);opacity:0} to{transform:scale(1);opacity:1} }
 
-/* Подсказка «следующая плитка → множитель» под полем. */
-.nextHint {
-  min-height: 1.3em;
-  margin: 0;
-  font: var(--t-value);
-  font-variant-numeric: tabular-nums;
-  color: var(--c-muted);
-  transition: color var(--d-base) var(--ease-out);
-}
-.nextHint[data-state="win"] { color: var(--c-primary); }
+/* ─── Next Hint — Live Multiplier ─── */
+.nextHint { min-height:1.3em; margin:0; font:var(--t-value); font-variant-numeric:tabular-nums; color:rgba(255,255,255,.8); transition:all .3s ease-out; text-align:center; }
+.nextHint[data-state="win"] { color:#6366f1; text-shadow:0 0 15px rgba(99,102,241,.5); }
 
-/* Панель управления: число мин · ставка · главная кнопка. */
-.controls { grid-template-columns: minmax(90px, 130px) minmax(0, 1fr) minmax(150px, 200px); }
+/* ─── Controls — Premium Layout ─── */
+.controls { grid-template-columns:minmax(90px,130px) minmax(0,1fr) minmax(150px,200px); gap:var(--s-2); }
 
 #mines {
-  width: 100%;
-  padding: var(--s-2);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-sm);
-  background: var(--c-base);
-  color: var(--c-text);
-  font: var(--t-value);
-  text-align: center;
+  width:100%; padding:var(--s-2); border:2px solid rgba(99,102,241,.3); border-radius:var(--r-md);
+  background:rgba(15,23,42,.6); color:var(--c-text); font:var(--t-value); text-align:center; transition:all .2s ease-out;
 }
-#mines:focus-visible { outline: 2px solid var(--c-primary); outline-offset: -2px; }
+#mines:focus { border-color:#6366f1; box-shadow:0 0 0 4px rgba(99,102,241,.2); outline:none; }
+#mines:focus-visible { outline:2px solid var(--c-primary); outline-offset:-2px; }
 
-/* «Забрать» — золотая: читается как выигрыш ещё до нажатия. */
+/* ─── Cashout Button — Gold Premium ─── */
 .btn--cashout {
-  background: var(--c-gold);
-  color: var(--c-on-primary);
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--c-gold) 45%, transparent),
-    0 0 26px color-mix(in srgb, var(--c-gold) 16%, transparent);
+  background:linear-gradient(135deg,#fbbf24,#f59e0b) !important; color:#0f172a !important; font-weight:700 !important;
+  box-shadow:0 0 0 1px rgba(251,191,36,.5),0 8px 30px rgba(251,191,36,.3),0 0 40px rgba(251,191,36,.15) !important;
+  transition:all .2s ease-out !important;
 }
 .btn--cashout:hover:not(:disabled) {
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--c-gold) 60%, transparent),
-    0 0 40px color-mix(in srgb, var(--c-gold) 30%, transparent);
+  transform:translateY(-2px) scale(1.03);
+  box-shadow:0 0 0 1px rgba(251,191,36,.7),0 12px 40px rgba(251,191,36,.4),0 0 60px rgba(251,191,36,.25) !important;
 }
 
-/* Кнопка звука вспомогательная — держим компактной. */
-#sound {
-  padding: var(--s-2) var(--s-3);
-  font-size: 15px;
-  line-height: 1;
-  align-self: center;
-}
+/* ─── Sound Button ─── */
+#sound { padding:var(--s-2) var(--s-3); font-size:18px; line-height:1; align-self:center; background:rgba(99,102,241,.15); border:1px solid rgba(99,102,241,.3); border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; transition:all .2s ease-out; }
+#sound:hover { background:rgba(99,102,241,.3); transform:scale(1.1); }
 
-@media (max-width: 620px) {
-  .controls { grid-template-columns: 1fr; }
-  .mgrid { width: 100%; }
-}
+/* ─── Responsive ─── */
+@media (max-width:768px) { .stage{min-height:360px} .mgrid{width:100%;max-width:360px} .controls{grid-template-columns:1fr} }
+@media (max-width:480px) { .mgrid{max-width:300px;gap:var(--s-1)} #mines{padding:var(--s-2);font-size:1rem} }
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important} }
+

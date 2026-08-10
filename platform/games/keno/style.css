@@ -1,120 +1,44 @@
-/* Только специфика Lucky 80 Keno: табло чисел 1..80, шары розыгрыша и
-   совпадения золотом. Каркас, HUD, кнопки, степпер и эффекты приходят из
-   дизайн-системы (ui-tokens.css + ui-shell.css + theme.generated.css). */
+/* ═══ KENO Premium — Lucky 80 (Stake/Roobet Level) ═══ */
+.stage { display:grid; gap:var(--s-3); align-content:start; justify-items:stretch; padding:var(--s-4); position:relative; }
 
-.stage {
-  display: grid;
-  gap: var(--s-3);
-  align-content: start;
-  justify-items: stretch;
-  padding: var(--s-4);
+/* ─── Animated Background Grid ─── */
+.stage::before {
+  content:''; position:absolute; inset:0; pointer-events:none; opacity:.12;
+  background-image:radial-gradient(circle,rgba(251,191,36,.2) 1px,transparent 1px); background-size:26px 26px; animation:kenoBgPulse 8s ease-in-out infinite alternate;
 }
+@keyframes kenoBgPulse { 0%{opacity:.08} 100%{opacity:.2} }
 
-/* Мягкая эмблема ячейки за табло — глубина сцены без визуального шума. */
-.stage::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: url("art/grid-cell.svg") center / clamp(220px, 55%, 420px) no-repeat;
-  opacity: 0.06;
-  pointer-events: none;
-}
+/* Grid emblem */
+.stage::after { content:""; position:absolute; inset:0; background:url("art/grid-cell.svg") center/clamp(220px,55%,420px) no-repeat; opacity:.06; pointer-events:none; }
 
-/* ---- Строка подсказки и счётчик выбора ---- */
-.kenoBar {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--s-3);
-}
-.kenoBar__hint {
-  font: var(--t-eyebrow);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--c-muted);
-}
-.kenoBar__count {
-  font: var(--t-value);
-  font-variant-numeric: tabular-nums;
-  color: var(--c-primary);
-  transition: color var(--d-base) var(--ease-out);
-}
-.kenoBar__count[data-state="win"] { color: var(--c-gold); }
-.kenoBar__count[data-state="lose"] { color: var(--c-loss); }
+/* ─── Keno Bar ─── */
+.kenoBar { position:relative; z-index:1; display:flex; justify-content:space-between; align-items:baseline; gap:var(--s-3); }
+.kenoBar__hint { font:var(--t-eyebrow); letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.6); }
+.kenoBar__count { font:var(--t-value); font-variant-numeric:tabular-nums; color:#6366f1; transition:all .3s ease-out; }
+.kenoBar__count[data-state="win"] { color:#fbbf24; text-shadow:0 0 15px rgba(251,191,36,.5); }
+.kenoBar__count[data-state="lose"] { color:#ef4444; }
 
-/* ---- Табло 1..80: кнопки — прямые дети #grid ---- */
-.kenoGrid {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: var(--s-2);
-}
+/* ─── Grid 1..80 — Premium Tiles ─── */
+.kenoGrid { position:relative; z-index:1; display:grid; grid-template-columns:repeat(10,1fr); gap:var(--s-2); }
+.kenoGrid button { aspect-ratio:1; min-width:0; padding:0; border:2px solid rgba(99,102,241,.2); border-radius:var(--r-md); background:linear-gradient(135deg,rgba(15,23,42,.8),rgba(30,41,59,.6)); color:rgba(255,255,255,.6); font:700 12px/1 var(--f-mono); cursor:pointer; transition:all .2s cubic-bezier(.4,0,.2,1); }
+.kenoGrid button:hover { border-color:#6366f1; color:#fff; box-shadow:0 0 15px rgba(99,102,241,.2); transform:scale(1.05); }
+.kenoGrid button:active { transform:scale(.94); }
+.kenoGrid button:focus-visible { outline:2px solid var(--c-primary); outline-offset:1px; }
+.kenoGrid button.selected { background:linear-gradient(135deg,#6366f1,#8b5cf6) !important; border-color:#6366f1 !important; color:#fff !important; box-shadow:0 0 20px rgba(99,102,241,.5); }
+.kenoGrid button.drawn { background:url("art/ball-number.svg") center/cover no-repeat var(--c-surface-2); border-color:#8b5cf6; color:#fff; text-shadow:0 1px 2px var(--c-base); animation:kenoPop .4s ease-out; }
+.kenoGrid button.drawn.hit { border-color:#fbbf24 !important; color:#fbbf24 !important; box-shadow:0 0 0 1px #fbbf24,0 0 25px rgba(251,191,36,.6) !important; animation:kenoHit .5s ease-out; }
 
-.kenoGrid button {
-  aspect-ratio: 1;
-  min-width: 0;
-  padding: 0;
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-sm);
-  background: var(--c-surface);
-  color: var(--c-muted);
-  font: 700 12px/1 var(--f-mono);
-  cursor: pointer;
-  transition:
-    background var(--d-fast) var(--ease-out),
-    color var(--d-fast) var(--ease-out),
-    border-color var(--d-fast) var(--ease-out),
-    box-shadow var(--d-base) var(--ease-out),
-    transform var(--d-fast) var(--ease-pop);
-}
-.kenoGrid button:hover { border-color: var(--c-primary); color: var(--c-text); }
-.kenoGrid button:active { transform: scale(0.94); }
-.kenoGrid button:focus-visible { outline: 2px solid var(--c-primary); outline-offset: 1px; }
+@keyframes kenoPop { 0%{transform:scale(.55)} 60%{transform:scale(1.15)} 100%{transform:scale(1)} }
+@keyframes kenoHit { 0%{transform:scale(.7) rotateY(90deg)} 50%{transform:scale(1.2) rotateY(0)} 100%{transform:scale(1)} }
 
-.kenoGrid button.selected {
-  background: var(--c-primary);
-  border-color: var(--c-primary);
-  color: var(--c-on-primary);
-  box-shadow: var(--e-glow);
-}
+/* ─── Sound Button ─── */
+#sound { padding:var(--s-2) var(--s-3); font-size:18px; line-height:1; align-self:center; background:rgba(99,102,241,.15); border:1px solid rgba(99,102,241,.3); border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; transition:all .2s ease-out; }
+#sound:hover { background:rgba(99,102,241,.3); transform:scale(1.1); }
 
-/* Выпавший шар: подложка из art/ball-number.svg и короткий «выпрыг». */
-.kenoGrid button.drawn {
-  background: url("art/ball-number.svg") center / cover no-repeat var(--c-surface-2);
-  border-color: var(--c-secondary);
-  color: var(--c-text);
-  text-shadow: 0 1px 2px var(--c-base);
-  animation: kenoPop var(--d-base) var(--ease-pop);
-}
+/* ─── Responsive ─── */
+@media (max-width:768px) { .stage{padding:var(--s-3)} .kenoGrid{grid-template-columns:repeat(8,1fr);gap:var(--s-1)} .kenoGrid button{font-size:11px} }
+@media (max-width:480px) { .kenoGrid{grid-template-columns:repeat(6,1fr)} }
 
-/* Совпадение — главный момент раунда: золото и свечение. */
-.kenoGrid button.drawn.hit {
-  border-color: var(--c-gold);
-  color: var(--c-gold);
-  box-shadow:
-    0 0 0 1px var(--c-gold),
-    0 0 18px color-mix(in srgb, var(--c-gold) 55%, transparent);
-}
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important} }
 
-@keyframes kenoPop {
-  0% { transform: scale(0.55); }
-  60% { transform: scale(1.12); }
-  100% { transform: scale(1); }
-}
-
-/* Кнопка звука вспомогательная — держим компактной. */
-#sound {
-  padding: var(--s-2) var(--s-3);
-  font-size: 15px;
-  line-height: 1;
-  align-self: center;
-}
-
-@media (max-width: 620px) {
-  .stage { padding: var(--s-3); }
-  .kenoGrid { grid-template-columns: repeat(8, 1fr); gap: var(--s-1); }
-  .kenoGrid button { font-size: 11px; }
-}

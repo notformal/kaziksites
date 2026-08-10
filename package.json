@@ -1,48 +1,51 @@
 {
-  "name": "nova-casino-trilogy",
-  "private": true,
-  "version": "1.0.0",
-  "type": "module",
-  "scripts": {
-    "predev": "npm run sync:vendor",
-    "dev": "vite",
-    "dev:full": "concurrently -k -n API,WEB -c yellow,cyan \"npm start --prefix server\" \"vite --host 127.0.0.1\"",
-    "prebuild": "npm run sync:vendor && npm run build:games",
-    "build": "npm run build:aurora && npm run build:ember && npm run build:royale",
-    "build:aurora": "cross-env VITE_BRAND=aurora vite build --outDir dist/aurora",
-    "build:ember": "cross-env VITE_BRAND=ember vite build --outDir dist/ember",
-    "build:royale": "cross-env VITE_BRAND=royale vite build --outDir dist/royale",
-    "preview": "vite preview",
-    "sync:vendor": "node scripts/sync-vendor.mjs",
-    "verify:dist": "node scripts/verify-dist.mjs",
-    "test": "vitest run && npm test --prefix server",
-    "lint": "eslint src --max-warnings=0",
-    "build:math": "node scripts/build-game-math.mjs",
-    "build:pages": "node scripts/build-game-pages.mjs",
-    "build:games": "npm run build:math && npm run build:dice && npm run build:pages && npm run build:covers",
-    "build:covers": "node scripts/build-covers.mjs",
-    "build:dice": "node scripts/build-dice-math.mjs"
-  },
-  "overrides": {
-    "shell-quote": "^1.10.0"
-  },
-  "dependencies": {
-    "@vitejs/plugin-react": "latest",
-    "lucide-react": "latest",
-    "pixi.js": "^8.19.0",
-    "react": "latest",
-    "react-dom": "latest",
-    "vite": "latest"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.15.0",
-    "concurrently": "^10.0.3",
-    "cross-env": "latest",
-    "eslint": "^9.15.0",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.14",
-    "globals": "^15.12.0",
-    "vitest": "latest"
-  }
+    "name":  "nova-casino-trilogy",
+    "private":  true,
+    "version":  "1.0.0",
+    "type":  "module",
+    "scripts":  {
+                    "predev":  "npm run sync:vendor",
+                    "dev":  "vite",
+                    "dev:full":  "concurrently -k -n API,WEB -c yellow,cyan \"npm start --prefix server\" \"vite --host 127.0.0.1\"",
+                    "prebuild":  "npm run sync:vendor \u0026\u0026 npm run build:games",
+                    "build":  "npm run build:aurora \u0026\u0026 npm run build:ember \u0026\u0026 npm run build:royale",
+                    "build:aurora":  "cross-env VITE_BRAND=aurora vite build --outDir dist/aurora",
+                    "build:ember":  "cross-env VITE_BRAND=ember vite build --outDir dist/ember",
+                    "build:royale":  "cross-env VITE_BRAND=royale vite build --outDir dist/royale",
+                    "preview":  "vite preview",
+                    "sync:vendor":  "node scripts/sync-vendor.mjs",
+                    "verify:dist":  "node scripts/verify-dist.mjs",
+                    "test":  "vitest run \u0026\u0026 npm test --prefix server",
+                    "lint":  "eslint src --max-warnings=0",
+                    "build:math":  "node scripts/build-game-math.mjs",
+                    "build:pages":  "node scripts/build-game-pages.mjs",
+                    "build:games":  "npm run build:math \u0026\u0026 npm run build:dice \u0026\u0026 npm run build:pages \u0026\u0026 npm run build:covers",
+                    "build:covers":  "node scripts/build-covers.mjs",
+                    "build:dice":  "node scripts/build-dice-math.mjs"
+                },
+    "overrides":  {
+                      "shell-quote":  "^1.10.0"
+                  },
+    "dependencies":  {
+                         "@vitejs/plugin-react":  "latest",
+                         "lucide-react":  "latest",
+                         "pixi.js":  "^8.19.0",
+                         "react":  "latest",
+                         "react-dom":  "latest",
+                         "vite":  "latest"
+                     },
+    "devDependencies":  {
+                            "@eslint/js":  "^9.15.0",
+                            "@playwright/test":  "^1.62.1",
+                            "concurrently":  "^10.0.3",
+                            "cross-env":  "latest",
+                            "eslint":  "^9.15.0",
+                            "eslint-plugin-react":  "^7.37.5",
+                            "eslint-plugin-react-hooks":  "^5.2.0",
+                            "eslint-plugin-react-refresh":  "^0.4.14",
+                            "globals":  "^15.12.0",
+                            "playwright":  "^1.62.1",
+                            "vitest":  "latest"
+                        }
 }
+

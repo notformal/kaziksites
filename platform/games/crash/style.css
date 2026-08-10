@@ -1,104 +1,75 @@
-/* Только то, что специфично для Neon Flight: сцена полёта, кривая на канвасе,
-   ракета-маркер и строка статуса. Каркас, кнопки и HUD — из дизайн-системы. */
+/* ═══ CRASH Premium — Neon Flight (Stake/Roobet Level) ═══ */
+.stage { min-height:400px; position:relative; }
 
-.stage { min-height: 320px; }
-
-/* Канвас лежит под содержимым сцены и рисует кривую полёта. */
-.crashCanvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* Тонкая координатная сетка — «приборная панель» полёта, цвет из темы. */
+/* ─── Enhanced Animated Grid ─── */
 .stage::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.22;
-  background-image:
-    linear-gradient(var(--c-line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--c-line) 1px, transparent 1px);
-  background-size: 48px 48px;
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.18;
+  background-image:linear-gradient(rgba(244,63,94,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(244,63,94,.15) 1px,transparent 1px);
+  background-size:48px 48px; animation:crashGridPulse 8s ease-in-out infinite alternate;
 }
+@keyframes crashGridPulse { 0%{opacity:.12} 100%{opacity:.25} }
 
-/* Водяной знак графика в углу — сцена читается как биржевой терминал. */
+/* Graph watermark */
 .stage::after {
-  content: "";
-  position: absolute;
-  top: var(--s-3);
-  left: var(--s-3);
-  width: 46px;
-  height: 46px;
-  pointer-events: none;
-  opacity: 0.4;
-  background: url("art/graph.svg") center / contain no-repeat;
+  content:""; position:absolute; top:var(--s-3); left:var(--s-3); width:46px; height:46px;
+  pointer-events:none; opacity:.35; background:url("art/graph.svg") center/contain no-repeat;
 }
 
-/* Ракета идёт вдоль вершины кривой; позицию задаёт JS через transform. */
+/* ─── Canvas — Flight Chart ─── */
+.crashCanvas { position:absolute; inset:0; width:100%; height:100%; }
+
+/* ─── Rocket with Enhanced Glow ─── */
 .crashRocket {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 44px;
-  height: 44px;
-  pointer-events: none;
-  filter: drop-shadow(0 0 14px var(--c-glow));
-  transition: opacity var(--d-fast) linear;
+  position:absolute; left:0; top:0; width:44px; height:44px; pointer-events:none;
+  filter:drop-shadow(0 0 20px rgba(244,63,94,.9)) drop-shadow(0 0 40px rgba(244,63,94,.5));
+  transition:opacity var(--d-fast) linear; z-index:10;
 }
-.crashRocket[data-visible="false"] { opacity: 0; }
+.crashRocket[data-visible="false"] { opacity:0; }
 
-/* Вспышка пламени в точке краша: один проигрыш анимации на раунд. */
+/* ─── Explosion Effect ─── */
 .crashFlame {
-  position: absolute;
-  width: 64px;
-  height: 64px;
-  margin: -32px 0 0 -32px;
-  pointer-events: none;
-  opacity: 0;
+  position:absolute; width:64px; height:64px; margin:-32px 0 0 -32px; pointer-events:none; opacity:0;
+  filter:drop-shadow(0 0 20px rgba(251,113,133,.8));
 }
-.crashFlame[data-live="true"] { animation: crashPuff var(--d-slow) var(--ease-out) forwards; }
+.crashFlame[data-live="true"] { animation:crashPuff var(--d-slow) var(--ease-out) forwards; }
+@keyframes crashPuff { 0%{opacity:0;scale:.4} 25%{opacity:1} 100%{opacity:0;scale:2} }
 
-@keyframes crashPuff {
-  0% { opacity: 0; scale: 0.4; }
-  25% { opacity: 1; }
-  100% { opacity: 0; scale: 1.7; }
-}
-
-/* Множитель поверх кривой; цвет состояния даёт ui-shell, свечение — тема. */
+/* ─── Multiplier — Hero Element with Neon ─── */
 .crashMult {
-  z-index: 1;
-  text-shadow: 0 0 32px var(--c-glow);
+  z-index:1; font-size:clamp(3rem,8vw,6rem) !important; font-weight:900 !important; letter-spacing:-.02em;
+  text-shadow:0 0 40px rgba(244,63,94,.9),0 0 80px rgba(244,63,94,.6),0 0 120px rgba(244,63,94,.3) !important;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
 }
+.crashMult[data-state="win"] {
+  color:#10b981 !important; text-shadow:0 0 50px rgba(16,185,129,1),0 0 100px rgba(16,185,129,.7) !important;
+  animation:winGlow .8s ease-out;
+}
+.crashMult[data-state="lose"] {
+  color:#f43f5e !important; text-shadow:0 0 30px rgba(244,63,94,.8),0 0 60px rgba(244,63,94,.4) !important;
+  animation:loseShake .4s ease-out;
+}
+@keyframes winGlow { 0%{transform:scale(.9)} 50%{transform:scale(1.2)} 100%{transform:scale(1)} }
+@keyframes loseShake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-8px)} 75%{transform:translateX(8px)} }
 
+/* ─── Status Text ─── */
 .crashStatus {
-  position: absolute;
-  bottom: var(--s-4);
-  width: 100%;
-  text-align: center;
-  color: var(--c-muted);
-  font: var(--t-label);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  z-index: 1;
+  position:absolute; bottom:var(--s-4); width:100%; text-align:center;
+  color:rgba(255,255,255,.8); font-size:1.1rem; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase; z-index:1;
 }
 
-/* Три элемента управления: ставка растягивается, кнопки держат ширину. */
-.controls { grid-template-columns: minmax(0, 1fr) auto auto; }
-.controls .btn { min-width: 140px; }
+/* ─── Controls ─── */
+.controls { grid-template-columns:minmax(0,1fr) auto auto; }
+.controls .btn { min-width:140px; }
 
-/* Кнопка звука вспомогательная — держим компактной. */
-#sound {
-  padding: var(--s-2) var(--s-3);
-  font-size: 15px;
-  line-height: 1;
-  align-self: center;
-}
+/* ─── Sound Button ─── */
+#sound { padding:var(--s-2) var(--s-3); font-size:18px; line-height:1; align-self:center; background:rgba(244,63,94,.15); border:1px solid rgba(244,63,94,.3); border-radius:50%; width:40px; height:40px; display:flex; align-items:center; justify-content:center; transition:all .2s ease-out; }
+#sound:hover { background:rgba(244,63,94,.3); transform:scale(1.1); }
 
-@media (max-width: 620px) {
-  .stage { min-height: 260px; }
-  .controls { grid-template-columns: 1fr; }
-  .crashRocket { width: 34px; height: 34px; }
-}
+/* ─── Responsive ─── */
+@media (max-width:768px) { .stage{min-height:320px} .controls{grid-template-columns:1fr} .crashRocket{width:34px;height:34px} .crashMult{font-size:clamp(2.5rem,10vw,4.5rem) !important} }
+@media (max-width:480px) { .stage{min-height:280px} .crashRocket{width:28px;height:28px} }
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important} }
+

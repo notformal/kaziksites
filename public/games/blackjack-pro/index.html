@@ -208,7 +208,6 @@ input[type="number"]{-moz-appearance:textfield}
   <div class="pi"><span class="sy">📊</span><div class="vl">House Edge <span>0.5%</span></div></div>
   <div class="pi"><span class="sy">🎯</span><div class="vl">6 deck <span>shuffle</span></div></div>
 </div></div>
-<script>
 /* ═══════════════════════════════════════════════════════════
    BLACKJACK PRO v3 — PREMIUM BLACKJACK
    Config-driven | House Edge: 0.5% | RTP: 99.5%
@@ -334,7 +333,22 @@ function renderCard(card, faceDown = false) {
 
 let S = { balance: 10000, betAmount: 10, deck: [], playerHand: [], dealerHand: [], betInPlay: 0, insuranceBet: 0, gameActive: false, history: [] };
 
-function updateBal() { const e = document.getElementById('bal-display'); e.textContent = '$' + S.balance.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); e.classList.add('pulse'); setTimeout(() => e.classList.remove('pulse'), 500); }
+function updateBal() { const e = document.getElementById('bal-display'); e.textContent = '
+<script type="module">import{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})</script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { setupBotOverlay } from '../_engine/core/bot-overlay.js';
+try { setupBotOverlay('#bg', { gameName: 'blackjack-pro', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
+</body>
+</html> + S.balance.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 }); e.classList.add('pulse'); setTimeout(() => e.classList.remove('pulse'), 500); }
 function renderHist() { const b = document.getElementById('hist'); b.innerHTML = ''; S.history.slice(0, 15).forEach(h => { const i = document.createElement('div'); i.className = 'hist-item ' + h.result; i.textContent = h.label; b.appendChild(i); }); }
 function updatePlayerCards() { const el = document.getElementById('player-cards'); el.innerHTML = S.playerHand.map(c => renderCard(c)).join(''); }
 function updateDealerCards(hideSecond = false) { const el = document.getElementById('dealer-cards'); if (hideSecond && S.dealerHand.length > 1) { el.innerHTML = renderCard(S.dealerHand[0]) + renderCard(null, true); } else { el.innerHTML = S.dealerHand.map(c => renderCard(c)).join(''); } }
@@ -433,7 +447,19 @@ function resolveGame() {
       // Dealer has BJ and player doesn't — insurance wins
       const insWin = S.insuranceBet * C.insurancePayout; // insBet × 3
       totalNet += insWin; // insurance bet was already deducted, add winnings
-      showToast(t('insurance_won') + ' $' + insWin.toFixed(2), 'g');
+      showToast(t('insurance_won') + ' 
+<script type="module">import{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})</script><script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+/* REMOVED DUPLICATE */
+try { setupBotOverlay('#bg', { gameName: 'blackjack-pro', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
+</body>
+</html> + insWin.toFixed(2), 'g');
     }
     // If both have BJ (push) or player has BJ — insurance is lost (already deducted)
   }
@@ -443,7 +469,19 @@ function resolveGame() {
     const win = S.betInPlay * C.blackjackPayout; // betInPlay × 2.5 (original bet + 1.5× win)
     totalNet = win;
     result = t('blackjack'); cls = 'blackjack'; label = 'BJ';
-    SND.win(3); showToast(t('won') + ' $' + win.toFixed(2) + ' ' + t('blackjack'), 'g');
+    SND.win(3); showToast(t('won') + ' 
+<script type="module">import{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})</script><script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+/* REMOVED DUPLICATE */
+try { setupBotOverlay('#bg', { gameName: 'blackjack-pro', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
+</body>
+</html> + win.toFixed(2) + ' ' + t('blackjack'), 'g');
   } else if (playerBJ && dealerBJ) {
     // Both blackjack — push on main bet
     result = t('push'); cls = 'push'; label = 'P';
@@ -463,7 +501,19 @@ function resolveGame() {
     const win = S.betInPlay * 2;
     totalNet = win;
     result = t('won'); cls = 'win'; label = 'W';
-    SND.win(1); showToast(t('won') + ' $' + win.toFixed(2), 'gr');
+    SND.win(1); showToast(t('won') + ' 
+<script type="module">import{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})</script><script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+/* REMOVED DUPLICATE */
+try { setupBotOverlay('#bg', { gameName: 'blackjack-pro', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
+</body>
+</html> + win.toFixed(2), 'gr');
   } else if (pv === dv) {
     // Push — bet returned
     totalNet = S.betInPlay;
@@ -495,7 +545,19 @@ function setupEvents() {
     if (insAmt < 1) { showToast('Not enough for insurance', 'r'); return; }
     S.insuranceBet = insAmt; S.balance -= insAmt; updateBal();
     document.getElementById('btn-insure').disabled = true;
-    showToast('Insurance: $' + insAmt.toFixed(2), 'p');
+    showToast('Insurance: 
+<script type="module">import{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})</script><script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+/* REMOVED DUPLICATE */
+try { setupBotOverlay('#bg', { gameName: 'blackjack-pro', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
+</body>
+</html> + insAmt.toFixed(2), 'p');
   });
   document.getElementById('bet-inp').addEventListener('change', e => { let v = parseInt(e.target.value) || C.betMin; v = Math.max(C.betMin, Math.min(C.betMax, v)); e.target.value = v; S.betAmount = v; });
   document.getElementById('btn-half').addEventListener('click', () => { SND.click(); S.betAmount = Math.max(C.betMin, Math.floor(S.betAmount / 2)); document.getElementById('bet-inp').value = S.betAmount; });
@@ -507,6 +569,23 @@ function setupEvents() {
 
 function init() { applyI18n(); updateBal(); renderHist(); setButtons(true); setupEvents(); }
 init();
+
+(function() {
+  const s = document.createElement('script');
+/* REMOVED DUPLICATE */
+  s.onload = function() { } catch(e) { console.warn('[BotOverlay]', e.message); }
+  };
+  document.body.appendChild(s);
+})();
+<script type="module">import{initOverlay} from "../_engine/core/premium-overlay.js";initOverlay({brand:"aurora"})</script><script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+/* REMOVED DUPLICATE */
+try { setupBotOverlay('#bg', { gameName: 'blackjack-pro', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
 </script>
 </body>
 </html>

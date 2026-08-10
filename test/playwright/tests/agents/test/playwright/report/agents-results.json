@@ -1,0 +1,2071 @@
+{
+  "config": {
+    "argv": [
+      "C:\\Program Files\\nodejs\\node.exe",
+      "F:\\Kaziksites\\node_modules\\@playwright\\test\\cli.js",
+      "test",
+      "--list"
+    ],
+    "configFile": "F:\\Kaziksites\\test\\playwright\\tests\\agents\\playwright.config.mjs",
+    "rootDir": "F:/Kaziksites/test/playwright/tests/agents",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "F:/Kaziksites/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {},
+        "id": "agents-lobby",
+        "name": "agents-lobby",
+        "testDir": "F:/Kaziksites/test/playwright/tests/agents",
+        "testIgnore": [],
+        "testMatch": [
+          "**/agent-lobby*"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "F:/Kaziksites/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {},
+        "id": "agents-games",
+        "name": "agents-games",
+        "testDir": "F:/Kaziksites/test/playwright/tests/agents",
+        "testIgnore": [],
+        "testMatch": [
+          "**/agent-games*"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "F:/Kaziksites/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {},
+        "id": "agents-live",
+        "name": "agents-live",
+        "testDir": "F:/Kaziksites/test/playwright/tests/agents",
+        "testIgnore": [],
+        "testMatch": [
+          "**/agent-live*"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "F:/Kaziksites/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {},
+        "id": "agents-ui",
+        "name": "agents-ui",
+        "testDir": "F:/Kaziksites/test/playwright/tests/agents",
+        "testIgnore": [],
+        "testMatch": [
+          "**/agent-ui*"
+        ],
+        "timeout": 60000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "test/playwright/report/agents-html",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "test/playwright/report/agents-results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.62.1",
+    "workers": 4,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "agent-lobby.mjs",
+      "file": "agent-lobby.mjs",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Agent 1 — Lobby & Catalog Smoke Test",
+          "file": "agent-lobby.mjs",
+          "line": 11,
+          "column": 6,
+          "specs": [
+            {
+              "title": "aurora brand loads correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-48c83a76f734e8e59e97",
+              "file": "agent-lobby.mjs",
+              "line": 14,
+              "column": 5
+            },
+            {
+              "title": "aurora search/filter works",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-d132e357d11e89670ad9",
+              "file": "agent-lobby.mjs",
+              "line": 44,
+              "column": 5
+            },
+            {
+              "title": "aurora particle background renders",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-927abb716ddb34c1e040",
+              "file": "agent-lobby.mjs",
+              "line": 66,
+              "column": 5
+            },
+            {
+              "title": "aurora daily reward / spin wheel section",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-53011a6d5aaec83274d4",
+              "file": "agent-lobby.mjs",
+              "line": 74,
+              "column": 5
+            },
+            {
+              "title": "aurora account panel button",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-0462d05b706660f84f0b",
+              "file": "agent-lobby.mjs",
+              "line": 86,
+              "column": 5
+            },
+            {
+              "title": "ember brand loads correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-a7c995451113ca88f992",
+              "file": "agent-lobby.mjs",
+              "line": 14,
+              "column": 5
+            },
+            {
+              "title": "ember search/filter works",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-dab108876e075b9fa779",
+              "file": "agent-lobby.mjs",
+              "line": 44,
+              "column": 5
+            },
+            {
+              "title": "ember particle background renders",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-c0dd03c3a463520b0398",
+              "file": "agent-lobby.mjs",
+              "line": 66,
+              "column": 5
+            },
+            {
+              "title": "ember daily reward / spin wheel section",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-ba9d49d9d4ae5957cd48",
+              "file": "agent-lobby.mjs",
+              "line": 74,
+              "column": 5
+            },
+            {
+              "title": "ember account panel button",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-3b814ff3b70eb54baed7",
+              "file": "agent-lobby.mjs",
+              "line": 86,
+              "column": 5
+            },
+            {
+              "title": "royale brand loads correctly",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-4d79986c518a50b6c26d",
+              "file": "agent-lobby.mjs",
+              "line": 14,
+              "column": 5
+            },
+            {
+              "title": "royale search/filter works",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-0b647706c4f5b5d32e30",
+              "file": "agent-lobby.mjs",
+              "line": 44,
+              "column": 5
+            },
+            {
+              "title": "royale particle background renders",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-a6769f764bf7a458b657",
+              "file": "agent-lobby.mjs",
+              "line": 66,
+              "column": 5
+            },
+            {
+              "title": "royale daily reward / spin wheel section",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-7677bac2dc1e2b023eb3",
+              "file": "agent-lobby.mjs",
+              "line": 74,
+              "column": 5
+            },
+            {
+              "title": "royale account panel button",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-361789168a8885647949",
+              "file": "agent-lobby.mjs",
+              "line": 86,
+              "column": 5
+            },
+            {
+              "title": "Lobby loads without brand (default aurora)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-lobby",
+                  "projectName": "agents-lobby",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "f445f6af297b34ff7f19-c75f195cb4cbb3d3fcf4",
+              "file": "agent-lobby.mjs",
+              "line": 97,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "agent-games.mjs",
+      "file": "agent-games.mjs",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Agent 2 — Game Interaction Tester",
+          "file": "agent-games.mjs",
+          "line": 37,
+          "column": 6,
+          "specs": [
+            {
+              "title": "crash-pro loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-4c6bbcf62fd565405d52",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "mines-premium loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-3adf3c05ae243408c001",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "plinko-master loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-7fb26b7d72ecb7f7616c",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "dice loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-ceccdbc2a1df9729d5d8",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "keno loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-5dee43bcaff0f55a4c71",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "limbo loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-2964ab43877e053320bb",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "wheel loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-6624e4f325dc1f797528",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "hilo loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-81c956c7d00d7ad551c9",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "slots-royal loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-93c643ceefe3b5b6790d",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "cosmic-queen loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-630c3c252a1e27e1dfdb",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "dragons-fortune loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-8a0403014fe5691a9f05",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "pharaohs-treasure loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-9cdf4b5a8bd7a3e01273",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "fruit-shop loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-a8ce105de93dd8d014e6",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "gold-caravan loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-0c0e439450f84ad3c796",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "magic-crystal loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-5a602ffeef63eb7562b5",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "hot-navigator loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-eb296a0fb093e2a58ba7",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "diamond-rush loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-2beecbd9980abc28c883",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "wild-west-gold loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-f95f7598fb71b6bb60a6",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "book-of-gold loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-79cc878b445589395ae6",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "super-line-fruit-bomb loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-29dc6d59dbfc9c0811b3",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "lucky-streak loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-e617f1f616c8a89e549a",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "blackjack-pro loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-03a8f0e8d8bae7750c86",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "baccarat-pro loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-20b95a0fd3c0a4071276",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "roulette-royale loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-a0fe3ee188ad9ddf6ddd",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "crazy-time loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-6f92f612edac8385c4d7",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "monopoly-live loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-c7b5cc6583c790a536a5",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "dream-catcher loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-c1094402956916f50978",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "lightning-blackjack loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-39fdcd6acf9911296647",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "mega-roulette loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-c8055c849abf510638b7",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "speed-baccarat loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-213e9d398b037149eaa6",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "cash-or-crash loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-673e0639a5823af14f1c",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "fishing-tank loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-18c2a85ed4e18a187dd1",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "snow-run loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-1931069d20e078160465",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "duck-race loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-243ab59e490f93cbecf6",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "footfall loads and has interactive controls",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-85e440c7d90c4c50023b",
+              "file": "agent-games.mjs",
+              "line": 40,
+              "column": 5
+            },
+            {
+              "title": "Crash Pro rapid fire",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-2842132f62235e6dbac5",
+              "file": "agent-games.mjs",
+              "line": 73,
+              "column": 3
+            },
+            {
+              "title": "Mines Premium grid interaction",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-games",
+                  "projectName": "agents-games",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "999443df8910985328a4-8bfbd8fa38d4721574c2",
+              "file": "agent-games.mjs",
+              "line": 81,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "agent-live-games.mjs",
+      "file": "agent-live-games.mjs",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Agent 3 — Live Games & Agent Integration",
+          "file": "agent-live-games.mjs",
+          "line": 10,
+          "column": 6,
+          "specs": [
+            {
+              "title": "lightning-blackjack loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-860579fda2198a353456",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "mega-roulette loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-e089f81f048dda9ecaea",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "speed-baccarat loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-3c7bf89df38053e1ef50",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "crazy-time loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-4bd8bfa05eaa8078a112",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "monopoly-live loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-3b6b6d0c14e35359e226",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "dream-catcher loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-607b8d2b21b4de63c84b",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "lightning-roulette loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-7f8cbe60c55a89ebd79e",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "infinite-blackjack loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-6d4b44eb8488acbed4ae",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "auto-roulette loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-adc4751238bc14cbeec4",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "casino-holdem loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-475489a3a7db3a5d34ca",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "three-card-poker loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-1257baba0727e2a077e6",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "power-blackjack loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-2d48f6adee2cd841810b",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "pragmatic-lightning-baccarat loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-d5dca2055a92a52155cc",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "pragmatic-speed-roulette loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-9f77563a7416c9d4a2d4",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "pragmatic-blackjack-vip loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-bf1aff6189c9ae423450",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "pragmatic-super-sic-bo loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-475b26daf8ab3990c74e",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "pragmatic-dragon-tiger-pro loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-37b8294071cfde8e8c4b",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "ezugi-lightning-sic-bo loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-7c3013427bb68151ac9b",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "vivo-blackjack loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-ff6a0eb715873e2aa589",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "vivo-roulette loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-709a2dad9f9e3d74f209",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "vivo-baccarat loads",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-9ec2d21666e62bb93cde",
+              "file": "agent-live-games.mjs",
+              "line": 22,
+              "column": 5
+            },
+            {
+              "title": "Live games API — check bot simulation data",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-live",
+                  "projectName": "agents-live",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "6763ffdbb314dacaacf2-089a459f7c708d42a8e5",
+              "file": "agent-live-games.mjs",
+              "line": 54,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "agent-ui-polish.mjs",
+      "file": "agent-ui-polish.mjs",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "Agent 4 — UI/UX Polish & Design Audit",
+          "file": "agent-ui-polish.mjs",
+          "line": 11,
+          "column": 6,
+          "specs": [
+            {
+              "title": "aurora theme colors are applied",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-781a5e326a59dec719f1",
+              "file": "agent-ui-polish.mjs",
+              "line": 14,
+              "column": 5
+            },
+            {
+              "title": "aurora responsive — mobile viewport",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-395afb23711e8d563ac4",
+              "file": "agent-ui-polish.mjs",
+              "line": 34,
+              "column": 5
+            },
+            {
+              "title": "aurora responsive — tablet viewport",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-85facd6779f9aa8bc0ce",
+              "file": "agent-ui-polish.mjs",
+              "line": 44,
+              "column": 5
+            },
+            {
+              "title": "aurora accessibility — has lang attribute",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-c836228ba86cbcc8f518",
+              "file": "agent-ui-polish.mjs",
+              "line": 52,
+              "column": 5
+            },
+            {
+              "title": "aurora accessibility — images have alt text",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-3cac531128884bfd1e5e",
+              "file": "agent-ui-polish.mjs",
+              "line": 59,
+              "column": 5
+            },
+            {
+              "title": "aurora scroll and filter interaction",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-3dbbf5cf7389664243f7",
+              "file": "agent-ui-polish.mjs",
+              "line": 72,
+              "column": 5
+            },
+            {
+              "title": "ember theme colors are applied",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-b0d39977e9a8ef646140",
+              "file": "agent-ui-polish.mjs",
+              "line": 14,
+              "column": 5
+            },
+            {
+              "title": "ember responsive — mobile viewport",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-5879a16d487676a24eac",
+              "file": "agent-ui-polish.mjs",
+              "line": 34,
+              "column": 5
+            },
+            {
+              "title": "ember responsive — tablet viewport",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-3f96c45490dffab62cf4",
+              "file": "agent-ui-polish.mjs",
+              "line": 44,
+              "column": 5
+            },
+            {
+              "title": "ember accessibility — has lang attribute",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-746f1638059579e1ad19",
+              "file": "agent-ui-polish.mjs",
+              "line": 52,
+              "column": 5
+            },
+            {
+              "title": "ember accessibility — images have alt text",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-3db289f4e8f62d85550d",
+              "file": "agent-ui-polish.mjs",
+              "line": 59,
+              "column": 5
+            },
+            {
+              "title": "ember scroll and filter interaction",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-f5d41d7b3e2571187469",
+              "file": "agent-ui-polish.mjs",
+              "line": 72,
+              "column": 5
+            },
+            {
+              "title": "royale theme colors are applied",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-996e5320deb4e2584ca4",
+              "file": "agent-ui-polish.mjs",
+              "line": 14,
+              "column": 5
+            },
+            {
+              "title": "royale responsive — mobile viewport",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-ac1efbc5fdc8ef257db3",
+              "file": "agent-ui-polish.mjs",
+              "line": 34,
+              "column": 5
+            },
+            {
+              "title": "royale responsive — tablet viewport",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-417ce2494539b6287195",
+              "file": "agent-ui-polish.mjs",
+              "line": 44,
+              "column": 5
+            },
+            {
+              "title": "royale accessibility — has lang attribute",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-63e4a1707ac623f97631",
+              "file": "agent-ui-polish.mjs",
+              "line": 52,
+              "column": 5
+            },
+            {
+              "title": "royale accessibility — images have alt text",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-1a55a3b3809aadba473b",
+              "file": "agent-ui-polish.mjs",
+              "line": 59,
+              "column": 5
+            },
+            {
+              "title": "royale scroll and filter interaction",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-088f185d455a2f4a36ae",
+              "file": "agent-ui-polish.mjs",
+              "line": 72,
+              "column": 5
+            },
+            {
+              "title": "All brands have distinct visual identities",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "agents-ui",
+                  "projectName": "agents-ui",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "01ce88cd905cac832ebc-7e7d40586aacc077bf14",
+              "file": "agent-ui-polish.mjs",
+              "line": 86,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-08-08T13:08:28.335Z",
+    "duration": 139.81800000000004,
+    "expected": 0,
+    "skipped": 94,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

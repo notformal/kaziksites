@@ -1,760 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<meta name="description" content="Crash Pro v4 — Playson-Style Multiplayer Crash Game with Advanced Features">
-<title>Crash Pro v4</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Crash Pro — KazikSites</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@600;700;800;900&display=swap');
-/* ═══════════════════════════════════════════════════════════
-   CRASH PRO v4 — PREMIUM DESIGN SYSTEM
-   Playson-Style | House Edge: 3% | RTP: 97%
-   Glassmorphism • Neon Glow • Animated Backgrounds
-   ═══════════════════════════════════════════════════════════ */
-:root{
-  --bg:#07071a;--sf:#0d0d2b;--sfl:#13133d;
-  --purp:#a855f7;--purp-dark:#7c3aed;--purp-light:#c084fc;
-  --gold:#fbbf24;--gold-dark:#d97706;
-  --green:#10b981;--green-dark:#059669;
-  --red:#ef4444;--red-dark:#dc2626;
-  --blue:#3b82f6;--blue-dark:#2563eb;
-  --cyan:#06b6d4;--pink:#ec4899;
-  --txt:#f8fafc;--tdim:#cbd5e1;--tdim2:#94a3b8;--tdim3:#64748b;
-  --brd:rgba(168,85,247,.25);
-  --r:10px;--rm:14px;--rl:20px;--rxl:24px;
-  --font:'Inter',system-ui,-apple-system,sans-serif;
-  --shadow-glow-purple:0 0 25px rgba(168,85,247,.35),0 0 50px rgba(168,85,247,.15);
-  --shadow-glow-gold:0 0 25px rgba(251,191,36,.35),0 0 50px rgba(251,191,36,.15);
-  --shadow-glow-green:0 0 25px rgba(16,185,129,.35),0 0 50px rgba(16,185,129,.15);
-}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html,body{width:100%;height:100%;overflow-x:hidden;background:var(--bg);font-family:var(--font);color:var(--txt);-webkit-tap-highlight-color:transparent}
+:root{--bg:#0a0e27;--panel:rgba(16,20,50,0.8);--accent:#a855f7;--green:#22c55e;--red:#ef4444;--gold:#fbbf24;--text:#e2e8f0;--dim:#94a3b8}
+html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);overflow:hidden}
+body{display:flex;flex-direction:column}
+#game-wrap{position:relative;width:100%;flex:1;display:flex;flex-direction:column;min-height:0}
 
-/* ── Animated Background ── */
-.bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.bg-orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.12;animation:orbFloat 25s ease-in-out infinite}
-.bg-orb:nth-child(1){width:450px;height:450px;background:var(--purp);top:-15%;left:-10%;animation-delay:0s}
-.bg-orb:nth-child(2){width:380px;height:380px;background:var(--blue);bottom:-12%;right:-8%;animation-delay:-8s}
-.bg-orb:nth-child(3){width:300px;height:300px;background:var(--pink);top:45%;left:55%;animation-delay:-16s}
-@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(40px,-50px) scale(1.08)}50%{transform:translate(-30px,30px) scale(.92)}75%{transform:translate(50px,40px) scale(1.04)}}
-.bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:80px 80px;animation:gridPulse 10s ease-in-out infinite}
-@keyframes gridPulse{0%,100%{opacity:.4}50%{opacity:.9}}
+/* Header Bar */
+.game-header{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:var(--panel);border-bottom:1px solid rgba(255,255,255,0.06);flex-shrink:0;z-index:10}
+.game-title{font-size:14px;font-weight:800;display:flex;align-items:center;gap:6px}
+.game-title .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px rgba(34,197,94,0.5)}
+.header-balance{font-size:12px;color:var(--dim);text-align:right}
+.header-balance b{color:var(--gold);font-size:14px}
 
-#app{width:100%;min-height:100vh;display:flex;flex-direction:column;align-items:center;position:relative;z-index:1;overflow:hidden;padding:10px 8px}
+/* Canvas area */
+#canvas-wrap{flex:1;position:relative;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 120%,rgba(168,85,247,0.06) 0%,transparent 60%),var(--bg);overflow:hidden}
+#crash-canvas{display:block;width:100%;height:100%}
 
-/* ── Header ── */
-.header{width:100%;max-width:540px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;background:rgba(13,13,43,.8);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(255,255,255,.06);border-radius:var(--rxl);flex-shrink:0;transition:all .3s}
-.header:hover{border-color:rgba(168,85,247,.2)}
-.hdr-l{display:flex;align-items:center;gap:12px}
-.logo{font-size:30px;cursor:pointer;filter:drop-shadow(0 0 12px rgba(251,191,36,.5));transition:all .3s cubic-bezier(.34,1.56,.64,1)}
-.logo:hover{transform:scale(1.15) rotate(12deg);filter:drop-shadow(0 0 18px rgba(251,191,36,.7))}
-.ttl{font-family:'Poppins',sans-serif;font-size:16px;font-weight:800;background:linear-gradient(135deg,var(--gold),var(--purp-light));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-.01em}
-.sub{font-size:9px;color:var(--tdim3);letter-spacing:.12em;text-transform:uppercase;margin-top:-1px}
-.bal{display:flex;flex-direction:column;align-items:center;padding:8px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:var(--r);min-width:120px;transition:all .3s}
-.bal:hover{border-color:rgba(168,85,247,.25);background:rgba(255,255,255,.05)}
-.bl{font-size:8px;color:var(--tdim3);text-transform:uppercase;letter-spacing:.1em}
-.bv{font-family:'Poppins',sans-serif;font-size:17px;font-weight:800;color:var(--green);transition:all .4s cubic-bezier(.34,1.56,.64,1)}
-.bv.pulse{animation:bp .5s ease}
-@keyframes bp{0%{transform:scale(1)}50%{transform:scale(1.18);color:var(--gold);text-shadow:0 0 25px rgba(251,191,36,.6)}100%{transform:scale(1)}}
+/* Multiplier Display */
+#multiplier-display{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;z-index:2}
+#mult-value{font-size:clamp(48px,10vw,96px);font-weight:900;line-height:1;text-shadow:0 0 40px currentColor;transition:color .15s}
+#mult-value.running{color:var(--text)}
+#mult-value.crashed{color:var(--red);animation:crashShake .3s ease-out}
+#mult-value.cashed{color:var(--green)}
+@keyframes crashShake{0%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-4px)}100%{transform:translateX(0)}}
+#round-status{font-size:13px;color:var(--dim);margin-top:8px;text-transform:uppercase;letter-spacing:0.1em}
 
-.sm{width:100%;max-width:540px;flex:1;display:flex;flex-direction:column;gap:10px;padding:10px 0;position:relative}
+/* Controls */
+.game-controls{display:flex;align-items:center;gap:8px;padding:10px 16px;background:var(--panel);border-top:1px solid rgba(255,255,255,0.06);flex-shrink:0;z-index:10;flex-wrap:wrap;justify-content:center}
+.bet-control{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:4px}
+.bet-control button{width:32px;height:32px;border:none;border-radius:6px;background:rgba(255,255,255,0.08);color:var(--text);font-size:16px;font-weight:700;cursor:pointer}
+.bet-control button:hover:not(:disabled){background:var(--accent)}
+.bet-value{min-width:70px;text-align:center;font-size:14px;font-weight:700;color:var(--gold)}
+.action-btn{padding:10px 28px;border:none;border-radius:10px;font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;cursor:pointer;transition:all .15s}
+.action-btn.play{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;box-shadow:0 4px 16px rgba(34,197,94,0.3)}
+.action-btn.play:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 24px rgba(34,197,94,0.5)}
+.action-btn.cashout{background:linear-gradient(135deg,var(--gold),var(--accent-gold-dark));color:#000;animation:cashPulse 0.8s ease-in-out infinite}
+@keyframes cashPulse{0%,100%{box-shadow:0 0 20px rgba(251,191,36,0.3)}50%{box-shadow:0 0 40px rgba(251,191,36,0.6)}}
+.action-btn.waiting{background:#334155;color:var(--dim);cursor:not-allowed}
 
-/* ── Graph Area ── */
-.graph-area{width:100%;aspect-ratio:16/9;background:linear-gradient(180deg,rgba(7,7,26,.95) 0%,rgba(13,13,43,.98) 100%);border:1px solid rgba(255,255,255,.06);border-radius:var(--rxl);position:relative;overflow:hidden;min-height:160px;box-shadow:0 8px 32px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.04)}
-.graph-area::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,rgba(168,85,247,.06) 0%,transparent 60%);pointer-events:none}
-.graph-canvas{width:100%;height:100%}
-.crash-point{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);font-family:'Poppins',sans-serif;font-size:52px;font-weight:900;text-shadow:0 0 30px currentColor;z-index:5;letter-spacing:-.02em}
-.crash-point.running{color:var(--green);animation:pulseGlow .6s ease infinite}
-.crash-point.crashed{color:var(--red);animation:crashShake .5s ease}
-.crash-point.cashed{color:var(--gold)}
-@keyframes pulseGlow{0%,100%{opacity:1;transform:translateX(-50%) scale(1)}50%{opacity:.8;transform:translateX(-50%) scale(1.06);text-shadow:0 0 40px currentColor}}
-@keyframes crashShake{0%{transform:translateX(-50%) scale(1)}25%{transform:translateX(-50%) scale(1.2) rotate(-2deg)}50%{transform:translateX(-50%) scale(1.3) rotate(2deg)}75%{transform:translateX(-50%) scale(1.1) rotate(-1deg)}100%{transform:translateX(-50%) scale(1)}}
+/* History bar */
+.history-bar{display:flex;align-items:center;gap:4px;padding:6px 16px;background:rgba(0,0,0,0.3);flex-shrink:0;overflow-x:auto;justify-content:flex-end}
+.history-item{padding:2px 8px;border-radius:99px;font-size:11px;font-weight:700;white-space:nowrap}
+.history-item.high{background:rgba(34,197,94,0.15);color:var(--green)}
+.history-item.mid{background:rgba(168,85,247,0.15);color:#a78bfa}
+.history-item.low{background:rgba(239,68,68,0.15);color:var(--red)}
 
-/* ── History Bar ── */
-.history-bar{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:8px 0}
-.hist-item{padding:5px 12px;border-radius:var(--rm);font-size:12px;font-weight:700;border:1px solid;animation:histIn .3s ease}
-@keyframes histIn{from{opacity:0;transform:translateY(-8px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
-.hist-item.good{background:rgba(16,185,129,.12);color:var(--green);border-color:rgba(16,185,129,.25)}
-.hist-item.bad{background:rgba(239,68,68,.08);color:var(--red);border-color:rgba(239,68,68,.2)}
-.hist-item.gold{background:rgba(251,191,36,.12);color:var(--gold);border-color:rgba(251,191,36,.25)}
-
-/* ── Status Bar ── */
-.status-bar{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;padding:6px 0;font-size:11px;color:var(--tdim3)}
-.status-bar span{display:flex;align-items:center;gap:5px}
-.status-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
-.status-dot.green{background:var(--green);box-shadow:0 0 8px var(--green)}
-.status-dot.red{background:var(--red);box-shadow:0 0 8px var(--red)}
-.status-dot.gold{background:var(--gold);box-shadow:0 0 8px var(--gold)}
-
-/* ── Panels ── */
-.bet-panel,.bet-panel-2{padding:14px;background:rgba(13,13,43,.7);backdrop-filter:blur(20px) saturate(160%);-webkit-backdrop-filter:blur(20px) saturate(160%);border:1px solid rgba(255,255,255,.06);border-radius:var(--rxl);transition:all .3s}
-.bet-panel:hover,.bet-panel-2:hover{border-color:rgba(168,85,247,.15)}
-.bet-title{font-size:10px;color:var(--tdim3);text-transform:uppercase;letter-spacing:.15em;text-align:center;margin-bottom:10px;font-weight:600}
-
-/* ── Inputs ── */
-.bet-row{display:flex;gap:8px;align-items:center;justify-content:center;flex-wrap:wrap;padding:4px 0}
-.bet-inp{width:85px;padding:11px 8px;background:var(--sfl);border:2px solid rgba(255,255,255,.06);border-radius:var(--r);color:var(--gold);font-family:'Poppins',sans-serif;font-size:17px;font-weight:700;text-align:center;transition:all .3s}
-.bet-inp:focus{outline:none;border-color:var(--purp);box-shadow:0 0 0 3px rgba(168,85,247,.15)}
-input[type="number"]::-webkit-inner-spin-button,input[type="number"]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
-input[type="number"]{-moz-appearance:textfield}
-
-/* ── Small Buttons ── */
-.bet-sm{padding:9px 14px;border:1px solid rgba(255,255,255,.08);border-radius:var(--r);background:rgba(255,255,255,.03);color:var(--tdim);font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;min-height:40px}
-.bet-sm:hover{border-color:var(--gold);color:var(--txt);background:rgba(251,191,36,.08);transform:translateY(-1px)}
-.bet-sm:active{transform:translateY(0) scale(.97)}
-.bet-sm.active{border-color:var(--cyan);background:rgba(6,182,212,.12);color:var(--cyan)}
-
-/* ── Toggle Buttons ── */
-.toggle-btn{padding:8px 16px;border:1px solid rgba(255,255,255,.08);border-radius:var(--r);background:rgba(255,255,255,.03);color:var(--tdim2);font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.05em;min-height:40px}
-.toggle-btn:hover{border-color:var(--cyan);color:var(--cyan)}
-.toggle-btn.active{border-color:var(--cyan);background:rgba(6,182,212,.12);color:var(--cyan);box-shadow:0 0 15px rgba(6,182,212,.15)}
-
-/* ── Main Buttons ── */
-.controls{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:6px 0}
-.btn{padding:15px 32px;border:none;border-radius:var(--rm);font-family:'Inter',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .25s cubic-bezier(.4,0,.2,1);text-transform:uppercase;letter-spacing:.08em;min-width:95px;text-align:center;position:relative;overflow:hidden;user-select:none}
-.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.18) 0%,transparent 50%);opacity:0;transition:opacity .2s}
-.btn:hover::before{opacity:1}
-.btn:hover:not(:disabled){transform:translateY(-3px)}
-.btn:active:not(:disabled){transform:translateY(0) scale(.97)}
-.btn:disabled{opacity:.35;cursor:not-allowed;pointer-events:none}
-.btn.primary{background:linear-gradient(135deg,var(--green),var(--green-dark));color:#fff;box-shadow:0 4px 15px rgba(16,185,129,.3)}
-.btn.primary:hover:not(:disabled){box-shadow:0 8px 30px rgba(16,185,129,.4),var(--shadow-glow-green)}
-.btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#000;box-shadow:0 4px 15px rgba(251,191,36,.3)}
-.btn.gold:hover:not(:disabled){box-shadow:0 8px 30px rgba(251,191,36,.4),var(--shadow-glow-gold)}
-.btn.danger{background:linear-gradient(135deg,var(--red),var(--red-dark));color:#fff;box-shadow:0 4px 15px rgba(239,68,68,.25)}
-.btn.danger:hover:not(:disabled){box-shadow:0 8px 30px rgba(239,68,68,.35)}
-.btn.cyan{background:linear-gradient(135deg,var(--cyan),#0891b2);color:#fff;box-shadow:0 4px 15px rgba(6,182,212,.25)}
-.btn.cyan:hover:not(:disabled){box-shadow:0 8px 30px rgba(6,182,212,.35)}
-.btn.purp{background:linear-gradient(135deg,var(--purp),var(--purp-dark));color:#fff;box-shadow:0 4px 15px rgba(168,85,247,.3)}
-.btn.purp:hover:not(:disabled){box-shadow:0 8px 30px rgba(168,85,247,.4),var(--shadow-glow-purple)}
-
-/* ── Toast Notifications ── */
-.toast{position:fixed;top:24px;left:50%;transform:translateX(-50%);padding:14px 28px;border-radius:var(--rm);font-size:15px;font-weight:700;z-index:999;animation:tIn .3s ease,tOut .3s ease 2.5s forwards;white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
-.toast.g{background:rgba(13,13,43,.92);color:var(--gold);border:1px solid var(--gold);box-shadow:0 0 35px rgba(251,191,36,.3),0 8px 32px rgba(0,0,0,.4)}
-.toast.gr{background:rgba(13,13,43,.92);color:var(--green);border:1px solid var(--green);box-shadow:0 0 35px rgba(16,185,129,.3),0 8px 32px rgba(0,0,0,.4)}
-.toast.r{background:rgba(13,13,43,.92);color:var(--red);border:1px solid var(--red);box-shadow:0 0 35px rgba(239,68,68,.3),0 8px 32px rgba(0,0,0,.4)}
-.toast.p{background:rgba(13,13,43,.92);color:var(--purp-light);border:1px solid var(--purp);box-shadow:0 0 35px rgba(168,85,247,.3),0 8px 32px rgba(0,0,0,.4)}
-@keyframes tIn{from{opacity:0;transform:translateX(-50%) translateY(-15px) scale(.95)}to{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}}
-@keyframes tOut{from{opacity:1}to{opacity:0;transform:translateX(-50%) translateY(-15px)}}
-
-/* ── Paytable ── */
-.paytable{max-width:540px;width:100%;background:rgba(13,13,43,.85);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);border:1px solid rgba(255,255,255,.06);border-radius:var(--rxl);overflow:hidden;display:none;animation:pts .3s ease}
-.paytable.show{display:block}
-@keyframes pts{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
-.pth{padding:12px 16px;background:var(--sfl);border-bottom:1px solid rgba(255,255,255,.06);font-weight:700;font-size:13px;color:var(--gold);text-align:center}
-.png{padding:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.pi{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:var(--r);background:rgba(255,255,255,.02);border:1px solid transparent;transition:all .2s}
-.pi:hover{border-color:rgba(168,85,247,.2);background:rgba(255,255,255,.04)}
-.pi .sy{font-size:22px}
-.pi .vl{font-size:10px;color:var(--tdim2)}
-.pi .vl span{color:var(--gold);font-weight:700}
-
-.progress-bar{width:100%;height:4px;background:var(--sfl);border-radius:2px;overflow:hidden;margin-top:6px}
-.progress-bar .fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--gold));transition:width .3s;border-radius:2px}
-
-@media(max-width:400px){
-  .crash-point{font-size:34px}
-  .btn{padding:13px 22px;font-size:12px;min-width:80px}
-  .bet-inp{width:70px;font-size:15px}
-  .header{padding:10px 12px}
-  .ttl{font-size:14px}
-}
-@media(min-width:768px){
-  .crash-point{font-size:60px}
-  #app{padding:16px}
-}
+/* Responsive */
+@media(max-width:640px){.game-controls{gap:4px;padding:8px 8px}.action-btn{padding:8px 16px;font-size:12px}.bet-control{padding:2px}}
 </style>
 </head>
 <body>
-<div class="bg" id="bg"></div>
-<div id="app">
-  <div class="header">
-    <div class="hdr-l"><span class="logo" id="logo-btn" role="button" tabindex="0" aria-label="Paytable">🚀</span><div><div class="ttl" id="gt">CRASH PRO v4</div><div class="sub" data-i18n="subtitle">Playson-Style Crash Game</div></div></div>
-    <div class="bal"><div class="bl" data-i18n="balance">Balance</div><div class="bv" id="bal-display">$10,000</div></div>
+
+<div id="game-wrap">
+  <div class="game-header">
+    <div class="game-title"><span class="dot"></span>Crash Pro</div>
+    <div class="header-balance">Balance: <b id="balance-display">10,000.00</b></div>
   </div>
-  <div class="sm">
-    <div class="history-bar" id="hist"></div>
-    <div class="graph-area" id="graph-area">
-      <canvas class="graph-canvas" id="graph-canvas"></canvas>
-      <div class="crash-point running" id="crash-point">1.00×</div>
+
+  <div id="canvas-wrap">
+    <canvas id="crash-canvas"></canvas>
+    <div id="multiplier-display">
+      <div id="mult-value" class="running">1.00x</div>
+      <div id="round-status">Next round in 5s</div>
     </div>
-    <div class="status-bar" id="status-bar">
-      <span><span class="status-dot green" id="status-dot"></span> <span id="status-text">Ready</span></span>
-      <span id="rtp-display">RTP: --</span>
-      <span id="house-edge-display">HE: 3%</span>
+  </div>
+
+  <div class="history-bar" id="history-bar"></div>
+
+  <div class="game-controls">
+    <div class="bet-control">
+      <button onclick="adjustBet(-10)">-</button>
+      <span class="bet-value" id="bet-display"></span>
+      <button onclick="adjustBet(10)">+</button>
     </div>
-    <div class="bet-panel">
-      <div class="bet-title" data-i18n="bet_amount">Bet Amount</div>
-      <div class="bet-row">
-        <input type="number" class="bet-inp" id="bet-inp" value="10" min="1" max="1000" step="1" aria-label="Bet amount">
-        <button class="bet-sm" id="btn-half" data-i18n="half">½</button>
-        <button class="bet-sm" id="btn-double" data-i18n="double">2×</button>
-        <button class="bet-sm" id="btn-max" data-i18n="max">MAX</button>
-        <button class="bet-sm" id="btn-min" data-i18n="min">MIN</button>
-      </div>
-    </div>
-    <div class="bet-panel-2">
-      <div class="bet-title" data-i18n="auto_cashout">Auto Cashout</div>
-      <div class="bet-row">
-        <input type="number" class="bet-inp" id="auto-cashout" value="2.0" min="1.1" max="1000" step="0.1" aria-label="Auto cashout multiplier">
-        <button class="toggle-btn" id="btn-auto-toggle" data-i18n="enable">ENABLE</button>
-      </div>
-    </div>
-    <div class="bet-panel-2">
-      <div class="bet-title" data-i18n="turbo_mode">Turbo Mode</div>
-      <div class="bet-row">
-        <button class="toggle-btn" id="btn-turbo-toggle" data-i18n="disable">DISABLE</button>
-        <span style="font-size:11px;color:var(--tdim)" data-i18n="turbo_desc">2× faster rounds</span>
-      </div>
-    </div>
-    <div class="bet-panel-2">
-      <div class="bet-title" data-i18n="auto_play">Auto Play</div>
-      <div class="bet-row">
-        <input type="number" class="bet-inp" id="auto-rounds" value="10" min="10" max="500" step="10" aria-label="Auto play rounds">
-        <button class="toggle-btn" id="btn-auto-play-toggle" data-i18n="disable">DISABLE</button>
-      </div>
-      <div class="toggle-row" id="auto-settings" style="display:none">
-        <button class="toggle-btn" id="btn-stop-win" data-i18n="stop_win">STOP ON WIN</button>
-        <button class="toggle-btn" id="btn-stop-loss" data-i18n="stop_loss">STOP ON LOSS</button>
-        <button class="toggle-btn active" id="btn-progression" data-prog="flat">FLAT</button>
-        <button class="toggle-btn" id="btn-progression-mart" data-prog="martingale">MART.</button>
-      </div>
-    </div>
-    <div class="controls">
-      <button class="btn primary" id="btn-bet" data-i18n-attr="text:bet">🚀 BET</button>
-      <button class="btn gold" id="btn-cashout" data-i18n-attr="text:cashout" disabled>💰 CASHOUT</button>
-    </div>
+    <button class="action-btn play" id="action-btn" onclick="handleAction()">Place Bet</button>
   </div>
 </div>
-<div class="paytable" id="paytable"><div class="pth" data-i18n="paytable_title">🚀 CRASH PRO v4 — How It Works</div><div class="png">
-  <div class="pi"><span class="sy">📈</span><div class="vl">Multiplier <span>grows</span></div></div>
-  <div class="pi"><span class="sy">💰</span><div class="vl"><span>Cashout</span> before crash</div></div>
-  <div class="pi"><span class="sy">💥</span><div class="vl"><span>Crash</span> = lose bet</div></div>
-  <div class="pi"><span class="sy">⚡</span><div class="vl">Auto <span>cashout</span> set</div></div>
-  <div class="pi"><span class="sy">📊</span><div class="vl">History <span>tracking</span></div></div>
-  <div class="pi"><span class="sy">🎯</span><div class="vl">House Edge <span>3%</span></div></div>
-  <div class="pi"><span class="sy">🔥</span><div class="vl"><span>Turbo</span> mode 2×</div></div>
-  <div class="pi"><span class="sy">🤖</span><div class="vl"><span>Auto play</span> up to 500</div></div>
-  <div class="pi"><span class="sy">📈</span><div class="vl"><span>Martingale</span> progression</div></div>
-</div></div>
-<script>
-/* ═══════════════════════════════════════════════════════════
-   CRASH PRO v4 — PLAYSON-STYLE MULTIPLAYER CRASH GAME
-   Config-driven | House Edge: 3% | RTP: 97%
-   Features: Dual bet, Auto cashout, Turbo mode, Auto play,
-   Martingale progression, History, Provably fair
-   ═══════════════════════════════════════════════════════════ */
-const CFG = Object.freeze({
-  id:'crash-pro',version:'4.0.0',name:'Crash Pro',
-  houseEdge:0.03,rtp:0.97,
-  betMin:1,betMax:1000,betSteps:[1,2,5,10,20,50,100,200,500,1000],
-  minCashout:1.1,maxCashout:1000,defaultCashout:2.0,
-  crashCurve:{base:0.97,volatility:0.5,maxMultiplier:1000},
-  anim:{tickInterval:50,tickIntervalTurbo:25,toastDuration:2500},
-  sound:{enabled:true,masterVolume:0.5},
-  defaultLang:'en',supportedLangs:['en','es','fr','de','jp','ru','zh','ko','pt','ar'],
-  historyMax:50,autoPlayMaxRounds:500,
-  particleColors:['#ffd700','#ff6b9d','#a855f7','#00e5ff','#00e676'],
-  gradientColors:['#0a0a1a','#1a1a3e','#16213e','#533483']
-});
 
-const I18N = Object.freeze({
-  en:{subtitle:'Playson-Style Crash Game',balance:'Balance',bet_amount:'Bet Amount',auto_cashout:'Auto Cashout',turbo_mode:'Turbo Mode',auto_play:'Auto Play',paytable_title:'🚀 CRASH PRO v4 — How It Works',bet:'🚀 BET',cashout:'💰 CASHOUT',not_enough:'Not enough balance!',won:'You won!',lost:'Crashed! You lost',auto_crash:'Auto cashout at {multiplier}×',playing:'Multiplier growing...',history:'Crash History',half:'½',double:'2×',max:'MAX',min:'MIN',enable:'ENABLE',disable:'DISABLE',turbo_desc:'2× faster rounds',stop_win:'STOP ON WIN',stop_loss:'STOP ON LOSS',ready:'Ready',round:'Round',big_win:'🎉 BIG WIN! 🎉',jackpot:'🎰 JACKPOT! 🎰'},
-  es:{subtitle:'Juego de Multiplicador Playson',balance:'Saldo',bet_amount:'Cantidad de Apuesta',auto_cashout:'Auto Retiro',turbo_mode:'Modo Turbo',auto_play:'Juego Auto',paytable_title:'🚀 CRASH PRO v4 — Cómo Funciona',bet:'🚀 APOSTAR',cashout:'💰 RETIRAR',not_enough:'¡Saldo insuficiente!',won:'¡Ganaste!',lost:'¡Aplastado!',auto_crash:'Auto retiro a {multiplier}×',playing:'Multiplicador creciendo...',history:'Historial',half:'½',double:'2×',max:'MAX',min:'MIN',enable:'ACTIVAR',disable:'DESACTIVAR',turbo_desc:'Rondas 2× más rápido',stop_win:'PARAR AL GANAR',stop_loss:'PARAR AL PERDER',ready:'Listo',round:'Ronda',big_win:'🎉 ¡GRAN VICTORIA! 🎉',jackpot:'🎰 ¡JACKPOT! 🎰'},
-  ru:{subtitle:'Мультипликатор в стиле Playson',balance:'Баланс',bet_amount:'Сумма ставки',auto_cashout:'Авто-вывод',turbo_mode:'Турбо режим',auto_play:'Авто игра',paytable_title:'🚀 CRASH PRO v4 — Как Работает',bet:'🚀 СТАВКА',cashout:'💰 ВЫВОД',not_enough:'Недостаточно средств!',won:'Вы выиграли!',lost:'Краш! Вы проиграли',auto_crash:'Авто-вывод на {multiplier}×',playing:'Множитель растет...',history:'История краша',half:'½',double:'2×',max:'MAX',min:'MIN',enable:'ВКЛ',disable:'ВЫКЛ',turbo_desc:'В 2 раза быстрее',stop_win:'СТОП ПО ВЫИГРЫШУ',stop_loss:'СТОП ПО ПРОИГРЫШУ',ready:'Готов',round:'Раунд',big_win:'🎉 БОЛЬШОЙ ВЫИГРЫШ! 🎉',jackpot:'🎰 ДЖЕКПОТ! 🎰'},
-  zh:{subtitle:'Playson风格乘数游戏',balance:'余额',bet_amount:'投注金额',auto_cashout:'自动提现',turbo_mode:' Turbo模式',auto_play:'自动游戏',paytable_title:'🚀 CRASH PRO v4 — 工作原理',bet:'🚀 投注',cashout:'💰 提现',not_enough:'余额不足！',won:'你赢了！',lost:'崩溃！你输了',auto_crash:'自动提现 {multiplier}×',playing:'乘数增长中...',history:'崩溃历史',half:'½',double:'2×',max:'MAX',min:'MIN',enable:'启用',disable:'禁用',turbo_desc:'2倍速度',stop_win:'赢时停止',stop_loss:'输时停止',ready:'就绪',round:'回合',big_win:'🎉 大胜利！🎉',jackpot:'🎰 大奖！🎰'},
-  jp:{subtitle:'Playsonスタイル乗数ゲーム',balance:'残高',bet_amount:'ベット額',auto_cashout:'自動現金化',turbo_mode:'ターボモード',auto_play:'自動プレイ',paytable_title:'🚀 CRASH PRO v4 — 使い方',bet:'🚀 ベット',cashout:'💰 現金化',not_enough:'残高不足！',won:'勝ち！',lost:'クラッシュ！負け',auto_crash:'自動現金化 {multiplier}×',playing:'乗数増加中...',history:'クラッシュ履歴',half:'½',double:'2×',max:'MAX',min:'MIN',enable:'有効',disable:'無効',turbo_desc:'2倍速',stop_win:'勝利で停止',stop_loss:'損失で停止',ready:'準備完了',round:'ラウンド',big_win:'🎉 大勝利！🎉',jackpot:'🎰 ジャックポット！🎰'},
-  ko:{subtitle:'Playson 스타일 배수 게임',balance:'잔액',bet_amount:'베팅 금액',auto_cashout:'자동 현금화',turbo_mode:'터보 모드',auto_play:'자동 플레이',paytable_title:'🚀 CRASH PRO v4 — 작동 방식',bet:'🚀 베팅',cashout:'💰 현금화',not_enough:'잔액 부족!',won:'승리!',lost:'크래시! 패배',auto_crash:'자동 현금화 {multiplier}×',playing:'배수 증가 중...',history:'크래시 기록',half:'½',double:'2×',max:'MAX',min:'MIN',enable:'활성화',disable:'비활성화',turbo_desc:'2배 빠른 라운드',stop_win:'승리 시 중지',stop_loss:'손실 시 중지',ready:'준비됨',round:'라운드',big_win:'🎉 대형 승리! 🎉',jackpot:'🎰 잭팟! 🎰'},
-  pt:{subtitle:'Jogo Multiplicador Playson',balance:'Saldo',bet_amount:'Valor da Aposta',auto_cashout:'Retiro Auto',turbo_mode:'Modo Turbo',auto_play:'Jogo Auto',paytable_title:'🚀 CRASH PRO v4 — Como Funciona',bet:'🚀 APOSTAR',cashout:'💰 RETIRAR',not_enough:'Saldo insuficiente!',won:'Você ganhou!',lost:'Crash! Você perdeu',auto_crash:'Retiro auto em {multiplier}×',playing:'Multiplicador crescendo...',history:'Histórico',half:'½',double:'2×',max:'MAX',min:'MIN',enable:'ATIVAR',disable:'DESATIVAR',turbo_desc:'Rondas 2× mais rápido',stop_win:'PARAR AO GANHAR',stop_loss:'PARAR AO PERDER',ready:'Pronto',round:'Rodada',big_win:'🎉 GRANDE VITÓRIA! 🎉',jackpot:'🎰 JACKPOT! 🎰'},
-  fr:{subtitle:'Jeu Multiplicateur Playson',balance:'Solde',bet_amount:'Montant du Pari',auto_cashout:'Retrait Auto',turbo_mode:'Mode Turbo',auto_play:'Jeu Auto',paytable_title:'🚀 CRASH PRO v4 — Comment Ça Marche',bet:'🚀 PARIER',cashout:'💰 RETIRER',not_enough:'Solde insuffisant!',won:'Vous avez gagné!',lost:'Crashé! Perdu',auto_crash:'Retrait auto à {multiplier}×',playing:'Multiplicateur en hausse...',history:'Historique',half:'½',double:'2×',max:'MAX',min:'MIN',enable:'ACTIVER',disable:'DÉSACTIVER',turbo_desc:'Rondes 2× plus rapides',stop_win:'STOP AU GAIN',stop_loss:'STOP À LA PERTE',ready:'Prêt',round:'Round',big_win:'🎉 GROS GAIN! 🎉',jackpot:'🎰 JACKPOT! 🎰'},
-  de:{subtitle:'Playson Multiplikator Spiel',balance:'Guthaben',bet_amount:'Wetteinsatz',auto_cashout:'Auto-Auszahlung',turbo_mode:'Turbo-Modus',auto_play:'Auto-Spiel',paytable_title:'🚀 CRASH PRO v4 — So Funktioniert es',bet:'🚀 SETZEN',cashout:'💰 AUSZAHLEN',not_enough:'Ungenügend Guthaben!',won:'Sie haben gewonnen!',lost:'Crash! Verloren',auto_crash:'Auto-Auszahlung bei {multiplier}×',playing:'Multiplikator wächst...',history:'Verlauf',half:'½',double:'2×',max:'MAX',min:'MIN',enable:'AKTIVIEREN',disable:'DEAKTIVIEREN',turbo_desc:'2× schnellere Runden',stop_win:'BEI GEWINN STOPP',stop_loss:'BEI VERLUST STOPP',ready:'Bereit',round:'Runde',big_win:'🎉 GROßER GEWINN! 🎉',jackpot:'🎰 JACKPOT! 🎰'},
-  ar:{subtitle:'لعبة المضاعف Playson',balance:'الرصيد',bet_amount:'مبلغ الرهان',auto_cashout:'سحب تلقائي',turbo_mode:'الوضع توربو',auto_play:'لعب تلقائي',paytable_title:'🚀 CRASH PRO v4 — كيف تعمل',bet:'🚀 رهان',cashout:'💡 سحب',not_enough:'الرصيد غير كاف!',won:'فزت!',lost:'انهار! خسرت',auto_crash:'سحب تلقائي عند {multiplier}×',playing:'المضاعف ينمو...',history:'التاريخ',half:'½',double:'2×',max:'MAX',min:'MIN',enable:'تفعيل',disable:'تعطيل',turbo_desc:'جولات أسرع بمرتين',stop_win:'توقف عند الربح',stop_loss:'توقف عند الخسارة',ready:'جاهز',round:'جولة',big_win:'🎉 فوز كبير! 🎉',jackpot:'🎰 جاكبوت! 🎰'}
-});
-
-let lang = localStorage.getItem('crash-lang') || 'en';
-if(!I18N[lang]) lang = 'en';
-function t(k,p){let s=I18N[lang]?.[k]||I18N.en[k]||k;if(p){for(const[k2,v2]of Object.entries(p))s=s.replace('{' + k2 + '}',v2);}return s;}
-function applyI18n(){document.querySelectorAll('[data-i18n]').forEach(e=>{e.textContent=t(e.getAttribute('data-i18n'));});document.querySelectorAll('[data-i18n-attr]').forEach(e=>{const[a,k]=e.getAttribute('data-i18n-attr').split(':');e[a]=t(k);});}
-function switchLang(){const ls=CFG.supportedLangs;const i=ls.indexOf(lang);lang=ls[(i+1)%ls.length];localStorage.setItem('crash-lang',lang);applyI18n();showToast('🌐 '+lang.toUpperCase(),'p');}
-
-// ═══════════════════════════════════════════
-// AUDIO ENGINE — Unique per game
-// ═══════════════════════════════════════════
-let actx=null;
-function getActx(){if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();return actx;}
-function tone(f,d,type='sine',v=0.3){
-  if(!CFG.sound.enabled)return;
-  try{const c=getActx(),o=c.createOscillator(),g=c.createGain();
-  o.type=type;o.frequency.setValueAtTime(f,c.currentTime);
-  g.gain.setValueAtTime(v*CFG.sound.masterVolume,c.currentTime);
-  g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+d);
-  o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+d);}catch(e){}}
-function noise(d,v=0.1){
-  if(!CFG.sound.enabled)return;
-  try{const c=getActx(),buf=c.createBuffer(1,c.sampleRate*d,c.sampleRate),data=buf.getChannelData(0);
-  for(let i=0;i<data.length;i++)data[i]=(Math.random()*2-1);
-  const src=c.createBufferSource();src.buffer=buf;const g=c.createGain();
-  g.gain.setValueAtTime(v*CFG.sound.masterVolume,c.currentTime);
-  g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+d);
-  src.connect(g);g.connect(c.destination);src.start();}catch(e){}}
-const SND={
-  click:()=>tone(800,0.04,'sine',0.15),
-  bet:()=>{tone(440,0.1,'square',0.2);setTimeout(()=>tone(660,0.15,'square',0.15),50);},
-  cashout:()=>{tone(880,0.15,'sine',0.4);setTimeout(()=>tone(1100,0.2,'sine',0.35),100);setTimeout(()=>tone(1320,0.25,'sine',0.3),200);},
-  crash:()=>{noise(0.4,0.3);tone(200,0.3,'sawtooth',0.3);setTimeout(()=>tone(150,0.4,'sawtooth',0.25),100);},
-  growing:()=>tone(300+Math.random()*200,0.05,'sine',0.03),
-  bigWin:()=>{[523,659,784,1047].forEach((f,i)=>setTimeout(()=>tone(f,0.3,'sine',0.4),i*150));},
-  jackpot:()=>{[523,659,784,1047,1319,1568].forEach((f,i)=>setTimeout(()=>{tone(f,0.5,'sine',0.5);noise(0.3,0.2);},i*200));},
-  turboTick:()=>tone(1200,0.02,'sine',0.05),
-  roundStart:()=>{tone(330,0.1,'triangle',0.2);setTimeout(()=>tone(440,0.1,'triangle',0.2),80);setTimeout(()=>tone(660,0.15,'triangle',0.25),160);}
+<script type="module">
+// ═══ GAME STATE ═══
+const state = {
+  balance: 10000, bet: 10, running: false, crashed: false, cashedOut: false,
+  currentMult: 1.00, targetCrash: 0, startTime: 0,
+  playerBet: null, history: [], waiting: true, nextRoundTime: 0,
 };
 
-// ═══════════════════════════════════════════
-// PARTICLE SYSTEM
-// ═══════════════════════════════════════════
-const particles=[];
-function emitParticles(x,y,count=20){
-  for(let i=0;i<count;i++){
-    particles.push({x,y,vx:(Math.random()-0.5)*200,vy:-Math.random()*150-50,
-      life:1,decay:0.01+Math.random()*0.02,size:2+Math.random()*4,
-      color:CFG.particleColors[Math.floor(Math.random()*CFG.particleColors.length)],
-      age:0});
-  }
-}
-function updateParticles(dt){
-  for(let i=particles.length-1;i>=0;i--){
-    const p=particles[i];
-    p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=300*dt;p.age+=dt;
-    p.life=Math.max(0,1-p.age/p.decay);
-    if(p.life<=0)particles.splice(i,1);
-  }
-}
-function drawParticles(ctx,w,h){
-  for(const p of particles){
-    ctx.globalAlpha=p.life;
-    ctx.fillStyle=p.color;
-    ctx.beginPath();ctx.arc(p.x,p.y,p.size*p.life,0,Math.PI*2);ctx.fill();
-  }
-  ctx.globalAlpha=1;
-}
+const canvas = document.getElementById("crash-canvas");
+const ctx = canvas.getContext("2d");
+const multEl = document.getElementById("mult-value");
+const statusEl = document.getElementById("round-status");
+const actionBtn = document.getElementById("action-btn");
+const betDisplay = document.getElementById("bet-display");
+const balanceDisplay = document.getElementById("balance-display");
+const historyBar = document.getElementById("history-bar");
 
-// ═══════════════════════════════════════════
-// PROVABLY FAIR RNG — Mulberry32 PRNG
-// Seeded from crypto.getRandomValues for unpredictability.
-// ═══════════════════════════════════════════
+let points = [];
+let animFrame;
 
-function _crashSeedFromCrypto() {
-  const bytes = new Uint8Array(4);
-  if (globalThis.crypto?.getRandomValues) {
-    globalThis.crypto.getRandomValues(bytes);
+// ═══ CANVAS SETUP ═══
+function resizeCanvas() {
+  const wrap = document.getElementById("canvas-wrap");
+  canvas.width = wrap.clientWidth * devicePixelRatio;
+  canvas.height = wrap.clientHeight * devicePixelRatio;
+  canvas.style.width = wrap.clientWidth + "px";
+  canvas.style.height = wrap.clientHeight + "px";
+  ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+// ═══ DRAWING ═══
+function drawCurve() {
+  const w = canvas.width / devicePixelRatio;
+  const h = canvas.height / devicePixelRatio;
+  ctx.clearRect(0, 0, w, h);
+
+  // Grid lines
+  ctx.strokeStyle = "rgba(255,255,255,0.03)";
+  ctx.lineWidth = 1;
+  for (let y = 0; y < h; y += 60) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+
+  if (points.length < 2) return;
+
+  const maxMult = Math.max(state.currentMult, 2);
+  const curveH = h - 40;
+  const curveW = w - 80;
+
+  // Curve line
+  const gradient = ctx.createLinearGradient(0, h, w, 0);
+  if (!state.crashed) {
+    gradient.addColorStop(0, "#22c55e");
+    gradient.addColorStop(1, "#a855f7");
   } else {
-    for (let i = 0; i < 4; i++) bytes[i] = Math.floor(Math.random() * 256);
+    gradient.addColorStop(0, "#ef4444");
+    gradient.addColorStop(1, "#dc2626");
   }
-  return (bytes[0] << 24) | (bytes[1] << 16) | (bytes[2] << 8) | bytes[3];
+
+  ctx.beginPath();
+  ctx.strokeStyle = gradient;
+  ctx.lineWidth = 3;
+  ctx.shadowColor = state.crashed ? "#ef4444" : "#a855f7";
+  ctx.shadowBlur = 15;
+
+  for (let i = 0; i < points.length; i++) {
+    const x = (i / (points.length - 1)) * curveW + 40;
+    const t = Math.min(1, (Math.log(points[i].mult) / Math.log(maxMult || 2)));
+    const y = h - 20 - t * curveH;
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+  ctx.shadowBlur = 0;
+
+  // Glow dot at end
+  if (points.length > 0) {
+    const last = points[points.length - 1];
+    const x = curveW + 40;
+    const t = Math.min(1, (Math.log(last.mult) / Math.log(maxMult || 2)));
+    const y = h - 20 - t * curveH;
+    ctx.beginPath();
+    ctx.arc(x, y, 6, 0, Math.PI * 2);
+    ctx.fillStyle = state.crashed ? "#ef4444" : "#a855f7";
+    ctx.shadowColor = ctx.fillStyle;
+    ctx.shadowBlur = 20;
+    ctx.fill();
+  }
 }
 
-let _crashRngSeed = _crashSeedFromCrypto();
+// ═══ GAME LOGIC ═══
+function getCrashPoint() {
+  // Provably fair-ish: E = 1 / (1 - U) with 4% house edge
+  const u = Math.random();
+  const crash = Math.max(1, (0.96 / (1 - u)));
+  return Math.floor(crash * 100) / 100;
+}
 
-/** Mulberry32: fast, seeded 32-bit PRNG with full 2^32 period */
-function mulberry32a(seed) {
-  let s = (seed | 0) >>> 0;
-  return function() {
-    s |= 0; s = (s + 0x6D2B79F5) | 0;
-    let t = Math.imul(s ^ (s >>> 15), 1 | s);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+function startRound() {
+  state.crashed = false;
+  state.cashedOut = false;
+  state.running = true;
+  state.targetCrash = getCrashPoint();
+  state.currentMult = 1.00;
+  state.startTime = Date.now();
+  points = [{ mult: 1.00 }];
+
+  statusEl.textContent = "Round in progress...";
+  actionBtn.className = state.playerBet ? "action-btn cashout" : "action-btn waiting";
+  actionBtn.textContent = state.playerBet ? Cash Out (3{(state.bet * 1.0).toFixed(2)}) : "Waiting...";
+
+  animate();
+}
+
+function crash() {
+  state.running = false;
+  state.crashed = true;
+  multEl.className = "crashed";
+  statusEl.textContent = Crashed at x;
+
+  if (state.playerBet && !state.cashedOut) {
+    // Lost the bet
+    addHistory(state.currentMult, "low");
+    state.playerBet = null;
+  }
+
+  actionBtn.className = "action-btn waiting";
+  actionBtn.textContent = Next round in 3s...;
+
+  setTimeout(() => newRound(), 3000);
+}
+
+function cashOut() {
+  if (!state.running || state.cashedOut || !state.playerBet) return;
+  state.cashedOut = true;
+  const winAmount = state.bet * state.currentMult;
+  state.balance += winAmount - state.bet;
+  updateBalance();
+
+  actionBtn.className = "action-btn waiting";
+  actionBtn.textContent = Won 3{winAmount.toFixed(2)}!;
+  addHistory(state.currentMult, "high");
+}
+
+function newRound() {
+  state.waiting = true;
+  state.running = false;
+  state.crashed = false;
+  state.cashedOut = false;
+  state.currentMult = 1.00;
+  points = [{ mult: 1.00 }];
+  state.playerBet = null;
+
+  drawCurve();
+  const startCountdown = () => {
+    const remaining = Math.ceil((state.nextRoundTime - Date.now()) / 1000);
+    if (remaining <= 0) { startRound(); return; }
+    statusEl.textContent = Next round in s;
+    multEl.className = "running";
+    multEl.textContent = ${state.currentMult.toFixed(2)}x;
+    actionBtn.className = state.playerBet ? "action-btn play" : "action-btn play";
+    actionBtn.textContent = state.playerBet ? "Bet Placed — Ready" : "Place Bet";
+    requestAnimationFrame(startCountdown);
   };
+  startCountdown();
 }
 
-/** Generate fresh seed each call so every round is independent */
-function getCrashRng() {
-  // Refresh seed from crypto each spin — prevents prediction.
-  if (globalThis.crypto?.getRandomValues) {
-    const nb = new Uint8Array(4);
-    globalThis.crypto.getRandomValues(nb);
-    _crashRngSeed = (nb[0] << 24) | (nb[1] << 16) | (nb[2] << 8) | nb[3];
-  } else {
-    _crashRngSeed = (_crashRngSeed * 1664525 + 1013904223) >>> 0;
-  }
-  return mulberry32a(_crashRngSeed);
-}
+function animate() {
+  if (!state.running) return;
 
-/** Generate crash point using seeded PRNG instead of Math.random */
-function generateCrashPoint() {
-  const rng = getCrashRng();
-  const r = rng();
-  // Avoid division by zero — if r >= 0.999999, clamp it
-  const denominator = Math.max(1 - r, 0.000001);
-  // Standard crash formula: E = base / (1 - r), where base = (1 - houseEdge)
-  const crashPoint = Math.max(1.0, CFG.crashCurve.base / denominator);
-  return Math.min(crashPoint, CFG.crashCurve.maxMultiplier);
-}
+  const elapsed = (Date.now() - state.startTime) / 1000;
+  state.currentMult = Math.pow(Math.E, 0.07 * elapsed * elapsed);
 
-// resetCrashRng removed — getCrashRng now generates a fresh seed each call
-
-// ═══════════════════════════════════════════
-// GAME STATE
-// ═══════════════════════════════════════════
-let S={
-  balance:10000,betAmount:10,autoCashout:2.0,autoCashoutEnabled:false,
-  multiplier:1.0,running:false,crashed:false,cashedOut:false,
-  history:[],totalBet:0,totalWon:0,roundsPlayed:0,
-  turboMode:false,autoPlayEnabled:false,autoRounds:10,autoRoundsPlayed:0,
-  stopOnWin:false,stopOnLoss:false,betProgression:'flat',currentBet:10,
-  consecutiveLosses:0,sessionStartTime:Date.now(),
-  _growInterval:null,_crashPoint:1.0
-};
-
-// ═══════════════════════════════════════════
-// UI HELPERS
-// ═══════════════════════════════════════════
-function updateBal(){const e=document.getElementById('bal-display');e.textContent='$'+S.balance.toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});e.classList.add('pulse');setTimeout(()=>e.classList.remove('pulse'),500);}
-function renderHist(){const b=document.getElementById('hist');b.innerHTML='';S.history.slice(0,20).forEach(h=>{const i=document.createElement('div');i.className='hist-item '+(h>=10?'gold':h>=2?'good':'bad');i.textContent=h.toFixed(2)+'×';b.appendChild(i);});}
-function updateCrashPoint(){const el=document.getElementById('crash-point');el.textContent=S.multiplier.toFixed(2)+'×';}
-function updateStatus(){const dot=document.getElementById('status-dot');const txt=document.getElementById('status-text');if(S.running){dot.className='status-dot green';txt.textContent=S.cashedOut?t('won'):t('playing');}else if(S.crashed){dot.className='status-dot red';txt.textContent=t('lost');}else{dot.className='status-dot gold';txt.textContent=t('ready');}}
-function updateRTP(){if(S.totalBet===0){document.getElementById('rtp-display').textContent='RTP: --';return;}const rtp=(S.totalWon/S.totalBet)*100;document.getElementById('rtp-display').textContent='RTP: '+rtp.toFixed(1)+'%';}
-function showToast(m,type='g'){const e=document.createElement('div');e.className='toast '+type;e.textContent=m;document.body.appendChild(e);setTimeout(()=>e.remove(),CFG.anim.toastDuration+500);}
-
-// ═══════════════════════════════════════════
-// GRAPH DRAWING
-// ═══════════════════════════════════════════
-function drawGraph(){
-  const canvas=document.getElementById('graph-canvas');
-  const ctx=canvas.getContext('2d');
-  const w=canvas.width=canvas.offsetWidth*window.devicePixelRatio;
-  const h=canvas.height=canvas.offsetHeight*window.devicePixelRatio;
-  ctx.clearRect(0,0,w,h);
-  
-  // Background grid
-  ctx.strokeStyle='rgba(170,0,255,0.05)';ctx.lineWidth=1;
-  for(let i=0;i<w;i+=40){ctx.beginPath();ctx.moveTo(i,0);ctx.lineTo(i,h);ctx.stroke();}
-  for(let i=0;i<h;i+=40){ctx.beginPath();ctx.moveTo(0,i);ctx.lineTo(w,i);ctx.stroke();}
-  
-  if(!S.running)return;
-  
-  const progress=Math.min((S.multiplier-1)/20,1);
-  const startX=0,startY=h;
-  const endX=w*progress,endY=h*(1-progress*0.85);
-  
-  // Gradient fill under curve
-  const grad=ctx.createLinearGradient(0,0,w,0);
-  if(S.crashed){grad.addColorStop(0,'rgba(255,23,68,0)');grad.addColorStop(1,'rgba(255,23,68,0.15)');}
-  else{grad.addColorStop(0,'rgba(0,230,118,0)');grad.addColorStop(1,'rgba(0,230,118,0.15)');}
-  
-  ctx.beginPath();ctx.moveTo(startX,startY);
-  ctx.quadraticCurveTo((startX+endX)/2,(startY+endY)/2,endX,endY);
-  ctx.lineTo(endX,startY);ctx.closePath();ctx.fillStyle=grad;ctx.fill();
-  
-  // Main line
-  ctx.beginPath();ctx.moveTo(startX,startY);
-  ctx.quadraticCurveTo((startX+endX)/2,(startY+endY)/2,endX,endY);
-  ctx.strokeStyle=S.cashedOut?'#ffd700':S.crashed?'#ff1744':'#00e676';
-  ctx.lineWidth=3*window.devicePixelRatio;ctx.stroke();
-  
-  // Glow
-  ctx.beginPath();ctx.moveTo(startX,startY);
-  ctx.quadraticCurveTo((startX+endX)/2,(startY+endY)/2,endX,endY);
-  ctx.strokeStyle=S.cashedOut?'rgba(255,215,0,0.3)':S.crashed?'rgba(255,23,68,0.3)':'rgba(0,230,118,0.3)';
-  ctx.lineWidth=8*window.devicePixelRatio;ctx.stroke();
-  
-  // Draw particles
-  drawParticles(ctx,w,h);
-  
-  // Multiplier markers
-  ctx.fillStyle='rgba(255,255,255,0.3)';ctx.font=`${12*window.devicePixelRatio}px monospace`;
-  for(let m=2;m<=Math.ceil(S.multiplier);m+=Math.ceil(S.multiplier/10)){
-    const y=h-(m-1)/20*h*0.85;
-    ctx.fillText(m+'×',10,y-5);
-  }
-}
-
-// ═══════════════════════════════════════════
-// GAME LOGIC — with error handling and state guards
-// ═══════════════════════════════════════════
-
-/** Unique per-round interval reference for proper cleanup */
-let _currentGrowInterval = null;
-
-function startGame() {
-  // Guard: prevent multiple simultaneous rounds
-  if (S.running || S.crashed) return;
-  
-  const bet = S.betAmount;
-  if (bet > S.balance) {
-    showToast(t('not_enough'), 'r');
+  if (state.currentMult >= state.targetCrash) {
+    state.currentMult = state.targetCrash;
+    crash();
     return;
   }
-  
-  try {
-    // КРИТИЧЕСКИ: очистить предыдущий интервал если существует
-    if (_currentGrowInterval) { clearInterval(_currentGrowInterval); _currentGrowInterval = null; }
-    
-    S.balance -= bet;
-    S.totalBet += bet;
-    S.running = true;
-    S.crashed = false;
-    S.cashedOut = false;
-    S.multiplier = 1.0;
-    S.roundsPlayed++;
-    
-    const crashPoint = generateCrashPoint();
-    const tickInterval = S.turboMode ? CFG.anim.tickIntervalTurbo : CFG.anim.tickInterval;
-    
-    const btnBet = document.getElementById('btn-bet');
-    const btnCashout = document.getElementById('btn-cashout');
-    btnBet.disabled = true;
-    btnCashout.disabled = false;
-    document.getElementById('crash-point').className = 'crash-point running';
-    
-    updateBal();
-    updateStatus();
-    SND.roundStart();
-    
-    let tickCount = 0;
-    let lastSoundTick = 0;
-    _currentGrowInterval = setInterval(() => {
-      if (!S.running) { clearInterval(growInterval); return; }
-      
-      tickCount++;
-      const speed = S.turboMode ? 0.02 : (S.multiplier > 5 ? 0.015 : 0.01);
-      S.multiplier += speed + (tickCount * 0.0005);
-      updateCrashPoint();
-      drawGraph();
-      
-      // Sound on milestones
-      if (Math.floor(S.multiplier) !== lastSoundTick && Math.floor(S.multiplier) > 0) {
-        lastSoundTick = Math.floor(S.multiplier);
-        if (S.turboMode) { SND.turboTick(); } else { SND.growing(); }
-      }
-      
-      // Store global interval reference for proper cleanup
-      _currentGrowInterval = _currentGrowInterval || _currentGrowInterval;
-      if (S.autoCashoutEnabled && S.multiplier >= S.autoCashout && !S.cashedOut) {
-        cashout();
-        return;
-      }
-      
-      // Crash
-      if (S.multiplier >= crashPoint) {
-        S.crashed = true;
-        S.running = false;
-        if (_currentGrowInterval) { clearInterval(_currentGrowInterval); _currentGrowInterval = null; }
-        const finalCrash = Math.min(S.multiplier, crashPoint);
-        const el = document.getElementById('crash-point');
-        el.className = 'crash-point crashed';
-        el.textContent = finalCrash.toFixed(2) + '× CRASHED';
-        S.history.unshift(finalCrash);
-        if (S.history.length > CFG.historyMax) S.history.pop();
-        renderHist();
-        updateStatus();
-        updateRTP();
-        SND.crash();
-        showToast(t('lost') + ' ' + finalCrash.toFixed(2) + '×', 'r');
-        btnBet.disabled = false;
-        btnCashout.disabled = true;
-        
-        const rect = graphArea.getBoundingClientRect();
-        emitParticles(
-          rect.left + rect.width * 0.7,
-          rect.top + rect.height * 0.3,
-          30
-        );
 
-        // Auto play continuation — handle both crash and cashout cases
-        if (S.autoPlayEnabled && S.autoRoundsPlayed < S.autoRounds) {
-          S.autoRoundsPlayed++;
-          
-          if (S.cashedOut) {
-            // Cashout: win — reset consecutive losses
-            S.consecutiveLosses = 0;
-          } else {
-            // Crash: increment consecutive losses for martingale progression
-            S.consecutiveLosses++;
-          }
-          
-          updateAutoBet();
-          if (S.balance >= S.currentBet) {
-            setTimeout(() => {
-              // Раунд завершён — запускаем следующий
-              if (!S.running && !S.spinning) startGame();
-            }, S.turboMode ? 300 : 800);
-          } else {
-            S.autoPlayEnabled = false;
-            document.getElementById('btn-auto-play-toggle').classList.remove('active');
-            document.getElementById('btn-auto-play-toggle').textContent = t('disable');
-            showToast(t('not_enough'), 'r');
-          }
-        } else {
-          S.autoPlayEnabled = false;
-          document.getElementById('btn-auto-play-toggle').classList.remove('active');
-          document.getElementById('btn-auto-play-toggle').textContent = t('disable');
-        }
-      }
-      return;
-    }, tickInterval);
-  
-  // Store crash point for reference
-  S._crashPoint = crashPoint;
-  } catch (error) {
-    console.error('[CrashPro] Game error:', error);
-    S.running = false;
-    S.crashed = true;
-    showToast(t('lost') + ' — Error', 'r');
-    document.getElementById('btn-bet').disabled = false;
-    document.getElementById('btn-cashout').disabled = true;
+  multEl.className = "running";
+  multEl.textContent = ${state.currentMult.toFixed(2)}x;
+
+  points.push({ mult: state.currentMult });
+  drawCurve();
+
+  if (state.playerBet && !state.cashedOut) {
+    actionBtn.textContent = Cash Out (3{(state.bet * state.currentMult).toFixed(2)});
   }
+
+  animFrame = requestAnimationFrame(animate);
 }
 
-function cashout() {
-  // Guard: validate state before cashout
-  if (!S.running || S.crashed || S.cashedOut) return;
-  
+// ═══ HISTORY ═══
+function addHistory(mult, tier) {
+  state.history.unshift({ mult, tier });
+  if (state.history.length > 20) state.history.pop();
+  renderHistory();
+}
+
+function renderHistory() {
+  historyBar.innerHTML = state.history.map(h =>
+    <span class="history-item ">x</span>
+  ).join("");
+}
+
+// ═══ API INTEGRATION ═══
+async function submitBet() {
   try {
-    S.cashedOut = true;
-    // КРИТИЧНО: остановить рост множителя немедленно
-    if (_currentGrowInterval) { clearInterval(_currentGrowInterval); _currentGrowInterval = null; }
-    
-    // КРИТИЧЕСКИ: использовать актуальную ставку (S.currentBet для прогрессии, S.betAmount по умолчанию)
-    const effectiveBet = S.currentBet || S.betAmount;
-    const win = effectiveBet * S.multiplier;
-    S.balance += win;
-    S.totalWon += win;
-    S.consecutiveLosses = 0;
-    
-    updateBal();
-    updateStatus();
-    document.getElementById('crash-point').className = 'crash-point cashed';
-    document.getElementById('crash-point').textContent = S.multiplier.toFixed(2) + '× CASHED!';
-    S.history.unshift(S.multiplier);
-    renderHist();
-    updateRTP();
-    SND.cashout();
-    
-    if (S.multiplier >= 10) {
-      showToast(t('jackpot') + ' ' + S.multiplier.toFixed(2) + '×', 'g');
-      SND.jackpot();
-    } else if (S.multiplier >= 5) {
-      showToast(t('big_win') + ' ' + S.multiplier.toFixed(2) + '×', 'g');
-      SND.bigWin();
-    } else {
-      showToast(t('won') + ' $' + win.toFixed(2), 'gr');
+    const res = await fetch(${location.origin}/api/games/crash/spin, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ bet: state.bet / 100 }), // server uses cents
+    });
+    const data = await res.json();
+    if (data.success && data.crashPoint) {
+      state.targetCrash = data.crashPoint;
+      return true;
     }
-    
-    const rect = graphArea.getBoundingClientRect();
-    emitParticles(
-      rect.left + rect.width * 0.7,
-      rect.top + rect.height * 0.3,
-      50
-    );
-  } catch (error) {
-    console.error('[CrashPro] Cashout error:', error);
-  }
+  } catch (e) { /* fallback to client-side */ }
+  return false;
 }
 
-let canvasOffsetX=0,canvasOffsetY=0;
-const graphArea=document.getElementById('graph-area');
+// ═══ CONTROLS ═══
+window.adjustBet = function(delta) {
+  state.bet = Math.max(10, Math.min(10000, state.bet + delta));
+  betDisplay.textContent = $;
+};
 
-// Override emitParticles for canvas coordinates
-const origEmit=emitParticles;
-emitParticles=function(x,y,count){
-  const rect=graphArea.getBoundingClientRect();
-  const cx=rect.left+rect.width*0.7;const cy=rect.top+rect.height*0.3;
-  for(let i=0;i<count;i++){
-    particles.push({x:cx,y:cy,vx:(Math.random()-0.5)*200,vy:-Math.random()*150-50,
-      life:1,decay:0.01+Math.random()*0.02,size:2+Math.random()*4,
-      color:CFG.particleColors[Math.floor(Math.random()*CFG.particleColors.length)],age:0});
+window.handleAction = async function() {
+  if (state.waiting && !state.running) {
+    // Place bet for next round
+    state.playerBet = true;
+    actionBtn.textContent = "Bet Placed ✓";
+    return;
+  }
+  if (state.running && state.playerBet && !state.cashedOut) {
+    cashOut();
+    return;
   }
 };
 
-// ═══════════════════════════════════════════
-// BET CONTROLS
-// ═══════════════════════════════════════════
-function setupEvents(){
-  document.getElementById('btn-bet').addEventListener('click',()=>{SND.click();startGame();});
-  document.getElementById('btn-cashout').addEventListener('click',()=>{SND.click();cashout();});
-  document.getElementById('bet-inp').addEventListener('change',e=>{let v=parseInt(e.target.value)||CFG.betMin;v=Math.max(CFG.betMin,Math.min(CFG.betMax,v));e.target.value=v;S.betAmount=v;S.currentBet=v;});
-  document.getElementById('auto-cashout').addEventListener('change',e=>{let v=parseFloat(e.target.value)||CFG.defaultCashout;v=Math.max(CFG.minCashout,Math.min(CFG.maxCashout,v));e.target.value=v;S.autoCashout=v;});
-  document.getElementById('btn-half').addEventListener('click',()=>{SND.click();S.betAmount=Math.max(CFG.betMin,Math.floor(S.betAmount/2));S.currentBet=S.betAmount;document.getElementById('bet-inp').value=S.betAmount;});
-  document.getElementById('btn-double').addEventListener('click',()=>{SND.click();S.betAmount=Math.min(CFG.betMax,S.betAmount*2);S.currentBet=S.betAmount;document.getElementById('bet-inp').value=S.betAmount;});
-  document.getElementById('btn-max').addEventListener('click',()=>{SND.click();S.betAmount=Math.min(CFG.betMax,Math.floor(S.balance));S.currentBet=S.betAmount;document.getElementById('bet-inp').value=S.betAmount;});
-  document.getElementById('btn-min').addEventListener('click',()=>{SND.click();S.betAmount=CFG.betMin;S.currentBet=CFG.betMin;document.getElementById('bet-inp').value=S.betAmount;});
-  document.getElementById('logo-btn').addEventListener('dblclick',e=>{e.preventDefault();switchLang();});
-  document.getElementById('logo-btn').addEventListener('click',()=>{document.getElementById('paytable').classList.toggle('show');});
-  
-  // Auto cashout toggle
-  document.getElementById('btn-auto-toggle').addEventListener('click',()=>{
-    SND.click();S.autoCashoutEnabled=!S.autoCashoutEnabled;
-    document.getElementById('btn-auto-toggle').classList.toggle('active',S.autoCashoutEnabled);
-    document.getElementById('btn-auto-toggle').textContent=S.autoCashoutEnabled?t('enable'):t('disable');
-  });
-  
-  // Turbo mode toggle
-  document.getElementById('btn-turbo-toggle').addEventListener('click',()=>{
-    SND.click();S.turboMode=!S.turboMode;
-    document.getElementById('btn-turbo-toggle').classList.toggle('active',S.turboMode);
-    document.getElementById('btn-turbo-toggle').textContent=S.turboMode?t('enable'):t('disable');
-  });
-  
-  // Auto play toggle
-  document.getElementById('btn-auto-play-toggle').addEventListener('click',()=>{
-    SND.click();S.autoPlayEnabled=!S.autoPlayEnabled;
-    document.getElementById('btn-auto-play-toggle').classList.toggle('active',S.autoPlayEnabled);
-    document.getElementById('btn-auto-play-toggle').textContent=S.autoPlayEnabled?t('enable'):t('disable');
-    document.getElementById('auto-settings').style.display=S.autoPlayEnabled?'flex':'none';
-    if(S.autoPlayEnabled&&!S.running){S.autoRoundsPlayed=0;S.currentBet=S.betAmount;}
-  });
-  
-  // Stop conditions
-  document.getElementById('btn-stop-win').addEventListener('click',()=>{
-    SND.click();S.stopOnWin=!S.stopOnWin;
-    document.getElementById('btn-stop-win').classList.toggle('active',S.stopOnWin);
-  });
-  document.getElementById('btn-stop-loss').addEventListener('click',()=>{
-    SND.click();S.stopOnLoss=!S.stopOnLoss;
-    document.getElementById('btn-stop-loss').classList.toggle('active',S.stopOnLoss);
-  });
-  
-  // Progression type
-  document.getElementById('btn-progression').addEventListener('click',()=>{
-    SND.click();S.betProgression='flat';
-    document.querySelectorAll('[data-prog]').forEach(b=>b.classList.remove('active'));
-    document.getElementById('btn-progression').classList.add('active');
-  });
-  document.getElementById('btn-progression-mart').addEventListener('click',()=>{
-    SND.click();S.betProgression='martingale';
-    document.querySelectorAll('[data-prog]').forEach(b=>b.classList.remove('active'));
-    document.getElementById('btn-progression-mart').classList.add('active');
-  });
-}
+function updateBalance() { balanceDisplay.textContent = state.balance.toFixed(2); }
 
-// ═══════════════════════════════════════════
-// AUTO PLAY WITH PROGRESSION
-// ═══════════════════════════════════════════
-function updateAutoBet(){
-  if(!S.autoPlayEnabled||(S.running)||S.cashedOut)return;
-  if(S.stopOnWin&&S.totalWon>S.betAmount*5){S.autoPlayEnabled=false;showToast('Win target reached!','g');return;}
-  if(S.stopOnLoss&&S.totalBet-S.totalWon>S.balance*0.5){S.autoPlayEnabled=false;showToast('Loss limit reached!','r');return;}
-  
-  if(S.betProgression==='martingale'&&S.consecutiveLosses>0){
-    S.currentBet=S.betAmount*Math.pow(2,S.consecutiveLosses);
-  }else{S.currentBet=S.betAmount;}
-  
-  S.currentBet=Math.min(S.currentBet,CFG.betMax,S.balance);
-  document.getElementById('bet-inp').value=Math.floor(S.currentBet);
-  S.betAmount=S.currentBet;
-}
 
-// ═══════════════════════════════════════════
-// BACKGROUND ANIMATION
-// ═══════════════════════════════════════════
-function initBg(){const b=document.getElementById('bg');for(let i=0;i<20;i++){const g=document.createElement('div');g.className='grid-line';g.style.left=Math.random()*100+'%';g.style.opacity=Math.random()*0.1;g.style.animation='pulse '+(3+Math.random()*4)+'s ease infinite';b.appendChild(g);}}
+// ═══ INIT ═══
+updateBalance();
+state.nextRoundTime = Date.now() + 5000;
+newRound();
 
-// ═══════════════════════════════════════════
-// MAIN INIT
-// ═══════════════════════════════════════════
-function init(){applyI18n();updateBal();renderHist();setupEvents();initBg();updateStatus();updateRTP();}
-init();
+window.addEventListener("resize", resizeCanvas);
 </script>
-</body>
+
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { try { </script>
+<script type="module">
+import { setupBotOverlay } from '../_engine/core/bot-overlay.js';
+try { setupBotOverlay('#game-wrap', { gameName: 'crash-pro', refreshInterval: 3000 }); } catch(e) { console.warn('[BotOverlay]', e.message); }
+</script>
+<script type="module">import{initVFX}from'../_engine/core/vfx.js';import{playSound}from'../_engine/core/audio.js';document.querySelectorAll('#game-wrap button').forEach(function(b){b.addEventListener('click',function(){try{playSound('click')}catch(e){}})});try{initVFX({container:document.getElementById('game-wrap'),intensity:'medium'})}catch(e){console.warn('[VFX]',e.message)}</script></body>
 </html>
