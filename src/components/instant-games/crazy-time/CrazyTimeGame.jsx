@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useCallback } from 'react';
+﻿import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   RotateCw, DollarSign, MinusCircle, XCircle, Trophy, Zap,
   Coins, Star, Target, Gamepad2, History, AlertTriangle
